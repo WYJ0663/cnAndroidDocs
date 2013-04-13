@@ -22,138 +22,120 @@ import android.os.Handler;
 import android.os.Message;
 
 /**
- * Detects various gestures and events using the supplied {@link MotionEvent}s.
- * The {@link OnGestureListener} callback will notify users when a particular
- * motion event has occurred. This class should only be used with {@link MotionEvent}s
- * reported via touch (don't use for trackball events).
+ * 根据 {@link MotionEvent}事件检测各种手势. {@link OnGestureListener}
+ * 回调函数用于通知用户发生的手势动作.该类仅处理 {@link MotionEvent}
+ * 事件中的触摸事件（不处理轨迹球事件）.
  *
- * To use this class:
+ * 使用该类的方法如下：
  * <ul>
- *  <li>Create an instance of the {@code GestureDetector} for your {@link View}
- *  <li>In the {@link View#onTouchEvent(MotionEvent)} method ensure you call
- *          {@link #onTouchEvent(MotionEvent)}. The methods defined in your callback
- *          will be executed when the events occur.
+ *  <li>为你的{@link View 视图}创建{@code GestureDetector}的实例；
+ *  <li>保证在{@link View#onTouchEvent(MotionEvent)}方法中调用了该类的
+ *      {@link #onTouchEvent(MotionEvent)}方法.当事件发生时调用该回调函数.
  * </ul>
  */
 public class GestureDetector {
     /**
-     * The listener that is used to notify when gestures occur.
-     * If you want to listen for all the different gestures then implement
-     * this interface. If you only want to listen for a subset it might
-     * be easier to extend {@link SimpleOnGestureListener}.
+     * 用于通知手势发生事件的监听器. 如果你想要监听所有的手势，可以实现该接口.
+     * 如果只想监听一部分手势，扩展{@link SimpleOnGestureListener}
+     * 类可能更简单一些.
      */
     public interface OnGestureListener {
 
         /**
-         * Notified when a tap occurs with the down {@link MotionEvent}
-         * that triggered it. This will be triggered immediately for
-         * every down event. All other events should be preceded by this.
+         * 当轻触手势按下 {@link MotionEvent} 时发生的事件.
+         * 每当按下时，立即触发该事件.优先于其它事件.
          *
-         * @param e The down motion event.
+         * @param e 按下动作时间.
          */
         boolean onDown(MotionEvent e);
 
         /**
-         * The user has performed a down {@link MotionEvent} and not performed
-         * a move or up yet. This event is commonly used to provide visual
-         * feedback to the user to let them know that their action has been
-         * recognized i.e. highlight an element.
+         * 用户执行按下 {@link MotionEvent} 但没有执行移动或抬起动作时的事件.
+         * 该事件一般用于为用户提供视觉反馈，比如高亮显示操作的元素，
+         * 以通知用户其动作已经被识别.
          *
-         * @param e The down motion event
+         * @param e 按下动作事件.
          */
         void onShowPress(MotionEvent e);
 
         /**
-         * Notified when a tap occurs with the up {@link MotionEvent}
-         * that triggered it.
+         * 当轻触手势抬起 {@link MotionEvent} 时发生的事件.
          *
-         * @param e The up motion event that completed the first tap
-         * @return true if the event is consumed, else false
+         * @param e 结束轻触手势的抬起动作事件.
+         * @return 若已处理，返回真；否则返回假.
          */
         boolean onSingleTapUp(MotionEvent e);
 
         /**
-         * Notified when a scroll occurs with the initial on down {@link MotionEvent} and the
-         * current move {@link MotionEvent}. The distance in x and y is also supplied for
-         * convenience.
+         * 包含开始滚动时的按下 {@link MotionEvent} 和当前移动 {@link MotionEvent}
+         * 的滚动事件.为了方便提供了X轴和Y轴上的滚动距离.
          *
-         * @param e1 The first down motion event that started the scrolling.
-         * @param e2 The move motion event that triggered the current onScroll.
-         * @param distanceX The distance along the X axis that has been scrolled since the last
-         *              call to onScroll. This is NOT the distance between {@code e1}
-         *              and {@code e2}.
-         * @param distanceY The distance along the Y axis that has been scrolled since the last
-         *              call to onScroll. This is NOT the distance between {@code e1}
-         *              and {@code e2}.
-         * @return true if the event is consumed, else false
+         * @param e1 开始滚动时的按下动作事件.
+         * @param e2 触发当前滚动的移动动作事件.
+         * @param distanceX 上次执行onScroll事件后沿x轴方向的移动量.
+         *              不是{@code e1} 和 {@code e2}之间的距离.
+         * @param distanceY 上次执行onScroll事件后沿y轴方向的移动量.
+         *              不是{@code e1} 和 {@code e2}之间的距离.
+         * @return 若事件已处理返回真；否则返回假.
          */
         boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY);
 
         /**
-         * Notified when a long press occurs with the initial on down {@link MotionEvent}
-         * that trigged it.
+         * 触发长按时的通知事件，包含最初按下时的 {@link MotionEvent}.
          *
-         * @param e The initial on down motion event that started the longpress.
+         * @param e 开始长按时的按下动作事件.
          */
         void onLongPress(MotionEvent e);
 
         /**
-         * Notified of a fling event when it occurs with the initial on down {@link MotionEvent}
-         * and the matching up {@link MotionEvent}. The calculated velocity is supplied along
-         * the x and y axis in pixels per second.
+         * 包含初始按下 {@link MotionEvent} 和抬起 {@link MotionEvent} 的快速滑动事件的通知.
+         * 提供x、y两个方向的速度，以每秒像素数为单位.
          *
-         * @param e1 The first down motion event that started the fling.
-         * @param e2 The move motion event that triggered the current onFling.
-         * @param velocityX The velocity of this fling measured in pixels per second
-         *              along the x axis.
-         * @param velocityY The velocity of this fling measured in pixels per second
-         *              along the y axis.
-         * @return true if the event is consumed, else false
+         * @param e1 开始快速滑动时的按下事件.
+         * @param e2 触发当前快速滑动的移动动作事件.
+         * @param velocityX 在x轴方向测定的以每秒像素数为单位的滑动速度.
+         * @param velocityY 在y轴方向测定的以每秒像素数为单位的滑动速度.
+         * @return 若事件已处理返回真；否则返回假.
          */
         boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY);
     }
 
     /**
-     * The listener that is used to notify when a double-tap or a confirmed
-     * single-tap occur.
+     * 用于通知发生了双击或确定的单击事件的监听器.
      */
     public interface OnDoubleTapListener {
         /**
-         * Notified when a single-tap occurs.
+         * 发生确定的单击时执行.
          * <p>
-         * Unlike {@link OnGestureListener#onSingleTapUp(MotionEvent)}, this
-         * will only be called after the detector is confident that the user's
-         * first tap is not followed by a second tap leading to a double-tap
-         * gesture.
+         * 与{@link OnGestureListener#onSingleTapUp(MotionEvent)}不同，
+         * 该事件在探测器确定用户单击后没有发生导致双击事件的第二次单击时发生.
          *
-         * @param e The down motion event of the single-tap.
-         * @return true if the event is consumed, else false
+         * @param e 单击手势的按下动作事件.
+         * @return 事件已处理返回真，否则返回假.
          */
         boolean onSingleTapConfirmed(MotionEvent e);
  
         /**
-         * Notified when a double-tap occurs.
+         * 双击发生时的通知.
          *
-         * @param e The down motion event of the first tap of the double-tap.
-         * @return true if the event is consumed, else false
+         * @param e 双击手势的第一次按下动作事件.
+         * @return 事件已处理返回真，否则返回假.
          */
         boolean onDoubleTap(MotionEvent e);
 
         /**
-         * Notified when an event within a double-tap gesture occurs, including
-         * the down, move, and up events.
+         * 双击手势过程中发生的事件，包括按下、移动和抬起事件.
          *
-         * @param e The motion event that occurred during the double-tap gesture.
-         * @return true if the event is consumed, else false
+         * @param e 双击手势过程中发生的事件.
+         * @return 事件已处理返回真，否则返回假.
          */
         boolean onDoubleTapEvent(MotionEvent e);
     }
 
     /**
-     * A convenience class to extend when you only want to listen for a subset
-     * of all the gestures. This implements all methods in the
-     * {@link OnGestureListener} and {@link OnDoubleTapListener} but does
-     * nothing and return {@code false} for all applicable methods.
+     * 便于只实现一部分手势时继承的类. 该类实现了{@link OnGestureListener}
+     * 和{@link OnDoubleTapListener}中的所有方法，但没有任何处理，
+     * 只是简单的返回{@code false 假}.
      */
     public static class SimpleOnGestureListener implements OnGestureListener, OnDoubleTapListener {
         public boolean onSingleTapUp(MotionEvent e) {
@@ -279,19 +261,17 @@ public class GestureDetector {
     }
 
     /**
-     * Creates a GestureDetector with the supplied listener.
-     * This variant of the constructor should be used from a non-UI thread 
-     * (as it allows specifying the Handler).
+     * 根据提供的监听器创建GestureDetector. 该函数用于非UI线程
+     * （它指定了句柄）.
      * 
-     * @param listener the listener invoked for all the callbacks, this must
-     * not be null.
-     * @param handler the handler to use
+     * @param listener 实现了所有回调函数的监听器，不能为空.
+     * @param handler 使用的句柄.
      *
-     * @throws NullPointerException if either {@code listener} or
-     * {@code handler} is null.
+     * @throws NullPointerException 当{@code listener}或
+     * {@code handler}为空时.
      *
-     * @deprecated Use {@link #GestureDetector(android.content.Context,
-     *      android.view.GestureDetector.OnGestureListener, android.os.Handler)} instead.
+     * @deprecated 用{@link #GestureDetector(android.content.Context,
+     *      android.view.GestureDetector.OnGestureListener, android.os.Handler)}代替.
      */
     @Deprecated
     public GestureDetector(OnGestureListener listener, Handler handler) {
@@ -299,17 +279,16 @@ public class GestureDetector {
     }
 
     /**
-     * Creates a GestureDetector with the supplied listener.
-     * You may only use this constructor from a UI thread (this is the usual situation).
+     * 根据提供的监听器创建GestureDetector. 该函数用于UI线程
+     * （一般的情况）.
      * @see android.os.Handler#Handler()
      * 
-     * @param listener the listener invoked for all the callbacks, this must
-     * not be null.
+     * @param listener 实现了所有回调函数的监听器，不能为空.
      * 
-     * @throws NullPointerException if {@code listener} is null.
+     * @throws NullPointerException 当{@code listener}为空时.
      *
-     * @deprecated Use {@link #GestureDetector(android.content.Context,
-     *      android.view.GestureDetector.OnGestureListener)} instead.
+     * @deprecated 用{@link #GestureDetector(android.content.Context,
+     *      android.view.GestureDetector.OnGestureListener)}代替.
      */
     @Deprecated
     public GestureDetector(OnGestureListener listener) {
@@ -317,31 +296,29 @@ public class GestureDetector {
     }
 
     /**
-     * Creates a GestureDetector with the supplied listener.
-     * You may only use this constructor from a UI thread (this is the usual situation).
+     * 根据提供的监听器创建GestureDetector. 该函数用于UI线程
+     * （一般的情况）.
      * @see android.os.Handler#Handler()
      *
-     * @param context the application's context
-     * @param listener the listener invoked for all the callbacks, this must
-     * not be null.
+     * @param context 应用程序上下文.
+     * @param listener 实现了所有回调函数的监听器，不能为空.
      *
-     * @throws NullPointerException if {@code listener} is null.
+     * @throws NullPointerException 当{@code listener}为空时.
      */
     public GestureDetector(Context context, OnGestureListener listener) {
         this(context, listener, null);
     }
 
     /**
-     * Creates a GestureDetector with the supplied listener.
-     * You may only use this constructor from a UI thread (this is the usual situation).
+     * 根据提供的监听器创建GestureDetector. 该函数用于UI线程
+     * （一般的情况）.
      * @see android.os.Handler#Handler()
      *
-     * @param context the application's context
-     * @param listener the listener invoked for all the callbacks, this must
-     * not be null.
-     * @param handler the handler to use     
+     * @param context 应用程序上下文.
+     * @param listener 实现了所有回调函数的监听器，不能为空.
+     * @param handler 使用的句柄. 
      *
-     * @throws NullPointerException if {@code listener} is null.
+     * @throws NullPointerException 当{@code listener}为空时.
      */
     public GestureDetector(Context context, OnGestureListener listener, Handler handler) {
         if (handler != null) {
@@ -357,16 +334,15 @@ public class GestureDetector {
     }
     
     /**
-     * Creates a GestureDetector with the supplied listener.
-     * You may only use this constructor from a UI thread (this is the usual situation).
+     * 根据提供的监听器创建GestureDetector. 该函数用于UI线程
+     * （一般的情况）.
      * @see android.os.Handler#Handler()
      *
-     * @param context the application's context
-     * @param listener the listener invoked for all the callbacks, this must
-     * not be null.
-     * @param handler the handler to use
+     * @param context 应用程序上下文.
+     * @param listener 实现了所有回调函数的监听器，不能为空.
+     * @param handler 使用的句柄. 
      *
-     * @throws NullPointerException if {@code listener} is null.
+     * @throws NullPointerException 当{@code listener}为空时.
      */
     public GestureDetector(Context context, OnGestureListener listener, Handler handler,
             boolean unused) {
@@ -403,43 +379,40 @@ public class GestureDetector {
     }
 
     /**
-     * Sets the listener which will be called for double-tap and related
-     * gestures.
+     * 设置双击及其相关手势的监听器.
      * 
-     * @param onDoubleTapListener the listener invoked for all the callbacks, or
-     *        null to stop listening for double-tap gestures.
+     * @param onDoubleTapListener 用于执行双击手势时所有回调函数的监听器，
+     *        为空时停止监听双击手势.
      */
     public void setOnDoubleTapListener(OnDoubleTapListener onDoubleTapListener) {
         mDoubleTapListener = onDoubleTapListener;
     }
 
     /**
-     * Set whether longpress is enabled, if this is enabled when a user
-     * presses and holds down you get a longpress event and nothing further.
-     * If it's disabled the user can press and hold down and then later
-     * moved their finger and you will get scroll events. By default
-     * longpress is enabled.
+     * 设置是否允许长按.如果允许长按，当用户按下并保持按下状态时，
+     * 将收到一个长按事件，同时不再接收其它事件；如果禁用长按，
+     * 当用户按下并保持按下状态然后再移动手指时，将会接收到滚动事件.
+     * 长按默认为允许.
      *
-     * @param isLongpressEnabled whether longpress should be enabled.
+     * @param isLongpressEnabled 是否允许长按.
      */
     public void setIsLongpressEnabled(boolean isLongpressEnabled) {
         mIsLongpressEnabled = isLongpressEnabled;
     }
 
     /**
-     * @return true if longpress is enabled, else false.
+     * @return 如果允许长按，返回真；否则返回假.
      */
     public boolean isLongpressEnabled() {
         return mIsLongpressEnabled;
     }
 
     /**
-     * Analyzes the given motion event and if applicable triggers the
-     * appropriate callbacks on the {@link OnGestureListener} supplied.
+     * 分析给定的动作事件，如果满足条件，就触发{@link OnGestureListener}
+     * 中提供的回调函数.
      *
-     * @param ev The current motion event.
-     * @return true if the {@link OnGestureListener} consumed the event,
-     *              else false.
+     * @param ev 当前动作事件.
+     * @return 如果{@link OnGestureListener}处理了事件，返回真；否则返回假.
      */
     public boolean onTouchEvent(MotionEvent ev) {
         if (mInputEventConsistencyVerifier != null) {

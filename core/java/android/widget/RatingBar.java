@@ -27,50 +27,44 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.android.internal.R;
 
 /**
- * A RatingBar is an extension of SeekBar and ProgressBar that shows a rating in
- * stars. The user can touch/drag or use arrow keys to set the rating when using
- * the default size RatingBar. The smaller RatingBar style (
- * {@link android.R.attr#ratingBarStyleSmall}) and the larger indicator-only
- * style ({@link android.R.attr#ratingBarStyleIndicator}) do not support user
- * interaction and should only be used as indicators.
+ * RatingBar 是基于 SeekBar 和 ProgressBar 的扩展，用星型来显示等级评定.
+ * 使用 RatingBar 的默认大小时，用户可以触摸、拖动或使用方向键来设置评分.
+ * 它有小 RatingBar 样式（{@link android.R.attr#ratingBarStyleSmall}）
+ * 和大的（{@link android.R.attr#ratingBarStyleIndicator}）只用于显示的两种样式.
+ * 大的样式不支持用户交互，仅能用于显示.
  * <p>
- * When using a RatingBar that supports user interaction, placing widgets to the
- * left or right of the RatingBar is discouraged.
+ * 当使用可以支持用户交互的 RatingBar 时，无论将小部件放在它的左边还是右边都是不合适的.
  * <p>
- * The number of stars set (via {@link #setNumStars(int)} or in an XML layout)
- * will be shown when the layout width is set to wrap content (if another layout
- * width is set, the results may be unpredictable).
+ * 只有当布局的宽被设置为“<code>wrap content</code>”时，设置的星星数量
+ * （通过函数 {@link #setNumStars(int)} 或者在 XML 布局文件中定义）将显示出来
+ * （如果宽度设置为其他布局模式，结果不可预知）.
  * <p>
- * The secondary progress should not be modified by the client as it is used
- * internally as the background for a fractionally filled star.
+ * 次级进度一般不应该被修改，因为他仅仅是被当作星型部分内部的填充背景.
  * 
  * @attr ref android.R.styleable#RatingBar_numStars
  * @attr ref android.R.styleable#RatingBar_rating
  * @attr ref android.R.styleable#RatingBar_stepSize
  * @attr ref android.R.styleable#RatingBar_isIndicator
+ * @author translate by wallace2010
+ * @author translate by madgoat
+ * @author convert by cnmahj
  */
 public class RatingBar extends AbsSeekBar {
 
     /**
-     * A callback that notifies clients when the rating has been changed. This
-     * includes changes that were initiated by the user through a touch gesture
-     * or arrow key/trackball as well as changes that were initiated
-     * programmatically.
+     * 当评分等级改变时通知客户端的回调函数.
+     * 这包括用户通过手势、方向键或轨迹球触发的改变，以及编程触发的改变.
      */
     public interface OnRatingBarChangeListener {
         
         /**
-         * Notification that the rating has changed. Clients can use the
-         * fromUser parameter to distinguish user-initiated changes from those
-         * that occurred programmatically. This will not be called continuously
-         * while the user is dragging, only when the user finalizes a rating by
-         * lifting the touch.
+         * 通知评分等级已经被修改.
+         * 客户端可以使用 fromUser 参数区分用户触发的改变还是编程触发的改变.
+         * 当用户拖拽时，将不会连续不断的被调用，仅仅当用户最终离开触摸结束评分时调用.
          * 
-         * @param ratingBar The RatingBar whose rating has changed.
-         * @param rating The current rating. This will be in the range
-         *            0..numStars.
-         * @param fromUser True if the rating change was initiated by a user's
-         *            touch gesture or arrow key/horizontal trackbell movement.
+         * @param ratingBar 评分修改的 RatingBar.
+         * @param rating 当前评分分数.取值范围为0到星型的数量.
+         * @param fromUser 如果评分改变是由用户触摸手势、方向键或轨迹球移动触发的，则返回 true.
          */
         void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser);
 
@@ -121,27 +115,25 @@ public class RatingBar extends AbsSeekBar {
     }
     
     /**
-     * Sets the listener to be called when the rating changes.
+     * 设置当评分等级发生改变时回调的监听器.
      * 
-     * @param listener The listener.
+     * @param listener 监听器.
      */
     public void setOnRatingBarChangeListener(OnRatingBarChangeListener listener) {
         mOnRatingBarChangeListener = listener;
     }
     
     /**
-     * @return The listener (may be null) that is listening for rating change
-     *         events.
+     * @return 监听评分改变事件的监听器（可能为空）.
      */
     public OnRatingBarChangeListener getOnRatingBarChangeListener() {
         return mOnRatingBarChangeListener;
     }
 
     /**
-     * Whether this rating bar should only be an indicator (thus non-changeable
-     * by the user).
+     * 设置当前的评分条是否仅仅是个指示器（这样用户就不能进行修改操作了）
      * 
-     * @param isIndicator Whether it should be an indicator.
+     * @param isIndicator 是否是一个指示器.
      *
      * @attr ref android.R.styleable#RatingBar_isIndicator
      */
@@ -151,7 +143,7 @@ public class RatingBar extends AbsSeekBar {
     }
     
     /**
-     * @return Whether this rating bar is only an indicator.
+     * @return 判断当前的评分条是否仅仅是一个指示器（注：即能否被修改）.
      *
      * @attr ref android.R.styleable#RatingBar_isIndicator
      */
@@ -160,11 +152,10 @@ public class RatingBar extends AbsSeekBar {
     }
     
     /**
-     * Sets the number of stars to show. In order for these to be shown
-     * properly, it is recommended the layout width of this widget be wrap
-     * content.
+     * 设置显示的星型的数量.为了能够正常显示它们，建议将当前小部件的布局宽度设置为
+     * “<code>wrap content</code>”.
      * 
-     * @param numStars The number of stars.
+     * @param numStars 星型的数量.
      */
     public void setNumStars(final int numStars) {
         if (numStars <= 0) {
@@ -178,36 +169,35 @@ public class RatingBar extends AbsSeekBar {
     }
 
     /**
-     * Returns the number of stars shown.
-     * @return The number of stars shown.
+     * 返回显示的星型数量.
+     * @return 显示的星型数量.
      */
     public int getNumStars() {
         return mNumStars;
     }
     
     /**
-     * Sets the rating (the number of stars filled).
+     * 设置分数（星型的数量）.
      * 
-     * @param rating The rating to set.
+     * @param rating 设置的分数.
      */
     public void setRating(float rating) {
         setProgress(Math.round(rating * getProgressPerStar()));
     }
 
     /**
-     * Gets the current rating (number of stars filled).
+     * 获取当前的评分（填充的星型的数量）.
      * 
-     * @return The current rating.
+     * @return 当前的评分.
      */
     public float getRating() {
         return getProgress() / getProgressPerStar();        
     }
 
     /**
-     * Sets the step size (granularity) of this rating bar.
+     * 设置当前评分条的步长（粒度）.
      * 
-     * @param stepSize The step size of this rating bar. For example, if
-     *            half-star granularity is wanted, this would be 0.5.
+     * @param stepSize 评分条的步进.例如：如果想要半个星星的粒度，则它的值为 0.5.
      */
     public void setStepSize(float stepSize) {
         if (stepSize <= 0) {
@@ -221,9 +211,9 @@ public class RatingBar extends AbsSeekBar {
     }
 
     /**
-     * Gets the step size of this rating bar.
+     * 获取评分条的步长.
      * 
-     * @return The step size.
+     * @return 步长.
      */
     public float getStepSize() {
         return (float) getNumStars() / getMax();

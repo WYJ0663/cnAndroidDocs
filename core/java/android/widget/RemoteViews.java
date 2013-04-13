@@ -55,10 +55,8 @@ import java.util.HashMap;
 
 
 /**
- * A class that describes a view hierarchy that can be displayed in
- * another process. The hierarchy is inflated from a layout resource
- * file, and this class provides some basic operations for modifying
- * the content of the inflated hierarchy.
+ * 描述了可以在其他进程中显示的视图层次的类. 视图层次来自布局资源文件，
+ * 该类提供了一些用于编辑提取到的视图层次的基本操作.
  */
 public class RemoteViews implements Parcelable, Filter {
 
@@ -137,8 +135,7 @@ public class RemoteViews implements Parcelable, Filter {
     private static final OnClickHandler DEFAULT_ON_CLICK_HANDLER = new OnClickHandler();
 
     /**
-     * This annotation indicates that a subclass of View is alllowed to be used
-     * with the {@link RemoteViews} mechanism.
+     * 该接口指明，视图的子类允许使用 {@link RemoteViews} 机制.
      */
     @Target({ ElementType.TYPE })
     @Retention(RetentionPolicy.RUNTIME)
@@ -146,8 +143,7 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Exception to send when something goes wrong executing an action
-     *
+     * 执行某些动作发生错误时抛出的异常.
      */
     public static class ActionException extends RuntimeException {
         public ActionException(Exception ex) {
@@ -1437,11 +1433,10 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Create a new RemoteViews object that will display the views contained
-     * in the specified layout file.
-     *
-     * @param packageName Name of the package that contains the layout resource
-     * @param layoutId The id of the layout resource
+     * 创建用于显示包含于指定布局文件中的视图的 RemoteViews 对象.
+     * 
+     * @param packageName 包含布局资源的包名
+     * @param layoutId 布局资源 ID
      */
     public RemoteViews(String packageName, int layoutId) {
         mPackage = packageName;
@@ -1493,8 +1488,8 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Reads a RemoteViews object from a parcel.
-     *
+     * 从 parcel 中读取 RemoteViews 对象.
+     * 
      * @param parcel
      */
     public RemoteViews(Parcel parcel) {
@@ -1685,72 +1680,69 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling {@link ViewGroup#addView(View)} after inflating the
-     * given {@link RemoteViews}. This allows users to build "nested"
-     * {@link RemoteViews}. In cases where consumers of {@link RemoteViews} may
-     * recycle layouts, use {@link #removeAllViews(int)} to clear any existing
-     * children.
+     * 相当于展开给出的 {@link RemoteViews} 后，为么个视图调用 
+     * {@link ViewGroup#addView(View)}.该函数允许用户构建“嵌套的”
+     * {@link RemoteViews}.某些情况下 {@link RemoteViews} 的使用者可以使用
+     * {@link #removeAllViews(int)} 函数来清除任何既存的子视图.
      *
-     * @param viewId The id of the parent {@link ViewGroup} to add child into.
-     * @param nestedView {@link RemoteViews} that describes the child.
+     * @param viewId 用于添加子视图的父 {@link ViewGroup} 的 ID
+     * @param nestedView 用于提供子视图的 {@link RemoteViews}
      */
     public void addView(int viewId, RemoteViews nestedView) {
         addAction(new ViewGroupAction(viewId, nestedView));
     }
 
     /**
-     * Equivalent to calling {@link ViewGroup#removeAllViews()}.
+     * 相当于调用 {@link ViewGroup#removeAllViews()} 方法.
      *
-     * @param viewId The id of the parent {@link ViewGroup} to remove all
-     *            children from.
+     * @param viewId 要移除所有子视图的父 {@link ViewGroup} 的 ID
      */
     public void removeAllViews(int viewId) {
         addAction(new ViewGroupAction(viewId, null));
     }
 
     /**
-     * Equivalent to calling {@link AdapterViewAnimator#showNext()}
+     * 相当于调用 {@link AdapterViewAnimator#showNext()}.
      *
-     * @param viewId The id of the view on which to call {@link AdapterViewAnimator#showNext()}
+     * @param viewId 调用 {@link AdapterViewAnimator#showNext()} 方法的视图 ID
      */
     public void showNext(int viewId) {
         addAction(new ReflectionActionWithoutParams(viewId, "showNext"));
     }
 
     /**
-     * Equivalent to calling {@link AdapterViewAnimator#showPrevious()}
+     * 相当于调用 {@link AdapterViewAnimator#showPrevious()}.
      *
-     * @param viewId The id of the view on which to call {@link AdapterViewAnimator#showPrevious()}
+     * @param viewId 调用 {@link AdapterViewAnimator#showPrevious()}方法的视图 ID
      */
     public void showPrevious(int viewId) {
         addAction(new ReflectionActionWithoutParams(viewId, "showPrevious"));
     }
 
     /**
-     * Equivalent to calling {@link AdapterViewAnimator#setDisplayedChild(int)}
+     * 相当于调用 {@link AdapterViewAnimator#setDisplayedChild(int)}
      *
-     * @param viewId The id of the view on which to call
-     *               {@link AdapterViewAnimator#setDisplayedChild(int)}
+     * @param viewId 调用 {@link AdapterViewAnimator#setDisplayedChild(int)} 方法的视图 ID
      */
     public void setDisplayedChild(int viewId, int childIndex) {
         setInt(viewId, "setDisplayedChild", childIndex);
     }
 
     /**
-     * Equivalent to calling View.setVisibility
-     *
-     * @param viewId The id of the view whose visibility should change
-     * @param visibility The new visibility for the view
+     * 相当于调用 View.setVisibility.
+     * 
+     * @param viewId 要改变可视状态的视图 ID
+     * @param visibility 视图的新的可是状态
      */
     public void setViewVisibility(int viewId, int visibility) {
         setInt(viewId, "setVisibility", visibility);
     }
 
     /**
-     * Equivalent to calling TextView.setText
-     *
-     * @param viewId The id of the view whose text should change
-     * @param text The new text for the view
+     * 相当于调用 TextView.setText.
+     * 
+     * @param viewId 要改变显示的文本的视图 ID
+     * @param text 视图显示的新文本
      */
     public void setTextViewText(int viewId, CharSequence text) {
         setCharSequence(viewId, "setText", text);
@@ -1797,58 +1789,56 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling ImageView.setImageResource
-     *
-     * @param viewId The id of the view whose drawable should change
-     * @param srcId The new resource id for the drawable
+     * 相当于调用 ImageView.setImageResource.
+     * 
+     * @param viewId 要改变可绘制对象的视图 ID
+     * @param srcId 新可绘制对象的资源 ID
      */
     public void setImageViewResource(int viewId, int srcId) {
         setInt(viewId, "setImageResource", srcId);
     }
 
     /**
-     * Equivalent to calling ImageView.setImageURI
-     *
-     * @param viewId The id of the view whose drawable should change
-     * @param uri The Uri for the image
+     * 相当于调用 ImageView.setImageURI.
+     * 
+     * @param viewId 要改变可绘制对象的视图 ID
+     * @param uri 新图像的 Uri
      */
     public void setImageViewUri(int viewId, Uri uri) {
         setUri(viewId, "setImageURI", uri);
     }
 
     /**
-     * Equivalent to calling ImageView.setImageBitmap
-     *
-     * @param viewId The id of the view whose bitmap should change
-     * @param bitmap The new Bitmap for the drawable
+     * 相当于调用 ImageView.setImageBitmap.
+     * 
+     * @param viewId 要改变可绘制对象的视图 ID
+     * @param bitmap 可绘制的新位图
      */
     public void setImageViewBitmap(int viewId, Bitmap bitmap) {
         setBitmap(viewId, "setImageBitmap", bitmap);
     }
 
     /**
-     * Equivalent to calling AdapterView.setEmptyView
+     * 相当于调用 AdapterView.setEmptyView
      *
-     * @param viewId The id of the view on which to set the empty view
-     * @param emptyViewId The view id of the empty view
+     * @param viewId 要设置为空视图的视图 ID.
+     * @param emptyViewId 空视图的视图ID.
      */
     public void setEmptyView(int viewId, int emptyViewId) {
         addAction(new SetEmptyView(viewId, emptyViewId));
     }
 
     /**
-     * Equivalent to calling {@link Chronometer#setBase Chronometer.setBase},
-     * {@link Chronometer#setFormat Chronometer.setFormat},
-     * and {@link Chronometer#start Chronometer.start()} or
+     * 相当于调用 {@link Chronometer#setBase Chronometer.setBase}、
+     * {@link Chronometer#setFormat Chronometer.setFormat}
+     * 和 {@link Chronometer#start Chronometer.start()} 或
      * {@link Chronometer#stop Chronometer.stop()}.
-     *
+     * 
      * @param viewId The id of the {@link Chronometer} to change
-     * @param base The time at which the timer would have read 0:00.  This
-     *             time should be based off of
+     * @param base 代表计时器起始值 0:00 的时间.该时间是基于
      *             {@link android.os.SystemClock#elapsedRealtime SystemClock.elapsedRealtime()}.
-     * @param format The Chronometer format string, or null to
-     *               simply display the timer value.
-     * @param started True if you want the clock to be started, false if not.
+     * @param format 代表计时器格式的字符串，为 null 则只是简单的显示计时器的值.
+     * @param started 真表示启动计时器，否则为假.
      */
     public void setChronometer(int viewId, long base, String format, boolean started) {
         setLong(viewId, "setBase", base);
@@ -1857,17 +1847,16 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling {@link ProgressBar#setMax ProgressBar.setMax},
-     * {@link ProgressBar#setProgress ProgressBar.setProgress}, and
-     * {@link ProgressBar#setIndeterminate ProgressBar.setIndeterminate}
+     * 相当于调用 {@link ProgressBar#setMax ProgressBar.setMax}、
+     * {@link ProgressBar#setProgress ProgressBar.setProgress} 和
+     * {@link ProgressBar#setIndeterminate ProgressBar.setIndeterminate}.
      *
-     * If indeterminate is true, then the values for max and progress are ignored.
-     *
-     * @param viewId The id of the {@link ProgressBar} to change
-     * @param max The 100% value for the progress bar
-     * @param progress The current value of the progress bar.
-     * @param indeterminate True if the progress bar is indeterminate,
-     *                false if not.
+     * 如果 indeterminate 为真，则忽略 max 和 progress 的值.
+     * 
+     * @param viewId 要改变的{@link ProgressBar}的视图 ID
+     * @param max 代表进度条 100% 的值
+     * @param progress 进度条的当前值
+     * @param indeterminate 为真表示进度不确定，否则为假.
      */
     public void setProgressBar(int viewId, int max, int progress,
             boolean indeterminate) {
@@ -1879,56 +1868,46 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling
+     * 相当于调用
      * {@link android.view.View#setOnClickListener(android.view.View.OnClickListener)}
-     * to launch the provided {@link PendingIntent}.
+     * 来执行提供的 {@link PendingIntent}.
+     * 
+     * 当为集合（例如：{@link ListView}、{@link StackView}等）中的项目设置单击动作时，该方法无效.
+     * 请使用 {@link RemoteViews#setPendingIntentTemplate(int, PendingIntent)} 和
+     * {@link RemoteViews#setOnClickFillInIntent(int, Intent)} 的组合来实现.
      *
-     * When setting the on-click action of items within collections (eg. {@link ListView},
-     * {@link StackView} etc.), this method will not work. Instead, use {@link
-     * RemoteViews#setPendingIntentTemplate(int, PendingIntent) in conjunction with
-     * RemoteViews#setOnClickFillInIntent(int, Intent).
-     *
-     * @param viewId The id of the view that will trigger the {@link PendingIntent} when clicked
-     * @param pendingIntent The {@link PendingIntent} to send when user clicks
+     * @param viewId 单击时触发 {@link PendingIntent} 的视图 ID.
+     * @param pendingIntent 用户单击时发送的 {@link PendingIntent}.
      */
     public void setOnClickPendingIntent(int viewId, PendingIntent pendingIntent) {
         addAction(new SetOnClickPendingIntent(viewId, pendingIntent));
     }
 
     /**
-     * When using collections (eg. {@link ListView}, {@link StackView} etc.) in widgets, it is very
-     * costly to set PendingIntents on the individual items, and is hence not permitted. Instead
-     * this method should be used to set a single PendingIntent template on the collection, and
-     * individual items can differentiate their on-click behavior using
-     * {@link RemoteViews#setOnClickFillInIntent(int, Intent)}.
+     * 在小部件中使用集合（比如： {@link ListView}、{@link StackView}等）时，为单独的条目设置
+     * PendingIntents 代价很高，因此是不允许的.该方法可以为集合设置一个 PendingIntent 模板.
+     * 单独的条目可以通过 {@link RemoteViews#setOnClickFillInIntent(int, Intent)}
+     * 设置他们不同的单击行为.
      *
-     * @param viewId The id of the collection who's children will use this PendingIntent template
-     *          when clicked
-     * @param pendingIntentTemplate The {@link PendingIntent} to be combined with extras specified
-     *          by a child of viewId and executed when that child is clicked
+     * @param viewId 单击时使用该 PendingIntent 模板的集合对象的 ID
+     * @param pendingIntentTemplate 当子条目单击时执行的 {@link PendingIntent}，
+     *        可以与 viewId 指定的视图的子条目提供的意图组合使用.
      */
     public void setPendingIntentTemplate(int viewId, PendingIntent pendingIntentTemplate) {
         addAction(new SetPendingIntentTemplate(viewId, pendingIntentTemplate));
     }
 
     /**
-     * When using collections (eg. {@link ListView}, {@link StackView} etc.) in widgets, it is very
-     * costly to set PendingIntents on the individual items, and is hence not permitted. Instead
-     * a single PendingIntent template can be set on the collection, see {@link
-     * RemoteViews#setPendingIntentTemplate(int, PendingIntent)}, and the individual on-click
-     * action of a given item can be distinguished by setting a fillInIntent on that item. The
-     * fillInIntent is then combined with the PendingIntent template in order to determine the final
-     * intent which will be executed when the item is clicked. This works as follows: any fields
-     * which are left blank in the PendingIntent template, but are provided by the fillInIntent
-     * will be overwritten, and the resulting PendingIntent will be used.
+     * 在小部件中使用集合（比如： {@link ListView}、{@link StackView}等）时，为单独的条目设置
+     * PendingIntents 代价很高，因此是不允许的.作为替代，可以为集合对象设置一个
+     * PendingIntent 模板，参见 {@link RemoteViews#setPendingIntentTemplate(int, PendingIntent)}.
+     * 各个条目的单击动作可以通过在条目中设置的 fillInIntent 来区分. fillInIntent 与
+     * PendingIntent 模板组合，即可知道条目单击时执行哪个意图.工作原理如下： PendingIntent 模板中
+     * 留下一些空白的字段，由 fillInIntent 提供的内容覆盖这些字段，得到最后要使用的 PendingIntent.
+     * 更多细节参见 {@link Intent#fillIn(Intent, int)}.
      *
-     *
-     * of the PendingIntent template will then be filled in with the associated fields that are
-     * set in fillInIntent. See {@link Intent#fillIn(Intent, int)} for more details.
-     *
-     * @param viewId The id of the view on which to set the fillInIntent
-     * @param fillInIntent The intent which will be combined with the parent's PendingIntent
-     *        in order to determine the on-click behavior of the view specified by viewId
+     * @param viewId 设置 fillInIntent 的视图ID
+     * @param fillInIntent 将与父视图的 PendingIntent 合并的意图，用于决定单击由 viewId 指定的视图时的动作.
      */
     public void setOnClickFillInIntent(int viewId, Intent fillInIntent) {
         addAction(new SetOnClickFillInIntent(viewId, fillInIntent));
@@ -1936,10 +1915,9 @@ public class RemoteViews implements Parcelable, Filter {
 
     /**
      * @hide
-     * Equivalent to calling a combination of {@link Drawable#setAlpha(int)},
-     * {@link Drawable#setColorFilter(int, android.graphics.PorterDuff.Mode)},
-     * and/or {@link Drawable#setLevel(int)} on the {@link Drawable} of a given
-     * view.
+     * 相当于在指定视图的 {@link Drawable} 上执行{@link Drawable#setAlpha(int)}、
+     * {@link Drawable#setColorFilter(int, android.graphics.PorterDuff.Mode)}和
+     * {@link Drawable#setLevel(int)} 的组合.
      * <p>
      * You can omit specific calls by marking their values with null or -1.
      *
@@ -1967,26 +1945,23 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling {@link android.widget.TextView#setTextColor(int)}.
-     *
+     * 相当于调用 {@link android.widget.TextView#setTextColor(int)}.
+     * 
      * @param viewId The id of the view whose text color should change
-     * @param color Sets the text color for all the states (normal, selected,
-     *            focused) to be this color.
+     * @param color 设置所有状态（正常、选中、有焦点）下要显示的颜色
      */
     public void setTextColor(int viewId, int color) {
         setInt(viewId, "setTextColor", color);
     }
 
     /**
-     * Equivalent to calling {@link android.widget.AbsListView#setRemoteViewsAdapter(Intent)}.
+     * 相当于调用 {@link android.widget.AbsListView#setRemoteViewsAdapter(Intent)}.
      *
-     * @param appWidgetId The id of the app widget which contains the specified view. (This
-     *      parameter is ignored in this deprecated method)
+     * @param appWidgetId 包含指定视图的应用小部件的 ID.（该不推荐方法会忽略该参数）
      * @param viewId The id of the {@link AbsListView}
-     * @param intent The intent of the service which will be
-     *            providing data to the RemoteViewsAdapter
-     * @deprecated This method has been deprecated. See
-     *      {@link android.widget.RemoteViews#setRemoteAdapter(int, Intent)}
+     * @param intent 为 RemoteViewsAdapter 提供数据的服务的意图.
+     * @deprecated 该方法已过时，参见
+     *      {@link android.widget.RemoteViews#setRemoteAdapter(int, Intent)}.
      */
     @Deprecated
     public void setRemoteAdapter(int appWidgetId, int viewId, Intent intent) {
@@ -1994,32 +1969,31 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Equivalent to calling {@link android.widget.AbsListView#setRemoteViewsAdapter(Intent)}.
-     * Can only be used for App Widgets.
+     * 相当于调用 {@link android.widget.AbsListView#setRemoteViewsAdapter(Intent)}.
+     * 只能用于应用小部件.
      *
      * @param viewId The id of the {@link AbsListView}
-     * @param intent The intent of the service which will be
-     *            providing data to the RemoteViewsAdapter
+     * @param intent 为 RemoteViewsAdapter 提供数据的服务的意图.
      */
     public void setRemoteAdapter(int viewId, Intent intent) {
         addAction(new SetRemoteViewsAdapterIntent(viewId, intent));
     }
 
     /**
-     * Equivalent to calling {@link android.widget.AbsListView#smoothScrollToPosition(int, int)}.
+     * 相当于调用 {@link android.widget.AbsListView#smoothScrollToPosition(int, int)}.
      *
-     * @param viewId The id of the view to change
-     * @param position Scroll to this adapter position
+     * @param viewId 要改变的视图ID
+     * @param position 滚动到的适配器位置.
      */
     public void setScrollPosition(int viewId, int position) {
         setInt(viewId, "smoothScrollToPosition", position);
     }
 
     /**
-     * Equivalent to calling {@link android.widget.AbsListView#smoothScrollToPosition(int, int)}.
+     * 相当于调用 {@link android.widget.AbsListView#smoothScrollToPosition(int, int)}.
      *
-     * @param viewId The id of the view to change
-     * @param offset Scroll by this adapter position offset
+     * @param viewId 要改变的视图ID
+     * @param offset 相对当前适配器位置的滚动量.
      */
     public void setRelativeScrollPosition(int viewId, int offset) {
         setInt(viewId, "smoothScrollByOffset", offset);
@@ -2039,121 +2013,121 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Call a method taking one boolean on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个布尔值参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 要改变的视图 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setBoolean(int viewId, String methodName, boolean value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.BOOLEAN, value));
     }
 
     /**
-     * Call a method taking one byte on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个 byte 参数的方法.
      *
      * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setByte(int viewId, String methodName, byte value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.BYTE, value));
     }
 
     /**
-     * Call a method taking one short on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个短整型参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setShort(int viewId, String methodName, short value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.SHORT, value));
     }
 
     /**
-     * Call a method taking one int on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个整型参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setInt(int viewId, String methodName, int value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.INT, value));
     }
 
     /**
-     * Call a method taking one long on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个长整型参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setLong(int viewId, String methodName, long value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.LONG, value));
     }
 
     /**
-     * Call a method taking one float on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个浮点型参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setFloat(int viewId, String methodName, float value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.FLOAT, value));
     }
 
     /**
-     * Call a method taking one double on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个双精度型参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setDouble(int viewId, String methodName, double value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.DOUBLE, value));
     }
 
     /**
-     * Call a method taking one char on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个字符参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setChar(int viewId, String methodName, char value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.CHAR, value));
     }
 
     /**
-     * Call a method taking one String on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个字符串参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setString(int viewId, String methodName, String value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.STRING, value));
     }
 
     /**
-     * Call a method taking one CharSequence on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个 CharSequence 参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setCharSequence(int viewId, String methodName, CharSequence value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.CHAR_SEQUENCE, value));
     }
 
     /**
-     * Call a method taking one Uri on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个 Uri 参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setUri(int viewId, String methodName, Uri value) {
         // Resolve any filesystem path before sending remotely
@@ -2162,25 +2136,25 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Call a method taking one Bitmap on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个位图参数的方法.
      * @more
-     * <p class="note">The bitmap will be flattened into the parcel if this object is
-     * sent across processes, so it may end up using a lot of memory, and may be fairly slow.</p>
+     * <p class="note">如果对象用于跨进程传递，位图会展开并保存到 parcel 中，因此最终会使用该大量内存，
+     * 处理可能相当缓慢.</p>
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setBitmap(int viewId, String methodName, Bitmap value) {
         addAction(new BitmapReflectionAction(viewId, methodName, value));
     }
 
     /**
-     * Call a method taking one Bundle on a view in the layout for this RemoteViews.
+     * 调用 RemoteViews 布局中指定视图的需要一个 Bundle 参数的方法.
      *
-     * @param viewId The id of the view on which to call the method.
-     * @param methodName The name of the method to call.
-     * @param value The value to pass to the method.
+     * @param viewId 调用该方法的视图的 ID
+     * @param methodName 调用的方法名
+     * @param value 调用方法时使用的值
      */
     public void setBundle(int viewId, String methodName, Bundle value) {
         addAction(new ReflectionAction(viewId, methodName, ReflectionAction.BUNDLE, value));
@@ -2230,15 +2204,14 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Inflates the view hierarchy represented by this object and applies
-     * all of the actions.
-     *
-     * <p><strong>Caller beware: this may throw</strong>
-     *
-     * @param context Default context to use
-     * @param parent Parent that the resulting view hierarchy will be attached to. This method
-     * does <strong>not</strong> attach the hierarchy. The caller should do so when appropriate.
-     * @return The inflated view hierarchy
+     * 展开本对象代表的视图树，并应用所有动作.
+     * 
+     * <p><strong>调用者注意：该函数可能抛出异常.</strong>
+     * 
+     * @param context 默认使用的上下文
+     * @param parent 用于放置处理结果视图树的父视图.该方法并<strong>不</strong>
+     * 实际添加视图树.需要调用者在适当的时候添加
+     * @return 展开的视图树
      */
     public View apply(Context context, ViewGroup parent) {
         return apply(context, parent, null);
@@ -2266,12 +2239,12 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Applies all of the actions to the provided view.
+     * 对给出的视图应用所有动作.
      *
-     * <p><strong>Caller beware: this may throw</strong>
-     *
-     * @param v The view to apply the actions to.  This should be the result of
-     * the {@link #apply(Context,ViewGroup)} call.
+     * <p><strong>调用者注意：该函数可能抛出异常.</strong>
+     * 
+     * @param context 默认使用的上下文
+     * @param v 要应用所有动作的视图.应该是 {@link #apply(Context,ViewGroup)} 返回的视图.
      */
     public void reapply(Context context, View v) {
         reapply(context, v, null);
@@ -2373,7 +2346,7 @@ public class RemoteViews implements Parcelable, Filter {
     }
 
     /**
-     * Parcelable.Creator that instantiates RemoteViews objects
+     * 用于实例化 RemoteViews 对象的 Parcelable.Creator.
      */
     public static final Parcelable.Creator<RemoteViews> CREATOR = new Parcelable.Creator<RemoteViews>() {
         public RemoteViews createFromParcel(Parcel parcel) {

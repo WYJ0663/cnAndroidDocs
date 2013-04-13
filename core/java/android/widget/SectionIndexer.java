@@ -34,19 +34,16 @@ public interface SectionIndexer {
     Object[] getSections();
     
     /**
-     * Provides the starting index in the list for a given section.
-     * @param section the index of the section to jump to.
-     * @return the starting position of that section. If the section is out of bounds, the
-     * position must be clipped to fall within the size of the list.
+     * 提供列表中指定节的起始索引.
+     * @param section 要跳转到的节索引
+     * @return 节的开始位置.如果指定节越界，返回的位置必须在列表大小范围内.
      */
     int getPositionForSection(int section);
     
     /**
-     * This is a reverse mapping to fetch the section index for a given position
-     * in the list.
-     * @param position the position for which to return the section
-     * @return the section index. If the position is out of bounds, the section index
-     * must be clipped to fall within the size of the section array.
+     * 这是反向映射，取得列表中指定位置对应的节索引.
+     * @param position 要查找的列表位置
+     * @return 节索引.如果 position 越界，返回的节索引必须在节数组大小范围内.
      */
     int getSectionForPosition(int position);    
 }

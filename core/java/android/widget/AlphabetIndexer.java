@@ -21,30 +21,29 @@ import android.database.DataSetObserver;
 import android.util.SparseIntArray;
 
 /**
- * A helper class for adapters that implement the SectionIndexer interface.
- * If the items in the adapter are sorted by simple alphabet-based sorting, then
- * this class provides a way to do fast indexing of large lists using binary search.
- * It caches the indices that have been determined through the binary search and also
- * invalidates the cache if changes occur in the cursor.
+ * <p>
+ * 实现了 SectionIndexer 接口的适配器的辅助类.如果适配器使用简单的基于字母的排序方式，
+ * 该类提供了使用二进制检索来对项目数巨大的列表进行快速索引的方法. 
+ * 该类缓存二进制检索时取得的索引信息，并在游标发生改变时使缓存失效.
  * <p/>
- * Your adapter is responsible for updating the cursor by calling {@link #setCursor} if the
- * cursor changes. {@link #getPositionForSection} method does the binary search for the starting
- * index of a given section (alphabet).
+ * 如果游标发生变更，你的适配器负责调用 {@link #setCursor} 来更新游标.
+ * {@link #getPositionForSection} 方法进行二进制搜索来对给定节（字母）进行索引.
+ * @author translate by cnmahj
  */
 public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
 
     /**
-     * Cursor that is used by the adapter of the list view.
+     * 列表视图适配器使用的游标。
      */
     protected Cursor mDataCursor;
 
     /**
-     * The index of the cursor column that this list is sorted on.
+     * 该列表排序用的游标列的索引。
      */
     protected int mColumnIndex;
 
     /**
-     * The string of characters that make up the indexing sections.
+     * 生成索引节的字符串。
      */
     protected CharSequence mAlphabet;
 
@@ -70,14 +69,12 @@ public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
     private String[] mAlphabetArray;
 
     /**
-     * Constructs the indexer.
-     * @param cursor the cursor containing the data set
-     * @param sortedColumnIndex the column number in the cursor that is sorted
-     *        alphabetically
-     * @param alphabet string containing the alphabet, with space as the first character.
-     *        For example, use the string " ABCDEFGHIJKLMNOPQRSTUVWXYZ" for English indexing.
-     *        The characters must be uppercase and be sorted in ascii/unicode order. Basically
-     *        characters in the alphabet will show up as preview letters.
+     * 索引器的构造函数.
+     * @param cursor 包含数据集的游标
+     * @param sortedColumnIndex 按字母索引的游标中的列号
+     * @param alphabet 包含字母的字符串，首字符为空格.例如，使用字符串
+     *        " ABCDEFGHIJKLMNOPQRSTUVWXYZ" 用于英文的索引.字符必须为大写，
+     *        并按照 ASCII或 UNICODE排序. 基本上这些字符会显示为预览字母.
      */
     public AlphabetIndexer(Cursor cursor, int sortedColumnIndex, CharSequence alphabet) {
         mDataCursor = cursor;
@@ -98,16 +95,16 @@ public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
     }
 
     /**
-     * Returns the section array constructed from the alphabet provided in the constructor.
-     * @return the section array
+     * 返回构造函数中指定的由字母构成的区段数组。
+     * @return 区段数组
      */
     public Object[] getSections() {
         return mAlphabetArray;
     }
 
     /**
-     * Sets a new cursor as the data set and resets the cache of indices.
-     * @param cursor the new cursor to use as the data set
+     * 设置作为数据集的新游标并重置索引缓存。
+     * @param cursor 作为数据集的新游标
      */
     public void setCursor(Cursor cursor) {
         if (mDataCursor != null) {
@@ -121,7 +118,7 @@ public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
     }
 
     /**
-     * Default implementation compares the first character of word with letter.
+     * 比较单词的首字母的默认实现。
      */
     protected int compare(String word, String letter) {
         final String firstLetter;
@@ -135,13 +132,11 @@ public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
     }
 
     /**
-     * Performs a binary search or cache lookup to find the first row that
-     * matches a given section's starting letter.
-     * @param sectionIndex the section to search for
-     * @return the row index of the first occurrence, or the nearest next letter.
-     * For instance, if searching for "T" and no "T" is found, then the first
-     * row starting with "U" or any higher letter is returned. If there is no
-     * data following "T" at all, then the list size is returned.
+     * 执行二进制检索或查找索引来找出匹配给定节首字母的第一行数据.
+     * @param sectionIndex 要检索的节索引
+     * @return 第一个匹配的行索引，或下一个最接近的字母的行索引.例如，当检索“T”，
+     * 而“T”不存在时，会返回“U”或其后面存在的字母的索引.如果“T”之后没有任何数据，
+     * 则返回列表的大小.
      */
     public int getPositionForSection(int sectionIndex) {
         final SparseIntArray alphaMap = mAlphaMap;
@@ -287,3 +282,4 @@ public class AlphabetIndexer extends DataSetObserver implements SectionIndexer {
         mAlphaMap.clear();
     }
 }
+

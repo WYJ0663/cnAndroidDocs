@@ -24,10 +24,11 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * {@link ViewAnimator} that switches between two views, and has a factory
- * from which these views are created.  You can either use the factory to
- * create the views, or add them yourself.  A ViewSwitcher can only have two
- * child views, of which only one is shown at a time.
+ * {@link ViewAnimator} 在两个视图间切换，并包含创建这些视图的工厂类.
+ * 你可以用工厂类来创建这些视图，也可以自己添加视图.
+ * ViewSwitcher 只允许包含两个子视图，且一次仅能显示其中一个.
+ * @author translate by ivanlee
+ * @author convert by cnmahj
  */
 public class ViewSwitcher extends ViewAnimator {
     /**
@@ -36,20 +37,19 @@ public class ViewSwitcher extends ViewAnimator {
     ViewFactory mFactory;
 
     /**
-     * Creates a new empty ViewSwitcher.
+     * 创建一个空的视图切换器(ViewSwitcher).
      *
-     * @param context the application's environment
+     * @param context 应用程序上下文.
      */
     public ViewSwitcher(Context context) {
         super(context);
     }
 
     /**
-     * Creates a new empty ViewSwitcher for the given context and with the
-     * specified set attributes.
+     * 使用指定的上下文和属性集合创建一个空的视图切换器(ViewSwitcher).
      *
-     * @param context the application environment
-     * @param attrs a collection of attributes
+     * @param context 应用程序上下文.
+     * @param attrs 属性集合.
      */
     public ViewSwitcher(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,7 +58,7 @@ public class ViewSwitcher extends ViewAnimator {
     /**
      * {@inheritDoc}
      *
-     * @throws IllegalStateException if this switcher already contains two children
+     * @throws IllegalStateException 当切换器中已经包含两个视图时.
      */
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
@@ -81,9 +81,9 @@ public class ViewSwitcher extends ViewAnimator {
     }
 
     /**
-     * Returns the next view to be displayed.
+     * 返回下一个要显示的视图.
      *
-     * @return the view that will be displayed after the next views flip.
+     * @return 视图切换之后将要显示出的下一个视图.
      */
     public View getNextView() {
         int which = mWhichChild == 0 ? 1 : 0;
@@ -101,12 +101,11 @@ public class ViewSwitcher extends ViewAnimator {
     }
 
     /**
-     * Sets the factory used to create the two views between which the
-     * ViewSwitcher will flip. Instead of using a factory, you can call
+     * 设置用来生成将在视图切换器中切换的两个视图的工厂类对象.也可以调用两次 
      * {@link #addView(android.view.View, int, android.view.ViewGroup.LayoutParams)}
-     * twice.
+     * 来代替工厂类对象.
      *
-     * @param factory the view factory used to generate the switcher's content
+     * @param factory 用来生成切换器内容的视图工厂.
      */
     public void setFactory(ViewFactory factory) {
         mFactory = factory;
@@ -115,8 +114,8 @@ public class ViewSwitcher extends ViewAnimator {
     }
 
     /**
-     * Reset the ViewSwitcher to hide all of the existing views and to make it
-     * think that the first time animation has not yet played.
+     * 重置视图切换器(ViewSwitcher）来隐藏所有存在的视图，
+     * 并使切换器达到一次动画都还没有播放的状态.
      */
     public void reset() {
         mFirstTime = true;
@@ -132,14 +131,13 @@ public class ViewSwitcher extends ViewAnimator {
     }
 
     /**
-     * Creates views in a ViewSwitcher.
+     * 用于在视图切换器(ViewSwitcher)中创建视图.
      */
     public interface ViewFactory {
         /**
-         * Creates a new {@link android.view.View} to be added in a
-         * {@link android.widget.ViewSwitcher}.
+         * 创建用于 {@link android.widget.ViewSwitcher} 的新{@link android.view.View 视图}
          *
-         * @return a {@link android.view.View}
+         * @return 新{@link android.view.View 视图}
          */
         View makeView();
     }

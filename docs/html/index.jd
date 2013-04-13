@@ -12,6 +12,201 @@ page.metaDescription=The official site for Android developers. Provides the Andr
         <a href="" class="slideshow-next">Next</a>
         <div class="frame">
             <ul>
+<li class="item carousel-home">
+                    <div class="content-left col-9">
+<div style="height:450px; overflow-y:scroll; ">
+  <style type="text/css">
+    .wait4translate {list-style-type: none; display:none}
+    .translated {list-style-type: disc}
+    .translating {list-style-type: circle}
+  </style>
+<dl><dt>中文文档一览</dt>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.html">AbsListView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.LayoutParams.html">AbsListView.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.MultiChoiceModeListener.html">AbsListView.MultiChoiceModeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.OnScrollListener.html">AbsListView.OnScrollListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.RecyclerListener.html">AbsListView.RecyclerListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsListView.SelectionBoundsAdjuster.html">AbsListView.SelectionBoundsAdjuster</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsoluteLayout.html">AbsoluteLayout</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsoluteLayout.LayoutParams.html">AbsoluteLayout.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsSeekBar.html">AbsSeekBar</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AbsSpinner.html">AbsSpinner</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Adapter.html">Adapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterView.AdapterContextMenuInfo.html">AdapterView.AdapterContextMenuInfo</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterView.html">AdapterView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterView.OnItemClickListener.html">AdapterView.OnItemClickListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterView.OnItemLongClickListener.html">AdapterView.OnItemLongClickListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterView.OnItemSelectedListener.html">AdapterView.OnItemSelectedListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AdapterViewAnimator.html">AdapterViewAnimator</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/AdapterViewFlipper.html">AdapterViewFlipper</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AlphabetIndexer.html">AlphabetIndexer</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/AnalogClock.html">AnalogClock</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ArrayAdapter.html">ArrayAdapter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/AutoCompleteTextView.html">AutoCompleteTextView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/AutoCompleteTextView.Validator.html">AutoCompleteTextView.Validator</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/BaseAdapter.html">BaseAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/BaseExpandableListAdapter.html">BaseExpandableListAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Button.html">Button</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/CalendarView.html">CalendarView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/CalendarView.OnDateChangeListener.html">CalendarView.OnDateChangeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Checkable.html">Checkable</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CheckBox.html">CheckBox</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CheckedTextView.html">CheckedTextView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Chronometer.html">Chronometer</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Chronometer.OnChronometerTickListener.html">Chronometer.OnChronometerTickListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CompoundButton.html">CompoundButton</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CompoundButton.OnCheckedChangeListener.html">CompoundButton.OnCheckedChangeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CursorAdapter.html">CursorAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/CursorTreeAdapter.html">CursorTreeAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/DatePicker.html">DatePicker</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/DatePicker.OnDateChangedListener.html">DatePicker.OnDateChangedListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/DialerFilter.html">DialerFilter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/DigitalClock.html">DigitalClock</a></dd>
+<dd class="translating"><a href="{@docRoot}reference/android/widget/EdgeEffect.html">EdgeEffect</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/EditText.html">EditText</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ExpandableListAdapter.html">ExpandableListAdapter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.ExpandableListContextMenuInfo.html">ExpandableListView.ExpandableListContextMenuInfo</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.html">ExpandableListView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.OnChildClickListener.html">ExpandableListView.OnChildClickListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.OnGroupClickListener.html">ExpandableListView.OnGroupClickListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.OnGroupCollapseListener.html">ExpandableListView.OnGroupCollapseListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ExpandableListView.OnGroupExpandListener.html">ExpandableListView.OnGroupExpandListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Filter.FilterListener.html">Filter.FilterListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Filter.FilterResults.html">Filter.FilterResults</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Filter.html">Filter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Filterable.html">Filterable</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/FilterQueryProvider.html">FilterQueryProvider</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/FrameLayout.html">FrameLayout</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/FrameLayout.LayoutParams.html">FrameLayout.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Gallery.html">Gallery</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Gallery.LayoutParams.html">Gallery.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/GridLayout.Alignment.html">GridLayout.Alignment</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/GridLayout.html">GridLayout</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/GridLayout.LayoutParams.html">GridLayout.LayoutParams</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/GridLayout.Spec.html">GridLayout.Spec</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/GridView.html">GridView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/HeaderViewListAdapter.html">HeaderViewListAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/HeterogeneousExpandableList.html">HeterogeneousExpandableList</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/HorizontalScrollView.html">HorizontalScrollView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ImageButton.html">ImageButton</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ImageSwitcher.html">ImageSwitcher</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ImageView.html">ImageView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ImageView.ScaleType.html">ImageView.ScaleType</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/LinearLayout.html">LinearLayout</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/LinearLayout.LayoutParams.html">LinearLayout.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ListAdapter.html">ListAdapter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ListPopupWindow.html">ListPopupWindow</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ListView.FixedViewInfo.html">ListView.FixedViewInfo</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ListView.html">ListView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/MediaController.html">MediaController</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/MediaController.MediaPlayerControl.html">MediaController.MediaPlayerControl</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/MultiAutoCompleteTextView.CommaTokenizer.html">MultiAutoCompleteTextView.CommaTokenizer</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/MultiAutoCompleteTextView.html">MultiAutoCompleteTextView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/MultiAutoCompleteTextView.Tokenizer.html">MultiAutoCompleteTextView.Tokenizer</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/NumberPicker.Formatter.html">NumberPicker.Formatter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/NumberPicker.html">NumberPicker</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/NumberPicker.OnScrollListener.html">NumberPicker.OnScrollListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/NumberPicker.OnValueChangeListener.html">NumberPicker.OnValueChangeListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/OverScroller.html">OverScroller</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/package-summary.html">package-summary</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/PopupMenu.html">PopupMenu</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/PopupMenu.OnDismissListener.html">PopupMenu.OnDismissListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/PopupMenu.OnMenuItemClickListener.html">PopupMenu.OnMenuItemClickListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/PopupWindow.html">PopupWindow</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/PopupWindow.OnDismissListener.html">PopupWindow.OnDismissListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ProgressBar.html">ProgressBar</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/QuickContactBadge.html">QuickContactBadge</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RadioButton.html">RadioButton</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RadioGroup.html">RadioGroup</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RadioGroup.LayoutParams.html">RadioGroup.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RadioGroup.OnCheckedChangeListener.html">RadioGroup.OnCheckedChangeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RatingBar.html">RatingBar</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RatingBar.OnRatingBarChangeListener.html">RatingBar.OnRatingBarChangeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RelativeLayout.html">RelativeLayout</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RelativeLayout.LayoutParams.html">RelativeLayout.LayoutParams</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RemoteViews.ActionException.html">RemoteViews.ActionException</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RemoteViews.html">RemoteViews</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/RemoteViews.RemoteView.html">RemoteViews.RemoteView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/RemoteViewsService.html">RemoteViewsService</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/RemoteViewsService.RemoteViewsFactory.html">RemoteViewsService.RemoteViewsFactory</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ResourceCursorAdapter.html">ResourceCursorAdapter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ResourceCursorTreeAdapter.html">ResourceCursorTreeAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Scroller.html">Scroller</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ScrollView.html">ScrollView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SearchView.html">SearchView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SearchView.OnCloseListener.html">SearchView.OnCloseListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SearchView.OnQueryTextListener.html">SearchView.OnQueryTextListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SearchView.OnSuggestionListener.html">SearchView.OnSuggestionListener</a></dd>
+<dd class="translating"><a href="{@docRoot}reference/android/widget/SectionIndexer.html">SectionIndexer</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SeekBar.html">SeekBar</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SeekBar.OnSeekBarChangeListener.html">SeekBar.OnSeekBarChangeListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ShareActionProvider.html">ShareActionProvider</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/ShareActionProvider.OnShareTargetSelectedListener.html">ShareActionProvider.OnShareTargetSelectedListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleAdapter.html">SimpleAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleAdapter.ViewBinder.html">SimpleAdapter.ViewBinder</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleCursorAdapter.CursorToStringConverter.html">SimpleCursorAdapter.CursorToStringConverter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleCursorAdapter.html">SimpleCursorAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleCursorAdapter.ViewBinder.html">SimpleCursorAdapter.ViewBinder</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleCursorTreeAdapter.html">SimpleCursorTreeAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleCursorTreeAdapter.ViewBinder.html">SimpleCursorTreeAdapter.ViewBinder</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SimpleExpandableListAdapter.html">SimpleExpandableListAdapter</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SlidingDrawer.html">SlidingDrawer</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SlidingDrawer.OnDrawerCloseListener.html">SlidingDrawer.OnDrawerCloseListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SlidingDrawer.OnDrawerOpenListener.html">SlidingDrawer.OnDrawerOpenListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/SlidingDrawer.OnDrawerScrollListener.html">SlidingDrawer.OnDrawerScrollListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/Space.html">Space</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Spinner.html">Spinner</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/SpinnerAdapter.html">SpinnerAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/StackView.html">StackView</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/Switch.html">Switch</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TabHost.html">TabHost</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TabHost.OnTabChangeListener.html">TabHost.OnTabChangeListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TabHost.TabContentFactory.html">TabHost.TabContentFactory</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TabHost.TabSpec.html">TabHost.TabSpec</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TableLayout.html">TableLayout</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TableLayout.LayoutParams.html">TableLayout.LayoutParams</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/TableRow.html">TableRow</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/TableRow.LayoutParams.html">TableRow.LayoutParams</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/TabWidget.html">TabWidget</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TextSwitcher.html">TextSwitcher</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TextView.BufferType.html">TextView.BufferType</a></dd>
+<dd class="translating"><a href="{@docRoot}reference/android/widget/TextView.html">TextView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TextView.OnEditorActionListener.html">TextView.OnEditorActionListener</a></dd>
+<dd class="wait4translate"><a href="{@docRoot}reference/android/widget/TextView.SavedState.html">TextView.SavedState</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TimePicker.html">TimePicker</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TimePicker.OnTimeChangedListener.html">TimePicker.OnTimeChangedListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/Toast.html">Toast</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ToggleButton.html">ToggleButton</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/TwoLineListItem.html">TwoLineListItem</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/VideoView.html">VideoView</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ViewAnimator.html">ViewAnimator</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ViewFlipper.html">ViewFlipper</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ViewSwitcher.html">ViewSwitcher</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ViewSwitcher.ViewFactory.html">ViewSwitcher.ViewFactory</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/WrapperListAdapter.html">WrapperListAdapter</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ZoomButton.html">ZoomButton</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ZoomButtonsController.html">ZoomButtonsController</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ZoomButtonsController.OnZoomListener.html">ZoomButtonsController.OnZoomListener</a></dd>
+<dd class="translated"><a href="{@docRoot}reference/android/widget/ZoomControls.html">ZoomControls</a></dd>
+</dl>
+</div>
+                    </div>
+                    <div class="content-right col-6">
+                    <h1>Android 中文文档</h1>
+                    <p>《《《 右侧为已翻译或翻译中的Android文档。</p>
+                    <p style="padding:5px;">
+</p><dl><dt>常用链接</dt>
+<dd><a href="http://developer.android.com/">开发者官方网站</a></dd>
+<dd><a href="http://source.android.com/">Android源代码</a></dd>
+<dd><a href="{@docRoot}">Android中文文档</a></dd>
+<dd><a href="http://edu.toolib.net/">中文文档@教育网</a></dd>
+<dd><a href="http://www.eoeandroid.com/forum-132-1.html">eoe翻译专区</a></dd>
+<dd><a href="http://www.apkbus.com/Android-107-1.html">安卓巴士专区</a></dd>
+<dd><a href="http://androidbox.sinaapp.com/"><img src="./assets/images/home/atg.png" style="width:100px">Android中文翻译组</a></dd>
+</dl>
+<p></p>
+                    </div>
+                </li>
                 <li class="item carousel-home">
                     <div class="content-left col-11" style="padding-top:65px;">
                       <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
@@ -123,4 +318,5 @@ class="button">Watch the Android sessions</a></p>
         </ul>
     </div>
     <!-- /Section links -->
-</div>     
+</div>
+

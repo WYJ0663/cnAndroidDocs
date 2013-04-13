@@ -25,29 +25,24 @@ import com.android.internal.R;
 
 
 /**
- * <p>
- * A radio button is a two-states button that can be either checked or
- * unchecked. When the radio button is unchecked, the user can press or click it
- * to check it. However, contrary to a {@link android.widget.CheckBox}, a radio
- * button cannot be unchecked by the user once checked.
- * </p>
+ * <p>单选按钮是有选中和未选中两种状态的按钮.当其未选中时，用户可以通过按下或点击来选中它.
+ * 然而，与 {@link android.widget.CheckBox} 不同，用户一旦选中了单选按钮就不能够取消选中.</p>
  *
- * <p>
- * Radio buttons are normally used together in a
- * {@link android.widget.RadioGroup}. When several radio buttons live inside
- * a radio group, checking one radio button unchecks all the others.</p>
- * </p>
+ * <p>单选按钮通常与 {@link android.widget.RadioGroup} 同时使用.
+ * 当多个单选按钮属于同一个单选按钮组时，选中其中一个的同时将取消其它单选按钮的选中状态.</p>
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/radiobutton.html">Radio Buttons</a>
  * guide.</p>
  *
  * <p><strong>XML attributes</strong></p>
  * <p> 
- * See {@link android.R.styleable#CompoundButton CompoundButton Attributes}, 
- * {@link android.R.styleable#Button Button Attributes}, 
- * {@link android.R.styleable#TextView TextView Attributes}, 
- * {@link android.R.styleable#View View Attributes}
+ * 参见 {@link android.R.styleable#CompoundButton CompoundButton Attributes}、
+ * {@link android.R.styleable#Button Button Attributes}、
+ * {@link android.R.styleable#TextView TextView Attributes}、
+ * {@link android.R.styleable#View View Attributes}.
  * </p>
+ * @author translate by 农民伯伯
+ * @author convert by cnmahj
  */
 public class RadioButton extends CompoundButton {
     
@@ -65,8 +60,7 @@ public class RadioButton extends CompoundButton {
 
     /**
      * {@inheritDoc}
-     * <p>
-     * If the radio button is already checked, this method will not toggle the radio button.
+     * <p>如果单选按钮已经选中，这个方法将不改变选中状态.</p>
      */
     @Override
     public void toggle() {

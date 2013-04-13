@@ -78,6 +78,7 @@ import java.util.HashSet;
  * @attr ref android.R.styleable#ViewGroup_addStatesFromChildren
  * @attr ref android.R.styleable#ViewGroup_descendantFocusability
  * @attr ref android.R.styleable#ViewGroup_animateLayoutChanges
+ * @author translate by cnmahj
  */
 public abstract class ViewGroup extends View implements ViewParent, ViewManager {
     private static final String TAG = "ViewGroup";
@@ -288,7 +289,8 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     public static final int FOCUS_BEFORE_DESCENDANTS = 0x20000;
 
     /**
-     * This view will get focus only if none of its descendants want it.
+     * 只有当没有子节点可以获得焦点时，该视图获得焦点.
+     * @author translate by cnmahj
      */
     public static final int FOCUS_AFTER_DESCENDANTS = 0x40000;
 
@@ -372,8 +374,9 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     public static final int OPTICAL_BOUNDS = 1;
 
     /**
-     * We clip to padding when FLAG_CLIP_TO_PADDING and FLAG_PADDING_NOT_NULL
-     * are set at the same time.
+     * 当 FLAG_CLIP_TO_PADDING 和 FLAG_PADDING_NOT_NULL
+     * 同时设置时，绘图将剪切掉在内边距区域内的图像.
+     * @author translate by cnmahj
      */
     protected static final int CLIP_TO_PADDING_MASK = FLAG_CLIP_TO_PADDING | FLAG_PADDING_NOT_NULL;
 
@@ -667,18 +670,17 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Called when a child has requested sending an {@link AccessibilityEvent} and
-     * gives an opportunity to its parent to augment the event.
+     * 当子视图请求发送 {@link AccessibilityEvent} 事件时调用，使父视图有机会添加该事件.
      * <p>
-     * If an {@link android.view.View.AccessibilityDelegate} has been specified via calling
-     * {@link android.view.View#setAccessibilityDelegate(android.view.View.AccessibilityDelegate)} its
+     * 如果调用 {@link android.view.View#setAccessibilityDelegate(android.view.View.AccessibilityDelegate)}
+     * 时指定了 {@link android.view.View.AccessibilityDelegate}，则
      * {@link android.view.View.AccessibilityDelegate#onRequestSendAccessibilityEvent(ViewGroup, View, AccessibilityEvent)}
-     * is responsible for handling this call.
+     * 负责处理该调用.
      * </p>
      *
-     * @param child The child which requests sending the event.
-     * @param event The event to be sent.
-     * @return True if the event should be sent.
+     * @param child 请求发送事件的子视图
+     * @param event 发送的事件
+     * @return 如果发送事件，返回真.
      *
      * @see #requestSendAccessibilityEvent(View, AccessibilityEvent)
      */
@@ -798,9 +800,9 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Returns true if this view has or contains focus
+     * 如果该视图或其包含的视图具有焦点则返回真.
      *
-     * @return true if this view has or contains focus
+     * @return 如果该视图或其包含的视图具有焦点则返回真.
      */
     @Override
     public boolean hasFocus() {
@@ -2257,41 +2259,32 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Implement this method to intercept all touch screen motion events.  This
-     * allows you to watch events as they are dispatched to your children, and
-     * take ownership of the current gesture at any point.
+     * 使用此方法可以拦截所有触摸屏动作引发的事件.这意味着你可以监视分派给子项的事件，
+     * 并且可以在当前手势的任何一点获得其控制权.
      *
-     * <p>Using this function takes some care, as it has a fairly complicated
-     * interaction with {@link View#onTouchEvent(MotionEvent)
-     * View.onTouchEvent(MotionEvent)}, and using it requires implementing
-     * that method as well as this one in the correct way.  Events will be
-     * received in the following order:
+     * <p>使用此方法需谨慎.因为它与 {@link View#onTouchEvent(MotionEvent)
+     * View.onTouchEvent(MotionEvent)} 有相当复杂的交互.
+     * 使用它需要像该方法实现一样正确的实现该方法.触控事件是按如下顺序接收的：
      *
      * <ol>
-     * <li> You will receive the down event here.
-     * <li> The down event will be handled either by a child of this view
-     * group, or given to your own onTouchEvent() method to handle; this means
-     * you should implement onTouchEvent() to return true, so you will
-     * continue to see the rest of the gesture (instead of looking for
-     * a parent view to handle it).  Also, by returning true from
-     * onTouchEvent(), you will not receive any following
-     * events in onInterceptTouchEvent() and all touch processing must
-     * happen in onTouchEvent() like normal.
-     * <li> For as long as you return false from this function, each following
-     * event (up to and including the final up) will be delivered first here
-     * and then to the target's onTouchEvent().
-     * <li> If you return true from here, you will not receive any
-     * following events: the target view will receive the same event but
-     * with the action {@link MotionEvent#ACTION_CANCEL}, and all further
-     * events will be delivered to your onTouchEvent() method and no longer
-     * appear here.
+     * <li> 首先该函数收到按下事件.
+     * <li> 按下事件会在视图组的子视图以及本视图的 onTouchEvent() 方法中处理.
+     * 这意味着若要处理之后的手势（代替父视图来处理该事件），你应该实现
+     * onTouchEvent() 方法并返回真.另外，如果你的 onTouchEvent() 方法返回真，
+     * onInterceptTouchEvent() 方法将不会收到接下来发生的事件，
+     * 整个触控处理必须在 onTouchEvent() 方法中进行.
+     * <li> 如果该方法返回假，接下来的每个事件（直到最后的抬起事件）
+     * 都会首先由该函数来处理，之后传给目标对象的 onTouchEvent() 方法.
+     * <li> 如果该函数返回真，你不会收到接下来的任何事件：
+     * 目标视图会接收到该事件，但其动作被标记为
+     * {@link MotionEvent#ACTION_CANCEL}，之后的事件都会交由你的
+     * onTouchEvent() 方法来处理，不再出现在该方法中.
      * </ol>
      *
-     * @param ev The motion event being dispatched down the hierarchy.
-     * @return Return true to steal motion events from the children and have
-     * them dispatched to this ViewGroup through onTouchEvent().
-     * The current target will receive an ACTION_CANCEL event, and no further
-     * messages will be delivered here.
+     * @param ev 沿着层次结构向下分派的动作事件.
+     * @return 若将动作事件从子视图中截获并通过 onTouchEvent() 
+     * 将他们分派给当前视图组，则返回真.当前目标将收到 ACTION_CANCEL
+     * 事件，并且不再会有其他消息传入该函数.
      */
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return false;
@@ -2338,15 +2331,13 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Look for a descendant to call {@link View#requestFocus} on.
-     * Called by {@link ViewGroup#requestFocus(int, android.graphics.Rect)}
-     * when it wants to request focus within its children.  Override this to
-     * customize how your {@link ViewGroup} requests focus within its children.
-     * @param direction One of FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, and FOCUS_RIGHT
-     * @param previouslyFocusedRect The rectangle (in this View's coordinate system)
-     *        to give a finer grained hint about where focus is coming from.  May be null
-     *        if there is no hint.
-     * @return Whether focus was taken.
+     * 寻找调用 {@link View#requestFocus} 的子视图.当要使子视图得到焦点时，由
+     * {@link ViewGroup#requestFocus(int, android.graphics.Rect)} 调用.
+     * 重写该方法可以定制你的 {@link ViewGroup 视图组}如何为其子视图取得焦点.
+     * @param direction 焦点移动方向：FOCUS_UP、FOCUS_DOWN、FOCUS_LEFT、FOCUS_RIGHT之一.
+     * @param previouslyFocusedRect 描述失焦点的具体矩形信息（在视图坐标系中的坐标）.
+     *        如果没有则应该设为空.
+     * @return 是否得到焦点.
      */
     @SuppressWarnings({"ConstantConditions"})
     protected boolean onRequestFocusInDescendants(int direction,
@@ -2848,16 +2839,15 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Returns the index of the child to draw for this iteration. Override this
-     * if you want to change the drawing order of children. By default, it
-     * returns i.
+     * 返回当前迭代要绘制的子视图的索引.如果要改变绘制子视图的顺序，应该重载该方法.
+     * 默认返回i.
      * <p>
-     * NOTE: In order for this method to be called, you must enable child ordering
-     * first by calling {@link #setChildrenDrawingOrderEnabled(boolean)}.
+     * 注意：为了调用该方法，必须先调用 {@link #setChildrenDrawingOrderEnabled(boolean)}
+     * 方法来启用子视图排序功能.
      *
-     * @param i The current iteration.
-     * @return The index of the child to draw this iteration.
-     *
+     * @param i 当前迭代.
+     * @return 要绘制的子视图的迭代.
+     * 
      * @see #setChildrenDrawingOrderEnabled(boolean)
      * @see #isChildrenDrawingOrderEnabled()
      */
@@ -2914,15 +2904,13 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Draw one child of this View Group. This method is responsible for getting
-     * the canvas in the right state. This includes clipping, translating so
-     * that the child's scrolled origin is at 0, 0, and applying any animation
-     * transformations.
+     * 绘制该视图组的一个子视图.该方法负责取得处于正确状态的画布.
+     * 它包含剪切、转换子视图的滚动坐标为（0,0），并应用切换动画.
      *
-     * @param canvas The canvas on which to draw the child
-     * @param child Who to draw
-     * @param drawingTime The time at which draw is occurring
-     * @return True if an invalidate() was issued
+     * @param canvas 用于绘制视图的画布
+     * @param child 要绘制的视图
+     * @param drawingTime 绘制发生的时间
+     * @return 如果执行了 invalidate() 则返回真.
      */
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         return child.draw(canvas, this, drawingTime);
@@ -3116,14 +3104,13 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * <p>Adds a child view. If no layout parameters are already set on the child, the
-     * default parameters for this ViewGroup are set on the child.</p>
+     * <p>添加子视图. 如果子视图没有设置布局参数，则使用 ViewGroup 的布局参数为该视图布局。</p>
      * 
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param child the child view to add
+     * @param child 添加的子视图.
      *
      * @see #generateDefaultLayoutParams()
      */
@@ -3132,15 +3119,14 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Adds a child view. If no layout parameters are already set on the child, the
-     * default parameters for this ViewGroup are set on the child.
+     * 添加子视图.如果子视图没有设置布局参数，则使用 ViewGroup 的布局参数为该视图布局.
      * 
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param child the child view to add
-     * @param index the position at which to add the child
+     * @param child 添加的子视图.
+     * @param index 子视图加入的位置索引.
      *
      * @see #generateDefaultLayoutParams()
      */
@@ -3156,14 +3142,13 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Adds a child view with this ViewGroup's default layout parameters and the
-     * specified width and height.
+     * 以指定的宽度和高度，以及视图组的默认布局参数添加子视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param child the child view to add
+     * @param child 添加的子视图.
      */
     public void addView(View child, int width, int height) {
         final LayoutParams params = generateDefaultLayoutParams();
@@ -3173,29 +3158,29 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Adds a child view with the specified layout parameters.
+     * 使用指定的布局参数添加子视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param child the child view to add
-     * @param params the layout parameters to set on the child
+     * @param child 添加的子视图.
+     * @param params 设置到子视图上的布局参数.
      */
     public void addView(View child, LayoutParams params) {
         addView(child, -1, params);
     }
 
     /**
-     * Adds a child view with the specified layout parameters.
+     * 用指定的布局参数添加一个子视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param child the child view to add
-     * @param index the position at which to add the child
-     * @param params the layout parameters to set on the child
+     * @param child 添加的子视图.
+     * @param index 添加的子视图的索引.
+     * @param params 为子视图指定得布局参数.
      */
     public void addView(View child, int index, LayoutParams params) {
         if (DBG) {
@@ -3254,10 +3239,9 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Register a callback to be invoked when a child is added to or removed
-     * from this view.
+     * 注册当从视图中添加或移除子视图时发生的回调函数.
      *
-     * @param listener the callback to invoke on hierarchy change
+     * @param listener 层次结构变更时执行的回调函数.
      */
     public void setOnHierarchyChangeListener(OnHierarchyChangeListener listener) {
         mOnHierarchyChangeListener = listener;
@@ -3490,14 +3474,12 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Subclasses should override this method to set layout animation
-     * parameters on the supplied child.
+     * 子类应该重写该方法，以设置为子视图提供的布局动画参数.
      *
-     * @param child the child to associate with animation parameters
-     * @param params the child's layout parameters which hold the animation
-     *        parameters
-     * @param index the index of the child in the view group
-     * @param count the number of children in the view group
+     * @param child 与布局动画参数关联的子视图.
+     * @param params 保存了动画参数的子视图布局参数.
+     * @param index 视图组中的子视图索引.
+     * @param count 视图组中的子视图数.
      */
     protected void attachLayoutAnimationParameters(View child,
             LayoutParams params, int index, int count) {
@@ -3526,42 +3508,40 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Removes a view during layout. This is useful if in your onLayout() method,
-     * you need to remove more views.
+     * 在布局期间移除视图.用于在 onLayout() 方法中移除指定的视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      * 
-     * @param view the view to remove from the group
+     * @param view 要从视图组中移除的视图.
      */
     public void removeViewInLayout(View view) {
         removeViewInternal(view);
     }
 
     /**
-     * Removes a range of views during layout. This is useful if in your onLayout() method,
-     * you need to remove more views.
+     * 在布局期间移除指定索引范围的视图.用于在 onLayout() 方法中移除指定的视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param start the index of the first view to remove from the group
-     * @param count the number of views to remove from the group
+     * @param start 要移除的视图索引范围的起始位置.
+     * @param count 要移除的视图个数.
      */
     public void removeViewsInLayout(int start, int count) {
         removeViewsInternal(start, count);
     }
 
     /**
-     * Removes the view at the specified position in the group.
+     * 移除视图组中指定位置的视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      * 
-     * @param index the position in the group of the view to remove
+     * @param index 要移除的视图在视图组中的位置.
      */
     public void removeViewAt(int index) {
         removeViewInternal(index, getChildAt(index));
@@ -3570,14 +3550,14 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Removes the specified range of views from the group.
+     * 从视图组中移除指定索引范围的视图.
      *
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
      * {@link #dispatchDraw(android.graphics.Canvas)} or any related method.</p>
      *
-     * @param start the first position in the group of the range of views to remove
-     * @param count the number of views to remove
+     * @param start 要移除的视图索引范围的起始位置.
+     * @param count 要移除的视图个数.
      */
     public void removeViews(int start, int count) {
         removeViewsInternal(start, count);
@@ -3719,8 +3699,7 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Call this method to remove all child views from the
-     * ViewGroup.
+     * 调用此方法可以从视图组中移除所有视图.
      * 
      * <p><strong>Note:</strong> do not invoke this method from
      * {@link #draw(android.graphics.Canvas)}, {@link #onDraw(android.graphics.Canvas)},
@@ -4385,10 +4364,9 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
             int l, int t, int r, int b);
 
     /**
-     * Indicates whether the view group has the ability to animate its children
-     * after the first layout.
+     * 指示视图组是否能够在首次布局后为其子视图提供动画效果的显示.
      *
-     * @return true if the children can be animated, false otherwise
+     * @return 如果子视图可以使用动画效果则返回真，否则返回假.
      */
     protected boolean canAnimate() {
         return mLayoutAnimationController != null;
@@ -4642,41 +4620,34 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Returns a new set of layout parameters based on the supplied attributes set.
+     * 返回一组基于提供的属性集合的布局参数集合.
      *
-     * @param attrs the attributes to build the layout parameters from
+     * @param attrs 用于生成布局参数的属性集.
      *
-     * @return an instance of {@link android.view.ViewGroup.LayoutParams} or one
-     *         of its descendants
+     * @return {@link android.view.ViewGroup.LayoutParams} 或其子类的实例.
      */
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new LayoutParams(getContext(), attrs);
     }
 
     /**
-     * Returns a safe set of layout parameters based on the supplied layout params.
-     * When a ViewGroup is passed a View whose layout params do not pass the test of
-     * {@link #checkLayoutParams(android.view.ViewGroup.LayoutParams)}, this method
-     * is invoked. This method should return a new set of layout params suitable for
-     * this ViewGroup, possibly by copying the appropriate attributes from the
-     * specified set of layout params.
+     * 基于提供的布局参数返回一组安全的布局参数集合.当传入 ViewGroup 的视图的参数没有通过
+     * {@link #checkLayoutParams(android.view.ViewGroup.LayoutParams)} 的检测时，调用该方法.
+     * 该方法会返回适合 ViewGroup 的新的布局参数，可能从指定的布局参数中复制适当的属性.
      *
-     * @param p The layout parameters to convert into a suitable set of layout parameters
-     *          for this ViewGroup.
+     * @param p 要转换为适合于 ViewGroup 的布局参数的集合.
      *
-     * @return an instance of {@link android.view.ViewGroup.LayoutParams} or one
-     *         of its descendants
+     * @return {@link android.view.ViewGroup.LayoutParams} 或其子类的实例.
      */
     protected LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
         return p;
     }
 
     /**
-     * Returns a set of default layout parameters. These parameters are requested
-     * when the View passed to {@link #addView(View)} has no layout parameters
-     * already set. If null is returned, an exception is thrown from addView.
+     * 返回默认布局参数集合.当使用没有设置布局参数的视图调用 {@link #addView(View)}
+     * 时，这些参数是必须的.如果返回空，addView 方法会抛出异常.
      *
-     * @return a set of default layout parameters or null
+     * @return 默认布局参数集合或空.
      */
     protected LayoutParams generateDefaultLayoutParams() {
         return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -4776,13 +4747,12 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Ask one of the children of this view to measure itself, taking into
-     * account both the MeasureSpec requirements for this view and its padding.
-     * The heavy lifting is done in getChildMeasureSpec.
+     * 传入本视图必要的宽度和高度及其内边距，要求子视图调整自身设置.
+     * 主要操作都是在 getChildMeasureSpec 函数中完成的.
      *
-     * @param child The child to measure
-     * @param parentWidthMeasureSpec The width requirements for this view
-     * @param parentHeightMeasureSpec The height requirements for this view
+     * @param child 需要调整的子视图
+     * @param parentWidthMeasureSpec 本视图必要的宽度
+     * @param parentHeightMeasureSpec 本视图必要的高度
      */
     protected void measureChild(View child, int parentWidthMeasureSpec,
             int parentHeightMeasureSpec) {
@@ -4797,18 +4767,14 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
     }
 
     /**
-     * Ask one of the children of this view to measure itself, taking into
-     * account both the MeasureSpec requirements for this view and its padding
-     * and margins. The child must have MarginLayoutParams The heavy lifting is
-     * done in getChildMeasureSpec.
+     * 传入已占用的宽度和高度、本视图必要的宽度和高度及其内边距，要求子视图调整自身设置.
+     * 主要操作都是在 getChildMeasureSpec 函数中完成的.
      *
-     * @param child The child to measure
-     * @param parentWidthMeasureSpec The width requirements for this view
-     * @param widthUsed Extra space that has been used up by the parent
-     *        horizontally (possibly by other children of the parent)
-     * @param parentHeightMeasureSpec The height requirements for this view
-     * @param heightUsed Extra space that has been used up by the parent
-     *        vertically (possibly by other children of the parent)
+     * @param child 需要调整的子视图
+     * @param parentWidthMeasureSpec 本视图必要的宽度
+     * @param widthUsed 已经被父视图使用的宽度（可能是被其他子视图使用）
+     * @param parentHeightMeasureSpec 本视图必要的高度
+     * @param heightUsed 已经被父视图使用的高度（可能是被其他子视图使用）
      */
     protected void measureChildWithMargins(View child,
             int parentWidthMeasureSpec, int widthUsed,
@@ -5451,9 +5417,6 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
      * ViewGroup. Generally, this should be done for containers that can scroll, such as a List.
      * This prevents the pressed state from appearing when the user is actually trying to scroll
      * the content.
-     *
-     * The default implementation returns true for compatibility reasons. Subclasses that do
-     * not scroll should generally override this method and return false.
      */
     public boolean shouldDelayChildPressedState() {
         return true;
@@ -5629,10 +5592,10 @@ public abstract class ViewGroup extends View implements ViewParent, ViewManager 
         }
 
         /**
-         * Returns a String representation of this set of layout parameters.
+         * 返回代表该布局参数的字符串.
          *
-         * @param output the String to prepend to the internal representation
-         * @return a String with the following format: output +
+         * @param output 内部表现形式的前导字符串.
+         * @return 下面格式的字符串：output +
          *         "ViewGroup.LayoutParams={ width=WIDTH, height=HEIGHT }"
          *
          * @hide

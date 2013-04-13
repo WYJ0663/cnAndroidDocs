@@ -1290,8 +1290,7 @@ public class KeyEvent extends InputEvent implements Parcelable {
          * @param keyCode The value in event.getKeyCode().
          * @param event Description of the key event.
          * 
-         * @return If you handled the event, return true.  If you want to allow
-         *         the event to be handled by the next receiver, return false.
+         * @return 如果处理了事件，返回真.如果允许下一个事件接受器处理该事件，可以返回假.
          */
         boolean onKeyDown(int keyCode, KeyEvent event);
 
@@ -1306,8 +1305,7 @@ public class KeyEvent extends InputEvent implements Parcelable {
          * @param keyCode The value in event.getKeyCode().
          * @param event Description of the key event.
          * 
-         * @return If you handled the event, return true.  If you want to allow
-         *         the event to be handled by the next receiver, return false.
+         * @return 如果处理了事件，返回真.如果允许下一个事件接受器处理该事件，可以返回假.
          */
         boolean onKeyLongPress(int keyCode, KeyEvent event);
 
@@ -1317,8 +1315,7 @@ public class KeyEvent extends InputEvent implements Parcelable {
          * @param keyCode The value in event.getKeyCode().
          * @param event Description of the key event.
          * 
-         * @return If you handled the event, return true.  If you want to allow
-         *         the event to be handled by the next receiver, return false.
+         * @return 如果处理了事件，返回真.如果允许下一个事件接受器处理该事件，可以返回假.
          */
         boolean onKeyUp(int keyCode, KeyEvent event);
 
@@ -1330,8 +1327,7 @@ public class KeyEvent extends InputEvent implements Parcelable {
          * @param count Number of pairs as returned by event.getRepeatCount().
          * @param event Description of the key event.
          * 
-         * @return If you handled the event, return true.  If you want to allow
-         *         the event to be handled by the next receiver, return false.
+         * @return 如果处理了事件，返回真.如果允许下一个事件接受器处理该事件，可以返回假.
          */
         boolean onKeyMultiple(int keyCode, int count, KeyEvent event);
     }

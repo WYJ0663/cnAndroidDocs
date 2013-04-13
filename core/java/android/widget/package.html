@@ -1,39 +1,29 @@
 <HTML>
 <BODY>
 <p>
-The widget package contains (mostly visual) UI elements to use
-on your Application screen. You can also design your own.
+widget 包包含用于应用程序屏幕上的用户界面(主要是可视的)元素。 你也可以设计自己的小部件。
 </p>
 
 <p>
-To create your own widget, extend {@link android.view.View} or a subclass. To
-use your widget in layout XML, there are two additional files for you to
-create. Here is a list of files you'll need to create to implement a custom
-widget:
+要创建自己的小部件可以扩展 {@link android.view.View} 或其子类。 要在 XML
+布局中使用你的小部件，你需要两个附加的文件。 这里列出了你实现自定义小部件时需要创建的文件：
 </p>
 <ul>
-<li><b>Java implementation file</b> - This is the file that implements the
-behavior of the widget. If you can instantiate the object from layout XML,
-you will also have to code a constructor that retrieves all the attribute
-values from the layout XML file.</li>
-<li><b>XML definition file</b> - An XML file in res/values/ that defines
-the XML element used to instantiate your widget, and the attributes that it
-supports. Other applications will use this element and attributes in their in
-another in their layout XML.</li>
-<li><b>Layout XML</b> [<em>optional</em>]- An optional XML file inside
-res/layout/ that describes the layout of your widget. You could also do
-this in code in your Java file.</li>
+<li><b>Java 实现文件</b> - 给文件实现小部件的行为。 如果你从 XML 布局来实例化对象，
+你也需要写构造函数的代码，用于从 XML 布局文件中接收所有的属性值。</li>
+<li><b>XML 定义文件</b> - res/values/ 目录中的 XML 文件，定义用于实例化你的小部件的 XML
+元素以及支持的属性。 其他应用程序会在他们的 XML 布局中使用这些元素和属性。 </li>
+<li><b>XML 布局</b> [<em>可选</em>]- res/layout/ 目录中的可选 XML 文件，描述你的小部件的布局。
+你也可以在你的 Java 文件中做该工作。 </li>
 </ul>
 
 <p>
-ApiDemos sample application has an example of creating a custom layout XML
-tag, LabelView. See the following files that demonstrate implementing and using
-a custom widget:
-</p>
+ApiDemos 示例应用程序中，有创建自定义 XML 布局标签 LabelView 的示例。
+查看如下文件，其展示了如何实现和使用自定义小部件：</p>
 <ul>
-    <li><strong>LabelView.java</strong> - The implementation file</li>
-    <li><strong>res/values/attrs.xml</strong> - Definition file</li>
-    <li><strong>res/layout/custom_view_1.xml</strong> - Layout file</li>
+    <li><strong>LabelView.java</strong> - 实现文件</li>
+    <li><strong>res/values/attrs.xml</strong> - 定义文件</li>
+    <li><strong>res/layout/custom_view_1.xml</strong> - 布局文件</li>
 </ul>
 </BODY>
 </HTML>

@@ -24,30 +24,25 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- * An activity that displays a list of items by binding to a data source such as
- * an array or Cursor, and exposes event handlers when the user selects an item.
+ * 用于显示绑定的类似数组、游标等数据源的项目列表的活动，提供了用户选择条目时的事件处理句柄。
  * <p>
- * ListActivity hosts a {@link android.widget.ListView ListView} object that can
- * be bound to different data sources, typically either an array or a Cursor
- * holding query results. Binding, screen layout, and row layout are discussed
- * in the following sections.
+ * ListActivity 内嵌了可以绑定到各种不同数据源，通常为数组或保存了检索结果的游标的
+ * {@link android.widget.ListView ListView} 对象。下面小节讨论了绑定、屏幕布局、
+ * 行布局等内容。
  * <p>
- * <strong>Screen Layout</strong>
+ * <strong>屏幕布局</strong>
  * </p>
  * <p>
- * ListActivity has a default layout that consists of a single, full-screen list
- * in the center of the screen. However, if you desire, you can customize the
- * screen layout by setting your own view layout with setContentView() in
- * onCreate(). To do this, your own view MUST contain a ListView object with the
- * id "@android:id/list" (or {@link android.R.id#list} if it's in code)
+ * ListActivity 自带了一个对屏幕居中的全屏列表布局。 你可以通过在 onCreate() 中调用
+ * setContentView() 来设置自己的视图布局。 你的布局中必须包含一个 ID 为 "@android:id/list"
+ * (代码中为 {@link android.R.id#list}）的 ListView 对象。</p>
  * <p>
- * Optionally, your custom view can contain another view object of any type to
- * display when the list view is empty. This "empty list" notifier must have an
- * id "android:id/empty". Note that when an empty view is present, the list view
- * will be hidden when there is no data to display.
+ * 可选项，你的自定义视图可以包含另一个任意类型的视图对象，用于在列表视图为空时显示。
+ * 这个“空列表”提示的 ID 必须为“android:id/empty”。当空视图存在时，如果没有数据可显示，
+ * 列表视图会被隐藏起来。</p>
  * <p>
- * The following code demonstrates an (ugly) custom screen layout. It has a list
- * with a green background, and an alternate red "no data" message.
+ * 接下来的代码演示了一个（丑陋的）自定义屏幕布局。
+ * 他拥有一个绿色背景的列表，和红色的“没有数据”消息。
  * </p>
  *
  * <pre>
@@ -70,29 +65,25 @@ import android.widget.ListView;
  *               android:layout_width=&quot;match_parent&quot;
  *               android:layout_height=&quot;match_parent&quot;
  *               android:background=&quot;#FF0000&quot;
- *               android:text=&quot;No data&quot;/&gt;
+ *               android:text=&quot;没有数据&quot;/&gt;
  * &lt;/LinearLayout&gt;
  * </pre>
  *
  * <p>
- * <strong>Row Layout</strong>
+ * <strong>行布局</strong>
  * </p>
  * <p>
- * You can specify the layout of individual rows in the list. You do this by
- * specifying a layout resource in the ListAdapter object hosted by the activity
- * (the ListAdapter binds the ListView to the data; more on this later).
+ * 你可以指定列表中个别行的布局。 你可以通过在活动内嵌的 ListAdapter 对象中指定布局资源来实现
+ * （ListAdapter 将数据绑定到 ListView；在后面详述）。</p>
  * <p>
- * A ListAdapter constructor takes a parameter that specifies a layout resource
- * for each row. It also has two additional parameters that let you specify
- * which data field to associate with which object in the row layout resource.
- * These two parameters are typically parallel arrays.
+ * ListAdapter 的构造方法需要一个用于指定每行的布局资源的参数。
+ * 它还有两个附加参数，用于指定那个字段与行布局资源中的那个对象关联。
+ * 这两个参数通常是并列数组。
  * </p>
  * <p>
- * Android provides some standard row layout resources. These are in the
- * {@link android.R.layout} class, and have names such as simple_list_item_1,
- * simple_list_item_2, and two_line_list_item. The following layout XML is the
- * source for the resource two_line_list_item, which displays two data
- * fields,one above the other, for each list row.
+ * Android 提供了一些标准的行布局资源。 它们在  {@link android.R.layout} 类中，名字类似
+ * simple_list_item_1、simple_list_item_2、two_line_list_item 等。
+ * 接下来的 XML 布局是 two_line_list_item 的源代码，为每个列表项显示了上下两个数据字段。
  * </p>
  *
  * <pre>
@@ -116,24 +107,20 @@ import android.widget.ListView;
  * </pre>
  *
  * <p>
- * You must identify the data bound to each TextView object in this layout. The
- * syntax for this is discussed in the next section.
+ * 你必须在布局中标识绑定到每个 TextView 的数据。下一节讨论其语法。
  * </p>
  * <p>
- * <strong>Binding to Data</strong>
+ * <strong>绑定到数据</strong>
  * </p>
  * <p>
- * You bind the ListActivity's ListView object to data using a class that
- * implements the {@link android.widget.ListAdapter ListAdapter} interface.
- * Android provides two standard list adapters:
- * {@link android.widget.SimpleAdapter SimpleAdapter} for static data (Maps),
- * and {@link android.widget.SimpleCursorAdapter SimpleCursorAdapter} for Cursor
- * query results.
+ * 你可以通过实现了{@link android.widget.ListAdapter ListAdapter} 接口的类将 ListActivity
+ * 中的 ListView 对象绑定到数据。Android 提供了两个标准的列表适配器：
+ * {@link android.widget.SimpleAdapter SimpleAdapter} 用于静态数据（Map）；
+ * {@link android.widget.SimpleCursorAdapter SimpleCursorAdapter} 用于代表查询结果的游标。
  * </p>
  * <p>
- * The following code from a custom ListActivity demonstrates querying the
- * Contacts provider for all contacts, then binding the Name and Company fields
- * to a two line row layout in the activity's ListView.
+ * 接下来的代码定制的 ListActivity，演示从联系人提供器中查询所有联系人，使用两行布局将 Name
+ * 和 Company 字段绑定到活动的 ListView 上。
  * </p>
  *
  * <pre>
@@ -194,22 +181,19 @@ public class ListActivity extends Activity {
     };
 
     /**
-     * This method will be called when an item in the list is selected.
-     * Subclasses should override. Subclasses can call
-     * getListView().getItemAtPosition(position) if they need to access the
-     * data associated with the selected item.
+     * 该方法在选中一个列表项时调用。 子类应该覆盖该方法。 子类要访问关联到选择条目的数据时，
+     * 可以调用 getListView().getItemAtPosition(position)。
      *
-     * @param l The ListView where the click happened
-     * @param v The view that was clicked within the ListView
-     * @param position The position of the view in the list
-     * @param id The row id of the item that was clicked
+     * @param l 发生点击的 ListView
+     * @param v 发生点击的 ListView 中的视图
+     * @param position 视图在列表中的位置
+     * @param id 点击条目的数据行 ID
      */
     protected void onListItemClick(ListView l, View v, int position, long id) {
     }
 
     /**
-     * Ensures the list view has been created before Activity restores all
-     * of the view states.
+     * 取保列表视图在活动恢复所有视图状态之前已经创建。
      *
      *@see Activity#onRestoreInstanceState(Bundle)
      */
@@ -229,8 +213,7 @@ public class ListActivity extends Activity {
     }
 
     /**
-     * Updates the screen state (current list and other views) when the
-     * content changes.
+     * 内容变更时更新屏幕状态（当前列表和其他视图）。
      *
      * @see Activity#onContentChanged()
      */
@@ -256,7 +239,7 @@ public class ListActivity extends Activity {
     }
 
     /**
-     * Provide the cursor for the list view.
+     * 为列表视图设置 ListAdapter。
      */
     public void setListAdapter(ListAdapter adapter) {
         synchronized (this) {
@@ -267,8 +250,7 @@ public class ListActivity extends Activity {
     }
 
     /**
-     * Set the currently selected list item to the specified
-     * position with the adapter's data
+     * 设置指定位置的适配器数据为当前选中列表项。
      *
      * @param position
      */
@@ -277,21 +259,21 @@ public class ListActivity extends Activity {
     }
 
     /**
-     * Get the position of the currently selected list item.
+     * 获取当前选中列表项的位置。
      */
     public int getSelectedItemPosition() {
         return mList.getSelectedItemPosition();
     }
 
     /**
-     * Get the cursor row ID of the currently selected list item.
+     * 获取当前选中列表项的游标行 ID。
      */
     public long getSelectedItemId() {
         return mList.getSelectedItemId();
     }
 
     /**
-     * Get the activity's list view widget.
+     * 获取活动的 ListView 小部件。
      */
     public ListView getListView() {
         ensureList();
@@ -299,7 +281,7 @@ public class ListActivity extends Activity {
     }
 
     /**
-     * Get the ListAdapter associated with this activity's ListView.
+     * 获取关联到该活动的 ListView 的 ListAdapter。
      */
     public ListAdapter getListAdapter() {
         return mAdapter;

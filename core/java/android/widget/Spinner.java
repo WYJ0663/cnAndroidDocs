@@ -38,11 +38,9 @@ import android.widget.PopupWindow.OnDismissListener;
 
 
 /**
- * A view that displays one child at a time and lets the user pick among them.
- * The items in the Spinner come from the {@link Adapter} associated with
- * this view.
- *
- * <p>See the <a href="{@docRoot}guide/topics/ui/controls/spinner.html">Spinners</a> guide.</p>
+ * 下拉列表（Spinner）是一个每次只能选择所有项中一项的部件.
+ * 它的项目来自于与之相关联的 {@link Adapter}.
+ * <p>参见 <a href="{@docRoot}guide/topics/ui/controls/spinner.html">Spinners</a> guide.</p>
  *
  * @attr ref android.R.styleable#Spinner_dropDownHorizontalOffset
  * @attr ref android.R.styleable#Spinner_dropDownSelector
@@ -52,6 +50,8 @@ import android.widget.PopupWindow.OnDismissListener;
  * @attr ref android.R.styleable#Spinner_popupBackground
  * @attr ref android.R.styleable#Spinner_prompt
  * @attr ref android.R.styleable#Spinner_spinnerMode
+ * @author translate by 思考的狼（Android中文翻译组）
+ * @author convert by cnmahj
  */
 @Widget
 public class Spinner extends AbsSpinner implements OnClickListener {
@@ -61,17 +61,17 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     private static final int MAX_ITEMS_MEASURED = 15;
 
     /**
-     * Use a dialog window for selecting spinner options.
+     * 使用对话框窗口来选择微调按钮的选项.
      */
     public static final int MODE_DIALOG = 0;
 
     /**
-     * Use a dropdown anchored to the Spinner for selecting spinner options.
+     * 微调按钮使用下拉列表的形式来选择的选项.
      */
     public static final int MODE_DROPDOWN = 1;
     
     /**
-     * Use the theme-supplied value to select the dropdown mode.
+     * 使用主题提供的值来决定选择形式.
      */
     private static final int MODE_THEME = -1;
     
@@ -85,23 +85,20 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     private Rect mTempRect = new Rect();
 
     /**
-     * Construct a new spinner with the given context's theme.
+     * 使用给定的上下文中的主题来构造一个新的微调控件.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
+     * @param context 视图运行的上下文，通过它可以访问当前主题及资源等.
      */
     public Spinner(Context context) {
         this(context, null);
     }
 
     /**
-     * Construct a new spinner with the given context's theme and the supplied
-     * mode of displaying choices. <code>mode</code> may be one of
-     * {@link #MODE_DIALOG} or {@link #MODE_DROPDOWN}.
+     * 使用给定的选择模式以及上下文中的主题来构造一个新的微调控件.
+     * <code>mode</code> 可以是 {@link #MODE_DIALOG} 或 {@link #MODE_DROPDOWN}.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param mode Constant describing how the user will select choices from the spinner.
+     * @param context 视图运行的上下文，通过它可以访问当前主题及资源等
+     * @param mode 描述用户如何从微调控件中选择内容的常量
      * 
      * @see #MODE_DIALOG
      * @see #MODE_DROPDOWN
@@ -111,45 +108,37 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
-     * Construct a new spinner with the given context's theme and the supplied attribute set.
+     * 使用给定的上下文中的主题及属性集合构造一个新的微调控件.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the view.
+     * @param context 视图运行的上下文，通过它可以访问当前主题及资源等
+     * @param attrs 要设置到视图上的属性集合
      */
     public Spinner(Context context, AttributeSet attrs) {
         this(context, attrs, com.android.internal.R.attr.spinnerStyle);
     }
 
     /**
-     * Construct a new spinner with the given context's theme, the supplied attribute set,
-     * and default style.
+     * 使用给定的上下文中的主题、属性集合以及默认风格构造一个新的微调控件.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the view.
-     * @param defStyle The default style to apply to this view. If 0, no style
-     *        will be applied (beyond what is included in the theme). This may
-     *        either be an attribute resource, whose value will be retrieved
-     *        from the current theme, or an explicit style resource.
+     * @param context 视图运行的上下文，通过它可以访问当前主题及资源等
+     * @param attrs 要设置到视图上的属性集合
+     * @param defStyle 应用到视图的默认风格.如果为零则不会应用默认风格（超出主题范围了）.
+     *        该值可以时在当前主题中可以找到的属性资源，或者风格资源.
      */
     public Spinner(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs, defStyle, MODE_THEME);
     }
 
     /**
-     * Construct a new spinner with the given context's theme, the supplied attribute set,
-     * and default style. <code>mode</code> may be one of {@link #MODE_DIALOG} or
-     * {@link #MODE_DROPDOWN} and determines how the user will select choices from the spinner.
+     * 使用给定的上下文中的主题、属性集合以及默认风格构造一个新的微调控件.
+     * <code>mode</code> 可以是 {@link #MODE_DIALOG} 或 {@link #MODE_DROPDOWN}
+     * 用于决定用户选择什么样的微调控件.
      *
-     * @param context The Context the view is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the view.
-     * @param defStyle The default style to apply to this view. If 0, no style
-     *        will be applied (beyond what is included in the theme). This may
-     *        either be an attribute resource, whose value will be retrieved
-     *        from the current theme, or an explicit style resource.
-     * @param mode Constant describing how the user will select choices from the spinner.
+     * @param context 视图运行的上下文，通过它可以访问当前主题及资源等
+     * @param attrs 要设置到视图上的属性集合
+     * @param defStyle 应用到视图的默认风格.如果为零则不会应用默认风格（超出主题范围了）.
+     *        该值可以时在当前主题中可以找到的属性资源，或者风格资源.
+     * @param mode 描述用户选择什么样的微调控件的常量.
      * 
      * @see #MODE_DIALOG
      * @see #MODE_DROPDOWN
@@ -348,10 +337,9 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
-     * Describes how the selected item view is positioned. Currently only the horizontal component
-     * is used. The default is determined by the current theme.
+     * 设置视图如何定位选中的条目.当前只使用横向相关值.默认值由当前主题决定.
      *
-     * @param gravity See {@link android.view.Gravity}
+     * @param gravity 参见 {@link android.view.Gravity}
      *
      * @attr ref android.R.styleable#Spinner_gravity
      */
@@ -416,11 +404,10 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
-     * <p>A spinner does not support item click events. Calling this method
-     * will raise an exception.</p>
-     * <p>Instead use {@link AdapterView#setOnItemSelectedListener}.
+     * <p>Spinner 不支持条目的点击事件，调用此方法将引发异常.</p>
+     * <p>Instead use {@link AdapterView#setOnItemSelectedListener}.</p>
      *
-     * @param l this listener will be ignored
+     * @param l 这个监听器将被忽略.
      */
     @Override
     public void setOnItemClickListener(OnItemClickListener l) {
@@ -449,7 +436,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     /**
      * @see android.view.View#onLayout(boolean,int,int,int,int)
      *
-     * Creates and positions all views
+     * 创建并设置每个视图的布局
      *
      */
     @Override
@@ -631,23 +618,23 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
-     * Sets the prompt to display when the dialog is shown.
-     * @param prompt the prompt to set
+     * 设置对话框弹出的时候显示的提示（译者注：设置弹出视图上的标题）
+     * @param prompt 设置的提示
      */
     public void setPrompt(CharSequence prompt) {
         mPopup.setPromptText(prompt);
     }
 
     /**
-     * Sets the prompt to display when the dialog is shown.
-     * @param promptId the resource ID of the prompt to display when the dialog is shown
+     * 设置对话框弹出的时候显示的提示（译者注：设置弹出视图上的标题）
+     * @param promptId 用于对话框提示的资源 ID.
      */
     public void setPromptId(int promptId) {
         setPrompt(getContext().getText(promptId));
     }
 
     /**
-     * @return The prompt to display when the dialog is shown
+     * @return 对话框弹出的时候显示的提示（译者注：获得弹出视图上的标题）
      */
     public CharSequence getPrompt() {
         return mPopup.getHintText();

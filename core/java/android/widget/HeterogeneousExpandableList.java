@@ -20,51 +20,46 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Additional methods that when implemented make an
- * {@link ExpandableListAdapter} take advantage of the {@link Adapter} view type
- * mechanism.
+ * 可以实现为 {@link ExpandableListAdapter} 带来 {@link Adapter} 的视图类型机制的附加方法.
  * <p>
- * An {@link ExpandableListAdapter} declares it has one view type for its group items
- * and one view type for its child items. Although adapted for most {@link ExpandableListView}s,
- * these values should be tuned for heterogeneous {@link ExpandableListView}s.
+ * {@link ExpandableListAdapter} 声明它有一个用于分组项目的视图类型和一个用于子项目的视图类型.
+ * 这适用于大多数的 {@link ExpandableListView}，也可以转换为复杂的 {@link ExpandableListView}.
  * </p>
- * Lists that contain different types of group and/or child item views, should use an adapter that
- * implements this interface. This way, the recycled views that will be provided to
+ * 列表包含不同类型的分组视图或子视图，可以使用实现了该接口的适配器.这种方法会重用视图并提供给
  * {@link android.widget.ExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup)}
- * and
+ * 和
  * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
- * will be of the appropriate group or child type, resulting in a more efficient reuse of the
- * previously created views.
+ * 方法，作为适当的分组视图或子视图类型，结果就是更有效的重用之前创建的视图.
  */
 public interface HeterogeneousExpandableList {
     /**
-     * Get the type of group View that will be created by
+     * 取得指定的分组条目的由
      * {@link android.widget.ExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup)}
-     * . for the specified group item.
+     * 创建的分组视图的类型.
      * 
-     * @param groupPosition the position of the group for which the type should be returned.
-     * @return An integer representing the type of group View. Two group views should share the same
-     *         type if one can be converted to the other in
+     * @param groupPosition 分组条目的位置.
+     * @return 代表分组视图类型的整数.如果一个视图可以通过
      *         {@link android.widget.ExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup)}
-     *         . Note: Integers must be in the range 0 to {@link #getGroupTypeCount} - 1.
-     *         {@link android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE} can also be returned.
+     *         转换为另一个视图，那么他们可以共享相同的类型.
+     *         注意：整数的范围必须在 0 到 {@link #getGroupTypeCount} - 1 之间.
+     *         也可以返回 {@link android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE}.
      * @see android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE
      * @see #getGroupTypeCount()
      */
     int getGroupType(int groupPosition);
 
     /**
-     * Get the type of child View that will be created by
+     * 取得由
      * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
-     * for the specified child item.
+     * 创建的指定的子视图的类型.
      * 
-     * @param groupPosition the position of the group that the child resides in
-     * @param childPosition the position of the child with respect to other children in the group
-     * @return An integer representing the type of child View. Two child views should share the same
-     *         type if one can be converted to the other in
+     * @param groupPosition 包含子条目的分组条目的位置.
+     * @param childPosition 分组中的子条目的位置.
+     * @return 代表子视图类型的整数.如果一个视图可以通过
      *         {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
-     *         Note: Integers must be in the range 0 to {@link #getChildTypeCount} - 1.
-     *         {@link android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE} can also be returned.
+     *         转换为另一个视图，那么他们可以共享相同的类型.
+     *         注意：整数的范围必须在 0 到 {@link #getChildTypeCount} - 1 之间.
+     *         也可以返回 {@link android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE}.
      * @see android.widget.Adapter#IGNORE_ITEM_VIEW_TYPE
      * @see #getChildTypeCount()
      */
@@ -72,16 +67,15 @@ public interface HeterogeneousExpandableList {
 
     /**
      * <p>
-     * Returns the number of types of group Views that will be created by
-     * {@link android.widget.ExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup)}
-     * . Each type represents a set of views that can be converted in
-     * {@link android.widget.ExpandableListAdapter#getGroupView(int, boolean, View, ViewGroup)}
-     * . If the adapter always returns the same type of View for all group items, this method should
-     * return 1.
+     * 返回由
+     * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
+     * 创建的分组视图类型的个数.每种类型代表可以由
+     * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
+     * 转换的视图的集合.如果适配器对所有的分组元素都返回同一种类型，该方法返回 1.
      * </p>
-     * This method will only be called when the adapter is set on the {@link AdapterView}.
+     * 该方法仅在适配器为 {@link AdapterView}时调用.
      * 
-     * @return The number of types of group Views that will be created by this adapter.
+     * @return 返回由该适配器创建的分组视图类型的个数.
      * @see #getChildTypeCount()
      * @see #getGroupType(int)
      */
@@ -89,16 +83,16 @@ public interface HeterogeneousExpandableList {
 
     /**
      * <p>
-     * Returns the number of types of child Views that will be created by
+     * 返回由
      * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
-     * . Each type represents a set of views that can be converted in
+     * 创建的子视图类型的个数.每种类型代表可以由
      * {@link android.widget.ExpandableListAdapter#getChildView(int, int, boolean, View, ViewGroup)}
-     * , for any group. If the adapter always returns the same type of View for
-     * all child items, this method should return 1.
+     * 转换的任意分组中视图的集合.如果适配器对所有的子元素都返回同一种类型，
+     * 该方法返回 1.
      * </p>
-     * This method will only be called when the adapter is set on the {@link AdapterView}.
+     * 该方法仅在适配器为 {@link AdapterView}时调用.
      * 
-     * @return The total number of types of child Views that will be created by this adapter.
+     * @return 由适配器创建的子视图类型总数.
      * @see #getGroupTypeCount()
      * @see #getChildType(int, int)
      */

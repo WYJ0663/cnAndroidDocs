@@ -29,6 +29,11 @@ import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+/**
+ * @author translate by madgoat
+ * @author review by cnmahj
+ * @author convert by cnmahj
+ */
 public abstract class AbsSeekBar extends ProgressBar {
     private Drawable mThumb;
     private int mThumbOffset;
@@ -87,12 +92,12 @@ public abstract class AbsSeekBar extends ProgressBar {
     }
 
     /**
-     * Sets the thumb that will be drawn at the end of the progress meter within the SeekBar.
+     * 设置在 SeekBar 显示的进度的结束位置处显示的手柄的可绘制对象.
      * <p>
-     * If the thumb is a valid drawable (i.e. not null), half its width will be
-     * used as the new thumb offset (@see #setThumbOffset(int)).
+     * 如果 thumb 是有效的可绘制对象（例如它不是 null），它的宽度的一半将作为新的手柄的绘制位置.
+     * @see #setThumbOffset(int)
      * 
-     * @param thumb Drawable representing the thumb
+     * @param thumb 代表手柄的可绘制对象.
      */
     public void setThumb(Drawable thumb) {
         boolean needUpdate;
@@ -154,10 +159,9 @@ public abstract class AbsSeekBar extends ProgressBar {
     }
 
     /**
-     * Sets the thumb offset that allows the thumb to extend out of the range of
-     * the track.
+     * 设置手柄的位置.允许手柄的位置超出轨道的范围.
      * 
-     * @param thumbOffset The offset amount in pixels.
+     * @param thumbOffset 像素单位的位置值.
      */
     public void setThumbOffset(int thumbOffset) {
         mThumbOffset = thumbOffset;
@@ -165,22 +169,20 @@ public abstract class AbsSeekBar extends ProgressBar {
     }
 
     /**
-     * Sets the amount of progress changed via the arrow keys.
+     * 设置使用方向键更改进度时每次的增量.
      * 
-     * @param increment The amount to increment or decrement when the user
-     *            presses the arrow keys.
+     * @param increment 当用户按下方向键时增加或减少的值.
      */
     public void setKeyProgressIncrement(int increment) {
         mKeyProgressIncrement = increment < 0 ? -increment : increment;
     }
 
     /**
-     * Returns the amount of progress changed via the arrow keys.
+     * 返回使用方向键更改进度时每次的增量.
      * <p>
-     * By default, this will be a value that is derived from the max progress.
+     * 默认情况下此值是根据最大值算出的.
      * 
-     * @return The amount to increment or decrement when the user presses the
-     *         arrow keys. This will be positive.
+     * @return 当用户按下方向键时减少或增加的进度值.该值为正数.
      */
     public int getKeyProgressIncrement() {
         return mKeyProgressIncrement;
@@ -462,15 +464,14 @@ public abstract class AbsSeekBar extends ProgressBar {
     }
     
     /**
-     * This is called when the user has started touching this widget.
+     * 当用户开始触摸该小部件时发生.
      */
     void onStartTrackingTouch() {
         mIsDragging = true;
     }
 
     /**
-     * This is called when the user either releases his touch or the touch is
-     * canceled.
+     * 当用户结束触摸或取消触摸该小部件时发生.
      */
     void onStopTrackingTouch() {
         mIsDragging = false;

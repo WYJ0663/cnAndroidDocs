@@ -25,16 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * An easy adapter to map static data to group and child views defined in an XML
- * file. You can separately specify the data backing the group as a List of
- * Maps. Each entry in the ArrayList corresponds to one group in the expandable
- * list. The Maps contain the data for each row. You also specify an XML file
- * that defines the views used to display a group, and a mapping from keys in
- * the Map to specific views. This process is similar for a child, except it is
- * one-level deeper so the data backing is specified as a List<List<Map>>,
- * where the first List corresponds to the group of the child, the second List
- * corresponds to the position of the child within the group, and finally the
- * Map holds the data for that particular child.
+ * 首个List对应子元素中所代表的组，第二个List对应孙子元素在子元素组中的位置.
+ * Map亦将支持这样的特殊元素.（子元素嵌套组元素的情况）
+ * 将XML文件中定义的静态数据映射到组及其视图的简单的适配器.
+ * 你可以用 Map的列表，为组指定其后台数据.每个数组元素对应一个可展开列表的一个组.
+ * Maps 包含每行的数据.你还可以指定 XML 文件来定义用于显示组的视图，
+ * 并通过 Map 的键值映射到指定的视图.该过程适用于组的子元素.
+ * 单级以外的可展开列表的后台数据类型为List&lt;List&lt;Map&gt;&gt;，
+ * 第一级列表对应可扩展视图组中的组视图，第二级列表对应组的子组视图，
+ * 最后 Map 保持子组视图的子视图的数据.
  */
 public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     private List<? extends Map<String, ?>> mGroupData;
@@ -52,40 +51,26 @@ public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     private LayoutInflater mInflater;
     
     /**
-     * Constructor
+     * 构造函数
      * 
-     * @param context The context where the {@link ExpandableListView}
-     *            associated with this {@link SimpleExpandableListAdapter} is
-     *            running
-     * @param groupData A List of Maps. Each entry in the List corresponds to
-     *            one group in the list. The Maps contain the data for each
-     *            group, and should include all the entries specified in
-     *            "groupFrom"
-     * @param groupFrom A list of keys that will be fetched from the Map
-     *            associated with each group.
-     * @param groupTo The group views that should display column in the
-     *            "groupFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the groupFrom parameter.
-     * @param groupLayout resource identifier of a view layout that defines the
-     *            views for a group. The layout file should include at least
-     *            those named views defined in "groupTo"
-     * @param childData A List of List of Maps. Each entry in the outer List
-     *            corresponds to a group (index by group position), each entry
-     *            in the inner List corresponds to a child within the group
-     *            (index by child position), and the Map corresponds to the data
-     *            for a child (index by values in the childFrom array). The Map
-     *            contains the data for each child, and should include all the
-     *            entries specified in "childFrom"
-     * @param childFrom A list of keys that will be fetched from the Map
-     *            associated with each child.
-     * @param childTo The child views that should display column in the
-     *            "childFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the childFrom parameter.
-     * @param childLayout resource identifier of a view layout that defines the
-     *            views for a child. The layout file should include at least
-     *            those named views defined in "childTo"
+     * @param context 运行时，与 {@link SimpleExpandableListAdapter}
+     *            关联的 {@link ExpandableListView} 的上下文.
+     * @param groupData 一个Maps列表.列表中的每个项目对应列表中的一个组.
+     *            Map 包含每个组的数据，应该包含“groupFrom”中所有项目.
+     * @param groupFrom 用于从与组关联的每个 Map 中取得数据的键值列表.
+     * @param groupTo 由“groupFrom”参数指定的用于显示的组视图.他们应该是文本视图.
+     *            列表中的视图由“groupFrom”参数提供其显示的值.
+     * @param groupLayout 定义组视图的视图布局资源标识.该布局文件应该至少包括
+     *            groupTo中所定义的视图.
+     * @param childData Map列表的列表.外层列表中的每个项目对应一个组（按组顺序排列）.
+     *            内层列表中的每个项目对应一个子组项目（按组顺序排列）.
+     *            Map 对应子视图中的数据（按childFrom的顺序排列）.
+     *            Map包含每个子视图的数据，应该包含在“childFrom”中指定的虽有条目.
+     * @param childFrom 用于从与子视图关联的每个 Map 中取得数据的键值列表.
+     * @param childTo 由“childFrom”参数指定的用于显示的子视图.他们应该是文本视图.
+     *            列表中的视图由“childFrom”参数提供其显示的值.
+     * @param childLayout 定义子视图的视图布局资源标识.该布局文件应该至少包括
+     *            childTo中所定义的视图.
      */
     public SimpleExpandableListAdapter(Context context,
             List<? extends Map<String, ?>> groupData, int groupLayout,
@@ -97,43 +82,28 @@ public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * Constructor
+     * 构造函数
      * 
-     * @param context The context where the {@link ExpandableListView}
-     *            associated with this {@link SimpleExpandableListAdapter} is
-     *            running
-     * @param groupData A List of Maps. Each entry in the List corresponds to
-     *            one group in the list. The Maps contain the data for each
-     *            group, and should include all the entries specified in
-     *            "groupFrom"
-     * @param groupFrom A list of keys that will be fetched from the Map
-     *            associated with each group.
-     * @param groupTo The group views that should display column in the
-     *            "groupFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the groupFrom parameter.
-     * @param expandedGroupLayout resource identifier of a view layout that
-     *            defines the views for an expanded group. The layout file
-     *            should include at least those named views defined in "groupTo"
-     * @param collapsedGroupLayout resource identifier of a view layout that
-     *            defines the views for a collapsed group. The layout file
-     *            should include at least those named views defined in "groupTo"
-     * @param childData A List of List of Maps. Each entry in the outer List
-     *            corresponds to a group (index by group position), each entry
-     *            in the inner List corresponds to a child within the group
-     *            (index by child position), and the Map corresponds to the data
-     *            for a child (index by values in the childFrom array). The Map
-     *            contains the data for each child, and should include all the
-     *            entries specified in "childFrom"
-     * @param childFrom A list of keys that will be fetched from the Map
-     *            associated with each child.
-     * @param childTo The child views that should display column in the
-     *            "childFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the childFrom parameter.
-     * @param childLayout resource identifier of a view layout that defines the
-     *            views for a child. The layout file should include at least
-     *            those named views defined in "childTo"
+     * @param context 运行时，与 {@link SimpleExpandableListAdapter}
+     *            关联的 {@link ExpandableListView} 的上下文.
+     * @param groupData 一个Maps列表.列表中的每个项目对应列表中的一个组.
+     *            Map 包含每个组的数据，应该包含“groupFrom”中所有项目.
+     * @param groupFrom 用于从与组关联的每个 Map 中取得数据的键值列表.
+     * @param groupTo 由“groupFrom”参数指定的用于显示的组视图.他们应该是文本视图.
+     *            列表中的视图由“groupFrom”参数提供其显示的值.
+     * @param expandedGroupLayout 定义组展开时视图的XML资源布局.
+     *            该布局文件应当至少包括所有在groupTo中所定义的视图.
+     * @param collapsedGroupLayout 定义组收起时视图的XML资源布局.
+     *            该布局文件应当至少包括所有在groupTo中所定义的视图.
+     * @param childData Map列表的列表.外层列表中的每个项目对应一个组（按组顺序排列）.
+     *            内层列表中的每个项目对应一个子组项目（按组顺序排列）.
+     *            Map 对应子视图中的数据（按childFrom的顺序排列）.
+     *            Map包含每个子视图的数据，应该包含在“childFrom”中指定的虽有条目.
+     * @param childFrom 用于从与子视图关联的每个 Map 中取得数据的键值列表.
+     * @param childTo 由“childFrom”参数指定的用于显示的子视图.他们应该是文本视图.
+     *            列表中的视图由“childFrom”参数提供其显示的值.
+     * @param childLayout 定义子视图的视图布局资源标识.该布局文件应该至少包括
+     *            childTo中所定义的视图.
      */
     public SimpleExpandableListAdapter(Context context,
             List<? extends Map<String, ?>> groupData, int expandedGroupLayout,
@@ -146,48 +116,31 @@ public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * Constructor
+     * 构造函数
      * 
-     * @param context The context where the {@link ExpandableListView}
-     *            associated with this {@link SimpleExpandableListAdapter} is
-     *            running
-     * @param groupData A List of Maps. Each entry in the List corresponds to
-     *            one group in the list. The Maps contain the data for each
-     *            group, and should include all the entries specified in
-     *            "groupFrom"
-     * @param groupFrom A list of keys that will be fetched from the Map
-     *            associated with each group.
-     * @param groupTo The group views that should display column in the
-     *            "groupFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the groupFrom parameter.
-     * @param expandedGroupLayout resource identifier of a view layout that
-     *            defines the views for an expanded group. The layout file
-     *            should include at least those named views defined in "groupTo"
-     * @param collapsedGroupLayout resource identifier of a view layout that
-     *            defines the views for a collapsed group. The layout file
-     *            should include at least those named views defined in "groupTo"
-     * @param childData A List of List of Maps. Each entry in the outer List
-     *            corresponds to a group (index by group position), each entry
-     *            in the inner List corresponds to a child within the group
-     *            (index by child position), and the Map corresponds to the data
-     *            for a child (index by values in the childFrom array). The Map
-     *            contains the data for each child, and should include all the
-     *            entries specified in "childFrom"
-     * @param childFrom A list of keys that will be fetched from the Map
-     *            associated with each child.
-     * @param childTo The child views that should display column in the
-     *            "childFrom" parameter. These should all be TextViews. The
-     *            first N views in this list are given the values of the first N
-     *            columns in the childFrom parameter.
-     * @param childLayout resource identifier of a view layout that defines the
-     *            views for a child (unless it is the last child within a group,
-     *            in which case the lastChildLayout is used). The layout file
-     *            should include at least those named views defined in "childTo"
-     * @param lastChildLayout resource identifier of a view layout that defines
-     *            the views for the last child within each group. The layout
-     *            file should include at least those named views defined in
-     *            "childTo"
+     * @param context 运行时，与 {@link SimpleExpandableListAdapter}
+     *            关联的 {@link ExpandableListView} 的上下文.
+     * @param groupData 一个Maps列表.列表中的每个项目对应列表中的一个组.
+     *            Map 包含每个组的数据，应该包含“groupFrom”中所有项目.
+     * @param groupFrom 用于从与组关联的每个 Map 中取得数据的键值列表.
+     * @param groupTo 由“groupFrom”参数指定的用于显示的组视图.他们应该是文本视图.
+     *            列表中的视图由“groupFrom”参数提供其显示的值.
+     * @param expandedGroupLayout 定义组展开时视图的XML资源布局.
+     *            该布局文件应当至少包括所有在groupTo中所定义的视图.
+     * @param collapsedGroupLayout 定义组收起时视图的XML资源布局.
+     *            该布局文件应当至少包括所有在groupTo中所定义的视图.
+     * @param childData Map列表的列表.外层列表中的每个项目对应一个组（按组顺序排列）.
+     *            内层列表中的每个项目对应一个子组项目（按组顺序排列）.
+     *            Map 对应子视图中的数据（按childFrom的顺序排列）.
+     *            Map包含每个子视图的数据，应该包含在“childFrom”中指定的虽有条目.
+     * @param childFrom 用于从与子视图关联的每个 Map 中取得数据的键值列表.
+     * @param childTo 由“childFrom”参数指定的用于显示的子视图.他们应该是文本视图.
+     *            列表中的视图由“childFrom”参数提供其显示的值.
+     * @param childLayout 定义子视图的视图布局资源标识
+     *            （除了在使用了lastChildLayout时的最后一个子视图）.
+     *            该布局文件应该至少包括“childTo”中所定义的视图.
+     * @param lastChildLayout 定义每个组中最后一个子视图的资源标识.
+     *            布局文件至少应该包含在“childTo”中定义的视图.
      */
     public SimpleExpandableListAdapter(Context context,
             List<? extends Map<String, ?>> groupData, int expandedGroupLayout,
@@ -231,10 +184,10 @@ public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * Instantiates a new View for a child.
-     * @param isLastChild Whether the child is the last child within its group.
-     * @param parent The eventual parent of this new View.
-     * @return A new child View
+     * 为子项目实例化一个新视图.
+     * @param isLastChild 该子视图是否是组中的最后一个视图.
+     * @param parent 该新视图的父视图.
+     * @return 新的子视图.
      */
     public View newChildView(boolean isLastChild, ViewGroup parent) {
         return mInflater.inflate((isLastChild) ? mLastChildLayout : mChildLayout, parent, false);
@@ -280,10 +233,10 @@ public class SimpleExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * Instantiates a new View for a group.
-     * @param isExpanded Whether the group is currently expanded.
-     * @param parent The eventual parent of this new View.
-     * @return A new group View
+     * 为组实例化新视图.
+     * @param isExpanded 该视图当前是否处于展开状态.
+     * @param parent 该新视图的父视图.
+     * @return 新的组视图.
      */
     public View newGroupView(boolean isExpanded, ViewGroup parent) {
         return mInflater.inflate((isExpanded) ? mExpandedGroupLayout : mCollapsedGroupLayout,

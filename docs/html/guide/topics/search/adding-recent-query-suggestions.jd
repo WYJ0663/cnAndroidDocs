@@ -1,113 +1,96 @@
-page.title=Adding Recent Query Suggestions
-parent.title=Search
+page.title=增加最近查询的建议项
+parent.title=检索
 parent.link=index.html
 @jd:body
 
 <div id="qv-wrapper">
 <div id="qv">
-<h2>In this document</h2>
+<h2>译者链接</h2>
 <ol>
-<li><a href="#TheBasics">The Basics</a></li>
-<li><a href="#RecentQueryContentProvider">Creating a Content Provider</a></li>
-<li><a href="#RecentQuerySearchableConfiguration">Modifying the Searchable
-Configuration</a></li>
-<li><a href="#SavingQueries">Saving Queries</a></li>
-<li><a href="#ClearingSuggestionData">Clearing the Suggestion Data</a></li>
+<li><a href="http://weibo.com/popapa">呆呆大虾</a></li>
 </ol>
 
-<h2>Key classes</h2>
+<h2>本文目录</h2>
+<ol>
+<li><a href="#TheBasics">简介</a></li>
+<li><a href="#RecentQueryContentProvider">创建Content Provider </a></li>
+<li><a href="#RecentQuerySearchableConfiguration">修改搜索配置文件 </a></li>
+<li><a href="#SavingQueries">保存搜索请求</a></li>
+<li><a href="#ClearingSuggestionData">清除建议项数据</a></li>
+</ol>
+
+<h2>关键类</h2>
 <ol>
 <li>{@link android.provider.SearchRecentSuggestions}</li>
 <li>{@link android.content.SearchRecentSuggestionsProvider}</li>
 </ol>
 
-<h2>See also</h2>
+<h2>参阅</h2>
 <ol>
-<li><a href="searchable-config.html">Searchable Configuration</a></li>
+<li><a href="searchable-config.html">搜索配置文件</a></li>
 </ol>
 </div>
 </div>
 
-<p>When using the Android search dialog or search widget, you can provide search suggestions based
-on recent search
-queries. For example, if a user previously searched for "puppies," then that query appears as a
-suggestion once he or she begins typing the same query. Figure 1 shows an example of a search dialog
-with recent query suggestions.</p>
+<p>使用Android的搜索对话框或者搜索widget时，可能需要根据最近的搜索请求提供搜索建议项。
+比如，假设用户以前搜索过“puppies”，那么一旦他开始键入同样的请求时，这就可以作为建议项显示出来。
+图1展示了带有最近求建议的搜索对话框。</p>
 
-<p>Before you begin, you need to implement the search dialog or a search widget for basic searches
-in your application.
-If you haven't, see <a href="search-dialog.html">Creating a Search Interface</a>.</p>
+<p>在开始前，需要为应用程序基本的搜索功能实现搜索对话框或搜索widget。如果没有，请参阅
+<a href="search-dialog.html">创建搜索界面</a>。</p>
 
-
-
-<h2 id="TheBasics">The Basics</h2>
+<h2 id="TheBasics">简介</h2>
 
 <div class="figure" style="width:250px">
 <img src="{@docRoot}images/search/search-suggest-recent-queries.png" alt="" height="417"  />
-<p class="img-caption"><strong>Figure 1.</strong> Screenshot of a search dialog with recent query
-suggestions.</p>
+<p class="img-caption"><strong>图 1.</strong>带有最近请求建议的搜索对话框截屏</p>
 </div>
 
-<p>Recent query suggestions are simply saved searches. When the user selects one of
-the suggestions, your searchable activity receives a {@link
-android.content.Intent#ACTION_SEARCH} intent with the suggestion as the search query, which your
-searchable activity already handles (as described in <a href="search-dialog.html">Creating a Search
-Interface</a>).</p>
+<p>最近请求建议项只是简单地保存了搜索文本。当用户选中一个建议项时，搜索 activity 会收到一个
+{@link android.content.Intent#ACTION_SEARCH} intent，其中附带了作为搜索请求的建议项，
+该请求以前已经由搜索activity处理过的（如<a href="search-dialog.html">创建搜索界面</a>所述)。</p>
 
-<p>To provide recent queries suggestions, you need to:</p>
+<p>要提供最近请求建议功能，需要：</p>
 
 <ul>
-  <li>Implement a searchable activity, as described in <a
-href="{@docRoot}guide/topics/search/search-dialog.html">Creating a Search Interface</a>.</li>
-  <li>Create a content provider that extends {@link
-android.content.SearchRecentSuggestionsProvider} and declare it in your application manifest.</li>
-  <li>Modify the searchable configuration with information about the content provider that
-provides search suggestions.</li>
-  <li>Save queries to your content provider each time a search is executed.</li>
+  <li>实现一个搜索activity，如<a href="{@docRoot}guide/topics/search/search-dialog.html">
+  创建搜索界面</a>中所述。</li>
+  <li>创建一个继承自 {@link android.content.SearchRecentSuggestionsProvider} 的content provider，
+  并在manifest中进行声明。</li>
+  <li>修改搜索配置文件中有关提供搜索建议项的content provider配置。</li>
+  <li>每次执行搜索后把请求保存到content provider中。</li>
 </ul>
 
-<p>Just as the Android system displays the search dialog, it also displays the
-search suggestions below the dialog or search widget. All you need to do is provide a source from
-which the system can retrieve suggestions.</p>
+<p>Android系统显示搜索对话框时，也就会把搜索建议项显示在对话框或搜索widget下面。
+所有需要做的事情就是提供数据源，系统能够从中获取建议项。</p>
 
-<p>When the system identifies that your activity is searchable and provides search
-suggestions, the following procedure takes place as soon as the user begins typing a query:</p>
+<p>如果系统识别出activity是支持搜索功能并提供搜索建议的，则用户一旦开始键入搜索请求，就会触发以下动作：</p>
 
 <ol>
-  <li>The system takes the search query text (whatever has been typed so far) and performs a
-query to the content provider that contains your suggestions.</li>
-  <li>Your content provider returns a {@link android.database.Cursor} that points to all
-suggestions that match the search query text.</li>
-  <li>The system displays the list of suggestions provided by the Cursor.</li>
+  <li>系统读取搜索请求文本（输入多少读取多少）并在存放建议项的content provider中进行检索。</li>
+  <li>content provider返回一个 {@link android.database.Cursor}，它指向匹配搜索文本的全部建议项。 </li>
+  <li>系统显示该Cursor提供的建议项列表。</li>
 </ol>
 
-<p>Once the recent query suggestions are displayed, the following might happen:</p>
+<p>一旦最近请求建议项显示完毕，将发生以下事情：</p>
 
 <ul>
-  <li>If the user types another key, or changes the query in any way, the aforementioned steps are
-repeated and the suggestion list is updated.</li>
-  <li>If the user executes the search, the suggestions are ignored and the search is delivered
-to your searchable activity using the normal {@link android.content.Intent#ACTION_SEARCH}
-intent.</li>
-  <li>If the user selects a suggestion, an
-{@link android.content.Intent#ACTION_SEARCH} intent is delivered to your searchable activity using
-the suggested text as the query.</li>
+  <li>如果用户键入其它字符，或者以其它任何方式修改了请求文本，则上述步骤会重复执行，建议项列表将同步更新。</li>
+  <li>如果用户执行了搜索，建议项将被忽略，搜索文本将用正常的{@link android.content.Intent#ACTION_SEARCH}
+   intent发送给搜索activity。</li>
+  <li>•	如果用户选中了某个建议项，{@link android.content.Intent#ACTION_SEARCH} intent
+  将把建议项文本作为请求发送给搜索activity。</li>
 </ul>
 
-<p>The {@link android.content.SearchRecentSuggestionsProvider} class that
-you extend for your content provider automatically does the work described above, so there's
-actually very little code to write.</p>
+<p>作为content provider使用的{@link android.content.SearchRecentSuggestionsProvider}
+类会自动处理上述工作的，因此实际上只需要编写很少量的代码即可。</p>
 
+<h2 id="RecentQueryContentProvider">创建Content Provider</h2>
 
+<p>最近请求建议项需要用到的content provider必须是 {@link android.content.SearchRecentSuggestionsProvider}
+的实现。该类几乎处理了所有的事情，必需实现的只是编写一个包含一行代码的类构造方法。</p>
 
-<h2 id="RecentQueryContentProvider">Creating a Content Provider</h2>
-
-<p>The content provider that you need for recent query suggestions must be an implementation
-of {@link android.content.SearchRecentSuggestionsProvider}. This class does practically everything
-for you. All you have to do is write a class constructor that executes one line of code.</p>
-
-<p>For example, here's a complete implementation of a content provider for recent query
-suggestions:</p>
+<p>以下是一个最近请求建议项所需的content provider完整的实现示例：</p>
 
 <pre>
 public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
@@ -120,25 +103,19 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
 }
 </pre>
 
-<p>The call to {@link android.content.SearchRecentSuggestionsProvider#setupSuggestions(String,int)
-setupSuggestions()} passes the name of the search authority and a
-database mode. The search authority can be any unique string, but the best practice is to use a
-fully qualified name for your content provider
-(package name followed by the provider's class name; for example,
-"com.example.MySuggestionProvider"). The database mode must include {@link
-android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_QUERIES} and can optionally include
-{@link
-android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_2LINES}, which adds another column
-to the suggestions table that allows you to provide a second line of text with each suggestion. For
-example, if you want to provide two lines in each suggestion:</p>
+<p>{@link android.content.SearchRecentSuggestionsProvider#setupSuggestions(String,int)
+setupSuggestions()} 调用参数为搜索authority和数据库模式。搜索authority可以是任何唯一的字符串，
+但最好是用content provider的完全限定名称（包名加provider类名；比如“com.example.MySuggestionProvider”）。
+数据库模式必须包括 {@link android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_QUERIES}，
+可选项 {@link android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_2LINES}
+会在建议项列表中添加一列，使得每个建议项能提供两条文本。例如，要为每个建议项提供两行文本：</p>
 
 <pre>
 public final static int MODE = DATABASE_MODE_QUERIES | DATABASE_MODE_2LINES;
 </pre>
 
-<p>Now declare the content provider in your application manifest with the same authority
-string used in your {@link android.content.SearchRecentSuggestionsProvider} class (and in the
-searchable configuration). For example:</p>
+<p>下面在manifest文件中声明content provider，authority串是与{@link 
+android.content.SearchRecentSuggestionsProvider}类中（及搜索配置文件中）的相同。例如：</p>
 
 <pre>
 &lt;application>
@@ -148,13 +125,11 @@ searchable configuration). For example:</p>
 &lt;/application>
 </pre>
 
+<h2 id="RecentQuerySearchableConfiguration">修改搜索配置文件</h2>
 
-
-<h2 id="RecentQuerySearchableConfiguration">Modifying the Searchable Configuration</h2>
-
-<p>To configure the system to use your suggestions provider, you need to add
-the {@code android:searchSuggestAuthority} and {@code android:searchSuggestSelection} attributes to
-the {@code &lt;searchable&gt;} element in your searchable configuration file. For example:</p>
+<p>为了能够使用建议项provider，需要对系统进行配置，在搜索配置文件的{@code &lt;searchable&gt;}
+元素中添加 {@code android:searchSuggestAuthority} 和 {@code android:searchSuggestSelection}
+属性。例如：</p>
 
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?>
@@ -166,26 +141,20 @@ the {@code &lt;searchable&gt;} element in your searchable configuration file. Fo
 &lt;/searchable>
 </pre>
 
-<p>The value for {@code android:searchSuggestAuthority} should be a fully qualified name for
-your content provider that exactly matches the authority used in the content provider (the {@code
-AUTHORITY} string in the above example).
-</p>
+<p>{@code android:searchSuggestAuthority} 的值必须是content provider的完全限定名称，
+它必须与content provider使用的authority完全一致（上例中是{@code AUTHORITY} 字符串）。</p>
 
-<p>The value for {@code android:searchSuggestSelection} must be a single question mark, preceded by
-a space ({@code " ?"}), which is simply a placeholder for the SQLite selection argument (which is
-automatically replaced by the query text entered by the user).</p>
+<p>{@code android:searchSuggestSelection} 的值必须是空格加问号（{@code " ?"}），
+这只是一个SQLite查询参数的占位符（将自动替换为用户录入的搜索请求文本）。</p>
 
+<h2 id="SavingQueries">保存搜索请求</h2>
 
-
-<h2 id="SavingQueries">Saving Queries</h2>
-
-<p>To populate your collection of recent queries, add each query
-received by your searchable activity to your {@link
-android.content.SearchRecentSuggestionsProvider}. To do this, create an instance of {@link
-android.provider.SearchRecentSuggestions} and call {@link
-android.provider.SearchRecentSuggestions#saveRecentQuery(String,String) saveRecentQuery()} each time
-your searchable activity receives a query. For example, here's how you can save the query during
-your activity's {@link android.app.Activity#onCreate(Bundle) onCreate()} method:</p>
+<p>为了构建最近搜索请求的集合，需把搜索activity收到的所有请求都添加到 {@link
+android.content.SearchRecentSuggestionsProvider} 中去。要实现这一目标，请创建一个
+{@link android.provider.SearchRecentSuggestions} 的实例，每当搜索activity
+接受到请求时都调用一次 {@link android.provider.SearchRecentSuggestions#saveRecentQuery(String,String)
+saveRecentQuery()}方法。下面是如何在activity的 {@link android.app.Activity#onCreate(Bundle)
+onCreate()}方法中保存搜索请求的示例：</p>
 
 <pre>
 &#64;Override
@@ -204,25 +173,20 @@ public void onCreate(Bundle savedInstanceState) {
 }
 </pre>
 
-<p>The {@link android.content.SearchRecentSuggestionsProvider} constructor requires the
-same authority and database mode declared by your content provider.</p>
+<p>{@link android.content.SearchRecentSuggestionsProvider} 构造方法需要用到与
+content provider定义相同的authority 和数据库模式。</p>
 
-<p>The {@link android.provider.SearchRecentSuggestions#saveRecentQuery(String,String)
-saveRecentQuery()} method takes
-the search query string as the first parameter and, optionally, a second string to include as the
-second line of the suggestion (or null). The second parameter is only used if you've enabled
-two-line mode for the search suggestions with {@link
-android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_2LINES}. If you have enabled
-two-line mode, then the query text is also matched against this second line when the system
-looks for matching suggestions.</p>
+<p>{@link android.provider.SearchRecentSuggestions#saveRecentQuery(String,String)
+saveRecentQuery()} 方法的第一个参数是搜索关键字，第二个参数包含建议项的第二行文本（或为空）。
+第二个参数只有用{@link
+android.content.SearchRecentSuggestionsProvider#DATABASE_MODE_2LINES}启用两行模式
+（two-line mode）时才会用到。如果启用了两行模式（two-line mode），系统在检索建议项时，
+会同时把请求文本与第二行文本进行匹配。</p>
 
+<h2 id="ClearingSuggestionData">清除建议项数据</h2>
 
-
-<h2 id="ClearingSuggestionData">Clearing the Suggestion Data</h2>
-
-<p>To protect the user's privacy, you should always provide a way for the user to clear the recent
-query suggestions. To clear the query history, call {@link
-android.provider.SearchRecentSuggestions#clearHistory()}. For example:</p>
+<p>为了保护用户隐私，应该确保向用户提供清除最近搜索建议项的功能。要清除搜索历史记录，调用 {@link
+android.provider.SearchRecentSuggestions#clearHistory()} 即可。例如：</p>
 
 <pre>
 SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
@@ -230,7 +194,6 @@ SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
 suggestions.clearHistory();
 </pre>
 
-<p>Execute this from your choice of a "Clear Search History" menu item,
-preference item, or button. You should also provide a confirmation dialog to
-verify that the user wants to delete their search history.</p>
+<p>可以选择在“清除搜索历史”菜单项、个人设置项或按钮中执行此操作。
+还应该提供确认对话框来验证用户真的是需要删除搜索历史记录。</p>
 

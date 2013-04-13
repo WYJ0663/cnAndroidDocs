@@ -40,11 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Container for a tabbed window view. This object holds two children: a set of tab labels that the
- * user clicks to select a specific tab, and a FrameLayout object that displays the contents of that
- * page. The individual elements are typically controlled using this container object, rather than
- * setting values on the child elements themselves.
- *
+ * 提供选项卡（Tab页）的窗口视图容器.此对象包含两个子对象：
+ * 一个是使用户可以选择指定标签页的标签的集合；另一个是用于显示标签页内容的 FrameLayout.
+ * 选项卡中的个别元素一般通过其容器对象来控制，而不是直接设置子元素本身的值.
+ * @author translate by madgoat
+ * @author convert by cnmahj
  */
 public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchModeChangeListener {
 
@@ -104,8 +104,8 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
     }
 
     /**
-     * Get a new {@link TabSpec} associated with this tab host.
-     * @param tag required tag of tab.
+     * 获取一个新的 {@link TabSpec}，并关联到当前 TabHost.
+     * @param tag 必要的选项卡的标签.
      */
     public TabSpec newTabSpec(String tag) {
         return new TabSpec(tag);
@@ -114,13 +114,12 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
 
 
     /**
-      * <p>Call setup() before adding tabs if loading TabHost using findViewById().
-      * <i><b>However</i></b>: You do not need to call setup() after getTabHost()
-      * in {@link android.app.TabActivity TabActivity}.
-      * Example:</p>
+      * <p>如果使用 findViewById() 加载 TabHost，那么在新增一个选项卡之前，
+      * 需要调用 setup()方法.<i><b>然而</i></b>，在 {@link android.app.TabActivity TabActivity}
+      * 中调用了 getTabHost() 方法后，你就不再需要调用setup()了.例如：</p>
 <pre>mTabHost = (TabHost)findViewById(R.id.tabhost);
 mTabHost.setup();
-mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
+mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");</pre>
       */
     public void setup() {
         mTabWidget = (TabWidget) findViewById(com.android.internal.R.id.tabs);
@@ -172,11 +171,10 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
-     * If you are using {@link TabSpec#setContent(android.content.Intent)}, this
-     * must be called since the activityGroup is needed to launch the local activity.
-     *
-     * This is done for you if you extend {@link android.app.TabActivity}.
-     * @param activityGroup Used to launch activities for tab content.
+     * 如果你使用 {@link TabSpec#setContent(android.content.Intent)}，
+     * 那么当 activityGroup 需要运行本地活动时，必须调用该方法.
+     * 如果你继承了 {@link android.app.TabActivity}，将自动调用 setup() 方法. 
+     * @param activityGroup 用来为选项卡内容加载活动的 ativityGroup.
      */
     public void setup(LocalActivityManager activityGroup) {
         setup();
@@ -212,8 +210,8 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
-     * Add a tab.
-     * @param tabSpec Specifies how to create the indicator and content.
+     * 添加选项卡.
+     * @param tabSpec 指定怎样创建标签和内容.
      */
     public void addTab(TabSpec tabSpec) {
 
@@ -243,7 +241,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
 
 
     /**
-     * Removes all tabs from the tab widget associated with this tab host.
+     * 从关联到当前 TabHost 的选项卡控件中移除所有选项卡.
      */
     public void clearAllTabs() {
         mTabWidget.removeAllViews();
@@ -291,7 +289,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
-     * Get the FrameLayout which holds tab content
+     * 获取保持选项卡内容的 FrameLayout.
      */
     public FrameLayout getTabContentView() {
         return mTabContent;
@@ -432,10 +430,8 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
-     * Register a callback to be invoked when the selected state of any of the items
-     * in this list changes
-     * @param l
-     * The callback that will run
+     * 注册一个回调函数，当任何一个选项卡的选中状态发生改变时调用.
+     * @param l 回调函数.
      */
     public void setOnTabChangedListener(OnTabChangeListener l) {
         mOnTabChangeListener = l;
@@ -448,7 +444,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
-     * Interface definition for a callback to be invoked when tab changed
+     * 为变更选项卡时调用的回调函数定义的接口.
      */
     public interface OnTabChangeListener {
         void onTabChanged(String tabId);
@@ -456,34 +452,33 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
 
 
     /**
-     * Makes the content of a tab when it is selected. Use this if your tab
-     * content needs to be created on demand, i.e. you are not showing an
-     * existing view or starting an activity.
+     * 当某一选项卡被选中时生成选项卡的内容.如果你的选项卡的内容按某些条件来生成，
+     * 请使用该接口.例如：不显示既存的视图而是启动活动.
      */
     public interface TabContentFactory {
         /**
-         * Callback to make the tab contents
+         * 创建选项卡内容的回调函数.
          *
          * @param tag
-         *            Which tab was selected.
-         * @return The view to display the contents of the selected tab.
+         *            选中的选项卡.
+         * @return 用于显示选中的选项卡内容的视图.
          */
         View createTabContent(String tag);
     }
 
 
     /**
-     * A tab has a tab indicator, content, and a tag that is used to keep
-     * track of it.  This builder helps choose among these options.
-     *
-     * For the tab indicator, your choices are:
-     * 1) set a label
-     * 2) set a label and an icon
-     *
-     * For the tab content, your choices are:
-     * 1) the id of a {@link View}
-     * 2) a {@link TabContentFactory} that creates the {@link View} content.
-     * 3) an {@link Intent} that launches an {@link android.app.Activity}.
+     * 每个选项卡都包含选项卡指示符、内容和用于识别选项卡的标签.
+     * 该生成器用于帮助您选择这些选项.
+     * 
+     * 对于选项卡指示符，你可以选择：
+     * 1)设置为标签；
+     * 2)设置为标签和图标.
+     * 
+     * 对于选项卡的内容，你可以选择：
+     * 1) {@link View 视图}的ID；
+     * 2) 创建{@link View 视图}内容的  {@link TabContentFactory}； 
+     * 3) 用于启动 {@link android.app.Activity 活动}的{@link Intent 意图}.
      */
     public class TabSpec {
 
@@ -497,7 +492,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify a label as the tab indicator.
+         * 指定标签作为选项卡的指示符.
          */
         public TabSpec setIndicator(CharSequence label) {
             mIndicatorStrategy = new LabelIndicatorStrategy(label);
@@ -505,7 +500,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify a label and icon as the tab indicator.
+         * 指定标签和图标作为选项卡的指示符.
          */
         public TabSpec setIndicator(CharSequence label, Drawable icon) {
             mIndicatorStrategy = new LabelAndIconIndicatorStrategy(label, icon);
@@ -513,7 +508,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify a view as the tab indicator.
+         * 指定视图作为选项卡的指示符.
          */
         public TabSpec setIndicator(View view) {
             mIndicatorStrategy = new ViewIndicatorStrategy(view);
@@ -521,8 +516,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify the id of the view that should be used as the content
-         * of the tab.
+         * 指定用于显示选项卡内容的视图 ID.
          */
         public TabSpec setContent(int viewId) {
             mContentStrategy = new ViewIdContentStrategy(viewId);
@@ -530,8 +524,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify a {@link android.widget.TabHost.TabContentFactory} to use to
-         * create the content of the tab.
+         * 指定用于创建选项卡内容的 {@link android.widget.TabHost.TabContentFactory}.
          */
         public TabSpec setContent(TabContentFactory contentFactory) {
             mContentStrategy = new FactoryContentStrategy(mTag, contentFactory);
@@ -539,7 +532,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         /**
-         * Specify an intent to use to launch an activity as the tab content.
+         * 指定用于启动作为选项卡内容的活动的意图.
          */
         public TabSpec setContent(Intent intent) {
             mContentStrategy = new IntentContentStrategy(mTag, intent);

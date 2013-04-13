@@ -11,35 +11,35 @@
 
   <li class="nav-section">
     <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/components/index.html">
-        <span class="en">App Components</span>
+        <span class="en">应用程序组件</span>
       </a></div>
     <ul>
       <li><a href="<?cs var:toroot ?>guide/components/fundamentals.html">
-            <span class="en">App Fundamentals</span></a>
+            <span class="en">应用程序基础</span></a>
       </li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/components/activities.html">
-            <span class="en">Activities</span>
+            <span class="en">活动</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/components/fragments.html">
-              <span class="en">Fragments</span>
+              <span class="en">片段</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/components/loaders.html">
-              <span class="en">Loaders</span>
+              <span class="en">载入器</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/components/tasks-and-back-stack.html">
-              <span class="en">Tasks and Back Stack</span>
+              <span class="en">任务和返回堆栈</span>
             </a></li>
         </ul>
       </li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/components/services.html">
-            <span class="en">Services</span>
+            <span class="en">服务</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/components/bound-services.html">
-              <span class="en">Bound Services</span>
+              <span class="en">绑定服务</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/components/aidl.html">
               <span class="en">AIDL</span>
@@ -48,28 +48,28 @@
       </li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/providers/content-providers.html">
-            <span class="en">Content Providers</span>
+            <span class="en">内容提供器</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/providers/content-provider-basics.html">
-              <span class="en">Content Provider Basics</span>
+              <span class="en">内容提供器基础</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/providers/content-provider-creating.html">
-              <span class="en">Creating a Content Provider</span>
+              <span class="en">创建内容提供器</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/providers/calendar-provider.html">
-              <span class="en">Calendar Provider</span>
+              <span class="en">日历提供器</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/providers/contacts-provider.html">
-              <span class="en">Contacts Provider</span>
+              <span class="en">联系人提供器</span>
             </a></li>
         </ul>
       </li>
       <li><a href="<?cs var:toroot ?>guide/components/intents-filters.html">
-          <span class="en">Intents and Intent Filters</span>
+          <span class="en">意图和意图过滤器</span>
         </a></li>
       <li><a href="<?cs var:toroot ?>guide/components/processes-and-threads.html">
-          <span class="en">Processes and Threads</span>
+          <span class="en">进程和线程</span>
         </a>
       </li>
       <li><a href="<?cs var:toroot ?>guide/topics/security/permissions.html">
@@ -118,56 +118,56 @@
 
   <li class="nav-section">
     <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/ui/index.html">
-        <span class="en">User Interface</span>
+        <span class="en">用户界面</span>
       </a></div>
     <ul>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/overview.html">
-          <span class="en">Overview</span>
+          <span class="en">概述</span>
         </a></li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/ui/declaring-layout.html">
-            <span class="en">Layouts</span>
+            <span class="en">布局</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/linear.html">
-              <span class="en">Linear Layout</span>
+              <span class="en">线性布局</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/relative.html">
-              <span class="en">Relative Layout</span>
+              <span class="en">相对布局</span>
             </a></li>
        <!--
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/grid.html">
-              <span class="en">Grid Layout</span>
+              <span class="en">网格布局</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/tabs.html">
-              <span class="en">Tab Layout</span>
+              <span class="en">选项卡布局</span>
             </a></li>
        -->
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/listview.html">
-              <span class="en">List View</span>
+              <span class="en">列表视图</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/layout/gridview.html">
-              <span class="en">Grid View</span>
+              <span class="en">网格视图</span>
             </a></li>
         </ul>
       </li>
 
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/ui/controls.html">
-            <span class="en">Input Controls</span>
+            <span class="en">输入事件</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/button.html">
-              <span class="en">Buttons</span>
+              <span class="en">按钮</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/text.html">
-              <span class="en">Text Fields</span>
+              <span class="en">文本字段</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/checkbox.html">
-              <span class="en">Checkboxes</span>
+              <span class="en">多选框</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/radiobutton.html">
-              <span class="en">Radio Buttons</span>
+              <span class="en">单选按钮</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/togglebutton.html">
               <span class="en">Toggle Buttons</span>
@@ -186,29 +186,29 @@
         </ul>
       </li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/ui-events.html">
-          <span class="en">Input Events</span>
+          <span class="en">输入事件</span>
         </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/menus.html">
-          <span class="en">Menus</span></span>
+          <span class="en">菜单</span>
           </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/actionbar.html">
            <span class="en">Action Bar</span>
           </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/settings.html">
-            <span class="en">Settings</span>
+            <span class="en">设置</span>
           </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/dialogs.html">
-           <span class="en">Dialogs</span>
+           <span class="en">对话框</span>
           </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/notifiers/notifications.html">
-          <span class="en">Notifications</span>
+          <span class="en">通知</span>
         </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/notifiers/toasts.html">
-          <span class="en">Toasts</span>
+          <span class="en">即时通知</span>
         </a></li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/search/index.html">
-            <span class="en">Search</span>
+            <span class="en">检索</span>
           </a></div>
           <ul>
             <li><a href="<?cs var:toroot ?>guide/topics/search/search-dialog.html">Creating a Search Interface</a></li>
@@ -218,7 +218,7 @@
           </ul>
       </li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/drag-drop.html">
-          <span class="en">Drag and Drop</span>
+          <span class="en">拖放</span>
         </a></li>
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/ui/accessibility/index.html">
@@ -237,47 +237,47 @@
         </ul>
       </li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/themes.html">
-          <span class="en">Styles and Themes</span>
+          <span class="en">主题和样式</span>
         </a></li>
       <li><a href="<?cs var:toroot ?>guide/topics/ui/custom-components.html">
-          <span class="en">Custom Components</span>
+          <span class="en">自定义组件</span>
         </a></li>
     </ul>
   </li><!-- end of User Interface -->
 
     <li class="nav-section">
       <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/resources/index.html">
-           <span class="en">App Resources</span>
+           <span class="en">应用程序资源</span>
          </a></div>
       <ul>
         <li><a href="<?cs var:toroot ?>guide/topics/resources/overview.html">
-            <span class="en">Overview</span>
+            <span class="en">概述</span>
           </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/resources/providing-resources.html">
-            <span class="en">Providing Resources</span>
+            <span class="en">提供资源</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/resources/accessing-resources.html">
-            <span class="en">Accessing Resources</span>
+            <span class="en">访问资源</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/resources/runtime-changes.html">
-              <span class="en">Handling Runtime Changes</span>
+              <span class="en">处理运行时变更</span>
             </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/resources/localization.html">
-            <span class="en">Localization</span>
+            <span class="en">本地化</span>
           </a></li>
         <li class="nav-section">
           <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/resources/available-resources.html">
-              <span class="en">Resource Types</span>
+              <span class="en">资源类型</span>
             </a></div>
           <ul>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/animation-resource.html">Animation</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/color-list-resource.html">Color State List</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/drawable-resource.html">Drawable</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/layout-resource.html">Layout</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/menu-resource.html">Menu</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/string-resource.html">String</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/style-resource.html">Style</a></li>
-            <li><a href="<?cs var:toroot ?>guide/topics/resources/more-resources.html">More Types</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/animation-resource.html">动画</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/color-list-resource.html">颜色状态列表</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/drawable-resource.html">可绘制对象</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/layout-resource.html">布局</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/menu-resource.html">菜单</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/string-resource.html">字符串</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/style-resource.html">风格</a></li>
+            <li><a href="<?cs var:toroot ?>guide/topics/resources/more-resources.html">其他类型</a></li>
           </ul>
         </li><!-- end of resource types -->
       </ul>
@@ -285,21 +285,21 @@
 
    <li class="nav-section">
       <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/graphics/index.html">
-          <span class="en">Animation and Graphics</span>
+          <span class="en">动画与图像</span>
         </a></div>
       <ul>
       <li class="nav-section">
         <li><a href="<?cs var:toroot ?>guide/topics/graphics/overview.html">
-            <span class="en">Overview</span>
+            <span class="en">概述</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/graphics/prop-animation.html">
-            <span class="en">Property Animation</span>
+            <span class="en">属性动画</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/graphics/view-animation.html">
-            <span class="en">View Animation</span>
+            <span class="en">视图动画</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/graphics/drawable-animation.html">
-            <span class="en">Drawable Animation</span>
+            <span class="en">可绘制资源动画</span>
           </a></li>
         <li><a href="<?cs var:toroot ?>guide/topics/graphics/2d-graphics.html">
             <span class="en">Canvas and Drawables</span>
@@ -319,11 +319,11 @@
             </a></div>
             <ul>
               <li><a href="<?cs var:toroot ?>guide/topics/renderscript/compute.html">
-                    <span class="en">Renderscript</span></a>
+                    <span class="en">渲染脚本</span></a>
                   </li>
 
               <li><a href="<?cs var:toroot ?>guide/topics/renderscript/advanced.html">
-                    <span class="en">Advanced Renderscript</span></a>
+                    <span class="en">高级渲染脚本</span></a>
                   </li>
               <li><a href="<?cs var:toroot ?>guide/topics/renderscript/reference.html">
                     <span class="en">Runtime API Reference</span></a>
@@ -332,11 +332,11 @@
    </li>
       <li class="nav-section">
           <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/media/index.html">
-            <span class="en">Media and Camera</span>
+            <span class="en">媒体和相机</span>
           </a></div>
           <ul>
             <li><a href="<?cs var:toroot ?>guide/topics/media/mediaplayer.html">
-                  <span class="en">Media Playback</span></a>
+                  <span class="en">媒体播放</span></a>
                 </li>
             <li><a href="<?cs var:toroot ?>guide/appendix/media-formats.html">
                    <span class="en">Supported Media Formats</span></a>
@@ -348,7 +348,7 @@
                   <span class="en">JetPlayer</span></a>
                 </li>
             <li><a href="<?cs var:toroot ?>guide/topics/media/camera.html">
-                  <span class="en">Camera</span></a>
+                  <span class="en">相机</span></a>
                 </li>
           </ul>
       </li><!-- end of media and camera -->
@@ -359,7 +359,7 @@
               </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/location/index.html">
-               <span class="en">Location and Maps</span>
+               <span class="en">位置和地图</span>
              </a>
           <li><a href="<?cs var:toroot ?>guide/topics/location/strategies.html">
                <span class="en">Location Strategies</span>
@@ -387,7 +387,7 @@
              </a></div>
         <ul>
           <li><a href="<?cs var:toroot?>guide/topics/connectivity/bluetooth.html">
-              <span class="en">Bluetooth</span>
+              <span class="en">蓝牙</span>
             </a>
           </li>
       <li class="nav-section">
@@ -425,10 +425,10 @@
         </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/text/copy-paste.html">
-              <span class="en">Copy and Paste</span>
+              <span class="en">拷贝和粘贴</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/text/creating-input-method.html">
-              <span class="en">Creating an IME</span>
+              <span class="en">创建IME</span>
             </a></li>
           <li><a href="<?cs var:toroot ?>guide/topics/text/spell-checker-framework.html">
               <span class="en">Spelling Checker</span>
@@ -456,7 +456,7 @@
 
   <li class="nav-section">
            <div class="nav-section-header"><a href="<?cs var:toroot?>guide/topics/admin/index.html">
-               <span class="en">Administration</span>
+               <span class="en">管理</span>
              </a></div>
            <ul>
               <li>
@@ -478,7 +478,7 @@
     </a></div>
     <ul>
       <li><a href="<?cs var:toroot ?>guide/webapps/overview.html">
-            <span class="en">Overview</span>
+            <span class="en">概述</span>
           </a></li>
       <li><a href="<?cs var:toroot ?>guide/webapps/targeting.html">
             <span class="en">Targeting Screens from Web Apps</span>

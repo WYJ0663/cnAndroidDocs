@@ -1,9 +1,9 @@
-page.title=Notifications
+page.title=状态栏通知
 @jd:body
 
 <div id="qv-wrapper">
 <div id="qv">
-<h2>In this document</h2>
+<h2>文档目录</h2>
 <ol>
   <li><a href="#NotificationUI">Notification Display Elements</a>
     <ol>
@@ -11,7 +11,7 @@ page.title=Notifications
       <li><a href="#BigNotify">Big view</a></li>
     </ol>
   </li>
-  <li><a href="#CreateNotification">Creating a Notification</a>
+  <li><a href="#CreateNotification">创建通知</a>
     <ol>
       <li><a href="#Required">Required notification contents</a></li>
       <li><a href="#Optional">Optional notification contents and settings</a></li>
@@ -21,7 +21,7 @@ page.title=Notifications
       <li><a href="#Compatibility">Handling compatibility</a></li>
     </ol>
   </li>
-  <li><a href="#Managing">Managing Notifications</a>
+  <li><a href="#Managing">管理通知</a>
     <ol>
       <li><a href="#Updating">Updating notifications</a></li>
       <li><a href="#Removing">Removing notifications</a></li>
@@ -42,7 +42,7 @@ page.title=Notifications
   <li><a href="#CustomNotification">Custom Notification Layouts</a></li>
 </ol>
 
-    <h2>Key classes</h2>
+    <h2>关键类</h2>
     <ol>
         <li>{@link android.app.NotificationManager}</li>
         <li>{@link android.support.v4.app.NotificationCompat}</li>

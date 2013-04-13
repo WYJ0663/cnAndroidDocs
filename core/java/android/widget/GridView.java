@@ -34,10 +34,8 @@ import android.widget.RemoteViews.RemoteView;
 
 
 /**
- * A view that shows items in two-dimensional scrolling grid. The items in the
- * grid come from the {@link ListAdapter} associated with this view.
- *
- * <p>See the <a href="{@docRoot}guide/topics/ui/layout/gridview.html">Grid
+ * 在二维滚动网格中显示条目的视图.网格中的条目来自与视图关联的 {@link ListAdapter}.
+ * <p>参见 <a href="{@docRoot}guide/topics/ui/layout/gridview.html">Grid
  * View</a> guide.</p>
  * 
  * @attr ref android.R.styleable#GridView_horizontalSpacing
@@ -46,36 +44,39 @@ import android.widget.RemoteViews.RemoteView;
  * @attr ref android.R.styleable#GridView_columnWidth
  * @attr ref android.R.styleable#GridView_numColumns
  * @attr ref android.R.styleable#GridView_gravity
+ * @author translate by 0_1
+ * @author translate by cnmahj
+ * @author convert by cnmahj
  */
 @RemoteView
 public class GridView extends AbsListView {
     /**
-     * Disables stretching.
+     * 禁止伸缩.
      * 
      * @see #setStretchMode(int) 
      */
     public static final int NO_STRETCH = 0;
     /**
-     * Stretches the spacing between columns.
+     * 伸缩列间空白.
      * 
      * @see #setStretchMode(int) 
      */
     public static final int STRETCH_SPACING = 1;
     /**
-     * Stretches columns.
+     * 伸缩列.
      * 
      * @see #setStretchMode(int) 
      */
     public static final int STRETCH_COLUMN_WIDTH = 2;
     /**
-     * Stretches the spacing between columns. The spacing is uniform.
+     * 伸缩列间空白.是空白均一.
      * 
      * @see #setStretchMode(int) 
      */
     public static final int STRETCH_SPACING_UNIFORM = 3;
 
     /**
-     * Creates as many columns as can fit on screen.
+     * 创建与屏幕匹配的多个列.
      * 
      * @see #setNumColumns(int) 
      */
@@ -147,9 +148,8 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Sets up this AbsListView to use a remote views adapter which connects to a RemoteViewsService
-     * through the specified intent.
-     * @param intent the intent used to identify the RemoteViewsService for the adapter to connect to.
+     * 设置该 AbsListView，使其使用通过指定的意图连接到 RemoteViewsService 的远程视图适配器.
+     * @param intent 用于识别连接到 RemoteViewsService 的适配器的意图.
      */
     @android.view.RemotableViewMethod
     public void setRemoteViewsAdapter(Intent intent) {
@@ -157,9 +157,9 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Sets the data behind this GridView.
+     * 设置 GridView 的后端数据.
      *
-     * @param adapter the adapter providing the grid's data
+     * @param adapter 为网格提供数据的适配器
      */
     @Override
     public void setAdapter(ListAdapter adapter) {
@@ -819,9 +819,8 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Smoothly scroll to the specified adapter position. The view will
-     * scroll such that the indicated position is displayed.
-     * @param position Scroll to this adapter position.
+     * 平滑滚动到指定适配器位置.视图会滚动以显示指定位置的视图.
+     * @param position 滚动到的适配器位置
      */
     @android.view.RemotableViewMethod
     public void smoothScrollToPosition(int position) {
@@ -829,9 +828,8 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Smoothly scroll to the specified adapter position offset. The view will
-     * scroll such that the indicated position is displayed.
-     * @param offset The amount to offset from the adapter position to scroll to.
+     * 平滑滚动到指定适配器偏移位置.视图会滚动以显示指定位置的视图.
+     * @param offset 到滚动目标适配器位置的偏移量
      */
     @android.view.RemotableViewMethod
     public void smoothScrollByOffset(int offset) {
@@ -1462,12 +1460,11 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Sets the currently selected item
+     * 设置选中的条目.
      * 
-     * @param position Index (starting at 0) of the data item to be selected.
+     * @param position 数据条目在列表中的索引值（从 0 开始）.
      * 
-     * If in touch mode, the item will not be selected but it will still be positioned
-     * appropriately.
+     * 在触控模式下，不会选中条目，但会适当的调整显示位置.
      */
     @Override
     public void setSelection(int position) {
@@ -1932,7 +1929,7 @@ public class GridView extends AbsListView {
      * Set the gravity for this grid. Gravity describes how the child views
      * are horizontally aligned. Defaults to Gravity.LEFT
      *
-     * @param gravity the gravity to apply to this grid's children
+     * @param gravity 应用到网格子视图的对齐模式.
      *
      * @attr ref android.R.styleable#GridView_gravity
      */
@@ -1958,8 +1955,7 @@ public class GridView extends AbsListView {
      * Set the amount of horizontal (x) spacing to place between each item
      * in the grid.
      *
-     * @param horizontalSpacing The amount of horizontal space between items,
-     * in pixels.
+     * @param horizontalSpacing 以像素为单位的网格列间距.
      *
      * @attr ref android.R.styleable#GridView_horizontalSpacing
      */
@@ -2010,11 +2006,9 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Set the amount of vertical (y) spacing to place between each item
-     * in the grid.
+     * 设置网格行间距.
      *
-     * @param verticalSpacing The amount of vertical space between items,
-     * in pixels.
+     * @param verticalSpacing 以像素为单位的网格行间距.
      *
      * @see #getVerticalSpacing()
      *
@@ -2041,10 +2035,9 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Control how items are stretched to fill their space.
-     *
-     * @param stretchMode Either {@link #NO_STRETCH},
-     * {@link #STRETCH_SPACING}, {@link #STRETCH_SPACING_UNIFORM}, or {@link #STRETCH_COLUMN_WIDTH}.
+     * 设置填充空间时网格中的条目的伸缩模式.
+     * @param stretchMode {@link #NO_STRETCH}、{@link #STRETCH_SPACING}、
+     * {@link #STRETCH_SPACING_UNIFORM} 或 {@link #STRETCH_COLUMN_WIDTH}。
      *
      * @attr ref android.R.styleable#GridView_stretchMode
      */
@@ -2060,9 +2053,9 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Set the width of columns in the grid.
+     * 设置网格的列宽.
      *
-     * @param columnWidth The column width, in pixels.
+     * @param columnWidth 以像素为单位的列宽.
      *
      * @attr ref android.R.styleable#GridView_columnWidth
      */
@@ -2107,9 +2100,9 @@ public class GridView extends AbsListView {
     }
 
     /**
-     * Set the number of columns in the grid
+     * 设置网格的列数.
      *
-     * @param numColumns The desired number of columns.
+     * @param numColumns 设计列数.
      *
      * @attr ref android.R.styleable#GridView_numColumns
      */
@@ -2121,8 +2114,7 @@ public class GridView extends AbsListView {
     }
     
     /**
-     * Get the number of columns in the grid. 
-     * Returns {@link #AUTO_FIT} if the Grid has never been laid out.
+     * 取得网格中的列数.如果网格还没有排列则返回 {@link #AUTO_FIT}.
      *
      * @attr ref android.R.styleable#GridView_numColumns
      * 

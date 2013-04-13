@@ -46,18 +46,15 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * This class is a widget for selecting a date. The date can be selected by a
- * year, month, and day spinners or a {@link CalendarView}. The set of spinners
- * and the calendar view are automatically synchronized. The client can
- * customize whether only the spinners, or only the calendar view, or both to be
- * displayed. Also the minimal and maximal date from which dates to be selected
- * can be customized.
+ * 该类是用于选择日期的小部件. 可以通过年月日的微调按钮或者 {@link CalendarView}
+ * 来选择日期.微调按钮和日历视图的内容会自动同步.客户端可以选择只使用微调按钮、
+ * 只使用日历视图或两者都是用.可选择的最小及最大日期也是可以定制的.
  * <p>
- * See the <a href="{@docRoot}guide/topics/ui/controls/pickers.html">Pickers</a>
+ * 参见 <a href="{@docRoot}guide/topics/ui/controls/pickers.html">Pickers</a>
  * guide.
  * </p>
  * <p>
- * For a dialog using this view, see {@link android.app.DatePickerDialog}.
+ * 使用此时图的对话框，参见 {@link android.app.DatePickerDialog}.
  * </p>
  *
  * @attr ref android.R.styleable#DatePicker_startYear
@@ -66,6 +63,9 @@ import java.util.TimeZone;
  * @attr ref android.R.styleable#DatePicker_minDate
  * @attr ref android.R.styleable#DatePicker_spinnersShown
  * @attr ref android.R.styleable#DatePicker_calendarViewShown
+ * @author translate by 农民伯伯
+ * @author review by cnmahj
+ * @author convert by cnmahj
  */
 @Widget
 public class DatePicker extends FrameLayout {
@@ -121,18 +121,17 @@ public class DatePicker extends FrameLayout {
     private boolean mIsEnabled = DEFAULT_ENABLED_STATE;
 
     /**
-     * The callback used to indicate the user changes\d the date.
+     * 表明用户变更了日期的回调函数.
      */
     public interface OnDateChangedListener {
 
         /**
          * Called upon a date change.
          *
-         * @param view The view associated with this listener.
-         * @param year The year that was set.
-         * @param monthOfYear The month that was set (0-11) for compatibility
-         *            with {@link java.util.Calendar}.
-         * @param dayOfMonth The day of the month that was set.
+         * @param view 与监听器关联的视图.
+         * @param year 用户设置的年.
+         * @param monthOfYear 用户设置的月份(0-11)，与 {@link java.util.Calendar} 兼容.
+         * @param dayOfMonth 用户设置的日期.
          */
         void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth);
     }
@@ -289,25 +288,23 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Gets the minimal date supported by this {@link DatePicker} in
-     * milliseconds since January 1, 1970 00:00:00 in
-     * {@link TimeZone#getDefault()} time zone.
+     * 取得该  {@link DatePicker} 支持的最小日期，该值为从 {@link TimeZone#getDefault()}
+     * 时区的 1970年1月1日0时0分0秒到最小日期的毫秒数.
      * <p>
-     * Note: The default minimal date is 01/01/1900.
+     * 注意：默认最小值是1900年1月1日.
      * <p>
      *
-     * @return The minimal supported date.
+     * @return 支持的日期最小值.
      */
     public long getMinDate() {
         return mCalendarView.getMinDate();
     }
 
     /**
-     * Sets the minimal date supported by this {@link NumberPicker} in
-     * milliseconds since January 1, 1970 00:00:00 in
-     * {@link TimeZone#getDefault()} time zone.
+     * 设置该  {@link DatePicker} 支持的最小日期，该值为从 {@link TimeZone#getDefault()}
+     * 时区的 1970年1月1日0时0分0秒到最小日期的毫秒数.
      *
-     * @param minDate The minimal supported date.
+     * @param minDate 支持的日期最小值
      */
     public void setMinDate(long minDate) {
         mTempDate.setTimeInMillis(minDate);
@@ -325,25 +322,23 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Gets the maximal date supported by this {@link DatePicker} in
-     * milliseconds since January 1, 1970 00:00:00 in
-     * {@link TimeZone#getDefault()} time zone.
+     * 取得该  {@link DatePicker} 支持的最大日期，该值为从 {@link TimeZone#getDefault()}
+     * 时区的 1970年1月1日0时0分0秒到最小日期的毫秒数.
      * <p>
-     * Note: The default maximal date is 12/31/2100.
+     * 注意：默认最大值是2100年12月31日.
      * <p>
      *
-     * @return The maximal supported date.
+     * @return 支持的日期最大值.
      */
     public long getMaxDate() {
         return mCalendarView.getMaxDate();
     }
 
     /**
-     * Sets the maximal date supported by this {@link DatePicker} in
-     * milliseconds since January 1, 1970 00:00:00 in
-     * {@link TimeZone#getDefault()} time zone.
+     * 设置该  {@link DatePicker} 支持的最大日期，该值为从 {@link TimeZone#getDefault()}
+     * 时区的 1970年1月1日0时0分0秒到最小日期的毫秒数.
      *
-     * @param maxDate The maximal supported date.
+     * @param maxDate 支持的日期最大值
      */
     public void setMaxDate(long maxDate) {
         mTempDate.setTimeInMillis(maxDate);
@@ -413,9 +408,9 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Gets whether the {@link CalendarView} is shown.
+     * 取得是否显示{@link CalendarView 日历视图}.
      *
-     * @return True if the calendar view is shown.
+     * @return True 如果日历视图已显示，返回真.
      * @see #getCalendarView()
      */
     public boolean getCalendarViewShown() {
@@ -423,9 +418,9 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Gets the {@link CalendarView}.
+     * 取得{@link CalendarView 日历视图}.
      *
-     * @return The calendar view.
+     * @return 日历视图.
      * @see #getCalendarViewShown()
      */
     public CalendarView getCalendarView () {
@@ -433,27 +428,27 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Sets whether the {@link CalendarView} is shown.
+     * 设置{@link CalendarView 日历视图}的显示状态.
      *
-     * @param shown True if the calendar view is to be shown.
+     * @param shown 如果显示日历视图设为真.
      */
     public void setCalendarViewShown(boolean shown) {
         mCalendarView.setVisibility(shown ? VISIBLE : GONE);
     }
 
     /**
-     * Gets whether the spinners are shown.
+     * 取得是否显示微调控件.
      *
-     * @return True if the spinners are shown.
+     * @return 如果显示微调控件则返回真.
      */
     public boolean getSpinnersShown() {
         return mSpinners.isShown();
     }
 
     /**
-     * Sets whether the spinners are shown.
+     * 设置是否显示微调控件.
      *
-     * @param shown True if the spinners are to be shown.
+     * @param shown 如果显示微调控件设为真.
      */
     public void setSpinnersShown(boolean shown) {
         mSpinners.setVisibility(shown ? VISIBLE : GONE);
@@ -531,11 +526,11 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Updates the current date.
+     * 更新当前日期.
      *
-     * @param year The year.
-     * @param month The month which is <strong>starting from zero</strong>.
-     * @param dayOfMonth The day of the month.
+     * @param year 年
+     * @param month 月（<strong>从零开始</strong>）.
+     * @param dayOfMonth 日
      */
     public void updateDate(int year, int month, int dayOfMonth) {
         if (!isNewDate(year, month, dayOfMonth)) {
@@ -569,14 +564,11 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * Initialize the state. If the provided values designate an inconsistent
-     * date the values are normalized before updating the spinners.
-     *
-     * @param year The initial year.
-     * @param monthOfYear The initial month <strong>starting from zero</strong>.
-     * @param dayOfMonth The initial day of the month.
-     * @param onDateChangedListener How user is notified date is changed by
-     *            user, can be null.
+     * 状态初始化.如果指定的值与之前的值不一致，该函数更新微调控件和日历视图的值.
+     * @param year 初始年.
+     * @param monthOfYear 初始月. <strong>从零开始</strong>
+     * @param dayOfMonth 初始日.
+     * @param onDateChangedListener 日期改变时通知用户的事件监听器，可以为空(null).
      */
     public void init(int year, int monthOfYear, int dayOfMonth,
             OnDateChangedListener onDateChangedListener) {
@@ -670,21 +662,21 @@ public class DatePicker extends FrameLayout {
     }
 
     /**
-     * @return The selected year.
+     * @return 选择的年份.
      */
     public int getYear() {
         return mCurrentDate.get(Calendar.YEAR);
     }
 
     /**
-     * @return The selected month.
+     * @return 选择的月份.
      */
     public int getMonth() {
         return mCurrentDate.get(Calendar.MONTH);
     }
 
     /**
-     * @return The selected day of month.
+     * @return 选择的日期.
      */
     public int getDayOfMonth() {
         return mCurrentDate.get(Calendar.DAY_OF_MONTH);

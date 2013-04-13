@@ -111,12 +111,11 @@ public interface DialogInterface {
      */
     interface OnClickListener {
         /**
-         * This method will be invoked when a button in the dialog is clicked.
+         * 对话框中的按钮按下时执行的方法.
          * 
-         * @param dialog The dialog that received the click.
-         * @param which The button that was clicked (e.g.
-         *            {@link DialogInterface#BUTTON1}) or the position
-         *            of the item clicked.
+         * @param dialog 发生按钮按下事件的对话框
+         * @param which 按下的按钮（例如：{@link DialogInterface#BUTTON1}）
+         *        或按下的条目位置
          */
         /* TODO: Change to use BUTTON_POSITIVE after API council */
         public void onClick(DialogInterface dialog, int which);

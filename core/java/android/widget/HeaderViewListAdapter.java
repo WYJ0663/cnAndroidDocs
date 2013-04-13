@@ -23,11 +23,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 /**
- * ListAdapter used when a ListView has header views. This ListAdapter
- * wraps another one and also keeps track of the header views and their
- * associated data objects.
- *<p>This is intended as a base class; you will probably not need to
- * use this class directly in your own code.
+ * 用于包含列表头的 ListView 的 ListAdapter. 
+ * 该 ListAdapter 包装了另一个用于保持列表头视图及其数据对象的适配器.
+ * <p>该类作为基类使用；你应该不会在你的代码中直接使用该类.</p>
  */
 public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
 

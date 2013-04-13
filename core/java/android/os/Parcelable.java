@@ -17,13 +17,11 @@
 package android.os;
 
 /**
- * Interface for classes whose instances can be written to
- * and restored from a {@link Parcel}.  Classes implementing the Parcelable
- * interface must also have a static field called <code>CREATOR</code>, which
- * is an object implementing the {@link Parcelable.Creator Parcelable.Creator}
- * interface.
+ * 用于实例可以写入以及从 {@link Parcel} 中恢复的类的接口. 实现 Parcelable
+ * 接口的类必须包含一个实现了 {@link Parcelable.Creator Parcelable.Creator}
+ * 接口的名为 <code>CREATOR</code> 的静态字段.
  * 
- * <p>A typical implementation of Parcelable is:</p>
+ * <p>Parcelable 典型的实现方法如下：</p>
  * 
  * <pre>
  * public class MyParcelable implements Parcelable {
@@ -55,79 +53,69 @@ package android.os;
  */
 public interface Parcelable {
     /**
-     * Flag for use with {@link #writeToParcel}: the object being written
-     * is a return value, that is the result of a function such as
-     * "<code>Parcelable someFunction()</code>",
-     * "<code>void someFunction(out Parcelable)</code>", or
-     * "<code>void someFunction(inout Parcelable)</code>".  Some implementations
-     * may want to release resources at this point.
+     * 用于 {@link #writeToParcel} 的标志位：写入的对象是象
+     * "<code>Parcelable someFunction()</code>"、
+     * "<code>void someFunction(out Parcelable)</code>" 或
+     * "<code>void someFunction(inout Parcelable)</code>" 这样的函数的返回值.
+     * 一些实现可能想在这个时候释放资源.
      */
     public static final int PARCELABLE_WRITE_RETURN_VALUE = 0x0001;
     
     /**
-     * Bit masks for use with {@link #describeContents}: each bit represents a
-     * kind of object considered to have potential special significance when
-     * marshalled.
+     * 用于 {@link #describeContents} 的位掩码：每一位代表编组时包含特殊意义的一种对象.
      */
     public static final int CONTENTS_FILE_DESCRIPTOR = 0x0001;
     
     /**
-     * Describe the kinds of special objects contained in this Parcelable's
-     * marshalled representation.
+     * 描述包含在可包装对象的编组形式中的各种特殊对象.
      *  
-     * @return a bitmask indicating the set of special object types marshalled
-     * by the Parcelable.
+     * @return 代表由可包装对象编组的特殊对象类型集合的位掩码.
      */
     public int describeContents();
     
     /**
-     * Flatten this object in to a Parcel.
+     * 展开该对象到包裹对象中.
      * 
-     * @param dest The Parcel in which the object should be written.
-     * @param flags Additional flags about how the object should be written.
-     * May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
+     * @param dest 该对象要写入的包裹对象.
+     * @param flags 关于对象如何写入的附件标志.可以为 0 或 {@link #PARCELABLE_WRITE_RETURN_VALUE}.
      */
     public void writeToParcel(Parcel dest, int flags);
 
     /**
-     * Interface that must be implemented and provided as a public CREATOR
-     * field that generates instances of your Parcelable class from a Parcel.
+     * 子类必须实现该接口，并定义为公有的 CREATOR 字段，用于从包裹对象中实例化你的可包装类.
      */
     public interface Creator<T> {
         /**
-         * Create a new instance of the Parcelable class, instantiating it
-         * from the given Parcel whose data had previously been written by
-         * {@link Parcelable#writeToParcel Parcelable.writeToParcel()}.
+         * 创建可包装类的新实例，从给定的包裹中实例化之前使用
+         * {@link Parcelable#writeToParcel Parcelable.writeToParcel()}
+         * 方法写入的对象.
          * 
-         * @param source The Parcel to read the object's data from.
-         * @return Returns a new instance of the Parcelable class.
+         * @param source 用于读取对象数据的包裹对象.
+         * @return 返回可包装类的新实例.
          */
         public T createFromParcel(Parcel source);
         
         /**
-         * Create a new array of the Parcelable class.
+         * 创建新的可包装类的数组.
          * 
-         * @param size Size of the array.
-         * @return Returns an array of the Parcelable class, with every entry
-         * initialized to null.
+         * @param size 数组大小
+         * @return 返回可包装对象类的数组，每个元素均已初始化为 null.
          */
         public T[] newArray(int size);
     }
 
     /**
-     * Specialization of {@link Creator} that allows you to receive the
-     * ClassLoader the object is being created in.
+     * 专业化的 {@link Creator}，允许你接收内部创建的 ClassLoader 对象.
      */
     public interface ClassLoaderCreator<T> extends Creator<T> {
         /**
-         * Create a new instance of the Parcelable class, instantiating it
-         * from the given Parcel whose data had previously been written by
-         * {@link Parcelable#writeToParcel Parcelable.writeToParcel()} and
-         * using the given ClassLoader.
+         * 创建 Parcelable 类的新实例，使用给定的 ClassLoader 来实例化
+         * 之前通过 {@link Parcelable#writeToParcel Parcelable.writeToParcel()}
+         * 写入指定包裹中的类.
          *
-         * @param source The Parcel to read the object's data from.
-         * @param loader The ClassLoader that this object is being created in.
-         * @return Returns a new instance of the Parcelable class.
+         * @param source 用于读取对象数据的包裹对象
+         * @param loader 用于创建该对象的 ClassLoader.
+         * @return 返回可包装类的新实例.
          */
         public T createFromParcel(Parcel source, ClassLoader loader);
     }

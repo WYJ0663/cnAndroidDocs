@@ -119,15 +119,17 @@ public class RemoteViewsAdapter extends BaseAdapter implements Handler.Callback 
      */
     public interface RemoteAdapterConnectionCallback {
         /**
-         * @return whether the adapter was set or not.
+         * 适配器建立到 RemoteViewsService 的连接时的回调函数.
          */
         public boolean onRemoteAdapterConnected();
 
+        /**
+         * 适配器断开到 RemoteViewsService 的连接时的回调函数.
+         */
         public void onRemoteAdapterDisconnected();
 
         /**
-         * This defers a notifyDataSetChanged on the pending RemoteViewsAdapter if it has not
-         * connected yet.
+         * 该设置推迟向没有连接的、未确定 RemoteViewsAdapter 发送 notifyDataSetChanged 消息.
          */
         public void deferNotifyDataSetChanged();
     }

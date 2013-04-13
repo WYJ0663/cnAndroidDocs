@@ -17,23 +17,20 @@
 package android.database;
 
 /**
- * Receives call backs when a data set has been changed, or made invalid. The typically data sets
- * that are observed are {@link Cursor}s or {@link android.widget.Adapter}s.
- * DataSetObserver must be implemented by objects which are added to a DataSetObservable.
+ * 数据集变更或无效时调用的回调函数. 监视的典型的数据集是 {@link Cursor} 或
+ * {@link android.widget.Adapter}.加入 DataSetObservable 的对象必须实现该接口.
  */
 public abstract class DataSetObserver {
     /**
-     * This method is called when the entire data set has changed,
-     * most likely through a call to {@link Cursor#requery()} on a {@link Cursor}.
+     * 整个数据集变更时调用该方法，类似于在 {@link Cursor} 上调用 {@link Cursor#requery()}.
      */
     public void onChanged() {
         // Do nothing
     }
 
     /**
-     * This method is called when the entire data becomes invalid,
-     * most likely through a call to {@link Cursor#deactivate()} or {@link Cursor#close()} on a
-     * {@link Cursor}.
+     * 整个数据集无效时调用该方法，类似于在 {@link Cursor} 上调用了 {@link Cursor#deactivate()}
+     * 或者 {@link Cursor#close()}.
      */
     public void onInvalidated() {
         // Do nothing

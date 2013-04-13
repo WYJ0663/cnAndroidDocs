@@ -1,9 +1,9 @@
-page.title=Starting Another Activity
-parent.title=Building Your First App
+page.title=启动另一个活动
+parent.title=创建你的首个应用
 parent.link=index.html
 
 trainingnavtop=true
-previous.title=Building a Simpler User Interface
+previous.title=构建简单的用户界面
 previous.link=building-ui.html
 
 @jd:body
@@ -13,22 +13,21 @@ previous.link=building-ui.html
 <div id="tb-wrapper"> 
 <div id="tb"> 
  
-<h2>This lesson teaches you to</h2>
+<h2>该课程教你</h2>
 
 <ol>
-  <li><a href="#RespondToButton">Respond to the Send Button</a></li>
-  <li><a href="#BuildIntent">Build an Intent</a></li>
-  <li><a href="#StartActivity">Start the Second Activity</a></li>
-  <li><a href="#CreateActivity">Create the Second Activity</a></li>
-  <li><a href="#ReceiveIntent">Receive the Intent</a></li>
-  <li><a href="#DisplayMessage">Display the Message</a></li>
+  <li><a href="#RespondToButton">响应“Send”按钮</a></li>
+  <li><a href="#BuildIntent">构建一个 Intent</a></li>
+  <li><a href="#StartActivity">启动第二个活动</a></li>
+  <li><a href="#CreateActivity">启动第二个活动</a></li>
+  <li><a href="#ReceiveIntent">接收 Intent</a></li>
+  <li><a href="#DisplayMessage">显示消息</a></li>
 </ol>
 
-<h2>You should also read</h2>
+<h2>你也应该阅读</h2>
 
 <ul>
-  <li><a href="{@docRoot}sdk/installing/index.html">Installing the
-SDK</a></li>
+  <li><a href="{@docRoot}sdk/installing/index.html">安装 SDK</a></li>
 </ul>
  
  
@@ -37,18 +36,16 @@ SDK</a></li>
 
 
 
-<p>After completing the <a href="building-ui.html">previous lesson</a>, you have an app that
-shows an activity (a single screen) with a text field and a button. In this lesson, you’ll add some
-code to <code>MainActivity</code> that
-starts a new activity when the user clicks the Send button.</p>
+<p>完成了<a href="building-ui.html">前面的课程</a>，你拥有了一个显示一个文本框和一个按钮的活动
+（一个画面）。 在本课中，您将添加一些代码到 <code>MainActivity</code> 中，使其在当用户点击“Send”
+按钮时启动一个新的活动。</p>
 
 
-<h2 id="RespondToButton">Respond to the Send Button</h2>
+<h2 id="RespondToButton">响应“Send”按钮</h2>
 
-<p>To respond to the button's on-click event, open the <code>activity_main.xml</code>
-layout file and add the <a
-href="{@docRoot}reference/android/view/View.html#attr_android:onClick">{@code android:onClick}</a>
-attribute to the {@link android.widget.Button &lt;Button>} element:</p>
+<p>为了响应按钮的单击事件，打开 <code>activity_main.xml</code> 布局文件，并添加<a
+  href="{@docRoot}reference/android/view/View.html#attr_android:onClick">{@code android:onClick}</a>
+  属性到的 {@link android.widget.Button &lt;Button>} 元素：</p>
 
 <pre>
 &lt;Button
@@ -58,13 +55,11 @@ attribute to the {@link android.widget.Button &lt;Button>} element:</p>
     android:onClick="sendMessage" />
 </pre>
 
-<p>The <a
-href="{@docRoot}reference/android/view/View.html#attr_android:onClick">{@code
-android:onClick}</a> attribute’s value, <code>"sendMessage"</code>, is the name of a method in your
-activity that the system calls when the user clicks the button.</p>
+<p><a href="{@docRoot}reference/android/view/View.html#attr_android:onClick">{@code
+  android:onClick}</a> 属性的值，“<code>sendMessage</code>”，是在用户单击该按钮时，
+  系统调用的方法的名称。</p>
 
-<p>Open the <code>MainActivity</code> class (located in the project's
-<code>src/</code> directory) and add the corresponding method:</p>
+<p>打开 <code>MainActivity</code> 类（位于项目的 <code>src/</code> 目录中），并添加相应的方法：</p>
 
 <pre>
 /** Called when the user clicks the Send button */
@@ -73,75 +68,66 @@ public void sendMessage(View view) {
 }
 </pre>
 
-<p>This requires that you import the {@link android.view.View} class:</p>
+<p>这需要您导入 {@link android.view.View} 类：</p>
 <pre>
 import android.view.View;
 </pre>
 
-<p class="note"><strong>Tip:</strong> In Eclipse, press Ctrl + Shift + O to import missing classes
-(Cmd + Shift + O on Mac).</p>
+<p class="note"><strong>提示：</strong> 在Eclipse中，按Ctrl + Shift + O导入缺少的类
+（在Mac上按CMD + Shift + O）。</p>
 
-<p>In order for the system to match this method to the method name given to <a
-href="{@docRoot}reference/android/view/View.html#attr_android:onClick">{@code android:onClick}</a>,
-the signature must be exactly as shown. Specifically, the method must:</p>
+<p>为了使系统可以匹配 <a href="{@docRoot}reference/android/view/View.html#attr_android:onClick">
+{@code android:onClick}</a>指定的方法，该方法必须满足如下条件。具体而言，该方法必须：</p>
 
 <ul>
-<li>Be public</li>
-<li>Have a void return value</li>
-<li>Have a {@link android.view.View} as the only parameter (this will be the {@link
-android.view.View} that was clicked)</li>
+<li>是 public 的</li>
+<li>有一个 void 返回值</li>
+<li>只有一个 {@link android.view.View} 类型的参数（它是被点击的 {@link android.view.View 视图}）</li>
 </ul>
 
-<p>Next, you’ll fill in this method to read the contents of the text field and deliver that text to
-another activity.</p>
+<p>接下来，您将在这个方法中读取文本字段的内容，并传送该文本到另一个活动中。</p>
 
 
 
-<h2 id="BuildIntent">Build an Intent</h2>
+<h2 id="BuildIntent">构建一个 Intent</h2>
 
-<p>An {@link android.content.Intent} is an object that provides runtime binding between separate
-components (such as two activities). The {@link android.content.Intent} represents an
-app’s "intent to do something." You can use intents for a wide
-variety of tasks, but most often they’re used to start another activity.</p>
+<p>{@link android.content.Intent} 是一个对象，它用于对独立组件的运行时绑定（比如两个活动之间）。
+{@link android.content.Intent} 表示一个应用程序“意图做些什么”。您可以使用
+{@link android.content.Intent} 完成各种各样的任务，但多数情况下，他们用于启动另一个活动。</p>
 
-<p>Inside the {@code sendMessage()} method, create an {@link android.content.Intent} to start
-an activity called {@code DisplayMessageActivity}:</p>
+<p>在{@code sendMessage()}方法中，创建一个 {@link android.content.Intent} 来启动名为
+  {@code DisplayMessageActivity} 的活动：</p>
 
 <pre>
 Intent intent = new Intent(this, DisplayMessageActivity.class);
 </pre>
 
-<p>The constructor used here takes two parameters:</p>
+<p>这里所使用的构造函数有两个参数：</p>
 <ul>
-  <li>A {@link
-android.content.Context} as its first parameter ({@code this} is used because the {@link
-android.app.Activity} class is a subclass of {@link android.content.Context})
-  <li>The {@link java.lang.Class} of the app component to which the system should deliver
-the {@link android.content.Intent} (in this case, the activity that should be started)
+  <li>{@link android.content.Context} 作为第一个参数（使用了 {@code this}，因为 {@link
+    android.app.Activity} 类是 {@link android.content.Context} 的子类）</li>
+  <li>系统传送该 {@link android.content.Intent} 的目标应用组件的 {@link java.lang.Class 类}
+    （本例为启动一个活动）</li>
 </ul>
 
 <div class="sidebox-wrapper">
 <div class="sidebox">
-  <h3>Sending an intent to other apps</h3>
-  <p>The intent created in this lesson is what's considered an <em>explicit intent</em>, because the
-{@link android.content.Intent}
-specifies the exact app component to which the intent should be given. However, intents
-can also be <em>implicit</em>, in which case the {@link android.content.Intent} does not specify
-the desired component, but allows any app installed on the device to respond to the intent
-as long as it satisfies the meta-data specifications for the action that's specified in various
-{@link android.content.Intent} parameters. For more information, see the class about <a
-href="{@docRoot}training/basics/intents/index.html">Interacting with Other Apps</a>.</p>
+  <h3>发送意图到其他应用</h3>
+  <p>在这一课中创建了<em>明确的 {@link android.content.Intent 意图}</em>，
+    因为其指定了要送达的确切的应用程序组件。然而，意图也可以是<em>隐式的</em>，在这种情况下，
+    {@link android.content.Intent} 不指定由那个组件执行，它允许安装在设备上的任何应用响应该意图，
+    只要它可以完成在 {@link android.content.Intent} 的各个参数中指定的元数据所要求的动作即可。
+    有关详细信息，参阅教程 <a href="{@docRoot}training/basics/intents/index.html">与其它应用交互
+    </a>。</p>
 </div>
 </div>
 
-<p class="note"><strong>Note:</strong> The reference to {@code DisplayMessageActivity}
-will raise an error if you’re using an IDE such as Eclipse because the class doesn’t exist yet.
-Ignore the error for now; you’ll create the class soon.</p>
+<p class="note"><strong>注意：</strong> 如果您使用的是象 Eclipse 这样的 IDE，对 {@code
+  DisplayMessageActivity} 的参照会显示为错误，因为该类不存在。先忽略该错误，稍后你会创建这个类。</p>
 
-<p>An intent not only allows you to start another activity, but it can carry a bundle of data to the
-activity as well. Inside the {@code sendMessage()} method,
-use {@link android.app.Activity#findViewById findViewById()} to get the
-{@link android.widget.EditText} element and add its text value to the intent:</p>
+<p>意图不仅可以让你启动另一个活动，它还可以将数据包传送给其它活动。在 {@code sendMessage()} 方法中，
+  使用 {@link android.app.Activity#findViewById findViewById()} 取得 {@link android.widget.EditText}
+  元素，并把它的文本值添加到意图中：</p>
 
 <pre>
 Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -150,19 +136,14 @@ String message = editText.getText().toString();
 intent.putExtra(EXTRA_MESSAGE, message);
 </pre>
 
-<p class="note"><strong>Note:</strong>
-You now need import statements for <code>android.content.Intent</code>
-and <code>android.widget.EditText</code>. You'll define the <code>EXTRA_MESSAGE</code>
-constant in a moment.</p>
+<p class="note"><strong>注意：</strong> 您现在需要import语句导入 <code>android.content.Intent</code>
+  和 <code>android.widget.EditText</code> 。 稍后你会定义 <code>EXTRA_MESSAGE</code> 常量。</p>
 
-<p>An {@link android.content.Intent} can carry a collection of various data types as key-value
-pairs called <em>extras</em>. The {@link android.content.Intent#putExtra putExtra()} method takes the
-key name in the first parameter and the value in the second parameter.</p>
+<p>{@link android.content.Intent} 拥有可以携带包含各种数据类型的键值对集合，名为 <em>extras</em>。
+  {@link android.content.Intent#putExtra putExtra()} 方法的第一个参数是键名，第二个参数使其对应的值。</p>
 
-<p>In order for the next activity to query the extra data, you should define the key
-for your intent's extra using a
-public constant. So add the {@code EXTRA_MESSAGE} definition to the top of the {@code
-MainActivity} class:</p>
+<p>为了使下一个活动可以查询额外的数据，你应该将用于你的意图的键名定义为公共常量。因此，将 {@code 
+  EXTRA_MESSAGE} 的定义添加到 {@code MainActivity} 类的顶部：</p>
 
 <pre>
 public class MainActivity extends Activity {
@@ -171,21 +152,19 @@ public class MainActivity extends Activity {
 }
 </pre>
 
-<p>It's generally a good practice to define keys for intent extras using your app's package name
-as a prefix. This ensures they are unique, in case your app interacts with other apps.</p>
+<p>使用你的应用包名作为意图的额外键值得前缀通常是个很好的做法。
+  这将在你的应用与其他应用交互时确保它是唯一的。</p>
 
 
 
 
-<h2 id="StartActivity">Start the Second Activity</h2>
+<h2 id="StartActivity">启动第二个活动</h2>
 
-<p>To start an activity, call {@link android.app.Activity#startActivity
-startActivity()} and pass it your {@link android.content.Intent}. The system receives this call
-and starts an instance of the {@link android.app.Activity}
-specified by the {@link android.content.Intent}.</p>
+<p>启动一个活动，调用 {@link android.app.Activity#startActivity startActivity()} 方法，并把你的
+  {@link android.content.Intent 意图}传递给它。系统接到这个调用，并启动由
+  {@link android.content.Intent 意图}指定的{@link android.app.Activity 活动}的一个实​​例。</p>
 
-<p>With this new code, the complete {@code sendMessage()} method that's invoked by the Send
-button now looks like this:</p>
+<p>有了这段新的代码，由 Send 按钮调用的 {@code sendMessage()} 方法就完成了，现在看起来像这样：</p>
 
 <pre>
 /** Called when the user clicks the Send button */
@@ -198,27 +177,26 @@ public void sendMessage(View view) {
 }
 </pre>
 
-<p>Now you need to create the {@code DisplayMessageActivity} class in order for this to
-work.</p>
+<p>要使该应用能运行，你需要创建 {@code DisplayMessageActivity} 类。</p>
 
 
 
-<h2 id="CreateActivity">Create the Second Activity</h2>
+<h2 id="CreateActivity">创建第二个活动</h2>
 
 <div class="figure" style="width:400px">
 <img src="{@docRoot}images/training/firstapp/adt-new-activity.png" alt="" />
-<p class="img-caption"><strong>Figure 1.</strong> The new activity wizard in Eclipse.</p>
+<p class="img-caption"><strong>图1.</strong> Eclipse 的新活动向导</p>
 </div>
 
-<p>To create a new activity using Eclipse:</p>
+<p>使用 Eclipse 创建一个新的活动：</p>
 
 <ol>
-  <li>Click <strong>New</strong> <img src="{@docRoot}images/tools/eclipse-new.png" 
-  style="vertical-align:baseline;margin:0" /> in the toolbar.</li>
-  <li>In the window that appears, open the <strong>Android</strong> folder
-  and select <strong>Android Activity</strong>. Click <strong>Next</strong>.</li>
-  <li>Select <strong>BlankActivity</strong> and click <strong>Next</strong>.</li>
-  <li>Fill in the activity details:
+  <li>在工具栏上单击“<strong>New</strong> ”<img src="{@docRoot}images/tools/eclipse-new.png"
+    style="vertical-align:baseline;margin:0" />按钮。</li>
+  <li>在出现的窗口中，打开 <strong>Android</strong> 文件夹，然后选择 
+    <strong>Android Activity</strong>。单击“<strong>Next</strong>”。</li>
+  <li>选择 <strong>BlankActivity</strong>，并单击“<strong>Next</strong>”。</li>
+  <li>填写活动的详细信息：
     <ul>
       <li><strong>Project</strong>: MyFirstApp</li>
       <li><strong>Activity Name</strong>: DisplayMessageActivity</li>
@@ -227,36 +205,29 @@ work.</p>
       <li><strong>Hierarchial Parent</strong>: com.example.myfirstapp.MainActivity</li>
       <li><strong>Navigation Type</strong>: None</li>
     </ul>
-    <p>Click <strong>Finish</strong>.</p>
+    <p>单击 <strong>Finish</strong>。</p>
   </li>
 </ol>
 
-<p>If you're using a different IDE or the command line tools, create a new file named
-{@code DisplayMessageActivity.java} in the project's <code>src/</code> directory, next to
-the original {@code MainActivity.java} file.</p>
+<p>如果您使用不同的IDE或命令行工具，在项目的 <code>src/</code> 目录下，已有的
+  {@code MainActivity.java} 文件之后创建一个名为 {@code DisplayMessageActivity.java} 新文件。</p>
 
-<p>Open the {@code DisplayMessageActivity.java} file. If you used Eclipse to create this
-activity:</p>
+<p>打开 {@code DisplayMessageActivity.java} 文件。如果你使用 Eclipse 来创建这个活动：</p>
 <ul>
-  <li>The class
-already includes an implementation of the required {@link android.app.Activity#onCreate onCreate()}
-method.</li>
-  <li>There's also an implementation of the {@link android.app.Activity#onCreateOptionsMenu
-onCreateOptionsMenu()} method, but
-you won't need it for this app so you can remove it.</li>
-  <li>There's also an implementation of {@link android.app.Activity#onOptionsItemSelected
-  onOptionsItemSelected()} which handles the behavior for the action bar's <em>Up</em> behavior.
-  Keep this one the way it is.</li>
+  <li>这个类已经包含了所需的 {@link android.app.Activity#onCreate onCreate()} 方法的实现。</li>
+  <li>还有 {@link android.app.Activity#onCreateOptionsMenu onCreateOptionsMenu()} 方法的实现，
+    这个应用并不需要，你可以删除它。</li>
+  <li>还有 {@link android.app.Activity#onOptionsItemSelected
+    onOptionsItemSelected()} 的实现，用于处理操作栏的<em>上一级</em>行为。保持原样。</li>
 </ul>
 
-<p>Because the {@link android.app.ActionBar} APIs are available only on {@link
-android.os.Build.VERSION_CODES#HONEYCOMB} (API level 11) and higher, you must add a condition
-around the {@link android.app.Activity#getActionBar()} method to check the current platform version.
-Additionally, you must add the {@code &#64;SuppressLint("NewApi")} tag to the
-{@link android.app.Activity#onCreate onCreate()} method to avoid <a
-href="{@docRoot}tools/help/lint.html">lint</a> errors.</p>
+<p>因为 {@link android.app.ActionBar} API只在 {@link android.os.Build.VERSION_CODES#HONEYCOMB}
+  （API级别11）及之后的版本可用，您必须用条件判断将 {@link android.app.Activity#getActionBar()}
+  括起来，用来检查当前平台的版本。此外，您必须为 {@link android.app.Activity#onCreate onCreate()}
+  方法添加 {@code &#64;SuppressLint("NewApi")} 标签的，以避免 <a
+  href="{@docRoot}tools/help/lint.html">lint</a> 报错。</p>
 
-<p>The {@code DisplayMessageActivity} class should now look like this:</p>
+<p>{@code DisplayMessageActivity} 类现在看起来应该是这样的：</p>
 
 <pre>
 public class DisplayMessageActivity extends Activity {
@@ -286,30 +257,24 @@ public class DisplayMessageActivity extends Activity {
 }
 </pre>
 
-<p>If you used an IDE other than Eclipse, update your {@code DisplayMessageActivity}
-class with the above code.</p>
+<p>如果您使用的 IDE 不是Eclipse，用上面的代码更新您的 {@code DisplayMessageActivity} 类。</p>
 
-<p>All subclasses of {@link android.app.Activity} must implement the {@link
-android.app.Activity#onCreate onCreate()} method. The system calls this when creating a new
-instance of the activity. This method is where you must define the activity layout
-with the {@link android.app.Activity#setContentView setContentView()} method
-and is where you should
-perform initial setup for the activity components.</p>
+<p>{@link android.app.Activity} 的所有子类都必须实现 {@link android.app.Activity#onCreate onCreate()}
+  方法。系统在创建活动的新实例时调用此函数。 在该方法中，你必须使用 {@link
+  android.app.Activity#setContentView setContentView()} 方法设置活动的布局，
+  这里也是你对活动组件执行初始设置的地方。</p>
 
-<p class="note"><strong>Note:</strong> If you are using an IDE other than Eclipse, your project
-does not contain the {@code activity_display_message} layout that's requested by
-{@link android.app.Activity#setContentView setContentView()}. That's OK because
-you will update this method later and won't be using that layout.</p>
+<p class="note"><strong>注意：</strong> 如果您使用的IDE 不是 Eclipse，你的项目中没有包含 {@link
+  android.app.Activity#setContentView setContentView()} 方法需要的 {@code activity_display_message}
+  布局。这不要紧，因为稍后你会更新该方法，并不使用该布局。</p>
 
 
-<h3 id="AddTitle">Add the title string</h3>
+<h3 id="AddTitle">添加标题字符串</h3>
 
-<p>If you used Eclipse, you can skip to the <a href="#AddToManifest">next section</a>,
-because the template provides
-the title string for the new activity.</p>
+<p>如果你使用Eclipse，你可以跳到
+  <a href="#AddToManifest">下一小节</a>，因为模板为新活动提供了标题字符串。</p>
 
-<p>If you're using an IDE other than Eclipse,
-add the new activity's title to the {@code strings.xml} file:</p>
+<p>如果您使用的 IDE 不是 Eclipse，在 {@code strings.xml} 文件中添加新活动的标题：</p>
 <pre>
 &lt;resources>
     ...
@@ -319,15 +284,13 @@ add the new activity's title to the {@code strings.xml} file:</p>
 
 
 
-<h3 id="AddToManifest">Add it to the manifest</h3>
+<h3 id="AddToManifest">加入清单文件</h3>
 
-<p>All activities must be declared in your manifest file, <code>AndroidManifest.xml</code>, using an
-<a
-href="{@docRoot}guide/topics/manifest/activity-element.html">{@code &lt;activity>}</a> element.</p>
+<p>所有的活动都必须在清单文件 <code>AndroidManifest.xml</code> 中使用 <a
+href="{@docRoot}guide/topics/manifest/activity-element.html">{@code &lt;activity>}</a> 元素声明。</p>
 
-<p>When you use the Eclipse tools to create the activity, it creates a default entry. If you're
-using a different IDE, you need to add the manifest entry yourself. It should
-look like this:</p>
+<p>如果你使用Eclipse工具来创建活动，它会创建一个默认项。 如果您使用的是不同的 IDE，
+你需要自己添加清单项。它看起来应该是这样的：</p>
 
 <pre>
 &lt;application ... >
@@ -343,43 +306,35 @@ look like this:</p>
 &lt;/application>
 </pre>
 
-<p>The <a href="{@docRoot}guide/topics/manifest/activity-element.html#parent">{@code
-android:parentActivityName}</a> attribute declares the name of this activity's parent activity
-within the app's logical hierarchy. The system uses this value
-to implement default navigation behaviors, such as <a
-href="{@docRoot}design/patterns/navigation.html">Up navigation</a> on
-Android 4.1 (API level 16) and higher. You can provide the same navigation behaviors for
-older versions of Android by using the
-<a href="{@docRoot}tools/extras/support-library.html">Support Library</a> and adding
-the <a href="{@docRoot}guide/topics/manifest/meta-data-element.html">{@code
-&lt;meta-data>}</a> element as shown here.</p>
+<p><a href="{@docRoot}guide/topics/manifest/activity-element.html#parent">{@code
+  android:parentActivityName}</a> 属性声明此活动在应用的逻辑层次中的父活动的名称。
+  系统使用这个值来实现默认的导航行为，比如 Android 4.1（API 级别16）或更高版本重的<a
+  href="{@docRoot}design/patterns/navigation.html">上一级导航</a>。对于 Android 的较旧版本，
+  通过使用<a href="{@docRoot}tools/extras/support-library.html">支持库</a>和像这样添加 <a
+  href="{@docRoot}guide/topics/manifest/meta-data-element.html">{@code &lt;meta-data>}</a> 元素，
+  你也可以提供相同的导航行为。</p>
 
-<p class="note"><strong>Note:</strong> Your Android SDK should already include
-the latest Android Support Library. It's included with the ADT Bundle but if you're using
-a different IDE, you should have installed it during the
-<a href="{@docRoot}sdk/installing/adding-packages.html">Adding Platforms and Packages</a> step.
-When using the templates in Eclipse, the Support Library is automatically added to your app project
-(you can see the library's JAR file listed under <em>Android Dependencies</em>). If you're not using
-Eclipse, you need to manually add the library to your project&mdash;follow the guide for <a
-href="{@docRoot}tools/extras/support-library.html#SettingUp">setting up the Support Library</a>
-then return here.</p>
+<p class="note"><strong>注意：</strong> 你的 Andr​​oid SDK 应该已经包含了最新的 Andr​​oid 支持库。
+  它包含在ADT捆包中，但如果你使用的是不同的 IDE，你应该已经在<a 
+  href="{@docRoot}sdk/installing/adding-packages.html">添加平台和软件包</a>的过程中安装了它。
+  在Eclipse中使用模板时，支持库会自动添加到您的应用项目中（你可以在 <em>Android Dependencies</em>
+  下看到库的JAR文件）。如果你不使用Eclipse，你需要手动将库添加到您的项目&mdash;根据<a
+  href="{@docRoot}tools/extras/support-library.html#SettingUp">设置支持库</a>向导添加后再回来。</p>
 
-<p>If you're developing with Eclipse, you can run the app now, but not much happens.
-Clicking the Send button starts the second activity but it uses
-a default "Hello world" layout provided by the template. You'll soon update the
-activity to instead display a custom text view, so if you're using a different IDE,
-don't worry that the app won't yet compile.</p>
+<p>如果你使用 Eclipse 进行开发，你现在就可以运行你的应用了，但不会发生什么事情。 点击“Send”按钮，
+  启动第二个活动，但它使用默认的由模版提供的“Hello world”布局。
+  你很快就会用一个自定义的文本视图该更新该活动；那么，如果您使用的是不同的 IDE，
+  不用担心应用程序还不能编译。</p>
 
 
-<h2 id="ReceiveIntent">Receive the Intent</h2>
+<h2 id="ReceiveIntent">接收 Intent</h2>
 
-<p>Every {@link android.app.Activity} is invoked by an {@link android.content.Intent}, regardless of
-how the user navigated there. You can get the {@link android.content.Intent} that started your
-activity by calling {@link android.app.Activity#getIntent()} and retrieve the data contained
-within it.</p>
+<p>无论用户是如何导航，每个 {@link android.app.Activity 活动} 都是通过 {@link android.content.Intent}
+  调用的。您可以通过调用 {@link android.app.Activity#getIntent()} 方法取得启动你的活动的 {@link 
+  android.content.Intent} 并接收包含于其中的数据。</p>
 
-<p>In the {@code DisplayMessageActivity} class’s {@link android.app.Activity#onCreate onCreate()}
-method, get the intent and extract the message delivered by {@code MainActivity}:</p>
+<p>在的 {@code DisplayMessageActivity} 类的 {@link android.app.Activity#onCreate onCreate()} 方法中，
+  取得意图并提取由 {@code MainActivity} 传来的消息：</p>
 
 <pre>
 Intent intent = getIntent();
@@ -388,15 +343,15 @@ String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
 
 
-<h2 id="DisplayMessage">Display the Message</h2>
+<h2 id="DisplayMessage">显示消息</h2>
 
-<p>To show the message on the screen, create a {@link android.widget.TextView} widget and set the
-text using {@link android.widget.TextView#setText setText()}. Then add the {@link
-android.widget.TextView} as the root view of the activity’s layout by passing it to {@link
-android.app.Activity#setContentView setContentView()}.</p>
+<p>要在屏幕上显示信息，创建一个 {@link android.widget.TextView} 小部件，使用 {@link 
+  android.widget.TextView#setText setText()} 方法设置文本。然后通过 {@link
+  android.app.Activity#setContentView setContentView()} 方法将 {@link android.widget.TextView}
+  作为根视图添加到活动的布局中。</p>
 
-<p>The complete {@link android.app.Activity#onCreate onCreate()} method for {@code
-DisplayMessageActivity} now looks like this:</p>
+<p>{@code DisplayMessageActivity} 类的 {@link android.app.Activity#onCreate onCreate()} 
+方法完成后看起来像这样：</p>
 
 <pre>
 &#64;Override
@@ -417,20 +372,14 @@ public void onCreate(Bundle savedInstanceState) {
 }
 </pre>
 
-<p>You can now run the app. When it opens, type a message in the text field, click Send,
-  and the message appears on the second activity.</p>
+<p>现在，您可以运行应用。当它打开时，在文本字段中输入消息，单击“Send”按钮，
+  消息会出现在第二个活动中。</p>
 
 <img src="{@docRoot}images/training/firstapp/firstapp.png" />
-<p class="img-caption"><strong>Figure 2.</strong> Both activities in the final app, running
-on Android 4.0.
+<p class="img-caption"><strong>图2.</strong> 运行在 Android 4.0上运行的最终应用的两个活动。</p>
 
-<p>That's it, you've built your first Android app!</p>
+<p>这样，你已经创建了自己的第一款Android应用！</p>
 
-<p>To learn more about building Android apps, continue to follow the
-basic training classes. The next class is <a
-href="{@docRoot}training/basics/activity-lifecycle/index.html">Managing the Activity
-Lifecycle</a>.</p>
-
-
-
+<p>关于创建Android应用程序的更多信息，请继续学习基础培训课程。 下一课是 <a
+  href="{@docRoot}training/basics/activity-lifecycle/index.html">活动的生命周期管理</a>。</p>
 

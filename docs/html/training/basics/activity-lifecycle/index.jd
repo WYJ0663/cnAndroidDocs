@@ -1,8 +1,8 @@
-page.title=Managing the Activity Lifecycle
+page.title=活动生命周期管理
 
 trainingnavtop=true
 startpage=true
-next.title=Launching an Activity
+next.title=启动活动
 next.link=starting.html
 
 @jd:body
@@ -11,64 +11,53 @@ next.link=starting.html
 <div id="tb">
 
 
-<h2>Dependencies and prerequisites</h2>
+<h2>依赖关系和前提条件</h2>
 <ul>
-  <li>How to create an Android project (see <a
-href="{@docRoot}training/basics/firstapp/creating-project.html">Creating an Android
-Project</a>)</li>
+  <li>如何创建Android项目（请参阅<a href="{@docRoot}training/basics/firstapp/creating-project.html">
+    创建Android项目</a>）</li>
 </ul>
 
 
-<h2>You should also read</h2>
+<h2>你也应该阅读</h2>
 <ul>
-  <li><a href="{@docRoot}guide/components/activities.html">Activities</a></li>
+  <li><a href="{@docRoot}guide/components/activities.html">活动</a></li>
 </ul>
 
 
-<h2>Try it out</h2>
+<h2>试试吧</h2>
 
 <div class="download-box">
  <a href="http://developer.android.com/shareables/training/ActivityLifecycle.zip"
-class="button">Download the demo</a>
+class="button">下载演示程序</a>
  <p class="filename">ActivityLifecycle.zip</p>
 </div>
 
 </div>
 </div>
 
-<p>As a user navigates through, out of, and back to your app, the
-{@link android.app.Activity} instances in your app transition between different states in their
-lifecycle. For instance, when your
-activity starts for the first time, it comes to the foreground of the system and receives user
-focus. During this process, the Android system calls a series of lifecycle methods on the
-activity in which you set up the user interface and other components. If the user performs an 
-action that starts another activity or switches to another app, the system calls another set of
-lifecycle methods on your activity as it moves into the background (where the activity is no
-longer visible, but the instance and its state remains intact).</p>
+<p>当用户打开、退出或者返回到你的应用时，应用中的{@link android.app.Activity 活动}
+  实例在其生命周期的不同状态之间转换。比如，当你的活动第一次启动时，它在前台运行，并接收用户焦点。
+  在这个过程中，Android 系统调用一系列的活动的生命周期方法，在这些方法中，你可以设置应用的用户界面和其他组件。
+  如果用户执行的操作是启动另一个活动或切换到另一个应用时，系统调用活动的另一组生命周期方法，并将活动移入后台
+  （活动不再可见，但保持其实例及状态）。</p>
 
-<p>Within the lifecycle callback methods, you can declare how your activity behaves when the
-user leaves and  re-enters the activity.  For example, if you're building a streaming video player,
-you might pause the video and terminate the network connection when the user switches to another
-app. When the user returns, you can reconnect to the network and allow the user to resume the video
-from the same spot.</p>
+<p>在生命周期回调方法中，你可以定义在用户离开并再次进入活动时，活动的行为。
+  例如，如果你正在创建流媒体视频播放器，在用户切换到另一个应用时，你可能会暂停视频播放并终止网络连接。
+  当用户返回时，你可以重新连接网络，并允许用户从之前的位置恢复视频播放。</p>
 
-<p>This class explains important lifecycle callback methods that each {@link
-android.app.Activity} instance receives and how you can use them so your activity does what the
-user expects and does not consume system resources when your activity doesn't need them.</p>
+<p>本课程讲解了每个{@link android.app.Activity 活动}实例接收的生命周期回调方法以及如何使用，
+  那么你的活动会达到用户的期望，在活动不需要的时候，不占用系统资源。</p>
 
-<h2>Lessons</h2>
+<h2>课程内容</h2>
  
 <dl>
-  <dt><b><a href="starting.html">Starting an Activity</a></b></dt>
-  <dd>Learn the basics about the activity lifecycle, how the user can launch your app, and how
-to perform basic activity creation.</dd>
-  <dt><b><a href="pausing.html">Pausing and Resuming an Activity</a></b></dt>
-  <dd>Learn what happens when your activity is paused (partially obscured) and resumed and what you
-should do during these state changes.</dd>
-  <dt><b><a href="stopping.html">Stopping and Restarting an Activity</a></b></dt>
-  <dd>Learn what happens when the user completely leaves your activity and returns to it.</dd>
-  <dt><b><a href="recreating.html">Recreating an Activity</a></b></dt>
-  <dd>Learn what happens when your activity is destroyed and how you can rebuild the activity
-state when necessary.</dd>
+  <dt><b><a href="starting.html">启动活动</a></b></dt>
+  <dd>学习活动生命周期的基础内容，用户如何启动你的应用，以及如何创建一般的活动。</dd>
+  <dt><b><a href="pausing.html">暂停和恢复活动</a></b></dt>
+  <dd>了解你的活动被暂停（部分遮盖）和恢复时会发生什么，以及在这些状态改变时你应该做什么。</dd>
+  <dt><b><a href="stopping.html">停止和重新启动活动</a></b></dt>
+  <dd>了解当用户完全离开或再次返回你的活动时，会发生什么。</dd>
+  <dt><b><a href="recreating.html">重新创建活动</a></b></dt>
+  <dd>了解你的活动销毁时会发生什么，以及在必要时如何重建活动状态。</dd>
 </dl> 
 

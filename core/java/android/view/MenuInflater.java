@@ -34,13 +34,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * This class is used to instantiate menu XML files into Menu objects.
+ * 该类用于将XML文件中定义的定义实例化为菜单对象.
  * <p>
- * For performance reasons, menu inflation relies heavily on pre-processing of
- * XML files that is done at build time. Therefore, it is not currently possible
- * to use MenuInflater with an XmlPullParser over a plain XML file at runtime;
- * it only works with an XmlPullParser returned from a compiled resource (R.
- * <em>something</em> file.)
+ * 由于性能原因，菜单实例化处理中的重量级处理在构建时已经在XML
+ * 文件预处理时完成了.因此，当前在运行时使用MenuInflater
+ * 通过XmlPullParser来简单的处理XML文件时不可能的.
+ * 该类只能与已编译资源（R.<em>资源文件</em>）中的
+ * XmlPullParser一起使用.
  */
 public class MenuInflater {
     private static final String LOG_TAG = "MenuInflater";
@@ -68,7 +68,7 @@ public class MenuInflater {
     private Object mRealOwner;
 
     /**
-     * Constructs a menu inflater.
+     * 菜单展开器构造函数.
      * 
      * @see Activity#getMenuInflater()
      */
@@ -93,13 +93,12 @@ public class MenuInflater {
     }
 
     /**
-     * Inflate a menu hierarchy from the specified XML resource. Throws
-     * {@link InflateException} if there is an error.
+     * 从指定的XML资源文件中展开菜单层次.如果发生错误，抛出
+     * {@link InflateException}.
      * 
-     * @param menuRes Resource ID for an XML layout resource to load (e.g.,
-     *            <code>R.menu.main_activity</code>)
-     * @param menu The Menu to inflate into. The items and submenus will be
-     *            added to this Menu.
+     * @param menuRes 要加载的XML布局资源ID（例如：
+     *            <code>R.menu.main_activity</code>）.
+     * @param menu 要填充的目标菜单.文件中的菜单项和子菜单会加入该菜单.
      */
     public void inflate(int menuRes, Menu menu) {
         XmlResourceParser parser = null;

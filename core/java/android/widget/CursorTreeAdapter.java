@@ -28,12 +28,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * An adapter that exposes data from a series of {@link Cursor}s to an
- * {@link ExpandableListView} widget. The top-level {@link Cursor} (that is
- * given in the constructor) exposes the groups, while subsequent {@link Cursor}s
- * returned from {@link #getChildrenCursor(Cursor)} expose children within a
- * particular group. The Cursors must include a column named "_id" or this class
- * will not work.
+ * 将一组{@link Cursor 游标}的数据提供给{@link ExpandableListView 可扩展列表视图}
+ * 的适配器.  顶层{@link Cursor 游标}（由构造函数提供）提供分组的数据.由
+ * {@link #getChildrenCursor(Cursor)}返回的一系列{@link Cursor 游标}
+ * 用于为分组对应的子条目提供数据.要使该类可用，这些游标必须包含“_id”列.
  */
 public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implements Filterable,
         CursorFilter.CursorFilterClient {
@@ -55,23 +53,23 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     FilterQueryProvider mFilterQueryProvider;
     
     /**
-     * Constructor. The adapter will call {@link Cursor#requery()} on the cursor whenever
-     * it changes so that the most recent data is always displayed.
+     * 构造函数.当数据库的数据发生改变时，适配器将调用{@link Cursor#requery()}，
+     * 重新查询以显示最新的数据.
      *
-     * @param cursor The cursor from which to get the data for the groups.
+     * @param cursor 为分组提供数据的游标.
+     * @param context 应用程序上下文.
      */
     public CursorTreeAdapter(Cursor cursor, Context context) {
         init(cursor, context, true);
     }
 
     /**
-     * Constructor.
+     * 构造函数.
      * 
-     * @param cursor The cursor from which to get the data for the groups.
-     * @param context The context
-     * @param autoRequery If true the adapter will call {@link Cursor#requery()}
-     *        on the cursor whenever it changes so the most recent data is
-     *        always displayed.
+     * @param cursor 为分组提供数据的游标.
+     * @param context 应用程序上下文.
+     * @param autoRequery 设置为true时，一旦数据库的数据发生变化，适配器会调用
+     *        {@link Cursor#requery()}，以保持显示最新的数据.
      */
     public CursorTreeAdapter(Cursor cursor, Context context, boolean autoRequery) {
         init(cursor, context, autoRequery);
@@ -111,43 +109,36 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     }
 
     /**
-     * Gets the Cursor for the children at the given group. Subclasses must
-     * implement this method to return the children data for a particular group.
+     * 为指定分组的子条目取得游标.子类必须实现这个方法，为指定分组提供子条目的数据.
      * <p>
-     * If you want to asynchronously query a provider to prevent blocking the
-     * UI, it is possible to return null and at a later time call
-     * {@link #setChildrenCursor(int, Cursor)}.
+     * 为了避免UI阻塞，可以异步查询提供者，通过返回空，并在查询成功后调用
+     * {@link #setChildrenCursor(int, Cursor)}即可.
      * <p>
-     * It is your responsibility to manage this Cursor through the Activity
-     * lifecycle. It is a good idea to use {@link Activity#managedQuery} which
-     * will handle this for you. In some situations, the adapter will deactivate
-     * the Cursor on its own, but this will not always be the case, so please
-     * ensure the Cursor is properly managed.
+     * 你有责任在活动的整个生命周期中管理该游标对象.有个好办法，你可以使用
+     * {@link Activity#managedQuery}函数，它会为你完成该工作.在某些情况下，
+     * 适配器会使游标停止工作，但该情况不会总是出现，因此请确保有效地管理好游标.
      * 
-     * @param groupCursor The cursor pointing to the group whose children cursor
-     *            should be returned
-     * @return The cursor for the children of a particular group, or null.
+     * @param groupCursor 分组游标对象，决定返回哪个分组的子条目用游标.
+     * @return 指定分组的子条目用游标，或者为空.
      */
     abstract protected Cursor getChildrenCursor(Cursor groupCursor);
     
     /**
-     * Sets the group Cursor.
+     * 设置分组游标.
      * 
-     * @param cursor The Cursor to set for the group. If there is an existing cursor 
-     * it will be closed.
+     * @param cursor 为分组设置的游标.如果有既存游标，会将其关闭.
      */
     public void setGroupCursor(Cursor cursor) {
         mGroupCursorHelper.changeCursor(cursor, false);
     }
     
     /**
-     * Sets the children Cursor for a particular group. If there is an existing cursor
-     * it will be closed.
+     * 设置指定分组的子条目用游标.如果有既存游标，会将其关闭.
      * <p>
-     * This is useful when asynchronously querying to prevent blocking the UI.
+     * 防止UI阻塞，使用异步查询时使用该方法.
      * 
-     * @param groupPosition The group whose children are being set via this Cursor.
-     * @param childrenCursor The Cursor that contains the children of the group.
+     * @param groupPosition 要设置子条目游标的分组.
+     * @param childrenCursor 用于分组子条目的游标.
      */
     public void setChildrenCursor(int groupPosition, Cursor childrenCursor) {
         
@@ -209,26 +200,24 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     }
 
     /**
-     * Makes a new group view to hold the group data pointed to by cursor.
+     * 根据游标指向的数据生成新的分组视图.
      * 
-     * @param context Interface to application's global information
-     * @param cursor The group cursor from which to get the data. The cursor is
-     *            already moved to the correct position.
-     * @param isExpanded Whether the group is expanded.
-     * @param parent The parent to which the new view is attached to
-     * @return The newly created view.
+     * @param context 应用程序上下文.
+     * @param cursor 用于取得分组数据的游标.游标已经定位到正确位置.
+     * @param isExpanded 分组是否为展开状态.
+     * @param parent 容纳该新视图的父视图.
+     * @return 新生成的视图.
      */
     protected abstract View newGroupView(Context context, Cursor cursor, boolean isExpanded,
             ViewGroup parent);
 
     /**
-     * Bind an existing view to the group data pointed to by cursor.
+     * 将游标指定的分组数据绑定到既存视图.
      * 
-     * @param view Existing view, returned earlier by newGroupView.
-     * @param context Interface to application's global information
-     * @param cursor The cursor from which to get the data. The cursor is
-     *            already moved to the correct position.
-     * @param isExpanded Whether the group is expanded.
+     * @param view 之前由 newChildView 返回的既存视图.
+     * @param context 应用程序上下文.
+     * @param cursor 用于取得数据的游标.游标已经移到正确位置.
+     * @param isExpanded 分组是否已展开.
      */
     protected abstract void bindGroupView(View view, Context context, Cursor cursor,
             boolean isExpanded);
@@ -253,26 +242,24 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     }
 
     /**
-     * Makes a new child view to hold the data pointed to by cursor.
+     * 根据游标指向的数据生成新子视图.
      * 
-     * @param context Interface to application's global information
-     * @param cursor The cursor from which to get the data. The cursor is
-     *            already moved to the correct position.
-     * @param isLastChild Whether the child is the last child within its group.
-     * @param parent The parent to which the new view is attached to
-     * @return the newly created view.
+     * @param context 应用程序上下文.
+     * @param cursor 用于取得数据的游标.游标已定位于正确位置.
+     * @param isLastChild 该子条目是否是分组的最后一个条目.
+     * @param parent 容纳该新视图的父视图.
+     * @return 新生成的视图.
      */
     protected abstract View newChildView(Context context, Cursor cursor, boolean isLastChild,
             ViewGroup parent);
 
     /**
-     * Bind an existing view to the child data pointed to by cursor
+     * 将游标指定的子数据绑定到既存视图.
      * 
-     * @param view Existing view, returned earlier by newChildView
-     * @param context Interface to application's global information
-     * @param cursor The cursor from which to get the data. The cursor is
-     *            already moved to the correct position.
-     * @param isLastChild Whether the child is the last child within its group.
+     * @param view 之前由 newChildView 返回的既存视图.
+     * @param context 应用程序上下文.
+     * @param cursor 用于取得数据的游标.游标已经移到正确位置.
+     * @param isLastChild 视图是否是分组中的最后一个子视图.
      */
     protected abstract void bindChildView(View view, Context context, Cursor cursor,
             boolean isLastChild);
@@ -299,11 +286,9 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     }
 
     /**
-     * Notifies a data set change, but with the option of not releasing any
-     * cached cursors.
+     * 通知数据变更，并包含是否是否缓存的游标的选项.
      * 
-     * @param releaseCursors Whether to release and deactivate any cached
-     *            cursors.
+     * @param releaseCursors 是否释放并停止缓存的所有游标.
      */
     public void notifyDataSetChanged(boolean releaseCursors) {
         

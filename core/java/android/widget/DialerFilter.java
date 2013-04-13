@@ -87,7 +87,7 @@ public class DialerFilter extends RelativeLayout
     }
 
     /**
-     * Only show the icon view when focused, if there is one.
+     * 有图标时，仅显示图标.
      */
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
@@ -211,9 +211,9 @@ public class DialerFilter extends RelativeLayout
     }
 
     /**
-     * Change the mode of the widget.
+     * 改变小部件的模式.
      *
-     * @param newMode The mode to switch to.
+     * @param newMode 切换到的新模式.
      */
     public void setMode(int newMode) {
         switch (newMode) {
@@ -339,7 +339,7 @@ public class DialerFilter extends RelativeLayout
     }
 
     /**
-     * Clears both the digits and the filter text.
+     * 清除数字及过滤器文本.
      */
     public void clearText() {
         Editable text;
@@ -389,23 +389,26 @@ public class DialerFilter extends RelativeLayout
     }
 
     /**
-     * Called right after the mode changes to give subclasses the option to
-     * restyle, etc.
+     * 模式变更后调用，使子类有机会重新设置其风格等等.
      */
     protected void onModeChange(int oldMode, int newMode) {
     }
 
-    /** This mode has both lines */
+    /** 该模式显示两行 */
     public static final int DIGITS_AND_LETTERS = 1;
-    /** This mode is when after starting in {@link #DIGITS_AND_LETTERS} mode the filter
-     *  has removed all possibility of the digits matching, leaving only the letters line */
+    /** 
+     * 当 {@link #DIGITS_AND_LETTERS} 模式中，过滤器过滤掉了所有可能匹配的数字，
+     * 仅剩字母行时进入该模式.
+     */
     public static final int DIGITS_AND_LETTERS_NO_DIGITS = 2;
-    /** This mode is when after starting in {@link #DIGITS_AND_LETTERS} mode the filter
-     *  has removed all possibility of the letters matching, leaving only the digits line */
+    /** 
+     * 当 {@link #DIGITS_AND_LETTERS} 模式中，过滤器过滤掉了所有可能匹配的字母，
+     * 仅剩数字行时进入该模式.
+     */
     public static final int DIGITS_AND_LETTERS_NO_LETTERS = 3;
-    /** This mode has only the digits line */
+    /** 该模式只有数字行. */
     public static final int DIGITS_ONLY = 4;
-    /** This mode has only the letters line */
+    /** 该模式只有字母行. */
     public static final int LETTERS_ONLY = 5;
 
     EditText mLetters;

@@ -40,8 +40,10 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * Widget used to show an image with the standard QuickContact badge
- * and on-click behavior.
+ * 该小部件定义了用于显示一个可以显示标准快捷联系人徽章的图片以及点击 图片时的动作.
+ * @author translate by 农民伯伯
+ * @author review by cnmahj
+ * @author convert by cnmahj
  */
 public class QuickContactBadge extends ImageView implements OnClickListener {
     private Uri mContactUri;
@@ -101,7 +103,7 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
         }
     }
 
-    /** This call has no effect anymore, as there is only one QuickContact mode */
+    /** 该调用没有影响，因为只有一种 QuickContact 模式. */
     @SuppressWarnings("unused")
     public void setMode(int size) {
     }
@@ -140,7 +142,7 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
     }
 
     /**
-     * Resets the contact photo to the default state.
+     * 重置联系人图像为默认状态.
      */
     public void setImageToDefault() {
         if (mDefaultAvatar == null) {
@@ -150,13 +152,12 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
     }
 
     /**
-     * Assign the contact uri that this QuickContactBadge should be associated
-     * with. Note that this is only used for displaying the QuickContact window and
-     * won't bind the contact's photo for you. Call {@link #setImageDrawable(Drawable)} to set the
-     * photo.
+     * 指定与该 QuickContactBadge 相关联的联系人的URI. 注意，该方法只用于显示
+     * QuickContact 窗口，并不会为你绑定联系人图片.
+     * 调用 {@link #setImageDrawable(Drawable)} 设置联系人图片。
      *
-     * @param contactUri Either a {@link Contacts#CONTENT_URI} or
-     *            {@link Contacts#CONTENT_LOOKUP_URI} style URI.
+     * @param contactUri {@link Contacts#CONTENT_URI} 或者
+     *            {@link Contacts#CONTENT_LOOKUP_URI} 风格的 URI.
      */
     public void assignContactUri(Uri contactUri) {
         mContactUri = contactUri;
@@ -166,13 +167,11 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
     }
 
     /**
-     * Assign a contact based on an email address. This should only be used when
-     * the contact's URI is not available, as an extra query will have to be
-     * performed to lookup the URI based on the email.
+     * 使用电子邮箱地址来指定联系人.该方法应该只在联系人的 URI 未知时，
+     * 作为附加的手段，通过电子邮箱地址来查询联系人的 URI.
      *
-     * @param emailAddress The email address of the contact.
-     * @param lazyLookup If this is true, the lookup query will not be performed
-     * until this view is clicked.
+     * @param emailAddress 联系人的电子邮件地址.
+     * @param lazyLookup 如果该值为真，该查询不立即执行，而是在单击视图时才执行.
      */
     public void assignContactFromEmail(String emailAddress, boolean lazyLookup) {
         mContactEmail = emailAddress;
@@ -187,13 +186,11 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
     }
 
     /**
-     * Assign a contact based on a phone number. This should only be used when
-     * the contact's URI is not available, as an extra query will have to be
-     * performed to lookup the URI based on the phone number.
-     *
-     * @param phoneNumber The phone number of the contact.
-     * @param lazyLookup If this is true, the lookup query will not be performed
-     * until this view is clicked.
+     * 使用电话号码来指定联系人.该方法应该只在联系人的 URI 未知时，
+     * 作为附加的手段，通过电话号码来查询联系人的 URI.
+     * 
+     * @param phoneNumber 联系人的电话号码.
+     * @param lazyLookup 如果该值为真，该查询不立即执行，而是在单击视图时才执行.
      */
     public void assignContactFromPhone(String phoneNumber, boolean lazyLookup) {
         mContactPhone = phoneNumber;
@@ -243,9 +240,9 @@ public class QuickContactBadge extends ImageView implements OnClickListener {
     }
 
     /**
-     * Set a list of specific MIME-types to exclude and not display. For
-     * example, this can be used to hide the {@link Contacts#CONTENT_ITEM_TYPE}
-     * profile icon.
+     * 设置一组要排除不显示的MIMI类型列表.例如，可以隐藏Contacts.CONTENT_ITEM_TYPE类型的图标.
+     * 设置排除在外的、不显示的 MIME 类型一览.例如，
+     * {@link Contacts#CONTENT_ITEM_TYPE} 用于隐藏个人资料图标.
      */
     public void setExcludeMimes(String[] excludeMimes) {
         mExcludeMimes = excludeMimes;

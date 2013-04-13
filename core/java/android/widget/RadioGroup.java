@@ -28,27 +28,25 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 
 /**
- * <p>This class is used to create a multiple-exclusion scope for a set of radio
- * buttons. Checking one radio button that belongs to a radio group unchecks
- * any previously checked radio button within the same group.</p>
+ * <p>这个类用于创建一组单选按钮之间多重排斥的范围.
+ * 在同一个单选按钮组中勾选一个按钮则会取消该组中其它已经勾选的按钮的选中状态.</p>
  *
- * <p>Intially, all of the radio buttons are unchecked. While it is not possible
- * to uncheck a particular radio button, the radio group can be cleared to
- * remove the checked state.</p>
+ * <p>初始状态下，所有的单选按钮都出于未选中状态.虽然不能取消一个特定的单选按钮的选中状态，
+ * 但可以通过单选按钮组来移除它的选中状态.</p>
  *
- * <p>The selection is identified by the unique id of the radio button as defined
- * in the XML layout file.</p>
+ * <p>选中的单选按钮是通过在 XML 布局文件中定义的唯一 ID 来识别的.</p>
  *
- * <p><strong>XML Attributes</strong></p>
- * <p>See {@link android.R.styleable#RadioGroup RadioGroup Attributes}, 
- * {@link android.R.styleable#LinearLayout LinearLayout Attributes},
- * {@link android.R.styleable#ViewGroup ViewGroup Attributes},
- * {@link android.R.styleable#View View Attributes}</p>
- * <p>Also see
- * {@link android.widget.LinearLayout.LayoutParams LinearLayout.LayoutParams}
- * for layout attributes.</p>
+ * <p><strong>XML 属性</strong></p>
+ * <p>参见 {@link android.R.styleable#RadioGroup RadioGroup 属性}、
+ * {@link android.R.styleable#LinearLayout LinearLayout 属性}、
+ * {@link android.R.styleable#ViewGroup ViewGroup 属性} 和
+ * {@link android.R.styleable#View View 属性}.</p>
+ * <p>更多的布局属性，参见
+ * {@link android.widget.LinearLayout.LayoutParams LinearLayout.LayoutParams}.</p>
  * 
  * @see RadioButton
+ * @author translate by 首当其冲
+ * @author convert by cnmahj
  *
  */
 public class RadioGroup extends LinearLayout {
@@ -142,11 +140,9 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>Sets the selection to the radio button whose identifier is passed in
-     * parameter. Using -1 as the selection identifier clears the selection;
-     * such an operation is equivalent to invoking {@link #clearCheck()}.</p>
-     *
-     * @param id the unique id of the radio button to select in this group
+     * <p>将通过参数传入的 ID 所对应的单选按钮设置为选中状态.
+     * 用 -1 作为选择标识符，将清除按钮组的选择状态，相当于执行 {@link #clearCheck()} 方法.</p>
+     * @param id 该组中所要勾选的单选按钮的唯一标识符（id）.
      *
      * @see #getCheckedRadioButtonId()
      * @see #clearCheck()
@@ -183,10 +179,9 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>Returns the identifier of the selected radio button in this group.
-     * Upon empty selection, the returned value is -1.</p>
+     * <p>返回该单选按钮组中所选择的单选按钮的标识 ID，如果没有选中的单选按钮则返回 -1.</p>
      *
-     * @return the unique id of the selected radio button in this group
+     * @return 单选按钮组中选中的单选按钮的标识 ID.
      *
      * @see #check(int)
      * @see #clearCheck()
@@ -198,9 +193,8 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>Clears the selection. When the selection is cleared, no radio button
-     * in this group is selected and {@link #getCheckedRadioButtonId()} returns
-     * null.</p>
+     * <p>清除选择状态.清除选择状态后，该单选按钮组中没有选中的按钮，
+     * 调用 {@link #getCheckedRadioButtonId()} 函数返回 -1（原文为null）.</p>
      *
      * @see #check(int)
      * @see #getCheckedRadioButtonId()
@@ -210,10 +204,9 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>Register a callback to be invoked when the checked radio button
-     * changes in this group.</p>
+     * <p>注册一个当该单选按钮组中的单选按钮勾选状态发生改变时所要调用的回调函数.</p>
      *
-     * @param listener the callback to call on checked state change
+     * @param listener 当单选按钮勾选状态发生改变时所要调用的回调函数.
      */
     public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
         mOnCheckedChangeListener = listener;
@@ -253,13 +246,11 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>This set of layout parameters defaults the width and the height of
-     * the children to {@link #WRAP_CONTENT} when they are not specified in the
-     * XML file. Otherwise, this class ussed the value read from the XML file.</p>
+     * <p>当 XML 文件中没有指定该视图的子控件的高度和宽度时，
+     * 该类将其设为默认值 {@link #WRAP_CONTENT}；指定了则使用指定的值.</p>
      *
-     * <p>See
-     * {@link android.R.styleable#LinearLayout_Layout LinearLayout Attributes}
-     * for a list of all child view attributes that this class supports.</p>
+     * <p>本类支持的所有子视图属性的一览表，参见
+     * {@link android.R.styleable#LinearLayout_Layout LinearLayout 属性}.</p>
      *
      */
     public static class LayoutParams extends LinearLayout.LayoutParams {
@@ -299,14 +290,13 @@ public class RadioGroup extends LinearLayout {
         }
 
         /**
-         * <p>Fixes the child's width to
-         * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} and the child's
-         * height to  {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}
-         * when not specified in the XML file.</p>
+         * <p>当 XML 文件中未指定时，将子视图的宽度设为
+         * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}、高度设为
+         * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}.</p>
          *
-         * @param a the styled attributes set
-         * @param widthAttr the width attribute to fetch
-         * @param heightAttr the height attribute to fetch
+         * @param a 命名的属性集合
+         * @param widthAttr 从集合 a 中取得宽度属性用的索引
+         * @param heightAttr 从集合 a 中取得高度属性用的索引
          */
         @Override
         protected void setBaseAttributes(TypedArray a,
@@ -327,16 +317,14 @@ public class RadioGroup extends LinearLayout {
     }
 
     /**
-     * <p>Interface definition for a callback to be invoked when the checked
-     * radio button changed in this group.</p>
+     * <p>当单选按钮组中的单选按钮的勾选状态发生改变时，所要调用的回调函数的接口类.</p>
      */
     public interface OnCheckedChangeListener {
         /**
-         * <p>Called when the checked radio button has changed. When the
-         * selection is cleared, checkedId is -1.</p>
+         * <p>变更选中的单选按钮时，调用该方法.清除选择状态时，<code>checkedId</code> 为 -1.</p>
          *
-         * @param group the group in which the checked radio button has changed
-         * @param checkedId the unique identifier of the newly checked radio button
+         * @param group 选中状态发生变化的按钮组.
+         * @param checkedId 新选中的单选按钮的标识符.
          */
         public void onCheckedChanged(RadioGroup group, int checkedId);
     }

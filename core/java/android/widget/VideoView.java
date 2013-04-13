@@ -43,11 +43,9 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Displays a video file.  The VideoView class
- * can load images from various sources (such as resources or content
- * providers), takes care of computing its measurement from the video so that
- * it can be used in any layout manager, and provides various display options
- * such as scaling and tinting.
+ * 显示视频文件. VideoView 可以从通过多种途径载入图片(比如资源或内容提供器)，
+ * 注意测量并计算视频的大小，使其可以用于任何布局管理器，并提供各种现实选项，
+ * 比如缩放和着色。
  */
 public class VideoView extends SurfaceView implements MediaPlayerControl {
     private String TAG = "VideoView";
@@ -423,10 +421,9 @@ public class VideoView extends SurfaceView implements MediaPlayerControl {
     };
 
     /**
-     * Register a callback to be invoked when the media file
-     * is loaded and ready to go.
+     * 注册媒体文件载入并准备就绪时的回调函数.
      *
-     * @param l The callback that will be run
+     * @param l 要运行的回调函数
      */
     public void setOnPreparedListener(MediaPlayer.OnPreparedListener l)
     {
@@ -434,10 +431,9 @@ public class VideoView extends SurfaceView implements MediaPlayerControl {
     }
 
     /**
-     * Register a callback to be invoked when the end of a media file
-     * has been reached during playback.
+     * 注册媒体文件播放完毕时的回调函数.
      *
-     * @param l The callback that will be run
+     * @param l 要运行的回调函数
      */
     public void setOnCompletionListener(OnCompletionListener l)
     {
@@ -445,12 +441,10 @@ public class VideoView extends SurfaceView implements MediaPlayerControl {
     }
 
     /**
-     * Register a callback to be invoked when an error occurs
-     * during playback or setup.  If no listener is specified,
-     * or if the listener returned false, VideoView will inform
-     * the user of any errors.
+     * 注册播放或设置过程中发生错误时调用的回调函数.如果没有指定或函数返回假，
+     * VideoView 会将错误直接抛给用户.
      *
-     * @param l The callback that will be run
+     * @param l 要运行的回调函数
      */
     public void setOnErrorListener(OnErrorListener l)
     {

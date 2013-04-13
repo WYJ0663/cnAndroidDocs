@@ -17,36 +17,33 @@
 package android.widget;
 
 /**
- * Extended {@link Adapter} that is the bridge between a {@link ListView}
- * and the data that backs the list. Frequently that data comes from a Cursor,
- * but that is not
- * required. The ListView can display any data provided that it is wrapped in a
- * ListAdapter.
+ * 扩展自 {@link Adapter}.是在 {@link ListView} 与数据之间的一座桥梁.
+ * 大多数情况，数据来自于游标，但不是必须的.列表视图可以显示经过
+ * ListAdapter 封包的任何数据.
+ * 
+ * @author translate by 德罗德
+ * @author convert by cnmahj
  */
 public interface ListAdapter extends Adapter {
 
     /**
-     * Indicates whether all the items in this adapter are enabled. If the
-     * value returned by this method changes over time, there is no guarantee
-     * it will take effect.  If true, it means all items are selectable and
-     * clickable (there is no separator.)
+     * 指明是否该适配器中的所有条目都是可用的.该方法的返回值会随着时间变化，不保证一定有效.
+     * 如果返回真，意味着所有条目可选择、可点击（不包含分隔符）.
      * 
-     * @return True if all items are enabled, false otherwise.
+     * @return 如果返回真，则所有条目可用；否则返回假.
      * 
      * @see #isEnabled(int) 
      */
     public boolean areAllItemsEnabled();
 
     /**
-     * Returns true if the item at the specified position is not a separator.
-     * (A separator is a non-selectable, non-clickable item).
+     * 如果指定的位置不是分隔符（分隔符是不可选择、不可点击的条目）则返回真.
      * 
-     * The result is unspecified if position is invalid. An {@link ArrayIndexOutOfBoundsException}
-     * should be thrown in that case for fast failure.
+     * 如果位置无效，其结果将是不确定的.在这种情况下，在最初失败的地方，应该抛出
+     * {@link ArrayIndexOutOfBoundsException} 异常.
      *
-     * @param position Index of the item
-     * 
-     * @return True if the item is not a separator
+     * @param position 条目索引.
+     * @return 如果指定条目不是分隔符，返回真.
      * 
      * @see #areAllItemsEnabled() 
      */

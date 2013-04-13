@@ -26,7 +26,7 @@ import android.view.animation.Interpolator;
 
 
 /**
- * <p>This class encapsulates scrolling. You can use scrollers ({@link Scroller}
+ * <p>这个类封装了滚动操作. You can use scrollers ({@link Scroller}
  * or {@link OverScroller}) to collect the data you need to produce a scrolling
  * animation&mdash;for example, in response to a fling gesture. Scrollers track
  * scroll offsets for you over time, but they don't automatically apply those
@@ -59,6 +59,8 @@ import android.view.animation.Interpolator;
  *     int currY = mScroller.getCurrY();
  *    ...
  * }</pre>
+ * @author translate by pengyouhong
+ * @author convert by cnmahj
  */
 public class Scroller  {
     private int mMode;
@@ -155,16 +157,16 @@ public class Scroller  {
     private static float sViscousFluidNormalize;
 
     /**
-     * Create a Scroller with the default duration and interpolator.
+     * 使用缺省的持续持续时间和动画插入器（interpolator）创建 Scroller.
      */
     public Scroller(Context context) {
         this(context, null);
     }
 
     /**
-     * Create a Scroller with the specified interpolator. If the interpolator is
-     * null, the default (viscous) interpolator will be used. "Flywheel" behavior will
-     * be in effect for apps targeting Honeycomb or newer.
+     * 根据指定的动画插入器（interpolator）创建 Scroller，如果指定的动画插入器为空，
+     * 则会使用缺省的动画插入器（粘滞viscous）创建.
+     * 飞轮（Flywheel）动作效果只适用于 Honeycomb 及更新的系统.
      */
     public Scroller(Context context, Interpolator interpolator) {
         this(context, interpolator,
@@ -172,9 +174,8 @@ public class Scroller  {
     }
 
     /**
-     * Create a Scroller with the specified interpolator. If the interpolator is
-     * null, the default (viscous) interpolator will be used. Specify whether or
-     * not to support progressive "flywheel" behavior in flinging.
+     * 使用指定的插补器创建 Scroller.如果插补器为空，使用默认（粘滞）插补器.
+     * 并可指定快速滑动时，是否支持“飞轮”行为.
      */
     public Scroller(Context context, Interpolator interpolator, boolean flywheel) {
         mFinished = true;
@@ -187,11 +188,9 @@ public class Scroller  {
     }
 
     /**
-     * The amount of friction applied to flings. The default value
-     * is {@link ViewConfiguration#getScrollFriction}.
+     * 应用到快速滑动的摩擦系数.默认值为 {@link ViewConfiguration#getScrollFriction}.
      * 
-     * @param friction A scalar dimension-less value representing the coefficient of
-     *         friction.
+     * @param friction 代表与维度无关的摩擦系数.
      */
     public final void setFriction(float friction) {
         mDeceleration = computeDeceleration(friction);
@@ -207,55 +206,54 @@ public class Scroller  {
 
     /**
      * 
-     * Returns whether the scroller has finished scrolling.
+     * 返回 scroller 是否已完成滚动.
      * 
-     * @return True if the scroller has finished scrolling, false otherwise.
+     * @return 已完成滚动返回真，否则返回假.
      */
     public final boolean isFinished() {
         return mFinished;
     }
     
     /**
-     * Force the finished field to a particular value.
+     * 强制设置终止状态为特定值.
      *  
-     * @param finished The new finished value.
+     * @param finished 新的终止状态.
      */
     public final void forceFinished(boolean finished) {
         mFinished = finished;
     }
     
     /**
-     * Returns how long the scroll event will take, in milliseconds.
+     * 返回滚动事件持续的时间，以毫秒为单位.
      * 
-     * @return The duration of the scroll in milliseconds.
+     * @return 以毫秒为单位的持续的时间.
      */
     public final int getDuration() {
         return mDuration;
     }
     
     /**
-     * Returns the current X offset in the scroll. 
+     * 返回当前滚动 X 方向的偏移.
      * 
-     * @return The new X offset as an absolute distance from the origin.
+     * @return 距离原点 X 轴方向的绝对值.
      */
     public final int getCurrX() {
         return mCurrX;
     }
     
     /**
-     * Returns the current Y offset in the scroll. 
+     * 返回当前滚动 Y 方向的偏移.
      * 
-     * @return The new Y offset as an absolute distance from the origin.
+     * @return 距离原点 Y 轴方向的绝对值.
      */
     public final int getCurrY() {
         return mCurrY;
     }
     
     /**
-     * Returns the current velocity.
+     * 返回当前速度.
      *
-     * @return The original velocity less the deceleration. Result may be
-     * negative.
+     * @return 与维度无关的原始速度.结果可能为负值.
      */
     public float getCurrVelocity() {
         return mMode == FLING_MODE ?
@@ -263,44 +261,43 @@ public class Scroller  {
     }
 
     /**
-     * Returns the start X offset in the scroll. 
-     * 
-     * @return The start X offset as an absolute distance from the origin.
+     * 返回滚动起始点的X方向的偏移.
+     *  
+     * @return 起始点在X方向距离原点的绝对距离.
      */
     public final int getStartX() {
         return mStartX;
     }
     
     /**
-     * Returns the start Y offset in the scroll. 
+     * 返回滚动起始点的Y方向的偏移.
      * 
-     * @return The start Y offset as an absolute distance from the origin.
+     * @return 起始点在Y方向距离原点的绝对距离.
      */
     public final int getStartY() {
         return mStartY;
     }
     
     /**
-     * Returns where the scroll will end. Valid only for "fling" scrolls.
+     * 返回滚动结束位置.仅针对“fling”滚动有效.
      * 
-     * @return The final X offset as an absolute distance from the origin.
+     * @return 最终位置X方向距离原点的绝对距离.
      */
     public final int getFinalX() {
         return mFinalX;
     }
     
     /**
-     * Returns where the scroll will end. Valid only for "fling" scrolls.
+     * 返回滚动结束位置.仅针对“fling”滚动有效.
      * 
-     * @return The final Y offset as an absolute distance from the origin.
+     * @return 最终位置Y方向距离原点的绝对距离.
      */
     public final int getFinalY() {
         return mFinalY;
     }
 
     /**
-     * Call this when you want to know the new location.  If it returns true,
-     * the animation is not yet finished.
+     * 当想要知道新的位置时，调用此函数.如果返回真，表示动画还没有结束.
      */ 
     public boolean computeScrollOffset() {
         if (mFinished) {
@@ -364,36 +361,25 @@ public class Scroller  {
     }
     
     /**
-     * Start scrolling by providing a starting point and the distance to travel.
-     * The scroll will use the default value of 250 milliseconds for the
-     * duration.
+     * 以提供的起始点和将要滑动的距离开始滚动.滚动会使用缺省值 250ms 作为持续时间.
      * 
-     * @param startX Starting horizontal scroll offset in pixels. Positive
-     *        numbers will scroll the content to the left.
-     * @param startY Starting vertical scroll offset in pixels. Positive numbers
-     *        will scroll the content up.
-     * @param dx Horizontal distance to travel. Positive numbers will scroll the
-     *        content to the left.
-     * @param dy Vertical distance to travel. Positive numbers will scroll the
-     *        content up.
+     * @param startX 水平方向滚动的偏移值，以像素为单位.负值表示向左滚动.
+     * @param startY 垂直方向滚动的偏移值，以像素为单位.负值表示向上滚动.
+     * @param dx 水平方向滑动的距离，负值表示向左滚动.
+     * @param dy 垂直方向滑动的距离，负值表示向上滚动.
      */
     public void startScroll(int startX, int startY, int dx, int dy) {
         startScroll(startX, startY, dx, dy, DEFAULT_DURATION);
     }
 
     /**
-     * Start scrolling by providing a starting point, the distance to travel,
-     * and the duration of the scroll.
+     * 以提供的起始点、要滑动的距离和持续时间开始滚动.
      * 
-     * @param startX Starting horizontal scroll offset in pixels. Positive
-     *        numbers will scroll the content to the left.
-     * @param startY Starting vertical scroll offset in pixels. Positive numbers
-     *        will scroll the content up.
-     * @param dx Horizontal distance to travel. Positive numbers will scroll the
-     *        content to the left.
-     * @param dy Vertical distance to travel. Positive numbers will scroll the
-     *        content up.
-     * @param duration Duration of the scroll in milliseconds.
+     * @param startX 水平方向滚动的偏移值，以像素为单位.负值表示向左滚动.
+     * @param startY 垂直方向滚动的偏移值，以像素为单位.负值表示向上滚动.
+     * @param dx 水平方向滑动的距离，负值表示向左滚动.
+     * @param dy 垂直方向滑动的距离，负值表示向上滚动.
+     * @param duration 以毫秒为单位的滚动持续时间.
      */
     public void startScroll(int startX, int startY, int dx, int dy, int duration) {
         mMode = SCROLL_MODE;
@@ -410,23 +396,16 @@ public class Scroller  {
     }
 
     /**
-     * Start scrolling based on a fling gesture. The distance travelled will
-     * depend on the initial velocity of the fling.
+     * 开始基于 fling 手势的滚动.滚动的距离取决于 fling 的初速度.
      * 
-     * @param startX Starting point of the scroll (X)
-     * @param startY Starting point of the scroll (Y)
-     * @param velocityX Initial velocity of the fling (X) measured in pixels per
-     *        second.
-     * @param velocityY Initial velocity of the fling (Y) measured in pixels per
-     *        second
-     * @param minX Minimum X value. The scroller will not scroll past this
-     *        point.
-     * @param maxX Maximum X value. The scroller will not scroll past this
-     *        point.
-     * @param minY Minimum Y value. The scroller will not scroll past this
-     *        point.
-     * @param maxY Maximum Y value. The scroller will not scroll past this
-     *        point.
+     * @param startX 滚动起始点X坐标.
+     * @param startY 滚动起始点Y坐标
+     * @param velocityX 当滑动屏幕时X方向初速度，以每秒像素数计算.
+     * @param velocityY 当滑动屏幕时Y方向初速度，以每秒像素数计算
+     * @param minX X方向的最小值，scroller的滚动不会低于该值.
+     * @param maxX X方向的最大值，scroller的滚动不会高于该值.
+     * @param minY Y方向的最小值，scroller的滚动不会低于该值.
+     * @param maxY Y方向的最大值，scroller的滚动不会高于该值.
      */
     public void fling(int startX, int startY, int velocityX, int velocityY,
             int minX, int maxX, int minY, int maxY) {
@@ -514,9 +493,8 @@ public class Scroller  {
     }
     
     /**
-     * Stops the animation. Contrary to {@link #forceFinished(boolean)},
-     * aborting the animating cause the scroller to move to the final x and y
-     * position
+     * 停止动画.
+     * 与 {@link #forceFinished(boolean)} 不同，该方法终止动画并滚动到最终的X、Y位置.
      *
      * @see #forceFinished(boolean)
      */
@@ -527,10 +505,10 @@ public class Scroller  {
     }
     
     /**
-     * Extend the scroll animation. This allows a running animation to scroll
-     * further and longer, when used with {@link #setFinalX(int)} or {@link #setFinalY(int)}.
+     * 延长滚动动画时间.此函数允许与 {@link #setFinalX(int)} 和  {@link #setFinalY(int)}
+     * 一起使用，延长滚动动画的持续时间和滚动距离.
      *
-     * @param extend Additional time to scroll in milliseconds.
+     * @param extend 延长的以毫秒为单位的时间.
      * @see #setFinalX(int)
      * @see #setFinalY(int)
      */
@@ -542,18 +520,18 @@ public class Scroller  {
     }
 
     /**
-     * Returns the time elapsed since the beginning of the scrolling.
+     * 返回自滚动开始经过的时间.
      *
-     * @return The elapsed time in milliseconds.
+     * @return 经过时间以毫秒为单位.
      */
     public int timePassed() {
         return (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);
     }
 
     /**
-     * Sets the final position (X) for this scroller.
+     * 设置 scroller 的 X 方向终止位置.
      *
-     * @param newX The new X offset as an absolute distance from the origin.
+     * @param newX 新位置在 X 方向距离原点的绝对偏移量.
      * @see #extendDuration(int)
      * @see #setFinalY(int)
      */
@@ -564,9 +542,9 @@ public class Scroller  {
     }
 
     /**
-     * Sets the final position (Y) for this scroller.
+     * 设置 scroller 的 Y 方向终止位置.
      *
-     * @param newY The new Y offset as an absolute distance from the origin.
+     * @param newY 新位置在 Y 方向距离原点的绝对偏移量.
      * @see #extendDuration(int)
      * @see #setFinalX(int)
      */

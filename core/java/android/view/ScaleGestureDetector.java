@@ -22,26 +22,23 @@ import android.os.SystemClock;
 import android.util.FloatMath;
 
 /**
- * Detects scaling transformation gestures using the supplied {@link MotionEvent}s.
- * The {@link OnScaleGestureListener} callback will notify users when a particular
- * gesture event has occurred.
- *
- * This class should only be used with {@link MotionEvent}s reported via touch.
- *
- * To use this class:
+ * 根据接收的{@link MotionEvent}，侦测由多个触点（“多点触控”）引发的变形手势.
+ * {@link OnScaleGestureListener}的回调函数会在特定手势事件发生时通知用户.
+ * 该类仅能和触控事件引发的{@link MotionEvent}配合使用.
+ * 
+ * 使用该类需要：
  * <ul>
- *  <li>Create an instance of the {@code ScaleGestureDetector} for your
- *      {@link View}
- *  <li>In the {@link View#onTouchEvent(MotionEvent)} method ensure you call
- *          {@link #onTouchEvent(MotionEvent)}. The methods defined in your
- *          callback will be executed when the events occur.
+ *  <li>为你的{@link View 视图}创建{@code ScaleGestureDetector}.
+ *  <li>保证在{@link View#onTouchEvent(MotionEvent)}方法中调用了该类的
+ *          {@link #onTouchEvent(MotionEvent)}方法.
+ *          事件发生时执行你定义的回调函数.
  * </ul>
  */
 public class ScaleGestureDetector {
     private static final String TAG = "ScaleGestureDetector";
 
     /**
-     * The listener for receiving notifications when gestures occur.
+     * 手势发生时接收通知的监听器.
      * If you want to listen for all the different gestures then implement
      * this interface. If you only want to listen for a subset it might
      * be easier to extend {@link SimpleOnScaleGestureListener}.
@@ -98,8 +95,7 @@ public class ScaleGestureDetector {
     }
 
     /**
-     * A convenience class to extend when you only want to listen for a subset
-     * of scaling-related events. This implements all methods in
+     * 便于只实现一部分缩放相关手势时继承的类. This implements all methods in
      * {@link OnScaleGestureListener} but does nothing.
      * {@link OnScaleGestureListener#onScale(ScaleGestureDetector)} returns
      * {@code false} so that a subclass can retrieve the accumulated scale
@@ -370,35 +366,30 @@ public class ScaleGestureDetector {
     }
 
     /**
-     * Returns {@code true} if a scale gesture is in progress.
+     * 如果多点触控手势进行中返回{@code true 真}.
+     * @return 如果多点触控手势进行中返回{@code true 真}；否则返回{@code false 假}.
      */
     public boolean isInProgress() {
         return mInProgress;
     }
 
     /**
-     * Get the X coordinate of the current gesture's focal point.
-     * If a gesture is in progress, the focal point is between
-     * each of the pointers forming the gesture.
-     *
-     * If {@link #isInProgress()} would return false, the result of this
-     * function is undefined.
-     *
-     * @return X coordinate of the focal point in pixels.
+     * 返回当前手势焦点的X坐标. 如果手势正在进行中，焦点位于组成手势的两个触点之间。
+     * 如果手势处于停顿状态，焦点为仍留在屏幕上的触点的位置。若{@link #isInProgress()}
+     * 返回假，该方法的返回值未定义。
+     * 
+     * @return 焦点的X坐标值，以像素为单位.
      */
     public float getFocusX() {
         return mFocusX;
     }
 
     /**
-     * Get the Y coordinate of the current gesture's focal point.
-     * If a gesture is in progress, the focal point is between
-     * each of the pointers forming the gesture.
-     *
-     * If {@link #isInProgress()} would return false, the result of this
-     * function is undefined.
-     *
-     * @return Y coordinate of the focal point in pixels.
+     * 返回当前手势焦点的Y坐标. 如果手势正在进行中，焦点位于组成手势的两个触点之间。
+     * 如果手势处于停顿状态，焦点为仍留在屏幕上的触点的位置。若{@link #isInProgress()}
+     * 返回假，该方法的返回值未定义。
+     * 
+     * @return 焦点的Y坐标值，以像素为单位.
      */
     public float getFocusY() {
         return mFocusY;
@@ -408,7 +399,7 @@ public class ScaleGestureDetector {
      * Return the average distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Distance between pointers in pixels.
+     * @return 以像素为单位的触点距离.
      */
     public float getCurrentSpan() {
         return mCurrSpan;
@@ -418,7 +409,7 @@ public class ScaleGestureDetector {
      * Return the average X distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Distance between pointers in pixels.
+     * @return 两点之间距离的像素数.
      */
     public float getCurrentSpanX() {
         return mCurrSpanX;
@@ -428,7 +419,7 @@ public class ScaleGestureDetector {
      * Return the average Y distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Distance between pointers in pixels.
+     * @return 两点之间距离的像素数.
      */
     public float getCurrentSpanY() {
         return mCurrSpanY;
@@ -438,7 +429,7 @@ public class ScaleGestureDetector {
      * Return the previous average distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Previous distance between pointers in pixels.
+     * @return 以像素为单位的前一次测定的触点距离.
      */
     public float getPreviousSpan() {
         return mPrevSpan;
@@ -448,7 +439,7 @@ public class ScaleGestureDetector {
      * Return the previous average X distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Previous distance between pointers in pixels.
+     * @return 上一次两点之间距离的像素数.
      */
     public float getPreviousSpanX() {
         return mPrevSpanX;
@@ -458,37 +449,35 @@ public class ScaleGestureDetector {
      * Return the previous average Y distance between each of the pointers forming the
      * gesture in progress through the focal point.
      *
-     * @return Previous distance between pointers in pixels.
+     * @return 上一次两点之间距离的像素数.
      */
     public float getPreviousSpanY() {
         return mPrevSpanY;
     }
 
     /**
-     * Return the scaling factor from the previous scale event to the current
-     * event. This value is defined as
-     * ({@link #getCurrentSpan()} / {@link #getPreviousSpan()}).
+     * 返回前一个事件到当前事件的伸缩比率.该值为
+     * {@link #getCurrentSpan()} / {@link #getPreviousSpan()}.
      *
-     * @return The current scaling factor.
+     * @return 当前伸缩率.
      */
     public float getScaleFactor() {
         return mPrevSpan > 0 ? mCurrSpan / mPrevSpan : 1;
     }
 
     /**
-     * Return the time difference in milliseconds between the previous
-     * accepted scaling event and the current scaling event.
-     *
-     * @return Time difference since the last scaling event in milliseconds.
+     * 返回前一次接收到的伸缩事件距当前伸缩事件的时间差，以毫秒为单位.
+     * 
+     * @return 从前一次伸缩事件起始的时间差，以毫秒为单位.
      */
     public long getTimeDelta() {
         return mCurrTime - mPrevTime;
     }
 
     /**
-     * Return the event time of the current event being processed.
-     *
-     * @return Current event time in milliseconds.
+     * 返回当前事件执行时的时间戳.
+     * 
+     * @return 以毫秒为单位的时间戳.
      */
     public long getEventTime() {
         return mCurrTime;

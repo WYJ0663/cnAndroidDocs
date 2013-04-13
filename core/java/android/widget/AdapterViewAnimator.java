@@ -37,8 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Base class for a {@link AdapterView} that will perform animations
- * when switching between its views.
+ * 继承自基类 {@link AdapterView}，当在视图间切换时会显示动画.
  *
  * @attr ref android.R.styleable#AdapterViewAnimator_inAnimation
  * @attr ref android.R.styleable#AdapterViewAnimator_outAnimation
@@ -284,9 +283,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Sets which child view will be displayed.
+     * 设置显示那个子视图.
      *
-     * @param whichChild the index of the child view to display
+     * @param whichChild 要显示的子视图索引
      */
     @android.view.RemotableViewMethod
     public void setDisplayedChild(int whichChild) {
@@ -323,21 +322,21 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Returns the index of the currently displayed child view.
+     * 返回当前显示的子视图索引.
      */
     public int getDisplayedChild() {
         return mWhichChild;
     }
 
     /**
-     * Manually shows the next child.
+     * 显示下一个子视图.
      */
     public void showNext() {
         setDisplayedChild(mWhichChild + 1);
     }
 
     /**
-     * Manually shows the previous child.
+     * 显示上一个子视图.
      */
     public void showPrevious() {
         setDisplayedChild(mWhichChild - 1);
@@ -443,14 +442,12 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Shows only the specified child. The other displays Views exit the screen,
-     * optionally with the with the {@link #getOutAnimation() out animation} and
-     * the specified child enters the screen, optionally with the
-     * {@link #getInAnimation() in animation}.
+     * 仅显示指定的子视图.
+     * 显示的视图退出屏幕，根据选项可执行{@link #getOutAnimation() 退出动画}；
+     * 指定的子视图进入屏幕，根据选项可执行{@link #getInAnimation() 进入动画}.
      *
-     * @param childIndex The index of the child to be shown.
-     * @param animate Whether or not to use the in and out animations, defaults
-     *            to true.
+     * @param childIndex 要显示的子视图索引
+     * @param animate 是否使用进入/退出动画
      */
     void showOnly(int childIndex, boolean animate) {
         if (mAdapter == null) return;
@@ -842,9 +839,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Returns the View corresponding to the currently displayed child.
+     * 返回当前显示的子视图.
      *
-     * @return The View currently displayed.
+     * @return 当前显示的视图.
      *
      * @see #getDisplayedChild()
      */
@@ -853,9 +850,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Returns the current animation used to animate a View that enters the screen.
+     * 返回视图进入屏幕时显示的动画.
      *
-     * @return An Animation or null if none is set.
+     * @return 动画，当未设置时为空.
      *
      * @see #setInAnimation(android.animation.ObjectAnimator)
      * @see #setInAnimation(android.content.Context, int)
@@ -865,9 +862,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Specifies the animation used to animate a View that enters the screen.
+     * 指定视图进入屏幕时显示的动画.
      *
-     * @param inAnimation The animation started when a View enters the screen.
+     * @param inAnimation 视图进入屏幕时启动的动画
      *
      * @see #getInAnimation()
      * @see #setInAnimation(android.content.Context, int)
@@ -877,9 +874,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Returns the current animation used to animate a View that exits the screen.
+     * 返回视图退出屏幕时显示的动画.
      *
-     * @return An Animation or null if none is set.
+     * @return 动画，当未设置时为空.
      *
      * @see #setOutAnimation(android.animation.ObjectAnimator)
      * @see #setOutAnimation(android.content.Context, int)
@@ -889,9 +886,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Specifies the animation used to animate a View that exit the screen.
+     * 指定视图退出屏幕时显示的动画.
      *
-     * @param outAnimation The animation started when a View exit the screen.
+     * @param outAnimation 视图退出屏幕时启动的动画
      *
      * @see #getOutAnimation()
      * @see #setOutAnimation(android.content.Context, int)
@@ -901,10 +898,10 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Specifies the animation used to animate a View that enters the screen.
+     * 指定视图进入屏幕时显示的动画.
      *
-     * @param context The application's environment.
-     * @param resourceID The resource id of the animation.
+     * @param context 应用程序上下文
+     * @param resourceID 动画的资源 ID
      *
      * @see #getInAnimation()
      * @see #setInAnimation(android.animation.ObjectAnimator)
@@ -914,10 +911,10 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Specifies the animation used to animate a View that exit the screen.
+     * 指定视图退出屏幕时显示的动画.
      *
-     * @param context The application's environment.
-     * @param resourceID The resource id of the animation.
+     * @param context 应用程序上下文
+     * @param resourceID 动画的资源 ID
      *
      * @see #getOutAnimation()
      * @see #setOutAnimation(android.animation.ObjectAnimator)
@@ -927,11 +924,9 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Indicates whether the current View should be animated the first time
-     * the ViewAnimation is displayed.
+     * 设置视图动画对象首次显示时，是否为当前视图显示动画.
      *
-     * @param animate True to animate the current View the first time it is displayed,
-     *                false otherwise.
+     * @param animate 视图动画对象首次显示时为当前视图显示动画时为真；否则为假.
      */
     public void setAnimateFirstView(boolean animate) {
         mAnimateFirstTime = animate;
@@ -967,11 +962,10 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Sets up this AdapterViewAnimator to use a remote views adapter which connects to a
-     * RemoteViewsService through the specified intent.
+     * 将 AdapterViewAnimator 设置为使用通过制定的意图连接的 RemoteViewsService
+     * 的远程视图适配器.
      *
-     * @param intent the intent used to identify the RemoteViewsService for the adapter to
-     *        connect to.
+     * @param intent 用于标识适配器连接的 RemoteViewsService 的意图.
      */
     @android.view.RemotableViewMethod
     public void setRemoteViewsAdapter(Intent intent) {
@@ -1019,15 +1013,14 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * This defers a notifyDataSetChanged on the pending RemoteViewsAdapter if it has not
-     * connected yet.
+     * 该设置推迟向没有连接的、未确定 RemoteViewsAdapter 发送 notifyDataSetChanged 消息.
      */
     public void deferNotifyDataSetChanged() {
         mDeferNotifyDataSetChanged = true;
     }
 
     /**
-     * Called back when the adapter connects to the RemoteViewsService.
+     * 适配器建立到 RemoteViewsService 的连接时的回调函数.
      */
     public boolean onRemoteAdapterConnected() {
         if (mRemoteViewsAdapter != mAdapter) {
@@ -1052,7 +1045,7 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Called back when the adapter disconnects from the RemoteViewsService.
+     * 适配器断开到 RemoteViewsService 的连接时的回调函数.
      */
     public void onRemoteAdapterDisconnected() {
         // If the remote adapter disconnects, we keep it around
@@ -1063,18 +1056,16 @@ public abstract class AdapterViewAnimator extends AdapterView<Adapter>
     }
 
     /**
-     * Called by an {@link android.appwidget.AppWidgetHost} in order to advance the current view when
-     * it is being used within an app widget.
+     * 由 {@link android.appwidget.AppWidgetHost} 调用.在应用小部件中用于移动到下一个视图.
      */
     public void advance() {
         showNext();
     }
 
     /**
-     * Called by an {@link android.appwidget.AppWidgetHost} to indicate that it will be
-     * automatically advancing the views of this {@link AdapterViewAnimator} by calling
-     * {@link AdapterViewAnimator#advance()} at some point in the future. This allows subclasses to
-     * perform any required setup, for example, to stop automatically advancing their children.
+     * 由 {@link android.appwidget.AppWidgetHost} 调用.指出将来的某个时点，会调用
+     * {@link AdapterViewAnimator#advance()} 将 {@link AdapterViewAnimator}
+     * 中的视图向前移动.这样子类可以执行一些必要的设置，比如停止自动移动他们的子视图.
      */
     public void fyiWillBeAdvancedByHostKThx() {
     }

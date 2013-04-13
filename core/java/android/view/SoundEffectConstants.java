@@ -17,7 +17,7 @@
 package android.view;
 
 /**
- * Constants to be used to play sound effects via {@link View#playSoundEffect(int)} 
+ * 通过{@link View#playSoundEffect(int)}播放音效时使用的常量. 
  */
 public class SoundEffectConstants {
 
@@ -31,12 +31,12 @@ public class SoundEffectConstants {
     public static final int NAVIGATION_DOWN = 4;
 
     /**
-     * Get the sonification constant for the focus directions.
-     * @param direction One of {@link View#FOCUS_UP}, {@link View#FOCUS_DOWN},
-     *     {@link View#FOCUS_LEFT}, {@link View#FOCUS_RIGHT}, {@link View#FOCUS_FORWARD}
-     *     or {@link View#FOCUS_BACKWARD}
+     * 根据焦点移到方向取得音效常量.
+     * @param direction {@link View#FOCUS_UP}、{@link View#FOCUS_DOWN}、
+     *     {@link View#FOCUS_LEFT}、{@link View#FOCUS_RIGHT}、
+     *     {@link View#FOCUS_FORWARD}或{@link View#FOCUS_BACKWARD}.
 
-     * @return The appropriate sonification constant.
+     * @return 对应的音效常量.
      */
     public static int getContantForFocusDirection(int direction) {
         switch (direction) {

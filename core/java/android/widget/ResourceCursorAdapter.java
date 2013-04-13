@@ -24,8 +24,8 @@ import android.view.LayoutInflater;
 
 
 /**
- * An easy adapter that creates views defined in an XML file. You can specify
- * the XML file that defines the appearance of the views.
+ * 根据XML文件的定义创建视图的简单适配器.
+ * 你可以 指定定义了视图外观的XML文件.
  */
 public abstract class ResourceCursorAdapter extends CursorAdapter {
     private int mLayout;
@@ -35,17 +35,17 @@ public abstract class ResourceCursorAdapter extends CursorAdapter {
     private LayoutInflater mInflater;
     
     /**
-     * Constructor the enables auto-requery.
+     * 构造函数，启用自动再检索功能.
      *
-     * @deprecated This option is discouraged, as it results in Cursor queries
-     * being performed on the application's UI thread and thus can cause poor
-     * responsiveness or even Application Not Responding errors.  As an alternative,
-     * use {@link android.app.LoaderManager} with a {@link android.content.CursorLoader}.
-     *
-     * @param context The context where the ListView associated with this adapter is running
-     * @param layout resource identifier of a layout file that defines the views
-     *            for this list item.  Unless you override them later, this will
-     *            define both the item views and the drop down views.
+     * @deprecated 该选项已经废止，因为他会在应用程序的 UI 线程中执行
+     * 游标的检索，会导致响应变慢甚至发生应用程序无响应错误.
+     * 请使用带有 {@link android.content.CursorLoader}
+     * 的 {@link android.app.LoaderManager} 来代替.
+     * 
+     * @param context 与正在运行的 SimpleListItemFactory 关联的列表视图的上下文.
+     * @param layout 为该列表条目定义视图的布局文件资源标识.除非你之后重载它们，
+     *               否则会同时生成列表条目视图和下拉视图.
+     * @param c 用于取得数据的游标
      */
     @Deprecated
     public ResourceCursorAdapter(Context context, int layout, Cursor c) {
@@ -55,20 +55,17 @@ public abstract class ResourceCursorAdapter extends CursorAdapter {
     }
     
     /**
-     * Constructor with default behavior as per
-     * {@link CursorAdapter#CursorAdapter(Context, Cursor, boolean)}; it is recommended
-     * you not use this, but instead {@link #ResourceCursorAdapter(Context, int, Cursor, int)}.
-     * When using this constructor, {@link #FLAG_REGISTER_CONTENT_OBSERVER}
-     * will always be set.
-     *
-     * @param context The context where the ListView associated with this adapter is running
-     * @param layout resource identifier of a layout file that defines the views
-     *            for this list item.  Unless you override them later, this will
-     *            define both the item views and the drop down views.
-     * @param c The cursor from which to get the data.
-     * @param autoRequery If true the adapter will call requery() on the
-     *                    cursor whenever it changes so the most recent
-     *                    data is always displayed.  Using true here is discouraged.
+     * 与 {@link CursorAdapter#CursorAdapter(Context, Cursor, boolean)} 的默认行为相同的构造函数；
+     * 不推荐使用该函数，请使用 {@link #ResourceCursorAdapter(Context, int, Cursor, int)} 代替.
+     * 使用该构造函数时，总会设置{@link #FLAG_REGISTER_CONTENT_OBSERVER}标志位.
+     * 
+     * @param context 与正在运行的 SimpleListItemFactory 关联的列表视图的上下文.
+     * @param layout 为该列表条目定义视图的布局文件资源标识.除非你之后重载它们，
+     *               否则会同时生成列表条目视图和下拉视图.
+     * @param c 用于取得数据的游标
+     * @param autoRequery 如果此参数为真，当适配器的数据发生变化的时，
+     *                    适配器会调用游标的 requery()方法，保持显示最新数据。
+     *                    Using true here is discouraged.
      */
     public ResourceCursorAdapter(Context context, int layout, Cursor c, boolean autoRequery) {
         super(context, c, autoRequery);
@@ -77,15 +74,12 @@ public abstract class ResourceCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * Standard constructor.
-     *
-     * @param context The context where the ListView associated with this adapter is running
-     * @param layout Resource identifier of a layout file that defines the views
-     *            for this list item.  Unless you override them later, this will
-     *            define both the item views and the drop down views.
-     * @param c The cursor from which to get the data.
-     * @param flags Flags used to determine the behavior of the adapter,
-     * as per {@link CursorAdapter#CursorAdapter(Context, Cursor, int)}.
+     * 标准构造函数.
+     * 
+     * @param context 与运行中的 SimpleListItemFactory 关联的 ListView 的上下文
+     * @param layout 为该列表定义了视图的布局文件标识.布局文件应该至少包括“to”中定义的视图
+     * @param c 数据库游标.如果游标不可用，可设为空.
+     * @param flags 用于决定适配器行为的标志位.与 {@link CursorAdapter#CursorAdapter(Context, Cursor, int)} 相同.
      */
     public ResourceCursorAdapter(Context context, int layout, Cursor c, int flags) {
         super(context, c, flags);
@@ -94,7 +88,7 @@ public abstract class ResourceCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * Inflates view(s) from the specified XML file.
+     * 根据指定的 xml 文件创建视图
      * 
      * @see android.widget.CursorAdapter#newView(android.content.Context,
      *      android.database.Cursor, ViewGroup)
@@ -110,18 +104,18 @@ public abstract class ResourceCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * <p>Sets the layout resource of the item views.</p>
+     * <p>设置列表条目视图的布局资源.</p>
      *
-     * @param layout the layout resources used to create item views
+     * @param layout 用于创建列表条目视图的布局资源.
      */
     public void setViewResource(int layout) {
         mLayout = layout;
     }
     
     /**
-     * <p>Sets the layout resource of the drop down views.</p>
+     * <p>设置下拉视图的布局资源.</p>
      *
-     * @param dropDownLayout the layout resources used to create drop down views
+     * @param dropDownLayout 用于创建下拉视图的布局资源.
      */
     public void setDropDownViewResource(int dropDownLayout) {
         mDropDownLayout = dropDownLayout;

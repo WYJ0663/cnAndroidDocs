@@ -1,5 +1,5 @@
 home=true
-page.title=Welcome
+page.title=欢迎页面
 @jd:body
 
 <style type="text/css">
@@ -17,41 +17,37 @@ page.title=Welcome
 </style>
 <div id="mainBodyFluid">
 
-<h1>Welcome to the Android SDK!</h1>
+<h1>欢迎使用 Android SDK！</h1>
 
 <div id="qv-wrapper">
 <div id="qv">
-  <h2>Get Started</h2>
+  <h2>从这里开始</h2>
   <ul>
-    <li>Create a <a href="{@docRoot}training/basics/firstapp/index.html">Building Your First App</a>
-application</li>
-    <li>Read <a href="{@docRoot}resources/browser.html?tag=sample">Sample Code</a>,
-especially <a href="{@docRoot}resources/samples/ApiDemos/index.html">API Demos</a></li>
-    <li>Read the <a href="{@docRoot}guide/components/index.html">Application
-Fundamentals</a></li>
-    <li>Read the <a href="{@docRoot}tools/workflow/index.html">Introduction</a> for using the SDK
-tools</li>
+    <li>创建你的<a href="{@docRoot}training/basics/firstapp/index.html">第一个应用程序</a></li>
+    <li>阅读<a href="{@docRoot}resources/browser.html?tag=sample">示例代码</a>，特别是
+<a href="{@docRoot}resources/samples/ApiDemos/index.html">API 演示代码</a></li>
+    <li>阅读<a href="{@docRoot}guide/components/index.html">应用程序基础</a></li>
+    <li>阅读关于如何使用 SDK 工具的<a href="{@docRoot}tools/workflow/index.html">介绍</a></li>
   </ul>
 </div>
 </div>
 
-<h3>If you've downloaded the Android SDK for the first time</h3>
+<h3>如果你是首次下载 Android SDK</h3>
 
-<p>Follow the guide to <a href="{@docRoot}sdk/installing/index.html">Installing the Android SDK</a>, which
-will help you setup your development environment.</p>
+<p>阅读<a href="{@docRoot}sdk/installing/index.html">安装 Android SDK</a>向导，
+对你设置开发环境会有帮助。</p>
 
-<h3>If you've installed new SDK components using the Android SDK Manager</h3>
+<h3>如果你使用 Android SDK 管理器安装了新的 SDK 组件</h3>
 
-<p>There's no additional setup.</p>
+<p>不需要额外的设置。</p>
 
 
 <div class="note">
-<p><strong>Note:</strong> You are currently viewing the offline version of the Android developer
-documentation. Because some features such as search and videos are network-based, not everything
-will work if you are not connected to the Internet. Additionally, the online version may contain
-more recently updated documents.</p>
+<p><strong>注意：</strong>您查看的是离线版的 Android 开发者文档。
+由于检索、视频这样的特性需要有网络的环境，如果你没有连接互联网，一些功能将不可用。
+另外，在线版可能包含最近更新的文档。</p>
 
-<p>For the latest documentation, please visit
-<b><a href="http://developer.android.com">developer.android.com</a></b>.
+<p>最新文档请访问<b><a href="http://developer.android.com">developer.android.com(英文)</a></b>、
+<b><a href="http://android.toolib.net">android.toolib.net(中文)</a></b>。
 </p>
 </div>

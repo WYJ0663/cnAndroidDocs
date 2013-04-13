@@ -28,22 +28,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 /**
- * This class performs the graphical effect used at the edges of scrollable widgets
- * when the user scrolls beyond the content bounds in 2D space.
+ * 该类用于绘制用户在两个方向上滚动超出边界时，可滚动小部件边界的图形效果.
+ * 
+ * <p>EdgeEffect 是种状态.使用 EdgeEffect 的自定义小部件应该为显示该效果的每条边创建一个实例.
+ * 使用 {@link #onAbsorb(int)}、{@link #onPull(float)}和{@link #onRelease()} 传入数据，
+ * 在小部件重写的 {@link android.view.View#draw(Canvas)} 方法中使用 {@link #draw(Canvas)}
+ * 来绘制效果.如果绘制后 {@link #isFinished()} 返回假，说明边缘效果动画还没有完成，
+ * 为了使动画继续，小部件应该将其他的绘制内容稍后再处理.</p>
  *
- * <p>EdgeEffect is stateful. Custom widgets using EdgeEffect should create an
- * instance for each edge that should show the effect, feed it input data using
- * the methods {@link #onAbsorb(int)}, {@link #onPull(float)}, and {@link #onRelease()},
- * and draw the effect using {@link #draw(Canvas)} in the widget's overridden
- * {@link android.view.View#draw(Canvas)} method. If {@link #isFinished()} returns
- * false after drawing, the edge effect's animation is not yet complete and the widget
- * should schedule another drawing pass to continue the animation.</p>
- *
- * <p>When drawing, widgets should draw their main content and child views first,
- * usually by invoking <code>super.draw(canvas)</code> from an overridden <code>draw</code>
- * method. (This will invoke onDraw and dispatch drawing to child views as needed.)
- * The edge effect may then be drawn on top of the view's content using the
- * {@link #draw(Canvas)} method.</p>
+ * <p>绘制时，小部件应该首先绘制自己及子视图的内容，通常是在重写的 <code>draw</code>
+ * 方法中执行 <code>super.draw(canvas)</code> 方法.（这就触发 onDraw 事件并绘制必要的子视图.）
+ * 边缘效果可能会使用 {@link #draw(Canvas)} 方法绘制在视图内容之上.</p>
  */
 public class EdgeEffect {
     @SuppressWarnings("UnusedDeclaration")
@@ -129,8 +124,8 @@ public class EdgeEffect {
     private final int mMaxEffectHeight;
 
     /**
-     * Construct a new EdgeEffect with a theme appropriate for the provided context.
-     * @param context Context used to provide theming and resource information for the EdgeEffect
+     * 使用应用程序上下文中的主题构造一个新的 EdgeEffect 对象.
+     * @param context 用于为 EdgeEffect 提供主题及资源信息的应用程序上下文
      */
     public EdgeEffect(Context context) {
         final Resources res = context.getResources();
@@ -150,10 +145,10 @@ public class EdgeEffect {
     }
 
     /**
-     * Set the size of this edge effect in pixels.
+     * 以像素为单位设置大小.
      *
-     * @param width Effect width in pixels
-     * @param height Effect height in pixels
+     * @param width 以像素为单位设置效果影响范围的宽度.
+     * @param height 以像素为单位设置效果影响范围的高度.
      */
     public void setSize(int width, int height) {
         mWidth = width;
@@ -173,33 +168,29 @@ public class EdgeEffect {
     }
 
     /**
-     * Reports if this EdgeEffect's animation is finished. If this method returns false
-     * after a call to {@link #draw(Canvas)} the host widget should schedule another
-     * drawing pass to continue the animation.
+     * 报告这个 EdgeEffect 动画是否已经完成.如果在调用 {@link #draw(Canvas)} 后，本方法返回假，
+     * 小部件应该稍后再绘制其他内容，让该动画继续.
      *
-     * @return true if animation is finished, false if drawing should continue on the next frame.
+     * @return 如果动画已经完成返回真，否则如果应该继续着返回假.
      */
     public boolean isFinished() {
         return mState == STATE_IDLE;
     }
 
     /**
-     * Immediately finish the current animation.
-     * After this call {@link #isFinished()} will return true.
+     * 立即停止当前动画. 调用该函数后，{@link #isFinished()} 返回真.
      */
     public void finish() {
         mState = STATE_IDLE;
     }
 
     /**
-     * A view should call this when content is pulled away from an edge by the user.
-     * This will update the state of the current visual effect and its associated animation.
-     * The host view should always {@link android.view.View#invalidate()} after this
-     * and draw the results accordingly.
+     * 当用户将内容从边界拉出视图时调用该函数. 该函数更新当前视觉状态，并关联动画。
+     * 宿主视图应该在调用该函数后执行 {@link android.view.View#invalidate()}，
+     * 来根据设置绘制视图。
      *
-     * @param deltaDistance Change in distance since the last call. Values may be 0 (no change) to
-     *                      1.f (full length of the view) or negative values to express change
-     *                      back toward the edge reached to initiate the effect.
+     * @param deltaDistance 相对上次调用变更的距离. 值在 0(无变化)到1.0(整个视图)之间，
+     *                      负值代表效果的起始边到边界的距离.
      */
     public void onPull(float deltaDistance) {
         final long now = AnimationUtils.currentAnimationTimeMillis();
@@ -244,10 +235,8 @@ public class EdgeEffect {
     }
 
     /**
-     * Call when the object is released after being pulled.
-     * This will begin the "decay" phase of the effect. After calling this method
-     * the host view should {@link android.view.View#invalidate()} and thereby
-     * draw the results accordingly.
+     * 释放拉动对象时调用. 该操作会启动“衰变”效果。调用该方法后，宿主视图应该调用
+     * {@link android.view.View#invalidate()} 以根据结果绘制视图。
      */
     public void onRelease() {
         mPullDistance = 0;
@@ -272,14 +261,12 @@ public class EdgeEffect {
     }
 
     /**
-     * Call when the effect absorbs an impact at the given velocity.
-     * Used when a fling reaches the scroll boundary.
+     * 当效果抵消给定速度的影响时调用. 在快速滑动到达滚动边界时使用。
      *
-     * <p>When using a {@link android.widget.Scroller} or {@link android.widget.OverScroller},
-     * the method <code>getCurrVelocity</code> will provide a reasonable approximation
-     * to use here.</p>
+     * <p>当使用 {@link android.widget.Scroller} 或 {@link android.widget.OverScroller} 时，
+     * 方法 <code>getCurrVelocity</code> 可以提供用在这里的合理的近似值。</p>
      *
-     * @param velocity Velocity at impact in pixels per second.
+     * @param velocity 速度的影响，每秒的像素数
      */
     public void onAbsorb(int velocity) {
         mState = STATE_ABSORB;
@@ -316,14 +303,11 @@ public class EdgeEffect {
 
 
     /**
-     * Draw into the provided canvas. Assumes that the canvas has been rotated
-     * accordingly and the size has been set. The effect will be drawn the full
-     * width of X=0 to X=width, beginning from Y=0 and extending to some factor <
-     * 1.f of height.
+     * 在给定画布上绘图. 假设画布已经旋转完毕，并设置了大小。效果会全宽绘制，从X=0 到 X=width，
+     * 高度则从 Y=0 到 某个小于 1.0 的倍率。
      *
-     * @param canvas Canvas to draw into
-     * @return true if drawing should continue beyond this frame to continue the
-     *         animation
+     * @param canvas 用于绘制的画布
+     * @return 如果动画在该帧结束后要继续绘制则返回真。
      */
     public boolean draw(Canvas canvas) {
         update();

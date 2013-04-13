@@ -1,14 +1,12 @@
-page.title=Getting Started
+page.title=入门
 page.trainingcourse=true
-page.metaDescription=Android Training provides a collection of classes that aim to help you build great apps for Android. Each class explains the steps required to solve a problem or implement a feature using code snippets and sample code for you to use in your apps.
+page.metaDescription=Android 培训提供了一组课程，目标是帮助你构建强大的 Android 应用。课程解释了解决问题必要的步骤，和如何使用代码片段或可重用于你的应用的代码示例来实现一个功能。
 
 @jd:body
 
 
-<p>Welcome to Training for Android developers. Here you'll find sets of lessons within classes
-that describe how to accomplish a specific task with code samples you can re-use in your app.
-Classes are organized into several groups you can see at the top-level of the left navigation.</p>
+<p>欢迎阅读 Android 开发培训。 在这里，你会找到一系列课程，
+  描述了如何使用可以重用于你的应用示例代码来完成特定的任务。课程分为几组，左侧导航栏中的顶层既是。</p>
 
-<p>This first group, <em>Getting Started</em>, teaches you the bare
-essentials for Android app development.
-If you're a new Android app developer, you should complete each of these classes in order:</p>
+<p>这是第一组，<em>入门</em>，教你最基本的 Andr​​oid 应用开发。 如果你是 Andr​​oid 应用开发新手，
+  你应该依次完成这些课程：</p>

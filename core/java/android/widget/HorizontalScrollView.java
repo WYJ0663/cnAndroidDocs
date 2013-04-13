@@ -40,20 +40,16 @@ import android.view.animation.AnimationUtils;
 import java.util.List;
 
 /**
- * Layout container for a view hierarchy that can be scrolled by the user,
- * allowing it to be larger than the physical display.  A HorizontalScrollView
- * is a {@link FrameLayout}, meaning you should place one child in it
- * containing the entire contents to scroll; this child may itself be a layout
- * manager with a complex hierarchy of objects.  A child that is often used
- * is a {@link LinearLayout} in a horizontal orientation, presenting a horizontal
- * array of top-level items that the user can scroll through.
+ * 用于布局的容器，可以放置让用户使用滚动条查看的视图层次结构，允许视图结构比手机的屏幕大.
+ * HorizontalScrollView 是一种 {@link FrameLayout 框架布局}，
+ * 这意味着你可以将包含要滚动的完整内容的子视图放入该容器；
+ * 该子视图本身也可以是具有复杂层次结构的布局管理器.一般使用横向的 {@link LinearLayout}
+ * 作为子视图，使用户可以滚动其中显示的条目.
  *
- * <p>The {@link TextView} class also
- * takes care of its own scrolling, so does not require a HorizontalScrollView, but
- * using the two together is possible to achieve the effect of a text view
- * within a larger container.
+ * <p>{@link TextView 文本视图} 类也有其自身的滚动处理，不需要嵌入滚动视图；
+ * 但二者可以组合使用，其效果与将文本视图放入很大容器中一样.
  *
- * <p>HorizontalScrollView only supports horizontal scrolling. For vertical scrolling,
+ * <p>HorizontalScrollView 只支持水平方向的滚动。 For vertical scrolling,
  * use either {@link ScrollView} or {@link ListView}.
  *
  * @attr ref android.R.styleable#HorizontalScrollView_fillViewport
@@ -184,8 +180,7 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * @return The maximum amount this scroll view will scroll in response to
-     *   an arrow event.
+     * @return 按左右箭头时视图可以滚动的最大值.
      */
     public int getMaxScrollAmount() {
         return (int) (MAX_SCROLL_FACTOR * (mRight - mLeft));
@@ -254,10 +249,9 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Indicates whether this HorizontalScrollView's content is stretched to
-     * fill the viewport.
+     * 表示是否拉伸该滚动视图的内容以适应视口（viewport）的大小.
      *
-     * @return True if the content fills the viewport, false otherwise.
+     * @return 如果内容需要填充视口则返回真，否则返回假.
      *
      * @attr ref android.R.styleable#HorizontalScrollView_fillViewport
      */
@@ -266,11 +260,9 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Indicates this HorizontalScrollView whether it should stretch its content width
-     * to fill the viewport or not.
+     * 设置此滚动视图是否将内容宽度拉伸来适应视口（viewport）.
      *
-     * @param fillViewport True to stretch the content's width to the viewport's
-     *        boundaries, false otherwise.
+     * @param fillViewport 拉伸内容宽度时设为真；否则设为假.
      *
      * @attr ref android.R.styleable#HorizontalScrollView_fillViewport
      */
@@ -282,15 +274,15 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * @return Whether arrow scrolling will animate its transition.
+     * @return 按方向键滚动时，是否显示平滑的滚动效果.
      */
     public boolean isSmoothScrollingEnabled() {
         return mSmoothScrollingEnabled;
     }
 
     /**
-     * Set whether arrow scrolling will animate its transition.
-     * @param smoothScrollingEnabled whether arrow scrolling will animate its transition
+     * 设置按方向键滚动时，是否显示平滑的滚动效果.
+     * @param smoothScrollingEnabled 按方向键滚动时是否显示平滑的滚动效果.
      */
     public void setSmoothScrollingEnabled(boolean smoothScrollingEnabled) {
         mSmoothScrollingEnabled = smoothScrollingEnabled;
@@ -333,12 +325,10 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * You can call this function yourself to have the scroll view perform
-     * scrolling from a key event, just as if the event had been dispatched to
-     * it by the view hierarchy.
+     * 需要通过按键事件来实现滚动操作时，可以调用此方法.就像由视图层次结构分派事件时一样.
      *
-     * @param event The key event to execute.
-     * @return Return true if the event was handled, else false.
+     * @param event 要执行的事件.
+     * @return 若已处理事件返回真，否则返回假.
      */
     public boolean executeKeyEvent(KeyEvent event) {
         mTempRect.setEmpty();
@@ -934,16 +924,14 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * <p>Handles scrolling in response to a "page up/down" shortcut press. This
-     * method will scroll the view by one page left or right and give the focus
-     * to the leftmost/rightmost component in the new visible area. If no
-     * component is a good candidate for focus, this scrollview reclaims the
-     * focus.</p>
+     * <p>处理按下翻页键时的滚动操作.该方法将视图向左或向右滚动一页，
+     * 并将焦点设在新的可视领域的最左边或最右边的组件上.
+     * 如果没有组件可以得到焦点，该视图将撤销焦点.</p>
      *
-     * @param direction the scroll direction: {@link android.view.View#FOCUS_LEFT}
-     *                  to go one page left or {@link android.view.View#FOCUS_RIGHT}
-     *                  to go one page right
-     * @return true if the key event is consumed by this method, false otherwise
+     * @param direction 滚动方向：{@link android.view.View#FOCUS_LEFT}
+     *                  向左滚动一页、{@link android.view.View#FOCUS_RIGHT}
+     *                  向右滚动一页.
+     * @return 若该方法处理了键盘事件，应该返回真，否则返回假.
      */
     public boolean pageScroll(int direction) {
         boolean right = direction == View.FOCUS_RIGHT;
@@ -970,16 +958,14 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * <p>Handles scrolling in response to a "home/end" shortcut press. This
-     * method will scroll the view to the left or right and give the focus
-     * to the leftmost/rightmost component in the new visible area. If no
-     * component is a good candidate for focus, this scrollview reclaims the
-     * focus.</p>
+     * <p>处理按下“home/end”键时的滚动操作.该方法将视图向左或向右滚动，
+     * 并将焦点设在新的可视领域的最左边或最右边的组件上.
+     * 如果没有组件可以得到焦点，该视图将撤销焦点.</p>
      *
-     * @param direction the scroll direction: {@link android.view.View#FOCUS_LEFT}
-     *                  to go the left of the view or {@link android.view.View#FOCUS_RIGHT}
-     *                  to go the right
-     * @return true if the key event is consumed by this method, false otherwise
+     * @param direction 滚动方向：{@link android.view.View#FOCUS_LEFT}
+     *                  向左滚动一页、{@link android.view.View#FOCUS_RIGHT}
+     *                  向右滚动一页.
+     * @return 若该方法处理了键盘事件，应该返回真，否则返回假.
      */
     public boolean fullScroll(int direction) {
         boolean right = direction == View.FOCUS_RIGHT;
@@ -1038,11 +1024,10 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Handle scrolling in response to a left or right arrow click.
+     * 处理左右箭头按下时的滚动响应.
      *
-     * @param direction The direction corresponding to the arrow key that was
-     *                  pressed
-     * @return True if we consumed the event, false otherwise
+     * @param direction 按下的响应的箭头键.
+     * @return 若该方法处理了该事件，返回真，否则返回假.
      */
     public boolean arrowScroll(int direction) {
 
@@ -1132,10 +1117,10 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
+     * 与 {@link View#scrollBy} 相似，只是相对平滑的滚动，而不是立刻滚动到位.
      *
-     * @param dx the number of pixels to scroll by on the X axis
-     * @param dy the number of pixels to scroll by on the Y axis
+     * @param dx X 轴方向滚动的像素数.
+     * @param dy Y 轴方向滚动的像素数.
      */
     public final void smoothScrollBy(int dx, int dy) {
         if (getChildCount() == 0) {
@@ -1162,18 +1147,17 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Like {@link #scrollTo}, but scroll smoothly instead of immediately.
+     * 与 {@link #scrollTo} 相似，只是相对平滑的滚动，而不是立刻滚动到位.
      *
-     * @param x the position where to scroll on the X axis
-     * @param y the position where to scroll on the Y axis
+     * @param x X 轴上滚动到的位置的像素数.
+     * @param y Y 轴上滚动到的位置的像素数.
      */
     public final void smoothScrollTo(int x, int y) {
         smoothScrollBy(x - mScrollX, y - mScrollY);
     }
 
     /**
-     * <p>The scroll range of a scroll view is the overall width of all of its
-     * children.</p>
+     * <p>滚动视图的滚动范围是其子视图的整个宽度.</p>
      */
     @Override
     protected int computeHorizontalScrollRange() {
@@ -1318,12 +1302,11 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Compute the amount to scroll in the X direction in order to get
-     * a rectangle completely on the screen (or, if taller than the screen,
-     * at least the first screen size chunk of it).
+     * 计算X方向滚动的距离，以便在屏幕上显示子视图的完整矩形
+     * （或者，若矩形宽度超过屏幕宽度，至少要填满第一个屏幕大小）.
      *
-     * @param rect The rect.
-     * @return The scroll delta.
+     * @param rect 矩形
+     * @return 滚动距离
      */
     protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
         if (getChildCount() == 0) return 0;
@@ -1396,11 +1379,9 @@ public class HorizontalScrollView extends FrameLayout {
 
 
     /**
-     * When looking for focus in children of a scroll view, need to be a little
-     * more careful not to give focus to something that is scrolled off screen.
-     *
-     * This is more expensive than the default {@link android.view.ViewGroup}
-     * implementation, otherwise this behavior might have been made the default.
+     * 在为滚动视图设置焦点时一定要小心，不能将焦点设置到屏幕上不可见的组件上.
+     * 
+     * 这比 ViewGroup 的缺省实现代价更高，否则此代码就作为缺省代码了.
      */
     @Override
     protected boolean onRequestFocusInDescendants(int direction,
@@ -1491,11 +1472,9 @@ public class HorizontalScrollView extends FrameLayout {
     }
 
     /**
-     * Fling the scroll view
+     * 快速滑动滚动视图.
      *
-     * @param velocityX The initial velocity in the X direction. Positive
-     *                  numbers mean that the finger/cursor is moving down the screen,
-     *                  which means we want to scroll towards the left.
+     * @param velocityX 横向初始速度.负数意味着手指或光标向右移动，意味着内容应该向左滚动.
      */
     public void fling(int velocityX) {
         if (getChildCount() > 0) {
@@ -1526,7 +1505,7 @@ public class HorizontalScrollView extends FrameLayout {
     /**
      * {@inheritDoc}
      *
-     * <p>This version also clamps the scrolling to the bounds of our child.
+     * <p>该版本的滚动将在子视图的边界处停止.
      */
     @Override
     public void scrollTo(int x, int y) {

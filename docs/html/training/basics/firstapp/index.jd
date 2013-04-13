@@ -1,9 +1,9 @@
-page.title=Building Your First App
-page.metaDescription=If you're new to Android app development, this where you should begin. This series of lessons shows you how to create a new project, build a simple app, and run it on a device or emulator.
+page.title=创建你的首个应用
+page.metaDescription=translate by cnmahj. 如果你是 Android 应用开发新手，从这里开始。 该系列向你展示了如何创建新项目、构建简单的应用、并在设备或模拟器中运行它。
 
 trainingnavtop=true
 startpage=true
-next.title=Creating an Android Project
+next.title=创建 Android 项目
 next.link=creating-project.html
 
 @jd:body
@@ -11,38 +11,34 @@ next.link=creating-project.html
 <div id="tb-wrapper"> 
 <div id="tb"> 
  
-<h2>Dependencies and prerequisites</h2> 
+<h2>事前准备</h2> 
 
 <ul>
-  <li><a href="http://developer.android.com/sdk/index.html">Android SDK</a></li>
-  <li><a href="{@docRoot}tools/sdk/eclipse-adt.html">ADT Plugin</a> 20.0.0 or higher
-    (if you're using Eclipse)</li>
+  <li><a href="{@docRoot}sdk/index.html">Android SDK</a></li>
+  <li><a href="{@docRoot}tools/sdk/eclipse-adt.html">ADT 插件</a> 20.0.0 或更高版本
+    （如果你使用 Eclipse 进行开发）</li>
 </ul>
  
 </div> 
 </div> 
  
-<p>Welcome to Android application development!</p> 
+<p>欢迎参与 Android 应用程序开发！</p> 
 
-<p>This class teaches you how to build your first Android app. You’ll learn how to create an Android
-project and run a debuggable version of the app. You'll also learn some fundamentals of Android app
-design, including how to build a simple user interface and handle user input.</p>
+<p>本课程教你如何构建你的第一个 Android 应用。 你会学到如何创建 Android 项目，并在调试状态下运行应用。
+你还会学到 Android 下设计应用程序的一些基础，包括如何构建简单的用户界面并处理用户输入。</p>
 
-<p>Before you start this class, be sure you have your development environment set up. You need
-to:</p>
+<p>在开始本课程之前，请确认已经安装并设置好了开发环境。 你需要：</p>
 <ol>
-  <li>Download the Android SDK.</li>
-  <li>Install the ADT plugin for Eclipse (if you’ll use the Eclipse IDE).</li>
-  <li>Download the latest SDK tools and platforms using the SDK Manager.</li>
+  <li>下载 Android SDK。</li>
+  <li>为 Eclipse 安装 ADT 插件（如果你使用 Eclipse IDE）。</li>
+  <li>使用 SDK 管理器下载最新的 SDK 工具和平台组件。</li>
 </ol>
 
-<p>If you haven't already done these tasks, start by downloading the
-  <a href="{@docRoot}sdk/index.html">Android SDK</a> and following the install steps.
-  Once you've finished the setup, you're ready to begin this class.</p>
+<p>如果你还没有进行上述工作，开始下载<a href="{@docRoot}sdk/index.html">Android SDK</a>吧，
+并根据向导安装好它。一旦完成上述设置，你就可以开始学习本教程了。</p>
 
-<p>This class uses a tutorial format that incrementally builds a small Android app that teaches
-you some fundamental concepts about Android development, so it's important that you follow each
-step.</p>
+<p>本课程采用向导模式，渐进的教授你构建一个小 Android 应用，在该过程中教你关于 Android 开发的
+基本概念，因此你应该按部就班的学习本课程。</p>
 
-<p><strong><a href="creating-project.html">Start the first lesson &rsaquo;</a></strong></p>
+<p><strong><a href="creating-project.html">从第一课开始 &rsaquo;</a></strong></p>
 

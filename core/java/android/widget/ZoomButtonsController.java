@@ -54,22 +54,18 @@ import android.view.WindowManager.LayoutParams;
  *   view hierarchy.
  */
 /**
- * The {@link ZoomButtonsController} handles showing and hiding the zoom
- * controls and positioning it relative to an owner view. It also gives the
- * client access to the zoom controls container, allowing for additional
- * accessory buttons to be shown in the zoom controls window.
+ * {@link ZoomButtonsController} 处理缩放控件的显示和隐藏并且定位其在相关父视图的位置.
+ * 他也可以做为缩放控件的容器，允许在缩放控制窗口里面显示一些附加的按钮.
+ * 
  * <p>
- * Typically, clients should call {@link #setVisible(boolean) setVisible(true)}
- * on a touch down or move (no need to call {@link #setVisible(boolean)
- * setVisible(false)} since it will time out on its own). Also, whenever the
- * owner cannot be zoomed further, the client should update
- * {@link #setZoomInEnabled(boolean)} and {@link #setZoomOutEnabled(boolean)}.
+ * 通常情况下，客户端在按下或者移动显示容器需要调用 {@link #setVisible(boolean) setVisible(true)}
+ * 方法(不需要调用 {@link #setVisible(boolean) setVisible(false)}，来隐藏控件，超时后，它会自动隐藏)，
+ * 同时，当拥有者不能再进一步缩放的时候，客户端应该调 {@link #setZoomInEnabled(boolean)} 
+ * 和  {@link #setZoomOutEnabled(boolean)} 来及时更新状态.
  * <p>
- * If you are using this with a custom View, please call
- * {@link #setVisible(boolean) setVisible(false)} from
- * {@link View#onDetachedFromWindow} and from {@link View#onVisibilityChanged}
- * when <code>visibility != View.VISIBLE</code>.
- *
+ * 如果你需要和自定义视图搭配使用，请在 {@link View#onDetachedFromWindow} 事件中，或者当
+ * <code>visibility != View.VISIBLE</code> 时在 {@link View#onVisibilityChanged}事件中调用
+ * {@link #setVisible(boolean) setVisible(false)} 方法。
  */
 public class ZoomButtonsController implements View.OnTouchListener {
 
@@ -195,10 +191,9 @@ public class ZoomButtonsController implements View.OnTouchListener {
     };
 
     /**
-     * Constructor for the {@link ZoomButtonsController}.
+     * {@link ZoomButtonsController} 的构造函数.
      *
-     * @param ownerView The view that is being zoomed by the zoom controls. The
-     *            zoom controls will be displayed aligned with this view.
+     * @param ownerView 被缩放控件进行缩放的视图， 缩放控件的显示将和视图保持一致.
      */
     public ZoomButtonsController(View ownerView) {
         mContext = ownerView.getContext();
@@ -213,27 +208,27 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Whether to enable the zoom in control.
+     * 是否允许放大
      *
-     * @param enabled Whether to enable the zoom in control.
+     * @param enabled 是否允许放大（true 或者 false）.
      */
     public void setZoomInEnabled(boolean enabled) {
         mControls.setIsZoomInEnabled(enabled);
     }
 
     /**
-     * Whether to enable the zoom out control.
+     * 是否允许缩小
      *
-     * @param enabled Whether to enable the zoom out control.
+     * @param enabled 是否允许缩小.
      */
     public void setZoomOutEnabled(boolean enabled) {
         mControls.setIsZoomOutEnabled(enabled);
     }
 
     /**
-     * Sets the delay between zoom callbacks as the user holds a zoom button.
+     * 设置用户长按缩放按钮时多次调用回调函数的延迟时间.
      *
-     * @param speed The delay in milliseconds between zoom callbacks.
+     * @param speed 以毫秒为单位的多次调用回调函数间的延迟.
      */
     public void setZoomSpeed(long speed) {
         mControls.setZoomSpeed(speed);
@@ -280,20 +275,19 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Sets the {@link OnZoomListener} listener that receives callbacks to zoom.
+     * 设置接收用于缩放的回调事件的 {@link OnZoomListener} 监听器.
      *
-     * @param listener The listener that will be told to zoom.
+     * @param listener 接收用于缩放的回调事件的监听器.
      */
     public void setOnZoomListener(OnZoomListener listener) {
         mCallback = listener;
     }
 
     /**
-     * Sets whether the zoom controls should be focusable. If the controls are
-     * focusable, then trackball and arrow key interactions are possible.
-     * Otherwise, only touch interactions are possible.
+     * 设置缩放控件是否获取焦点，如果控件获取焦点，就是可以使用轨迹球和方向键进行操作，
+     * 否则，只能通过触摸进行操作.
      *
-     * @param focusable Whether the zoom controls should be focusable.
+     * @param focusable 缩放控件是否可以得到焦点.
      */
     public void setFocusable(boolean focusable) {
         int oldFlags = mContainerLayoutParams.flags;
@@ -309,17 +303,16 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Whether the zoom controls will be automatically dismissed after showing.
+     * 获取缩放控件是否显示后自动关闭.
      *
-     * @return Whether the zoom controls will be auto dismissed after showing.
+     * @return 缩放控件是否显示后自动关闭.
      */
     public boolean isAutoDismissed() {
         return mAutoDismissControls;
     }
 
     /**
-     * Sets whether the zoom controls will be automatically dismissed after
-     * showing.
+     * 设置缩放控件是否显示后自动关闭.
      */
     public void setAutoDismissed(boolean autoDismiss) {
         if (mAutoDismissControls == autoDismiss) return;
@@ -327,18 +320,18 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Whether the zoom controls are visible to the user.
+     * 取得缩放控件对用户是否可见.
      *
-     * @return Whether the zoom controls are visible to the user.
+     * @return 缩放控件对用户是否可见.
      */
     public boolean isVisible() {
         return mIsVisible;
     }
 
     /**
-     * Sets whether the zoom controls should be visible to the user.
+     * 设置缩放控件对用户是否可见.
      *
-     * @param visible Whether the zoom controls should be visible to the user.
+     * @param visible 是否缩放控件对用户是否可见.
      */
     public void setVisible(boolean visible) {
 
@@ -415,22 +408,20 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Gets the container that is the parent of the zoom controls.
+     * 获取缩放控件的父容器.
      * <p>
-     * The client can add other views to this container to link them with the
-     * zoom controls.
+     * 客户端可以向该容器中添加其他视图，并将缩放控件与之关联.
      *
-     * @return The container of the zoom controls. It will be a layout that
-     *         respects the gravity of a child's layout parameters.
+     * @return 缩放控件的容器.它按子控件的布局参数布局.
      */
     public ViewGroup getContainer() {
         return mContainer;
     }
 
     /**
-     * Gets the view for the zoom controls.
+     * 取得缩放控件的视图.
      *
-     * @return The zoom controls view.
+     * @return 缩放控件的视图.
      */
     public View getZoomControls() {
         return mControls;
@@ -662,22 +653,21 @@ public class ZoomButtonsController implements View.OnTouchListener {
     }
 
     /**
-     * Interface that will be called when the user performs an interaction that
-     * triggers some action, for example zooming.
+     * 与用户互动或者用户执行了某些动作（比如缩放）时调用的接口.
      */
     public interface OnZoomListener {
 
         /**
-         * Called when the zoom controls' visibility changes.
+         * 当缩放控件的显示与否发生变化时调用.
          *
-         * @param visible Whether the zoom controls are visible.
+         * @param visible 缩放控件是否可见.
          */
         void onVisibilityChanged(boolean visible);
 
         /**
-         * Called when the owner view needs to be zoomed.
+         * 当该控件的容器需要缩放时候调用.
          *
-         * @param zoomIn The direction of the zoom: true to zoom in, false to zoom out.
+         * @param zoomIn 缩放的方向：true 是放大，false 是缩小.
          */
         void onZoom(boolean zoomIn);
     }

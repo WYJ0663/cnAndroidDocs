@@ -41,31 +41,25 @@ import java.util.Formatter;
 import java.util.Locale;
 
 /**
- * A view containing controls for a MediaPlayer. Typically contains the
- * buttons like "Play/Pause", "Rewind", "Fast Forward" and a progress
- * slider. It takes care of synchronizing the controls with the state
- * of the MediaPlayer.
+ * 一个包含媒体播放器控件的视图.包含了一些典型的按钮，像“播放/暂停”、
+ * “倒退”、“快进”与进度条.它保持媒体播放器与控件的状态同步.
  * <p>
- * The way to use this class is to instantiate it programatically.
- * The MediaController will create a default set of controls
- * and put them in a window floating above your application. Specifically,
- * the controls will float above the view specified with setAnchorView().
- * The window will disappear if left idle for three seconds and reappear
- * when the user touches the anchor view.
+ * 要使用该类，需要通过编程来实例化.媒体控制器会创建默认的控件集合，
+ * 并把它们放到浮在你的应用程序上方的窗口中.具体来说，
+ * 就是这些控件浮在通过 setAnchorView() 方法指定的视图的上方.
+ * 如果这个窗口空闲3秒那么它将消失，直到用户再次触摸该宿主视图时重现.
  * <p>
- * Functions like show() and hide() have no effect when MediaController
- * is created in an xml layout.
- * 
- * MediaController will hide and
- * show the buttons according to these rules:
+ * 如果媒体控制器是在 XML 布局文件中创建的，则像 show() 和 hide()
+ * 这些函数对其没有影响.
+ *
+ * 媒体播放器将根据如下规则来显示和隐藏其按钮：
  * <ul>
- * <li> The "previous" and "next" buttons are hidden until setPrevNextListeners()
- *   has been called
- * <li> The "previous" and "next" buttons are visible but disabled if
- *   setPrevNextListeners() was called with null listeners
- * <li> The "rewind" and "fastforward" buttons are shown unless requested
- *   otherwise by using the MediaController(Context, boolean) constructor
- *   with the boolean set to false
+ * <li> 在调用 setPrevNextListeners() 函数之前，
+ * “上一首”和“下一首”按钮都是隐藏的.
+ * <li> 如果调用 setPrevNextListeners() 函数时监听器参数为空，
+ * 则“上一首”和“下一首”按钮可见，但处于不可用状态.
+ * <li> “后退”和“快进”按钮是一直显示的，如果不需要可以在调用构造函数
+ * MediaController(Context, boolean) 时将布尔值设置为假.
  * </ul>
  */
 public class MediaController extends FrameLayout {
@@ -202,9 +196,8 @@ public class MediaController extends FrameLayout {
     }
 
     /**
-     * Set the view that acts as the anchor for the control view.
-     * This can for example be a VideoView, or your Activity's main view.
-     * @param view The view to which to anchor the controller when it is visible.
+     * 设置绑定媒体控制器视图的视图.该视图可以是 VideoView，或者是你的活动的主视图.
+     * @param view 控制器可见时绑定的视图.
      */
     public void setAnchorView(View view) {
         if (mAnchor != null) {
@@ -226,9 +219,8 @@ public class MediaController extends FrameLayout {
     }
 
     /**
-     * Create the view that holds the widgets that control playback.
-     * Derived classes can override this to create their own.
-     * @return The controller view.
+     * 创建用于放置控制播放的小部件的视图.派生的类可以使用自己的实现覆盖该方法.
+     * @return 控制器视图.
      * @hide This doesn't work as advertised
      */
     protected View makeControllerView() {
@@ -291,8 +283,7 @@ public class MediaController extends FrameLayout {
     }
 
     /**
-     * Show the controller on screen. It will go away
-     * automatically after 3 seconds of inactivity.
+     * 在屏幕上显示控制器.它将在空闲超过 3 秒后自动隐藏.
      */
     public void show() {
         show(sDefaultTimeout);
@@ -322,10 +313,8 @@ public class MediaController extends FrameLayout {
     }
     
     /**
-     * Show the controller on screen. It will go away
-     * automatically after 'timeout' milliseconds of inactivity.
-     * @param timeout The timeout in milliseconds. Use 0 to show
-     * the controller until hide() is called.
+     * 在屏幕上显示控制器.它将在空闲超过 “timeout” 毫秒后自动隐藏.
+     * @param timeout 以毫秒为单位的超时时间.设置为0时，在调用 hide()函数之前控件一直可见.
      */
     public void show(int timeout) {
         if (!mShowing && mAnchor != null) {
@@ -357,7 +346,7 @@ public class MediaController extends FrameLayout {
     }
 
     /**
-     * Remove the controller from the screen.
+     * 隐藏屏幕上显示的控件.
      */
     public void hide() {
         if (mAnchor == null)

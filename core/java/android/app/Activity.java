@@ -912,19 +912,15 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-     * This method is called after {@link #onStart} when the activity is
-     * being re-initialized from a previously saved state, given here in
-     * <var>savedInstanceState</var>.  Most implementations will simply use {@link #onCreate}
-     * to restore their state, but it is sometimes convenient to do it here
-     * after all of the initialization has been done or to allow subclasses to
-     * decide whether to use your default implementation.  The default
-     * implementation of this method performs a restore of any view state that
-     * had previously been frozen by {@link #onSaveInstanceState}.
+     * 该方法在 {@link #onStart} 之后，活动从之前保存的状态重新初始化时调用，状态来自
+     * <var>savedInstanceState</var>。 大多数实现只是简单的在 {@link #onCreate}
+     * 中恢复状态，但有时在这个更方便。比如在所有初始化结束后执行，或者允许子类决定是否使用
+     * 你的默认实现时。该方法的默认实现恢复所有之前由 {@link #onSaveInstanceState}
+     * 保存的视图状态。
      * 
-     * <p>This method is called between {@link #onStart} and
-     * {@link #onPostCreate}.
+     * <p>该方法在 {@link #onStart} 和 {@link #onPostCreate} 之间调用。
      * 
-     * @param savedInstanceState the data most recently supplied in {@link #onSaveInstanceState}.
+     * @param savedInstanceState 最近在 {@link #onSaveInstanceState} 中提供的数据。
      * 
      * @see #onCreate
      * @see #onPostCreate
@@ -1371,27 +1367,17 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-     * Perform any final cleanup before an activity is destroyed.  This can
-     * happen either because the activity is finishing (someone called
-     * {@link #finish} on it, or because the system is temporarily destroying
-     * this instance of the activity to save space.  You can distinguish
-     * between these two scenarios with the {@link #isFinishing} method.
+     * 在活动销毁前进行最后的清理工作。 该事件在活动执行结束（活动中调用了 {@link #finish} ），
+     * 或者系统为节省空间临时销毁活动的实例时发生。你可以通过调用 {@link #isFinishing} 方法
+     * 来区分这两种情况。
      * 
-     * <p><em>Note: do not count on this method being called as a place for
-     * saving data! For example, if an activity is editing data in a content
-     * provider, those edits should be committed in either {@link #onPause} or
-     * {@link #onSaveInstanceState}, not here.</em> This method is usually implemented to
-     * free resources like threads that are associated with an activity, so
-     * that a destroyed activity does not leave such things around while the
-     * rest of its application is still running.  There are situations where
-     * the system will simply kill the activity's hosting process without
-     * calling this method (or any others) in it, so it should not be used to
-     * do things that are intended to remain around after the process goes
-     * away.
+     * <p><em>注： 不要指望通过调用该方法来保存数据！例如，当活动修改了提供器提供的数据，
+     * 修改的内容应该在 {@link #onPause} 或 {@link #onSaveInstanceState} 时提交，
+     * 而不是这里。</em> 该方法通常用于实现释放资源，比如活动关联到的线程，以免在活动销毁后，
+     * 应用程序的其他部分还在运行。有些情况下系统只是简单的杀掉活动的宿主进程，而不调用活动的
+     * 这个方法（和其他方法），因此他不能用于在进程消失时保持信息。
      * 
-     * <p><em>Derived classes must call through to the super class's
-     * implementation of this method.  If they do not, an exception will be
-     * thrown.</em></p>
+     * <p><em>衍生类必须调用父类实现的该方法。如果不调用会抛出异常。</em></p>
      * 
      * @see #onPause
      * @see #onStop

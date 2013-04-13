@@ -28,9 +28,9 @@ import android.util.Log;
 
 
 /**
- * The interface that apps use to talk to the window manager.
+ * 应用程序与窗口管理器的接口.
  * <p>
- * Use <code>Context.getSystemService(Context.WINDOW_SERVICE)</code> to get one of these.
+ * 通过<code>Context.getSystemService(Context.WINDOW_SERVICE)</code>取得其实例.
  * </p><p>
  * Each window manager instance is bound to a particular {@link Display}.
  * To obtain a {@link WindowManager} for a different display, use
@@ -48,9 +48,8 @@ import android.util.Log;
  */
 public interface WindowManager extends ViewManager {
     /**
-     * Exception that is thrown when trying to add view whose
-     * {@link WindowManager.LayoutParams} {@link WindowManager.LayoutParams#token}
-     * is invalid.
+     * 添加包含无效{@link WindowManager.LayoutParams 布局参数}
+     * {@link WindowManager.LayoutParams#token 令牌}时抛出的异常.
      */
     public static class BadTokenException extends RuntimeException {
         public BadTokenException() {
@@ -94,12 +93,11 @@ public interface WindowManager extends ViewManager {
     public Display getDefaultDisplay();
 
     /**
-     * Special variation of {@link #removeView} that immediately invokes
-     * the given view hierarchy's {@link View#onDetachedFromWindow()
-     * View.onDetachedFromWindow()} methods before returning.  This is not
-     * for normal applications; using it correctly requires great care.
+     * {@link #removeView}的特殊实现，返回前立即执行视图层次的
+     * {@link View#onDetachedFromWindow() View.onDetachedFromWindow()}
+     * 方法.该方法不是为普通应用程序 准备的，要正确使用需要及其小心.
      * 
-     * @param view The view to be removed.
+     * @param view 要删除的视图.
      */
     public void removeViewImmediate(View view);
 

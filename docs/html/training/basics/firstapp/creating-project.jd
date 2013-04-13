@@ -1,9 +1,9 @@
-page.title=Creating an Android Project
-parent.title=Building Your First App
+page.title=创建 Android 项目
+parent.title=创建你的首个应用
 parent.link=index.html
 
 trainingnavtop=true
-next.title=Running Your App
+next.title=运行你的应用
 next.link=running-app.html
 
 @jd:body
@@ -13,154 +13,121 @@ next.link=running-app.html
 <div id="tb-wrapper"> 
 <div id="tb"> 
  
-<h2>This lesson teaches you to</h2>
+<h2>该课程教你</h2>
 
 <ol>
-  <li><a href="#Eclipse">Create a Project with Eclipse</a></li>
-  <li><a href="#CommandLine">Create a Project with Command Line Tools</a></li>
+  <li><a href="#Eclipse">使用 Eclipse 创建项目</a></li>
+  <li><a href="#CommandLine">通过命令行工具创建项目</a></li>
 </ol>
 
-<h2>You should also read</h2>
+<h2>你也应该阅读</h2>
 
 <ul>
-  <li><a href="{@docRoot}sdk/installing/index.html">Installing the
-SDK</a></li>
-  <li><a href="{@docRoot}tools/projects/index.html">Managing Projects</a></li>
+  <li><a href="{@docRoot}sdk/installing/index.html">安装SDK</a></li>
+  <li><a href="{@docRoot}tools/projects/index.html">管理项目</a></li>
 </ul>
  
  
 </div> 
 </div> 
 
-<p>An Android project contains all the files that comprise the source code for your Android
-app. The Android SDK tools make it easy to start a new Android project with a set of
-default project directories and files.</p>
+<p>Android 项目包括构成你的 Android 应用的源代码的所有文件。 利用 Android SDK 工具可以简单的创建
+默认项目目录和文件来开始一个新的 Android 项目。</p>
 
-<p>This lesson
-shows how to create a new project either using Eclipse (with the ADT plugin) or using the
-SDK tools from a command line.</p>
+<p>本节课展示了如何使用 Eclipse （包含 ADT 插件）或在命令行通过 SDK 工具来创建一个新项目。</p>
 
-<p class="note"><strong>Note:</strong> You should already have the Android SDK installed, and if
-you're using Eclipse, you should also have the <a href="{@docRoot}tools/sdk/eclipse-adt.html">ADT
-plugin</a> installed (version 21.0.0 or higher). If you don't have these, follow the guide to <a
-href="{@docRoot}sdk/installing/index.html">Installing the Android SDK</a> before you start this
-lesson.</p>
+<p class="note"><strong>注意：</strong> 你应该已经安装了 Android SDK；如果你是用 Eclipse，应该也
+安装了（21.0.0 或更高版本的）<a href="{@docRoot}tools/sdk/eclipse-adt.html">ADT 插件</a>。
+如果还没有，再开始本节课程之前，请根据向导<a href="{@docRoot}sdk/installing/index.html">
+安装 Android SDK</a>。</p>
 
 
-<h2 id="Eclipse">Create a Project with Eclipse</h2>
+<h2 id="Eclipse">使用 Eclipse 创建项目</h2>
 
 <ol>
-  <li>Click <strong>New</strong> <img src="{@docRoot}images/tools/eclipse-new.png" 
-  style="vertical-align:baseline;margin:0" /> in the toolbar.</li>
-  <li>In the window that appears, open the <strong>Android</strong> folder,
-  select <strong>Android Application Project</strong>, and click <strong>Next</strong>.</li>
+  <li>点击工具栏中的<strong>新建项目</strong> <img src="{@docRoot}images/tools/eclipse-new.png" 
+  style="vertical-align:baseline;margin:0" />按钮。</li>
+  <li>在出现的窗口中展开<strong>Android</strong>文件夹。选择<strong>Android Application Project</strong>，
+并点击<strong>Next</strong>继续。</li>
 
 <div class="figure" style="width:420px">
 <img src="{@docRoot}images/training/firstapp/adt-firstapp-setup.png" alt="" />
-<p class="img-caption"><strong>Figure 1.</strong> The New Android App Project wizard in Eclipse.</p>
+<p class="img-caption"><strong>图1 -</strong> Eclipse 的新建 Android 应用项目向导。</p>
 </div>
 
-  <li>Fill in the form that appears:
+  <li>按如下说明填写表单：
     <ul>
-      <li><strong>Application Name</strong> is the app name that appears to users.
-          For this project, use "My First App."</p></li>
-      <li><strong>Project Name</strong> is the name of your project directory and the name visible in Eclipse.</li>
-      <li><strong>Package Name</strong> is the package namespace for your app (following the same
-rules as packages in the Java programming language). Your package name
-must be unique across all packages installed on the Android system. For this reason, it's generally
-best if you use a name that begins with the reverse domain name of your organization or
-publisher entity. For this project, you can use something like "com.example.myfirstapp."
-However, you cannot publish your app on Google Play using the "com.example" namespace.</li>
-      <li><strong>Minimum Required SDK</strong> is the lowest version of Android that your app supports,
-      indicated using the <a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#ApiLevels"
-      >API level</a>.
-        To support as many devices as possible, you should set this to the lowest version available
-        that allows your app to provide its core feature set. If any feature of your app is possible
-        only on newer versions of Android and it's not critical to the app's core feature set, you
-        can enable the feature only when running on the versions that support it (as
-        discussed in <a href="{@docRoot}training/basics/supporting-devices/platforms.html"
-        >Supporting Different Platform Versions</a>).
-        Leave this set to the default value for this project.
+      <li><strong>Application Name</strong> 是呈现给用户的应用名称。该项目名为“My First App”。</p></li>
+      <li><strong>Project Name</strong> 是你的项目目录名，即在 Eclipse 中看到的名称。</li>
+      <li><strong>Package Name</strong> 是你的应用包的命名空间（使用与 Java 编程语言相同的命名规则）。
+        你的包名在安装到 Android 系统的应用程序中必须唯一。
+        因此，通常使用你的组织或发布者的反向域名作为包名比较好。
+        对于该项目，你可以使用“com.example.myfirstapp”这样的包名。</li>
+      <li><strong>Minimum Required SDK</strong> 是你的应用支持的 Android 的最低版本对应的
+        <a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#ApiLevels">API 级别</a>。
+        为了支持尽量多的设备，你应该将该值设置为提供你的应用的核心特性所需要的可能的最低版本。
+        如果你的应用中的一些特性只在新一些的版本可用，并且他对于应用的核心特性不很重要，
+        你可以只在运行可以支持他的版本时开启该特性（将在
+        <a href="{@docRoot}training/basics/supporting-devices/platforms.html">支持平台的不同版本</a>中讨论)。
+        对于本项目，使用默认值即可。</li>
+      <li><strong>Target SDK</strong> 是你测试了你的应用程序的 Android 最高版本（当然也是填写
+        <a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#ApiLevels">API 级别</a>）。
+        <p>当有 Android 的新版本可用时，为了利用新的平台特性，你应该在新版本中测试你的应用程序，
+        并将该值更新为最新的 API 级别。</p>
       </li>
-      <li><strong>Target SDK</strong> indicates the highest version of Android (also using the
-      <a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#ApiLevels"
-      >API level</a>) with which you
-      have tested with your application.
-        <p>As new versions of Android become available, you should
-      test your app on the new version and update this value to match the latest API level
-      in order to take advantage of new platform features.</p>
-      </li>
-      <li><strong>Compile With</strong> is the platform version against which you will compile your app.
-        By default, this is set to the latest version of Android available in your SDK. (It should
-        be Android 4.1 or greater; if you don't have such a version available, you must install one
-        using the <a href="{@docRoot}sdk/installing/adding-packages.html">SDK Manager</a>).
-        You can still build your app to
-support older versions, but setting the build target to the latest version allows you to
-enable new features and optimize your app for a great user experience on the latest
-devices.</li>
-       <li><strong>Theme</strong> specifies the Android UI style to apply for your app. You can leave
-       this alone.</li>
+      <li><strong>Compile With</strong> 是你用于编译应用的平台版本。 该值默认为可用 Android SDK 的最新版。
+        （他应该是 Android 4.2 或更高版本；如果你没有该版本，应该使用
+        <a href="{@docRoot}sdk/installing/adding-packages.html">SDK 管理器</a>安装它）。
+        你仍然可以构建你的应用以支持旧版本，但应该设置该值为最新版，这样可以允许你启用新特性，
+        并优化你的应用，使它在最新设备上有更好的体验。</li>
+       <li><strong>Theme</strong> 指定你的应用的 Android UI 的风格。 你可以不管他。</li>
     </ul>
-    <p>Click <strong>Next</strong>.</p>
+    <p>按下<strong>Next</strong>按钮。</p>
   </li>
-  <li>On the next screen to configure the project, leave the default selections and click
-  <strong>Next</strong>.</li>
-  <li>The next screen can help you create a launcher icon for your app.
-    <p>You can customize an icon in several ways and the tool generates an icon for all
-    screen densities. Before you publish your app, you should be sure your icon meets
-    the specifications defined in the <a
-    href="{@docRoot}design/style/iconography.html">Iconography</a>
-    design guide.</p>
-    <p>Click <strong>Next</strong>.</p>
+  <li>下一画面用于项目配置，保持默认选择，按下<strong>Next</strong>按钮。</li>
+  <li>下一画面可以帮助你创建你的应用的启动器图标。
+    <p>你可以通过几种方式定义图标，工具会为所有屏幕分辨率生成图标。 在你正式发布应用之前，
+    请确认你的图标符合<a href="{@docRoot}design/style/iconography.html">Iconography</a>
+    设计向导中的规格定义。</p>
+    <p>按下<strong>Next</strong>按钮。</p>
   </li>
-  <li>Now you can select an activity template from which to begin building your app.
-    <p>For this project, select <strong>BlankActivity</strong> and click <strong>Next</strong>.</p>
+  <li>现在你可以选择一个用于构建你的应用的活动模版。
+    <p>本项目选择<strong>BlankActivity</strong>并按下<strong>Next</strong>按钮。</p>
   </li>
-  <li>Leave all the details for the activity in their default state and click 
-    <strong>Finish</strong>.</li>
+  <li>保持活动细节设置的默认值，按下<strong>Finish</strong>按钮。</li>
 </ol>
 
-<p>Your Android project is now set up with some default files and you’re ready to begin
-building the app. Continue to the <a href="running-app.html">next lesson</a>.</p>
+<p>你的 Android 项目使用一些默认文件设置好了，你已经做好了开始构建应用的准备。
+继续<a href="running-app.html">下一课</a>。</p>
 
 
 
-<h2 id="CommandLine">Create a Project with Command Line Tools</h2>
+<h2 id="CommandLine">通过命令行工具创建项目</h2>
 
-<p>If you're not using the Eclipse IDE with the ADT plugin, you can instead create your project
-using the SDK tools from a command line:</p>
+<p>如果你没有使用带有 ADT 插件的 Eclipse，你可以在命令行使用 SDK 工具来创建你的项目：</p>
 
 <ol>
-  <li>Change directories into the Android SDK’s <code>tools/</code> path.</li>
-  <li>Execute:
+  <li>将目录切换到 Android SDK 的<code>tools/</code>目录下。</li>
+  <li>执行：
 <pre class="no-pretty-print">android list targets</pre>
-<p>This prints a list of the available Android platforms that you’ve downloaded for your SDK. Find
-the platform against which you want to compile your app. Make a note of the target id. We
-recommend that you select the highest version possible. You can still build your app to
-support older versions, but setting the build target to the latest version allows you to optimize
-your app for the latest devices.</p>
-<p>If you don't see any targets listed, you need to
-install some using the Android SDK
-Manager tool. See <a href="{@docRoot}sdk/installing/adding-packages.html">Adding Platforms
-  and Packages</a>.</p></li>
-  <li>Execute:
+<p>这会列出你已经下载的可用的 Android SDK 平台组件。 找出你要用于编译应用的平台。
+将目标 id 记录下来。 我们建议你选择尽可能高的版本。 你仍然可以构建你的应用以支持旧版本，
+但应该设置该值为最新版，这样可以允许你启用新特性，并优化你的应用，使它在最新设备上有更好的体验。
+</p>
+<p>如果你没有看到任何目标列出，你需要使用 Android SDK 管理工具安装一些。 参见
+<a href="{@docRoot}sdk/installing/adding-packages.html">添加平台组件和软件包</a>。</p></li>
+  <li>执行：
 <pre class="no-pretty-print">
-android create project --target &lt;target-id> --name MyFirstApp \
---path &lt;path-to-workspace>/MyFirstApp --activity MainActivity \
+android create project --target &lt;目标id> --name MyFirstApp \
+--path &lt;工作空间路径>/MyFirstApp --activity MainActivity \
 --package com.example.myfirstapp
 </pre>
-<p>Replace <code>&lt;target-id></code> with an id from the list of targets (from the previous step)
-and replace
-<code>&lt;path-to-workspace></code> with the location in which you want to save your Android
-projects.</p></li>
+<p>用之前（上一步）记录的目标 id 替换<code>&lt;目标id></code>，用你要保存 Android 项目的
+目录来替换<code>&lt;工作空间路径></code>。</p></li>
 </ol>
 
-<p>Your Android project is now set up with several default configurations and you’re ready to begin
-building the app. Continue to the <a href="running-app.html">next lesson</a>.</p>
+<p>你的 Android 项目使用一些默认文件设置好了，你已经做好了开始构建应用的准备。
+继续<a href="running-app.html">下一课</a>。</p>
 
-<p class="note"><strong>Tip:</strong> Add the <code>platform-tools/</code> as well as the
-<code>tools/</code> directory to your <code>PATH</code> environment variable.</p>
-
-
-
-
+<p class="note"><strong>提示：</strong>将<code>platform-tools/</code>和<code>tools/</code>
+目录添加到环境变量<code>PATH</code>中。</p>

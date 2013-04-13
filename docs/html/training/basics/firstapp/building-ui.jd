@@ -1,11 +1,11 @@
-page.title=Building a Simple User Interface
-parent.title=Building Your First App
+page.title=构建简单的用户界面
+parent.title=创建你的首个应用
 parent.link=index.html
 
 trainingnavtop=true
-previous.title=Running Your App
+previous.title=运行你的应用
 previous.link=running-app.html
-next.title=Starting Another Activity
+next.title=启动另一个活动
 next.link=starting-activity.html
 
 @jd:body
@@ -15,84 +15,70 @@ next.link=starting-activity.html
 <div id="tb-wrapper"> 
 <div id="tb"> 
  
-<h2>This lesson teaches you to</h2>
+<h2>该课程教你</h2>
 
 <ol>
-  <li><a href="#LinearLayout">Create a Linear Layout</a></li>
-  <li><a href="#TextInput">Add a Text Field</a></li>
-  <li><a href="#Strings">Add String Resources</a></li>
-  <li><a href="#Button">Add a Button</a></li>
-  <li><a href="#Weight">Make the Input Box Fill in the Screen Width</a></li>
+  <li><a href="#LinearLayout">创建线性布局</a></li>
+  <li><a href="#TextInput">添加文本框</a></li>
+  <li><a href="#Strings">添加字符串资源</a></li>
+  <li><a href="#Button">添加按钮</a></li>
+  <li><a href="#Weight">使输入框宽度充满整个屏幕</a></li>
 </ol>
 
 
-<h2>You should also read</h2>
+<h2>你也应该阅读</h2>
 <ul>
-  <li><a href="{@docRoot}guide/topics/ui/declaring-layout.html">Layouts</a></li>
+  <li><a href="{@docRoot}guide/topics/ui/declaring-layout.html">布局</a></li>
 </ul>
 
 </div> 
 </div> 
 
 
+<p>Android的图形用户界面通过 {@link android.view.View} 和 {@link android.view.ViewGroup} 
+  的层叠来构建。 {@link android.view.View} 对象是普通的 UI 小部件，例如<a
+  href="{@docRoot}guide/topics/ui/controls/button.html">按钮</a>和<a
+  href="{@docRoot}guide/topics/ui/controls/text.html">文本框</a>；{@link android.view.ViewGroup}
+  对象是不可见的视图容器，定义如何布局其子视图，例如网格和纵向列表。</p>
 
-<p>The graphical user interface for an Android app is built using a hierarchy of {@link
-android.view.View} and {@link android.view.ViewGroup} objects. {@link android.view.View} objects are
-usually UI widgets such as <a href="{@docRoot}guide/topics/ui/controls/button.html">buttons</a> or
-<a href="{@docRoot}guide/topics/ui/controls/text.html">text fields</a> and {@link
-android.view.ViewGroup} objects are
-invisible view containers that define how the child views are laid out, such as in a
-grid or a vertical list.</p>
-
-<p>Android provides an XML vocabulary that corresponds to the subclasses of {@link
-android.view.View} and {@link android.view.ViewGroup} so you can define your UI in XML using
-a hierarchy of UI elements.</p>
+<p>Android 提供了对应于 {@link android.view.View} 和 {@link android.view.ViewGroup} 子类的 XMl
+  标签，你可以在 XML 通过 UI 元素的层叠来创建你的 UI。</p>
 
 
 <div class="sidebox-wrapper">
 <div class="sidebox">
-  <h2>Alternative Layouts</h2>
-  <p>Declaring your UI layout in XML rather than runtime code is useful for several reasons,
-but it's especially important so you can create different layouts for
-different screen sizes. For example, you can create two versions of a layout and tell
-the system to use one on "small" screens and the other on "large" screens. For more information,
-see the class about <a
-href="{@docRoot}training/basics/supporting-devices/index.html">Supporting Different
-Devices</a>.</p>
+  <h2>可选布局</h2>
+  <p>使用 XML 定义 UI 布局而不是在运行时通过代码创建布局，有时候是有好处的；
+    但对于为不同屏幕大小创建不同布局来说，他是特别重要的。例如，你可以创建两个版本的布局，
+    并告诉系统一个用于“小”屏幕，另一个用于“大”屏幕。更多信息参见教程<a
+    href="{@docRoot}training/basics/supporting-devices/index.html">支持不同设备</a>。</p>
 </div>
 </div>
 
 <img src="{@docRoot}images/viewgroup.png" alt="" width="400" height="214" />
-<p class="img-caption"><strong>Figure 1.</strong> Illustration of how {@link
-android.view.ViewGroup} objects form branches in the layout and contain other {@link
-android.view.View} objects.</p>
+<p class="img-caption"><strong>图1 -</strong> 在布局中，{@link android.view.ViewGroup} 
+  对象是如何形成分支并包含其它 {@link android.view.View} 对象的插图。</p>
 
-<p>In this lesson, you'll create a layout in XML that includes a text field and a
-button. In the following lesson, you'll respond when the button is pressed by sending the
-content of the text field to another activity.</p>
+<p>在这一次教程里，你将学到怎样用XML创建一个带有文本输入框和按钮的界面。 在接下来的课里，
+  你将学会对按钮做出响应，当按钮被按下的时候文本框里的内容被发送到另外一个Activity。</p>
 
 
+<h2 id="LinearLayout">创建线性布局</h2>
 
-<h2 id="LinearLayout">Create a Linear Layout</h2>
+<p>从目录 <code>res/layout/</code> 里打开 <code>activity_main.xml</code> 文件。</p>
 
-<p>Open the <code>activity_main.xml</code> file from the <code>res/layout/</code>
-directory.</p>
+<p class="note"><strong>注意：</strong>在 Eclipse 中，当你打开布局文件的时候，首先看到的是
+  ADT 布局编辑，这个编辑页是使用所见即所得的工具帮助你创建布局。 对于本课来说，你是直接在 XML
+  里进行操作，因此点击屏幕下方的 <em>activity_main.xml</em> 标签进入 XML 编辑状态。</p>
 
-<p class="note"><strong>Note:</strong> In Eclipse, when you open a layout file, you’re first shown
-the Graphical Layout editor. This is an editor that helps you build layouts using WYSIWYG tools. For this
-lesson, you’re going to work directly with the XML, so click the <em>activity_main.xml</em> tab at
-the bottom of the screen to open the XML editor.</p>
+<p>创建该项目时你选择的 BlankActivity 模版提供了以 {@link android.widget.RelativeLayout} 为根视图，
+  并包含 {@link android.widget.TextView} 子视图的 <code>activity_main.xml</code> 文件。</p>
 
-<p>The BlankActivity template you chose when you created this project includes the
-<code>activity_main.xml</code> file with a {@link
-android.widget.RelativeLayout} root view and a {@link android.widget.TextView} child view.</p>
-
-<p>First, delete the {@link android.widget.TextView &lt;TextView>} element and change the {@link
-  android.widget.RelativeLayout &lt;RelativeLayout>} element to {@link
-  android.widget.LinearLayout &lt;LinearLayout>}. Then add the
-<a href="{@docRoot}reference/android/widget/LinearLayout.html#attr_android:orientation">{@code
-android:orientation}</a> attribute and set it to <code>"horizontal"</code>.
-The result looks like this:</p>
+<p>首先，需要删除 {@link android.widget.TextView &lt;TextView>} 元素，把 {@link
+  android.widget.RelativeLayout &lt;RelativeLayout>} 布局替换为 {@link
+  android.widget.LinearLayout &lt;LinearLayout>} 布局。 然后添加 <a 
+  href="{@docRoot}reference/android/widget/LinearLayout.html#attr_android:orientation">{@code
+android:orientation}</a> 属性并设置为 “<code>horizontal</code>”。 结果应该是这样：</p>
 
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?>
@@ -104,38 +90,38 @@ The result looks like this:</p>
 &lt;/LinearLayout>
 </pre>
 
-<p>{@link android.widget.LinearLayout} is a view group (a subclass of {@link
-android.view.ViewGroup}) that lays out child views in either a vertical or horizontal orientation,
-as specified by the <a
+<p>{@link android.widget.LinearLayout} 布局是一个视图组（{@link android.view.ViewGroup}的子类），
+用于水平放置或者垂直放置子视图的部件，由属性 <a
 href="{@docRoot}reference/android/widget/LinearLayout.html#attr_android:orientation">{@code
-android:orientation}</a> attribute. Each child of a {@link android.widget.LinearLayout} appears on
-the screen in the order in which it appears in the XML.</p> 
+android:orientation}</a> 来设定方向。{@link android.widget.LinearLayout }布局里的子元素按照 XML
+里设定的顺序显示在屏幕上。</p> 
 
-<p>The other two attributes, <a
-href="{@docRoot}reference/android/view/View.html#attr_android:layout_width">{@code
-android:layout_width}</a> and <a
+<p>另外的两个属性<a href="{@docRoot}reference/android/view/View.html#attr_android:layout_width">
+{@code android:layout_width}</a> 和 <a
 href="{@docRoot}reference/android/view/View.html#attr_android:layout_height">{@code
-android:layout_height}</a>, are required for all views in order to specify their size.</p>
+android:layout_height}</a>用来指定视图的大小，对所有视图来说都是必须的。</p>
 
-<p>Because the {@link android.widget.LinearLayout} is the root view in the layout, it should fill
-the entire screen area that's
-available to the app by setting the width and height to
-<code>"match_parent"</code>. This value declares that the view should expand its width
-or height to <em>match</em> the width or height of the parent view.</p>
+<p>因为布局中 {@link android.widget.LinearLayout} 是跟视图，他应该充满整个屏幕区域，
+这是通过设置他的高度和宽度为“<code>match_parent</code>”来实现的。 该值表明，
+视图应该扩展其高度和宽度以<em>匹配</em>其父视图的高度和宽度。</p>
 
-<p>For more information about layout properties, see the <a
-href="{@docRoot}guide/topics/ui/declaring-layout.html">Layout</a> guide.</p>
+<p>关于布局属性的更多信息，参见<a href="{@docRoot}guide/topics/ui/declaring-layout.html">布局</a>
+向导。</p>
 
 
 
-<h2 id="TextInput">Add a Text Field</h2>
+<h2 id="TextInput">添加文本框</h2>
 
-<p>To create a user-editable text field, add an {@link android.widget.EditText
-&lt;EditText>} element inside the {@link android.widget.LinearLayout &lt;LinearLayout>}.</p>
+<p>在 {@link android.widget.LinearLayout &lt;LinearLayout>} 布局中，添加一个
+{@link android.widget.EditText &lt;EditText>}元素就可以创建一个用户可编辑的文本框。</p>
 
-<p>Like every {@link android.view.View} object, you must define certain XML attributes to specify
-the {@link android.widget.EditText} object's properties. Here’s how you should declare it
-inside the {@link android.widget.LinearLayout &lt;LinearLayout>} element:</p>
+EditText类属于View的一个用于展示可编辑的文本的子类。
+
+和View的别的类一样，你需要设置XML里的某些属性来指定EditText的具体功能，下边是你应该在线性布局里指定的一些属性元素： 
+
+<p>与其他{@link android.view.View 视图}对象一样，你需要设置 XML 里的某些属性来指定 {@link
+android.widget.EditText} 的具体功能，下边是你应该 {@link android.widget.LinearLayout
+&lt;LinearLayout>} 布局里指定的一些属性元素： </p>
 
 <pre>
     &lt;EditText android:id="@+id/edit_message"
@@ -147,92 +133,78 @@ inside the {@link android.widget.LinearLayout &lt;LinearLayout>} element:</p>
 
 <div class="sidebox-wrapper">
 <div class="sidebox">
-  <h3>About resource objects</h3>
-  <p>A resource object is simply a unique integer name that's associated with an app resource,
-such as a bitmap, layout file, or string.</p>
-  <p>Every resource has a
-corresponding resource object defined in your project's {@code gen/R.java} file. You can use the
-object names in the {@code R} class to refer to your resources, such as when you need to specify a
-string value for the <a
-href="{@docRoot}reference/android/widget/TextView.html#attr_android:hint">{@code android:hint}</a>
-attribute. You can also create arbitrary resource IDs that you associate with a view using the <a
-href="{@docRoot}reference/android/view/View.html#attr_android:id">{@code android:id}</a> attribute,
-which allows you to reference that view from other code.</p>
-  <p>The SDK tools generate the {@code R.java} each time you compile your app. You should never
-modify this file by hand.</p>
-  <p>For more information, read the guide to <a
-href="{@docRoot}guide/topics/resources/providing-resources.html">Providing Resources</a>.</p>
+  <h3>关于资源对象</h3>
+  <p>资源对象是简单的可以唯一识别命名整数，他与应用程序资源关联，比如位图、布局文件和字符串。</p>
+  <p>每个资源在项目的 {@code gen/R.java} 文件中都定义了一个对应资源对象。 你可以通过使用 {@code R}
+    类中的对象名来参照你的资源，比如当你需要为 <a
+    href="{@docRoot}reference/android/widget/TextView.html#attr_android:hint">{@code android:hint}</a>
+    属性指定一个字符串值的时候。你也可以创建任意的资源 ID，通过 <a
+    href="{@docRoot}reference/android/view/View.html#attr_android:id">{@code android:id}</a>
+    属性关联到视图，它允许你从其它代码中参照这个视图。</p>
+  <p>SDK 工具在每次你编译应用时生成 {@code R.java}。 你不能手动更改该文件。</p>
+  <p>更多内容请阅读开发向导<a href="{@docRoot}guide/topics/resources/providing-resources.html">
+    提供资源</a>。</p>
 </div>
 </div>
 
-<p>About these attributes:</p>
+<p>关于这些属性：</p>
 
 <dl>
 <dt><a href="{@docRoot}reference/android/view/View.html#attr_android:id">{@code android:id}</a></dt>
-<dd>This provides a unique identifier for the view, which you can use to reference the object
-from your app code, such as to read and manipulate the object (you'll see this in the next
-lesson).
+<dd>他为视图提供唯一标识，你可以在程序的代码里进行引用，你可以对这个类进行读和修改的操作
+  （在下一课里会用到）。
 
-<p>The at sign (<code>&#64;</code>) is required when you're referring to any resource object from
-XML. It is followed by the resource type ({@code id} in this case), a slash, then the resource name
-({@code edit_message}).</p>
+<p>当你想从 XML 里使用资源类的时候必须使用“<code>&#64;</code>”符号。
+  其后是资源类型(这里是 {@code id})、斜线、和资源名称 ({@code edit_message})。</p>
 
-<p>The plus sign (<code>+</code>) before the resource type is needed only when you're defining a
-resource ID for the first time. When you compile the app,
-the SDK tools use the ID name to create a new resource ID in
-your project's {@code gen/R.java} file that refers to the {@link
-android.widget.EditText} element. Once the resource ID is declared once this way,
-other references to the ID do not
-need the plus sign. Using the plus sign is necessary only when specifying a new resource ID and not
-needed for concrete resources such as strings or layouts. See the sidebox for
-more information about resource objects.</p></dd>
+
+<p>资源类型前的加号 (<code>+</code>) 在你首次定义资源 ID 时使用。在你编译应用时，SDK 工具使用该
+  ID 名称在项目的 {@code gen/R.java} 文件中创建新的资源 ID，使它参照到 {@link
+  android.widget.EditText} 元素。 资源 ID 以这种方式生成一次，其它对该 ID 的参照就不需要加号了。
+  加号只用于指定新的资源 ID 时，对于类似 字符串、布局这样的实际资源不需要他。
+  关于资源对象的更多信息参见侧边栏。</p></dd>
 
 <dt><a
 href="{@docRoot}reference/android/view/View.html#attr_android:layout_width">{@code
-android:layout_width}</a> and <a
+android:layout_width}</a> 和 <a
 href="{@docRoot}reference/android/view/View.html#attr_android:layout_height">{@code
 android:layout_height}</a></dt>
-<dd>Instead of using specific sizes for the width and height, the <code>"wrap_content"</code> value
-specifies that the view should be only as big as needed to fit the contents of the view. If you
-were to instead use <code>"match_parent"</code>, then the {@link android.widget.EditText}
-element would fill the screen, because it would match the size of the parent {@link
-android.widget.LinearLayout}. For more information, see the <a
-href="{@docRoot}guide/topics/ui/declaring-layout.html">Layouts</a> guide.</dd>
+<dd>对于宽和高不建议指定具体的大小，使用“<code>wrap_content</code>”指定之后，
+  这个视图只是占据内容大小的空间。如果你使用了“<code>match_parent</code>”，这时
+  {@link android.widget.EditText}将会布满整个屏幕，因为它将适应父布局 {@link
+  android.widget.LinearLayout}的大小。更多信息，参见<a
+  href="{@docRoot}guide/topics/ui/declaring-layout.html">布局</a>向导。</dd>
 
 <dt><a
 href="{@docRoot}reference/android/widget/TextView.html#attr_android:hint">{@code
 android:hint}</a></dt>
-<dd>This is a default string to display when the text field is empty. Instead of using a hard-coded
-string as the value, the {@code "@string/edit_message"} value refers to a string resource defined in
-a separate file. Because this refers to a concrete resource (not just an identifier), it does not
-need the plus sign. However, because you haven't defined the string resource yet, you’ll see a
-compiler error at first. You'll fix this in the next section by defining the string.
-<p class="note"><strong>Note:</strong> This string resource has the same name as the element ID:
-{@code edit_message}. However, references
-to resources are always scoped by the resource type (such as {@code id} or {@code string}), so using
-the same name does not cause collisions.</p>
+<dd>这是文本框为空时默认显示的字符串。 参照另外文件中定义的字符串资源的“{@code
+  "@string/edit_message"}”值用于代替使用硬编码的字符串值。 它指向具体的资源（不是单纯的标识符），
+  因此不需要加号。 然而，因为你还没有定义该字符串资源，首先你会看到一个编译错误。
+  在下一小节中通过定义该字符串会解决这个问题。
+
+<p class="note"><strong>注意：</strong> 有与此字符串资源同名的元素 ID：{@code edit_message}。
+  不过，对资源的参照根据资源的类型限定了范围（比如 {@code id} 或 {@code string}），
+  因此使用相同的名称也不会引起冲突。</p>
 </dd>
 </dl>
 
 
 
-<h2 id="Strings">Add String Resources</h2>
+<h2 id="Strings">添加字符串资源</h2>
 
-<p>When you need to add text in the user interface, you should always specify each string as
-a resource. String resources allow you to manage all UI text in a single location,
-which makes it easier to find and update text. Externalizing the strings also allows you to
-localize your app to different languages by providing alternative definitions for each
-string resource.</p>
+<p>当你需要在用户界面中添加文本时，你应该总是使用资源来指定每个字符串。
+  字符串资源允许你在一个位置管理所有的 UI 文本，这使寻找个更新文本更容易。 外部的字符串，
+  也可以让您根据不同的语言，为每个字符串资源提供可供选择的定义来本地化你的应用程序。</p>
 
-<p>By default, your Android project includes a string resource file at
-<code>res/values/strings.xml</code>. Add a new string named
-<code>"edit_message"</code> and set the value to "Enter a message." (You can delete
-the "hello_world" string.)</p>
+<p>默认情况下，你的 Andr​​oid 项目包括一个字符串资源文件，它在“<code>res/values/strings.xml</code>”。
+  添加一个名为“<code>edit_message</code>”的新字符串，将其值设置为“Enter a message”。
+  （你可以删除名为“hello_world”字符串）。</p>
 
-<p>While you’re in this file, also add a "Send" string for the button you’ll soon add, called
-<code>"button_send"</code>.</p>
+<p>既然你在编辑该文件，顺便为即将添加的按钮“<code>button_send</code>”添加一个值为“Send”的字符串。
+</p>
 
-<p>The result for <code>strings.xml</code> looks like this:</p>
+<p><code>strings.xml</code>的结果看起来像这样：</p>
 
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?>
@@ -245,18 +217,16 @@ the "hello_world" string.)</p>
 &lt;/resources>
 </pre>
 
-<p>For more information about using string resources to localize your app for other languages,
-see the <a
-href="{@docRoot}training/basics/supporting-devices/index.html">Supporting Different Devices</a>
-class.</p>
+<p>关于使用字符串资源为其它语言本地化你的应用的更多信息，参见教程“<a
+href="{@docRoot}training/basics/supporting-devices/index.html">支持不同设备</a>”。</p>
 
 
 
 
-<h2 id="Button">Add a Button</h2>
+<h2 id="Button">添加按钮</h2>
 
-<p>Now add a {@link android.widget.Button &lt;Button>} to the layout, immediately following the
-{@link android.widget.EditText &lt;EditText>} element:</p>
+<p>现在，紧接着 {@link android.widget.EditText &lt;EditText>} 元素添加一个 {@link
+  android.widget.Button &lt;Button>}到布局中：</p>
 
 <pre>
     &lt;Button
@@ -265,46 +235,35 @@ class.</p>
         android:text="@string/button_send" />
 </pre>
 
-<p>The height and width are set to <code>"wrap_content"</code> so the button is only as big as
-necessary to fit the button's text. This button doesn't need the 
-<a href="{@docRoot}reference/android/view/View.html#attr_android:id">{@code android:id}</a>
-attribute, because it won't be referenced from the activity code.</p>
+<p>高度和宽度都设置为“<code>wrap_content</code>”，所以按钮会大到足以显示其文本内容。
+  此按钮并不需要的<a href="{@docRoot}reference/android/view/View.html#attr_android:id">{@code
+  android:id}</a>属性，因为活动的代码中不会用到它。</p>
 
 
 
-<h2 id="Weight">Make the Input Box Fill in the Screen Width</h2>
+<h2 id="Weight">使输入框宽度充满整个屏幕</h2>
 
-<p>The layout is currently designed so that both the {@link android.widget.EditText} and {@link
-android.widget.Button} widgets are only as big as necessary to fit their content, as shown in
-figure 2.</p>
+<p>如图2所示，目前布局设计成使 {@link android.widget.EditText} 和 {@link android.widget.Button}
+  两个小部件的大小适合其内容。</p>
 
 <img src="{@docRoot}images/training/firstapp/edittext_wrap.png" />
-<p class="img-caption"><strong>Figure 2.</strong> The {@link android.widget.EditText} and {@link
-android.widget.Button} widgets have their widths set to
-<code>"wrap_content"</code>.</p>
+<p class="img-caption"><strong>图2.</strong> {@link android.widget.EditText} 和 {@link
+  android.widget.Button} 小部件宽度设置为“<code>wrap_content</code>”。</p>
 
-<p>This works fine for the button, but not as well for the text field, because the user might type
-something longer. So, it would be nice to fill the unused screen width
-with the text field. You can do this inside a
-{@link android.widget.LinearLayout} with the <em>weight</em> property, which
-you can specify using the <a
-href="{@docRoot}reference/android/widget/LinearLayout.LayoutParams.html#weight">{@code
-android:layout_weight}</a> attribute.</p>
+<p>该设置对按钮来说，工作得很好，但并不适用于文本字段，因为用户可能输入更长的文字。 因此，
+  使文本字段充满屏幕宽度的未使用区域会比较好。 在 {@link android.widget.LinearLayout} 布局中，
+  你可以通过指定 <a href="{@docRoot}reference/android/widget/LinearLayout.LayoutParams.html#weight">
+  {@code android:layout_weight}</a> 属性设置<em>权重</em>来实现。</p>
 
-<p>The weight value is a number that specifies the amount of remaining space each view should
-consume,
-relative to the amount consumed by sibling views. This works kind of like the 
-amount of ingredients in a drink recipe: "2
-parts vodka, 1 part coffee liqueur" means two-thirds of the drink is vodka. For example, if you give
-one view a weight of 2 and another one a weight of 1, the sum is 3, so the first view fills 2/3 of
-the remaining space and the second view fills the rest. If you add a third view and give it a weight
-of 1, then the first view (with weight of 2) now gets 1/2 the remaining space, while the remaining
-two each get 1/4.</p>
+<p>权重值是一个数字，指定每个视图所要占用的剩余空间量，对于兄弟视图的相对占用量。这有点像调酒配方：
+  “两份伏特加酒，一份咖啡利口酒”，即三分之二的饮料是伏特加酒。例如，如果你设置一个视图的权重是 2、
+  另一个权重为1，总和是3。所以第一个视图填充剩余的空间的三分之二，第二个视图填充其余空间。
+  如果添加了第三个视图，并设它的权重为1，那么现在第一个视图（权重2）得到1/2的剩余空间，
+  剩下的两个各获得1/4。</p>
 
-<p>The default weight for all views is 0, so if you specify any weight value
-greater than 0 to only one view, then that view fills whatever space remains after all views are
-given the space they require. So, to fill the remaining space in your layout with the {@link
-android.widget.EditText} element, give it a weight of 1 and leave the button with no weight.</p>
+<p>所有视图的默认权重为 0，因此，如果只有一个视图的权重大于 0，
+  则该视图填充为各视图分配必要空间后剩余的所有空间。因此，要使 {@link android.widget.EditText}
+  元素填充布局的剩余空间，设它的权重为1，保持按钮没有权重。</p>
 
 <pre>
     &lt;EditText
@@ -312,12 +271,9 @@ android.widget.EditText} element, give it a weight of 1 and leave the button wit
         ... />
 </pre>
 
-<p>In order to improve the layout efficiency when you specify the weight, you should change the
-width of the {@link android.widget.EditText} to be
-zero (0dp). Setting the width to zero improves layout performance because using
-<code>"wrap_content"</code> as the width requires the system to calculate a width that is
-ultimately irrelevant because the weight value requires another width calculation to fill the
-remaining space.</p>
+<p>为了提高布局效率，指定了权重时，你应该将 {@link android.widget.EditText} 的宽度设为零（0dp）。
+  设置宽度为零会提高布局性能，是因为使用“<code>wrap_content</code>”作为宽度时，
+  需要系统进行无意义的计算，因为权重值需要另外的宽度计算，来填充剩余空间。</p>
 <pre>
     &lt;EditText
         android:layout_weight="1"
@@ -325,15 +281,13 @@ remaining space.</p>
         ... />
 </pre>
 
-<p>Figure 3
-shows the result when you assign all weight to the {@link android.widget.EditText} element.</p>
+<p>图3显示了将所有权重分配给 {@link android.widget.EditText} 元素的结果。</p>
 
 <img src="{@docRoot}images/training/firstapp/edittext_gravity.png" />
-<p class="img-caption"><strong>Figure 3.</strong> The {@link android.widget.EditText} widget is
-given all the layout weight, so fills the remaining space in the {@link
-android.widget.LinearLayout}.</p>
+<p class="img-caption"><strong>图 3.</strong> 给予 {@link android.widget.EditText} 小部件所有权重，
+  填充了 {@link android.widget.LinearLayout} 布局的所有剩余空间。</p>
 
-<p>Here’s how your complete layout file should now look:</p>
+<p>现在，完整的布局文件应该如下：</p>
 
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"?>
@@ -354,23 +308,17 @@ android.widget.LinearLayout}.</p>
 &lt;/LinearLayout>
 </pre>
 
-<p>This layout is applied by the default {@link android.app.Activity} class
-that the SDK tools generated when you created the project, so you can now run the app to see the
-results:</p>
+<p>此布局由创建项目时通过 SDK 工具生成的默认 {@link android.app.Activity} 类加载，
+所以你现在可以运行应用来查看结果：</p>
 
 <ul>
-  <li>In Eclipse, click Run <img src="{@docRoot}images/tools/eclipse-run.png" 
-                                 style="vertical-align:baseline;margin:0" /> from the toolbar.</li>
-  <li>Or from a command line, change directories to the root of your Android project and
-execute:
+  <li>在Eclipse中，从工具栏中单击“Run”<img src="{@docRoot}images/tools/eclipse-run.png" 
+                                 style="vertical-align:baseline;margin:0" />。</li>
+  <li>或者从命令行，将目录切换到你的 Andr​​oid 项目的根目录下，然后执行：
 <pre>
 ant debug
 adb install bin/MyFirstApp-debug.apk
 </pre></li>
 </ul>
 
-<p>Continue to the next lesson to learn how you can respond to button presses, read content
-from the text field, start another activity, and more.</p>
-
-
-
+<p>继续下一课，你可以学习如何响应按钮按下，读取文本字段的内容，启动另一个活动，等等。</p>

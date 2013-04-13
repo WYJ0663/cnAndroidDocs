@@ -29,9 +29,12 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.util.Calendar;
 
 /**
- * Like AnalogClock, but digital.  Shows seconds.
+ * 类似 AnalogClock 的数字时钟，显示到秒.
  *
  * @deprecated It is recommended you use {@link TextClock} instead.
+ * @author translate by 农民伯伯
+ * @author translate by cnmahj
+ * @author convert by cnmahj
  */
 @Deprecated
 public class DigitalClock extends TextView {

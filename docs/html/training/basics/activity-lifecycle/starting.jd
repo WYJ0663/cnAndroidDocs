@@ -1,9 +1,9 @@
-page.title=Starting an Activity
-parent.title=Managing the Activity Lifecycle
+page.title=启动活动
+parent.title=管理活动的生命周期
 parent.link=index.html
 
 trainingnavtop=true
-next.title=Pausing and Resuming an Activity
+next.title=暂停和恢复活动
 next.link=pausing.html
 
 @jd:body
@@ -12,77 +12,64 @@ next.link=pausing.html
 <div id="tb-wrapper">
   <div id="tb">
     
-    <h2>This lesson teaches you to</h2>
+    <h2>该课程教你</h2>
 <ol>
-  <li><a href="#lifecycle-states">Understand the Lifecycle Callbacks</a></li>
-  <li><a href="#launching-activity">Specify Your App's Launcher Activity</a></li>
-  <li><a href="#Create">Create a New Instance</a></li>
-  <li><a href="#Destroy">Destroy the Activity</a></li>
+  <li><a href="#lifecycle-states">了解生命周期回调方法</a></li>
+  <li><a href="#launching-activity">指定您的应用的启动活动</a></li>
+  <li><a href="#Create">创建一个新的实例</a></li>
+  <li><a href="#Destroy">销毁活动</a></li>
 </ol>
     
-    <h2>You should also read</h2>
+    <h2>你也应该阅读</h2>
     <ul>
-      <li><a href="{@docRoot}guide/components/activities.html">Activities</a></li>
+      <li><a href="{@docRoot}guide/components/activities.html">活动</a></li>
     </ul>
 
-<h2>Try it out</h2>
+<h2>试试吧</h2>
 
 <div class="download-box">
  <a href="http://developer.android.com/shareables/training/ActivityLifecycle.zip"
-class="button">Download the demo</a>
+class="button">下载演示程序</a>
  <p class="filename">ActivityLifecycle.zip</p>
 </div>
 
   </div>
 </div>
 
-<p>Unlike other programming paradigms in which apps are launched with a {@code main()} method, the
-Android system initiates code in an {@link android.app.Activity} instance by invoking specific
-callback methods that correspond to specific stages of its
-lifecycle. There is a sequence of callback methods that start up an activity and a sequence of
-callback methods that tear down an activity.</p>
+<p>不像其他的编程语言，由{@code main()}方法启动，Android系统启动{@link android.app.Activity 活动}
+  实例是通过调用其生命周期的特定阶段的相应的回调方法实现的。有一个序列的回调方法对应启动活动的过程，
+  另一个序列的回调方法对应停止活动的过程。</p>
 
-<p>This lesson provides an overview of the most important lifecycle methods and shows you how to
-handle the first lifecycle callback that creates a new instance of your activity.</p>
+<p>本课程提供了最重要的生命周期方法的概述，并告诉您如何处理第一个生命周期回调方法来创建一个活动的新实例。</p>
 
 
 
-<h2 id="lifecycle-states">Understand the Lifecycle Callbacks</h2>
+<h2 id="lifecycle-states">了解生命周期回调方法</h2>
 
-<p>During the life of an activity, the system calls a core set of lifecycle methods in
-a sequence similar to a step pyramid. That is, each stage of the
-activity lifecycle is a separate step on the pyramid. As the system creates a new activity instance,
-each callback method moves the activity state one step toward the top. The top of the pyramid is the
-point at which the activity is running in the foreground and the user can interact with it.</p>
+<p>在活动的整个生存期间中，系统调用一系列类似金字塔阶梯的核心生命周期方法。
+  也就是说，活动生命周期的每个阶段是金字塔阶梯的一层。
+  当系统创建了一个新的活动实例，每个回调方法的调用会使活动状态向顶部移动一步。
+  金字塔顶端的活动是在前台运行的、用户可以与其进行交互。</p>
 
-<p>As the user begins to leave the activity, the system calls other methods that move the activity
-state back down the pyramid in order to dismantle the activity. In some cases, the activity will
-move only part way down the pyramid and wait (such as when the user switches to another app), from
-which point the activity can move back to the top (if the user returns to the activity) and
-resume where the user left off.</p>
+<p>当用户开始离开活动时，系统调用其他方法，将活动状态向金字塔下方移动，依次拆除活动。
+  在某些情况下，活动只沿着金字塔向下移动一部分，并等待（例如，当用户切换到另一个应用时），
+  从这一点可以再回到顶端（如果用户返回该活动）并恢复用户离开时的状态。</p>
 
 
 <img src="{@docRoot}images/training/basics/basic-lifecycle.png" />
-<p class="img-caption"><strong>Figure 1.</strong> A simplified illustration of the Activity
-lifecycle, expressed as a step pyramid. This shows how, for every callback used to take
-the activity a step toward the Resumed state at the top, there's a callback method
-that takes the activity a step down. The activity can also return to the resumed state from the
-Paused and Stopped state.</p>
+<p class="img-caption"><strong>图 1.</strong> 金字塔阶梯形的活动生命周期简化示意图。
+  该图展示了使活动回到顶部 Resumed 状态的每个回调方法，也包含使活动沿阶梯下移的回调方法。
+  活动可以从 Paused状态和 Stopped状态返回到 Resumed 状态。</p>
 
 
-<p>Depending on the complexity of your activity, you probably don't need to implement all the
-lifecycle methods. However, it's important that you understand each one and implement those that
-ensure your app behaves the way users expect. Implementing your activity lifecycle methods properly
-ensures your app behaves well in several ways, including that it:</p>
+<p>根据您的活动的复杂性，你可能并不需要实现所有的生命周期方法。
+  然而，重要的是要你了解它们，确保您实现的应用的行为是用户所期望的。
+  正确地实现您的活动的生命周期方法，确保您的应用在如下条件下可以很好的运行：</p>
 <ul>
-  <li>Does not crash if the user receives a phone call or switches to another app
-while using your app.</li>
-  <li>Does not consume valuable system resources when the user is not actively using
-it.</li>
-  <li>Does not lose the user's progress if they leave your app and return to it at a
-later time.</li>
-  <li>Does not crash or lose the user's progress when the screen rotates between
-landscape and portrait orientation.</li>
+  <li>在用户使用你的应用的过程中，接到一个电话，或切换到另一个应用时，程序不会崩溃。</li>
+  <li>当用户不积极地使用时，不占用宝贵的系统资源。</li>
+  <li>在用户离开您的应用并在不久不久之后返回时，不丢失用户的数据。</li>
+  <li>当屏幕在横向和纵向之间旋转后，不会崩溃或丢失用户数据。</li>
 </ul>
 
 <!--
@@ -112,51 +99,40 @@ methods.</p>
 </table>
 -->
 
-<p>As you'll learn in the following lessons, there are several situations in which an activity
-transitions between different states that are illustrated in figure 1. However, only three of
-these states can be static. That is, the activity can exist in one of only three states for an
-extended period of time:</p>
+<p>在接下来的课程中你会学到，如图1所示的，活动在不同状态之间变换的几种情况。
+  然而，这些状态中只有三个是静态的。即，活动可以长时间保持的状态只有三种：</p>
 <dl>
   <dt>Resumed</dt>
-    <dd>In this state, the activity is in the foreground and the user can interact with it.
-(Also sometimes referred to as the "running" state.)</dd>
+    <dd>在该状态下，活动处于前台，并且用户可以与它进行交互。（有时也简称为“运行”状态。）</dd>
   <dt>Paused</dt>
-    <dd>In this state, the activity is partially obscured by another activity&mdash;the
-other activity that's in the foreground is semi-transparent or doesn't cover the entire screen. The
-paused activity does not receive user input and cannot execute any code.
+    <dd>在这种状态下，活动的一部分被另一个活动遮蔽&mdash;另一个活动处于前台，是半透明的或没有覆盖整个屏幕。
+      暂停的活动不接受用户输入，也不能执行任何代码。</dd>
   <dt>Stopped</dt>
-    <dd>In this state, the activity is completely hidden and not visible to the user; it is
-considered to be in the background. While stopped, the activity instance and all its state
-information such as member variables is retained, but it cannot execute any code.</dd>
+    <dd>在该状态下，活动是完全隐藏、对用户不可见的，作为后台应用。
+      停止时，会保留活动实例和所有的成员变量的状态信息，但它不能执行任何代码。</dd>
 </dl>
 
-<p>The other states (Created and Started) are transient and the system quickly moves from them to
-the next state by calling the next lifecycle callback method. That is, after the system calls
-{@link android.app.Activity#onCreate onCreate()}, it quickly calls {@link
-android.app.Activity#onStart()}, which is quickly followed by {@link
-android.app.Activity#onResume()}.</p>
+<p>其它状态（Created和Started）是短暂的，系统通过调用下一个生命周期回调方法，很快会将它们切换到下一个状态。
+  也就是说，在系统调用{@link android.app.Activity#onCreate onCreate()}后，很快会调用{@link
+  android.app.Activity#onStart()}，紧接着调用{@link android.app.Activity#onResume()}。</p>
 
-<p>That's it for the basic activity lifecycle. Now you'll start learning about some of the
-specific lifecycle behaviors.</p>
+<p>这是基本的活动生命周期。现在你可以开始学习一些特定生命周期的行为。</p>
 
 
 
-<h2 id="launching-activity">Specify Your App's Launcher Activity</h2> 
+<h2 id="launching-activity">指定您的应用的启动活动</h2> 
 
-<p>When the user selects your app icon from the Home screen, the system calls the {@link
-android.app.Activity#onCreate onCreate()} method for the {@link android.app.Activity} in your app
-that you've declared to be the "launcher" (or "main") activity. This is the activity that serves as
-the main entry point to your app's user interface.</p>
+<p>当用户从主屏幕中选择您的应用图标时，系统调用你的应用中定义的“launcher”（或“main”）{@link
+  android.app.Activity 活动}的{@link android.app.Activity#onCreate onCreate()}方法。
+  这是你的应用的用户界面的主入口点。</p>
 
-<p>You can define which activity to use as the main activity in the Android manifest file, <a
-href="{@docRoot}guide/topics/manifest/manifest-intro.html">{@code AndroidManifest.xml}</a>, which is
-at the root of your project directory.</p>
+<p>您可以在项目根目录中的 Android 清单文件（<a href="{@docRoot}guide/topics/manifest/manifest-intro.html">
+  {@code AndroidManifest.xml}</a>）中定义那个活动作为主要活动。</p>
 
-<p>The main activity for your app must be declared in the manifest with an <a
-href="{@docRoot}guide/topics/manifest/intent-filter-element.html">{@code
-&lt;intent-filter>}</a> that includes the {@link
-android.content.Intent#ACTION_MAIN MAIN} action and
-{@link android.content.Intent#CATEGORY_LAUNCHER LAUNCHER} category. For example:</p> 
+<p>用于的主要活动必须在清单文件中声明包括 {@link android.content.Intent#ACTION_MAIN MAIN} 动作和 
+  {@link android.content.Intent#CATEGORY_LAUNCHER LAUNCHER} 分类的<a 
+  href="{@docRoot}guide/topics/manifest/intent-filter-element.html">{@code &lt;intent-filter>}</a>。
+  例如：</p> 
 
 <pre>
 &lt;activity android:name=".MainActivity" android:label="&#64;string/app_name">
@@ -167,33 +143,27 @@ android.content.Intent#ACTION_MAIN MAIN} action and
 &lt;/activity>
 </pre>
 
-<p class="note"><strong>Note:</strong> When you create a new Android project with the Android SDK
-tools, the default project files include an {@link android.app.Activity} class that's declared in
-the manifest with this filter.</p>
+<p class="note"><strong>注：</strong> 当你使用Android SDK工具创建新的Andr​​oid项目时，
+默认的项目文件中包括一个{@link android.app.Activity}类，该类在清单中是用此过滤器声明的。</p>
 
-<p>If either the {@link android.content.Intent#ACTION_MAIN MAIN} action or
-{@link android.content.Intent#CATEGORY_LAUNCHER LAUNCHER} category are not declared for one of your
-activities, then your app icon will not appear in the Home screen's list of apps.</p>
-
+<p>如果你的活动中没有一个使用 {@link android.content.Intent#ACTION_MAIN MAIN} 动作或 {@link
+  android.content.Intent#CATEGORY_LAUNCHER LAUNCHER} 分类来声明，
+  那么你的应用图标不会出现在主屏幕的应用程序列表中。</p>
 
 
-<h2 id="Create">Create a New Instance</h2>
 
-<p>Most apps include several different activities that allow the user to perform different actions.
-Whether an activity is the main activity that's created when the user clicks your app icon or a
-different activity that your app starts in response to a user action, the system creates
-every new instance of {@link android.app.Activity} by calling its {@link
-android.app.Activity#onCreate onCreate()} method.</p>
+<h2 id="Create">创建一个新的实例</h2>
 
-<p>You must implement the {@link android.app.Activity#onCreate onCreate()} method to perform basic
-application startup logic that should happen only once for the entire life of the activity. For
-example, your implementation of {@link android.app.Activity#onCreate onCreate()} should define the
-user interface and possibly instantiate some class-scope variables.</p>
+<p>大多数的应用包含几个不同的活动，允许用户执行不同的操作。
+  当活动是用户点击应用图标或是您的应用在响应用户操作时启动的活动是主活动时，系统将为每个{@link
+  android.app.Activity 活动}调用{@link android.app.Activity#onCreate onCreate()}方法创建新实例。</p>
 
-<p>For example, the following example of the {@link android.app.Activity#onCreate onCreate()}
-method shows some code that performs some fundamental setup for the activity, such as
-declaring the user interface (defined in an XML layout file), defining member variables,
-and configuring some of the UI.</p>
+<p>您必须实现{@link android.app.Activity#onCreate onCreate()}方法，
+  执行在活动的整个生命周期中只执行一次的基本的应用启动逻辑。例如，你实现的{@link
+  android.app.Activity#onCreate onCreate()}中应该定义用户界面，并可能实例化一些类范围的变量。</p>
+
+<p>例如，下面的{@link android.app.Activity#onCreate onCreate()}方法的示例，展示了一些代码，
+  进行一些基本的设置的活动，如声明在XML布局文件中定义的用户界面，定义成员变量，并配置一些界面元素。</p>
 
 <pre>
 TextView mTextView; // Member variable for text view in the layout
@@ -219,55 +189,40 @@ public void onCreate(Bundle savedInstanceState) {
 }
 </pre>
 
-<p class="caution"><strong>Caution:</strong> Using the {@link android.os.Build.VERSION#SDK_INT} to
-prevent older system's from executing new APIs works in this way on Android 2.0 (API level
-5) and higher only. Older versions will encounter a runtime exception.</p>
+<p class="caution"><strong>注意：</strong> 使用 {@link android.os.Build.VERSION#SDK_INT} 
+  来防止旧版系统执行只有在Android 2.0（API级别5）和更高版本才能工作的新 API。较旧的版本会遇到运行时异常。</p>
 
-<p>Once the {@link android.app.Activity#onCreate onCreate()} finishes execution, the system
-calls the {@link android.app.Activity#onStart()} and {@link android.app.Activity#onResume()} methods
-in quick succession. Your activity never resides in the Created or Started states. Technically, the
-activity becomes visible to the user when {@link android.app.Activity#onStart()} is called, but
-{@link android.app.Activity#onResume()} quickly follows and the activity remains in the Resumed
-state until something occurs to change that, such as when a phone call is received, the user
-navigates to another activity, or the device screen turns off.</p>
+<p>一旦{@link android.app.Activity#onCreate onCreate()}执行结束，系统会快速连续的调用{@link
+  android.app.Activity#onStart()}和{@link android.app.Activity#onResume()}方法。
+  你的活动永远不会停留在Created或Started状态。从技术上讲，活动在{@link android.app.Activity#onStart()}
+  执行之后，即可为用户所见。但因为紧接着调用了{@link android.app.Activity#onResume()}，活动就处于 Resumed
+  状态了。直到发生类似，用户接到电话、用户切换到另一个活动、或者设备屏幕关闭等事情时才会改变其状态。</p>
 
-<p>In the other lessons that follow, you'll see how the other start up methods, {@link
-android.app.Activity#onStart()} and {@link android.app.Activity#onResume()}, are useful during your
-activity's lifecycle when used to resume the activity from the Paused or Stopped states.</p>
+<p>在后续的课程中，你会看到在活动的生命周期中用于从 Paused 和 Stopped 状态恢复活动的方法，{@link
+  android.app.Activity#onStart()} 和 {@link android.app.Activity#onResume()} 是如何动作的。</p>
 
-<p class="note"><strong>Note:</strong> The {@link android.app.Activity#onCreate onCreate()}
-method includes a parameter called <code>savedInstanceState</code> that's discussed in the
-latter lesson about <a href="recreating.html">Recreating an Activity</a>.</p>
+<p class="note"><strong>注：</strong> {@link android.app.Activity#onCreate onCreate()}方法有一个名为
+  <code>savedInstanceState</code> 的参数，我们在之后的<a href="recreating.html">重新创建活动</a>中讨论。</p>
 
 
 <img src="{@docRoot}images/training/basics/basic-lifecycle-create.png" />
-<p class="img-caption"><strong>Figure 2.</strong> Another illustration of the activity lifecycle
-structure with an emphasis on the three main callbacks that the system calls in sequence when
-creating a new instance of the activity: {@link android.app.Activity#onCreate onCreate()}, {@link
-android.app.Activity#onStart()}, and {@link android.app.Activity#onResume()}. Once this sequence of
-callbacks complete, the activity reaches the Resumed state where users can interact with the
-activity until they switch to a different activity.</p>
+<p class="img-caption"><strong>图 2.</strong> 包含构成活动生命周期的三个主要回调方法的另一个示例。
+  创建活动的新实例时，系统的调用序列为：{@link android.app.Activity#onCreate onCreate()}、{@link
+  android.app.Activity#onStart()}和{@link android.app.Activity#onResume()}。一旦这个回调方法序列执行完毕，
+  活动就进入 Resumed 状态，用户可以与活动进行交互，直到他们切换到不同的活动。</p>
 
 
 
+<h2 id="Destroy">销毁活动</h2>
 
+<p>活动的第一个生命周期回调方法是{@link android.app.Activity#onCreate onCreate()}，最后一个回调方法是
+  {@link android.app.Activity#onDestroy}。系统调用该方法作为活动实例已经完全从系统内存中移除的最终信号。</p>
 
-
-
-<h2 id="Destroy">Destroy the Activity</h2>
-
-<p>While the activity's first lifecycle callback is {@link android.app.Activity#onCreate
-onCreate()}, its very last callback is  {@link android.app.Activity#onDestroy}. The system calls
-this method on your activity as the final
-signal that your activity instance is being completely removed from the system memory.</p>
-
-<p>Most apps don't need to implement this method because local class references are destroyed
-with the activity and your activity should perform most cleanup during {@link
-android.app.Activity#onPause} and {@link android.app.Activity#onStop}. However, if your
-activity includes background threads that you created during {@link
-android.app.Activity#onCreate onCreate()} or other long-running resources that could
-potentially leak memory if not properly closed, you should kill them during  {@link
-android.app.Activity#onDestroy}.</p>
+<p>大多数应用程序并不需要实现这个方法，因为对局部类的引用将与活动一起销毁，活动应该在{@link
+  android.app.Activity#onPause}和{@link android.app.Activity#onStop}方法中执行大部分清理工作。
+  但是，如果您的活动包括在{@link android.app.Activity#onCreate onCreate()}
+  中创建的后台线程或其他长时间运行的资源，如果没有正确关闭，可能会导致内存泄漏，因此应该在{@link
+  android.app.Activity#onDestroy}中终止它们。</p>
 
 <pre>
 &#64;Override
@@ -279,12 +234,9 @@ public void onDestroy() {
 }
 </pre>
 
-<p class="note"><strong>Note:</strong> The system calls {@link android.app.Activity#onDestroy}
-after it has already called {@link android.app.Activity#onPause} and {@link
-android.app.Activity#onStop} in all situations except one: when you call {@link
-android.app.Activity#finish()} from within the {@link android.app.Activity#onCreate onCreate()}
-method. In some cases, such as when your activity operates as a temporary decision maker to
-launch another activity, you might call {@link android.app.Activity#finish()} from within {@link
-android.app.Activity#onCreate onCreate()} to destroy the activity. In this case, the system
-immediately calls {@link android.app.Activity#onDestroy} without calling any of the other
-lifecycle methods.</p>
+<p class="note"><strong>注：</strong> 除了你在onCreate（）方法中调用了{@link android.app.Activity#finish()}
+  以外，系统会在调用了{@link android.app.Activity#onPause}和{@link android.app.Activity#onStop}
+  之后才调用{@link android.app.Activity#onDestroy}。在某些情况下，例如当您的活动只是用于决定如何启动其它活动，
+  您可以在{@link android.app.Activity#onCreate onCreate()}中调用{@link android.app.Activity#finish()}
+  来销毁它。在这种情况下，系统会立即调用{@link android.app.Activity#onDestroy}，
+  不会去调用其他任何生命周期方法。</p>

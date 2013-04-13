@@ -24,9 +24,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * <p>
- * A checkbox is a specific type of two-states button that can be either
- * checked or unchecked. A example usage of a checkbox inside your activity
- * would be the following:
+ * 复选框是包含选中和未选中两种状态的特殊的双状态按钮.
+ * 如下是在活动中使用复选框的例子：
  * </p>
  *
  * <pre class="prettyprint">
@@ -44,16 +43,18 @@ import android.view.accessibility.AccessibilityNodeInfo;
  * }
  * </pre>
  *
- * <p>See the <a href="{@docRoot}guide/topics/ui/controls/checkbox.html">Checkboxes</a>
+ * <p>参见 <a href="{@docRoot}guide/topics/ui/controls/checkbox.html">Checkboxes</a>
  * guide.</p>
  *  
- * <p><strong>XML attributes</strong></p> 
+ * <p><strong>XML 属性</strong></p> 
  * <p>
- * See {@link android.R.styleable#CompoundButton CompoundButton Attributes}, 
- * {@link android.R.styleable#Button Button Attributes}, 
- * {@link android.R.styleable#TextView TextView Attributes}, 
- * {@link android.R.styleable#View View Attributes}
+ * 参见 {@link android.R.styleable#CompoundButton CompoundButton 属性}、
+ * {@link android.R.styleable#Button Button 属性}、
+ * {@link android.R.styleable#TextView TextView 属性} 和
+ * {@link android.R.styleable#View View Attributes}.
  * </p>
+ * @author translate by 农民伯伯
+ * @author convert by cnmahj
  */
 public class CheckBox extends CompoundButton {
     public CheckBox(Context context) {

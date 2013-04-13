@@ -27,18 +27,16 @@ import com.android.internal.R;
 import java.lang.ref.WeakReference;
 
 /**
- * A ViewStub is an invisible, zero-sized View that can be used to lazily inflate
- * layout resources at runtime.
- *
- * When a ViewStub is made visible, or when {@link #inflate()}  is invoked, the layout resource 
- * is inflated. The ViewStub then replaces itself in its parent with the inflated View or Views.
- * Therefore, the ViewStub exists in the view hierarchy until {@link #setVisibility(int)} or
- * {@link #inflate()} is invoked.
- *
- * The inflated View is added to the ViewStub's parent with the ViewStub's layout
- * parameters. Similarly, you can define/override the inflate View's id by using the
- * ViewStub's inflatedId property. For instance:
- *
+ * ViewStub 是不可见的不占用布局空间的视图，用于在运行时延迟加载布局资源.
+ * 
+ * 当ViewStub可见，或者调用 {@link #inflate()}函数时，才会加载布局资源. 
+ * 之后在父容器中用展开的一个或多个视图替换它本身.因此，调用
+ * {@link #setVisibility(int)}或者{@link #inflate()}之前，ViewStub
+ * 会一直存在于视图层次中.
+ * 
+ * 展开的视图会与ViewStub的布局参数一同添加到其父容器中.
+ * 同样，你可以使用ViewStub的inflatedId属性定义或重写加载视图的ID.
+ * 例如：
  * <pre>
  *     &lt;ViewStub android:id="@+id/stub"
  *               android:inflatedId="@+id/subTree"
@@ -47,22 +45,19 @@ import java.lang.ref.WeakReference;
  *               android:layout_height="40dip" /&gt;
  * </pre>
  *
- * The ViewStub thus defined can be found using the id "stub." After inflation of
- * the layout resource "mySubTree," the ViewStub is removed from its parent. The
- * View created by inflating the layout resource "mySubTree" can be found using the
- * id "subTree," specified by the inflatedId property. The inflated View is finally
- * assigned a width of 120dip and a height of 40dip.
+ * 我们看到的用“stub”ID定义的 ViewStub. 加载布局资源“mySubTree”之后，会从其父容器中移除ViewStub.
+ * 由加载的“mySubTree”布局资源创建的视图的ID，被inflatedId属性指定为“subTree”.
+ * 为加载的视图最终分配120dpi的宽度和40dpi的高度.
  *
- * The preferred way to perform the inflation of the layout resource is the following:
+ * 执行加载布局资源的首选方式如下：
  *
  * <pre>
  *     ViewStub stub = (ViewStub) findViewById(R.id.stub);
  *     View inflated = stub.inflate();
  * </pre>
  *
- * When {@link #inflate()} is invoked, the ViewStub is replaced by the inflated View
- * and the inflated View is returned. This lets applications get a reference to the
- * inflated View without executing an extra findViewById().
+ * 当执行 {@link #inflate()}时，ViewStub被加载的视图取代，并返回加载的视图.
+ * 这使应用程序不必执行额外的findViewById()方法即可得到对加载的视图的引用.
  *
  * @attr ref android.R.styleable#ViewStub_inflatedId
  * @attr ref android.R.styleable#ViewStub_layout
@@ -82,10 +77,10 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Creates a new ViewStub with the specified layout resource.
+     * 使用指定的布局资源创建一个新的ViewStub对象.
      *
-     * @param context The application's environment.
-     * @param layoutResource The reference to a layout resource that will be inflated.
+     * @param context 应用程序上下文.
+     * @param layoutResource 对要加载的布局资源的引用.
      */
     public ViewStub(Context context, int layoutResource) {
         mLayoutResource = layoutResource;
@@ -120,11 +115,10 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Returns the id taken by the inflated view. If the inflated id is
-     * {@link View#NO_ID}, the inflated view keeps its original id.
+     * 返回用于要加载视图的ID.如果该ID为{@link View#NO_ID}，
+     * 则保持要展开视图原始的ID.
      *
-     * @return A positive integer used to identify the inflated view or
-     *         {@link #NO_ID} if the inflated view should keep its id.
+     * @return 标识要展开视图的正整数ID；如果要保持其原始ID则返回{@link #NO_ID}.
      *
      * @see #setInflatedId(int)
      * @attr ref android.R.styleable#ViewStub_inflatedId
@@ -134,12 +128,12 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Defines the id taken by the inflated view. If the inflated id is
-     * {@link View#NO_ID}, the inflated view keeps its original id.
+     * 定义用于要加载视图的ID.如果该ID为{@link View#NO_ID}，
+     * 则保持要展开视图原始的ID.
      *
-     * @param inflatedId A positive integer used to identify the inflated view or
-     *                   {@link #NO_ID} if the inflated view should keep its id.
-     *
+     * @param inflatedId 标识要展开视图的正整数ID；如果要保持其原始ID
+     *                   则应使用{@link #NO_ID}.
+     *                   
      * @see #getInflatedId()
      * @attr ref android.R.styleable#ViewStub_inflatedId
      */
@@ -149,11 +143,10 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Returns the layout resource that will be used by {@link #setVisibility(int)} or
-     * {@link #inflate()} to replace this StubbedView
-     * in its parent by another view.
+     * 返回{@link #setVisibility(int)}或{@link #inflate()}函数执行时用于替换
+     * StubbedView 的布局资源.
      *
-     * @return The layout resource identifier used to inflate the new View.
+     * @return 用于载入新视图的布局资源ID.
      *
      * @see #setLayoutResource(int)
      * @see #setVisibility(int)
@@ -165,11 +158,10 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Specifies the layout resource to inflate when this StubbedView becomes visible or invisible
-     * or when {@link #inflate()} is invoked. The View created by inflating the layout resource is
-     * used to replace this StubbedView in its parent.
+     * 指定当该 StubbedView 变为可见、不可见或者执行{@link #inflate()}方法时要载入的布局资源.
+     * 布局载入创建的视图用于替换父视图中的StubbedView.
      * 
-     * @param layoutResource A valid layout resource identifier (different from 0.)
+     * @param layoutResource 有效的布局资源ID（不等于0）.
      * 
      * @see #getLayoutResource()
      * @see #setVisibility(int)
@@ -210,12 +202,12 @@ public final class ViewStub extends View {
     }
 
     /**
-     * When visibility is set to {@link #VISIBLE} or {@link #INVISIBLE},
-     * {@link #inflate()} is invoked and this StubbedView is replaced in its parent
-     * by the inflated layout resource. After that calls to this function are passed
+     * 可视性设为 {@link #VISIBLE} 或 {@link #INVISIBLE}时，执行
+     * {@link #inflate()} 用载入的布局资源替换父视图中的StubbedView.
+     * After that calls to this function are passed
      * through to the inflated view.
      *
-     * @param visibility One of {@link #VISIBLE}, {@link #INVISIBLE}, or {@link #GONE}.
+     * @param visibility {@link #VISIBLE}、{@link #INVISIBLE}或者{@link #GONE}.
      *
      * @see #inflate() 
      */
@@ -238,10 +230,10 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Inflates the layout resource identified by {@link #getLayoutResource()}
-     * and replaces this StubbedView in its parent by the inflated layout resource.
+     * 展开由{@link #getLayoutResource()}指定的布局资源，并用该资源替换父视图中的
+     * StubbedView.
      *
-     * @return The inflated layout resource.
+     * @return 展开的布局资源.
      *
      */
     public View inflate() {
@@ -289,10 +281,9 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Specifies the inflate listener to be notified after this ViewStub successfully
-     * inflated its layout resource.
+     * 指定展开监听器一遍获得ViewStub成功展开其布局资源的通知.
      *
-     * @param inflateListener The OnInflateListener to notify of successful inflation.
+     * @param inflateListener 成功展开后接受通知的OnInflateListener.
      *
      * @see android.view.ViewStub.OnInflateListener
      */
@@ -301,19 +292,17 @@ public final class ViewStub extends View {
     }
 
     /**
-     * Listener used to receive a notification after a ViewStub has successfully
-     * inflated its layout resource.
+     * 用于接收 ViewStub 成功展开其布局资源的监听器.
      *
      * @see android.view.ViewStub#setOnInflateListener(android.view.ViewStub.OnInflateListener) 
      */
     public static interface OnInflateListener {
         /**
-         * Invoked after a ViewStub successfully inflated its layout resource.
-         * This method is invoked after the inflated view was added to the
-         * hierarchy but before the layout pass.
+         * ViewStub 成功展开其布局资源后执行.该方法在展开的视图加入视图层次之后、
+         * 布局完成之前执行.
          *
-         * @param stub The ViewStub that initiated the inflation.
-         * @param inflated The inflated View.
+         * @param stub 发生展开事件的 ViewStub.
+         * @param inflated 展开的视图.
          */
         void onInflate(ViewStub stub, View inflated);
     }

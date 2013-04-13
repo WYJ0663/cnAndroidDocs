@@ -35,27 +35,28 @@ import java.util.IllegalFormatException;
 import java.util.Locale;
 
 /**
- * Class that implements a simple timer.
+ * 简单的计时器类.
  * <p>
- * You can give it a start time in the {@link SystemClock#elapsedRealtime} timebase,
- * and it counts up from that, or if you don't give it a base time, it will use the
- * time at which you call {@link #start}.  By default it will display the current
- * timer value in the form "MM:SS" or "H:MM:SS", or you can use {@link #setFormat}
- * to format the timer value into an arbitrary string.
- *
+ * 你可以给他设定基于 {@link SystemClock#elapsedRealtime} 的基准（开始）时间，用于计时.
+ * 如果你没有设置该时间，该类将从你调用 {@link #start} 方法的时间开始计时.
+ * 默认以“MM:SS”或“H:MM:SS”形式显示计时器的值，你可以使用 {@link #setFormat}
+ * 方法使其显示任意字符串.
  * @attr ref android.R.styleable#Chronometer_format
+ * @author translate by 德罗德
+ * @author review by cnmahj
+ * @author convert by cnmahj
  */
 @RemoteView
 public class Chronometer extends TextView {
     private static final String TAG = "Chronometer";
 
     /**
-     * A callback that notifies when the chronometer has incremented on its own.
+     * 定义计时器递增通知回调函数的监听器接口.
      */
     public interface OnChronometerTickListener {
 
         /**
-         * Notification that the chronometer has changed.
+         * 在计时器变化时的通知.
          */
         void onChronometerTick(Chronometer chronometer);
 
@@ -77,24 +78,21 @@ public class Chronometer extends TextView {
     private static final int TICK_WHAT = 2;
     
     /**
-     * Initialize this Chronometer object.
-     * Sets the base to the current time.
+     * 初始化计时器对象.设置当前时间为基准（开始）时间.
      */
     public Chronometer(Context context) {
         this(context, null, 0);
     }
 
     /**
-     * Initialize with standard view layout information.
-     * Sets the base to the current time.
+     * 使用标准视图布局信息初始化计时器.设置当前时间为基准（开始）时间.
      */
     public Chronometer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     /**
-     * Initialize with standard view layout information and style.
-     * Sets the base to the current time.
+     * 使用标准视图布局信息和风格初始化计时器.设置当前时间为基准（开始）时间.
      */
     public Chronometer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -114,9 +112,9 @@ public class Chronometer extends TextView {
     }
 
     /**
-     * Set the time that the count-up timer is in reference to.
+     * 设置计时器计时的基准（开始）时间.
      *
-     * @param base Use the {@link SystemClock#elapsedRealtime} time base.
+     * @param base 基于 {@link SystemClock#elapsedRealtime} 的基准（开始）时间.
      */
     @android.view.RemotableViewMethod
     public void setBase(long base) {
@@ -126,22 +124,18 @@ public class Chronometer extends TextView {
     }
 
     /**
-     * Return the base time as set through {@link #setBase}.
+     * 返回通过 {@link #setBase} 设置的基准（开始）时间.
      */
     public long getBase() {
         return mBase;
     }
 
     /**
-     * Sets the format string used for display.  The Chronometer will display
-     * this string, with the first "%s" replaced by the current timer value in
-     * "MM:SS" or "H:MM:SS" form.
-     *
-     * If the format string is null, or if you never call setFormat(), the
-     * Chronometer will simply display the timer value in "MM:SS" or "H:MM:SS"
-     * form.
-     *
-     * @param format the format string.
+     * 设置用于格式化显示格式的字符串.计时器将用“MM:SS”或“H:MM:SS”
+     * 形式的值替换格式化字符串中的第一个“%s”.
+     * 如果格式化字符串为空，或者你从未调用过 setFormat() 方法，
+     * 计时器将以“MM:SS”或“H:MM:SS”形式显示其值.
+     * @param format 格式化字符串
      */
     @android.view.RemotableViewMethod
     public void setFormat(String format) {
@@ -152,36 +146,33 @@ public class Chronometer extends TextView {
     }
 
     /**
-     * Returns the current format string as set through {@link #setFormat}.
+     * 返回通过 {@link #setFormat} 设置的格式化字符串.
      */
     public String getFormat() {
         return mFormat;
     }
 
     /**
-     * Sets the listener to be called when the chronometer changes.
+     * 设置计时器变化时调用的监听器.
      * 
-     * @param listener The listener.
+     * @param listener 监听器.
      */
     public void setOnChronometerTickListener(OnChronometerTickListener listener) {
         mOnChronometerTickListener = listener;
     }
 
     /**
-     * @return The listener (may be null) that is listening for chronometer change
-     *         events.
+     * @return 监听计时器变化的监听器（可能为空）.
      */
     public OnChronometerTickListener getOnChronometerTickListener() {
         return mOnChronometerTickListener;
     }
 
     /**
-     * Start counting up.  This does not affect the base as set from {@link #setBase}, just
-     * the view display.
+     * 开始计时.该操作不会影响到由 {@link #setBase} 设置的基准（开始）时间，仅影响显示的视图.
      * 
-     * Chronometer works by regularly scheduling messages to the handler, even when the 
-     * Widget is not visible.  To make sure resource leaks do not occur, the user should 
-     * make sure that each start() call has a reciprocal call to {@link #stop}. 
+     * 即使小部件不可见，计时器也会通过定期处理消息来工作.为了确保不发生资源泄漏，
+     * 用户应确保针对每个 start() 方法调用，都调用了相应的 {@link #stop} 方法.
      */
     public void start() {
         mStarted = true;
@@ -189,11 +180,8 @@ public class Chronometer extends TextView {
     }
 
     /**
-     * Stop counting up.  This does not affect the base as set from {@link #setBase}, just
-     * the view display.
-     * 
-     * This stops the messages to the handler, effectively releasing resources that would
-     * be held as the chronometer is running, via {@link #start}. 
+     * 停止计时.不会影响用 {@link #setBase} 方法设置的基准（开始）时间，只影响视图的显示.
+     * 这将停止消息发送，有效地释放计时器通过 {@link #start} 运行时占用的资源.
      */
     public void stop() {
         mStarted = false;

@@ -17,16 +17,17 @@
 package android.widget;
 
 /**
- * List adapter that wraps another list adapter. The wrapped adapter can be retrieved
- * by calling {@link #getWrappedAdapter()}.
+ * 封装了另一个列表适配器的列表适配器.调用 {@link #getWrappedAdapter()}
+ * 可以取得封装在其中的适配器.
  *
  * @see ListView
+ * @author translate by cnmahj
  */
 public interface WrapperListAdapter extends ListAdapter {
     /**
-     * Returns the adapter wrapped by this list adapter.
+     * 返回封装在列表适配器中的适配器.
      *
-     * @return The {@link android.widget.ListAdapter} wrapped by this adapter.
+     * @return 封装在该适配器中的 {@link android.widget.ListAdapter}.
      */
     public ListAdapter getWrappedAdapter();
 }

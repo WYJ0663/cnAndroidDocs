@@ -30,12 +30,13 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.RemoteViews.RemoteView;
 
 /**
- * Simple {@link ViewAnimator} that will animate between two or more views
- * that have been added to it.  Only one child is shown at a time.  If
- * requested, can automatically flip between each child at a regular interval.
- *
+ * 在添加到该类的两个或两个以上的视图之间绘制动画的简单的 ViewAnimator .
+ * 一次仅能显示一个子视图.如果需要，可以设置间隔时间使子视图像幻灯片一样自动显示.
+ * 
  * @attr ref android.R.styleable#ViewFlipper_flipInterval
  * @attr ref android.R.styleable#ViewFlipper_autoStart
+ * @author translate by ivanlee
+ * @author convert by cnmahj
  */
 @RemoteView
 public class ViewFlipper extends ViewAnimator {
@@ -115,10 +116,10 @@ public class ViewFlipper extends ViewAnimator {
     }
 
     /**
-     * How long to wait before flipping to the next view
+     * 设置视图间切换的时间间隔.
      *
      * @param milliseconds
-     *            time in milliseconds
+     *            以毫秒为单位的时间间隔.
      */
     @android.view.RemotableViewMethod
     public void setFlipInterval(int milliseconds) {
@@ -126,7 +127,7 @@ public class ViewFlipper extends ViewAnimator {
     }
 
     /**
-     * Start a timer to cycle through child views
+     * 开始在子视图间定时循环切换.
      */
     public void startFlipping() {
         mStarted = true;
@@ -134,7 +135,7 @@ public class ViewFlipper extends ViewAnimator {
     }
 
     /**
-     * No more flips
+     * 停止切换.
      */
     public void stopFlipping() {
         mStarted = false;
@@ -188,23 +189,21 @@ public class ViewFlipper extends ViewAnimator {
     }
 
     /**
-     * Returns true if the child views are flipping.
+     * 如果已启动子视图定时切换，则返回真.
      */
     public boolean isFlipping() {
         return mStarted;
     }
 
     /**
-     * Set if this view automatically calls {@link #startFlipping()} when it
-     * becomes attached to a window.
+     * 设置视图显示到窗口上时是否自动调用 {@link #startFlipping()} 方法.
      */
     public void setAutoStart(boolean autoStart) {
         mAutoStart = autoStart;
     }
 
     /**
-     * Returns true if this view automatically calls {@link #startFlipping()}
-     * when it becomes attached to a window.
+     * 如果视图显示到窗口上时自动调用 {@link #startFlipping()} 方法，则返回真.
      */
     public boolean isAutoStart() {
         return mAutoStart;

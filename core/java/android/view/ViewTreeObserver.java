@@ -23,13 +23,12 @@ import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * A view tree observer is used to register listeners that can be notified of global
- * changes in the view tree. Such global events include, but are not limited to,
- * layout of the whole tree, beginning of the drawing pass, touch mode change....
+ * ViewTreeObserver不能够被应用程序实例化，因为它是由视图提供，参照getViewTreeObserver()以查看更多信息。
+ * 视图树检查器用于向视图树中注册在视图树发生全局变更时可以发出通知的监听器.
+ * 这些全局事件包括但不限于整个树的布局事件、开始绘制事件、触控模式变更事件.
  *
- * A ViewTreeObserver should never be instantiated by applications as it is provided
- * by the views hierarchy. Refer to {@link android.view.View#getViewTreeObserver()}
- * for more information.
+ * 应用程序不能实例化ViewTreeObserver，其实例由试图层次提供.
+ * 更多信息请参考{@link android.view.View#getViewTreeObserver()}函数.
  */
 public final class ViewTreeObserver {
     // Recursive listeners use CopyOnWriteArrayList
@@ -49,45 +48,39 @@ public final class ViewTreeObserver {
     private boolean mAlive = true;
 
     /**
-     * Interface definition for a callback to be invoked when the focus state within
-     * the view tree changes.
+     * 为视图树的焦点状态发生变化时执行的回调函数定义的接口.
      */
     public interface OnGlobalFocusChangeListener {
         /**
-         * Callback method to be invoked when the focus changes in the view tree. When
-         * the view tree transitions from touch mode to non-touch mode, oldFocus is null.
-         * When the view tree transitions from non-touch mode to touch mode, newFocus is
-         * null. When focus changes in non-touch mode (without transition from or to
-         * touch mode) either oldFocus or newFocus can be null.
+         * 视图树的焦点状态发生变化时执行的回调函数.当视图树由触控模式变为非触控模式时，
+         * oldFocus为空.当视图树由非触控模式变为触控模式时，newFocus为空.
+         * 在非触控模式焦点变更时（不发生触控模式变更），oldFocus和newFocus都可以为空.
          *
-         * @param oldFocus The previously focused view, if any.
-         * @param newFocus The newly focused View, if any.
+         * @param oldFocus 若不为空，则为之前具有焦点视图.
+         * @param newFocus 若不为空，则为得到焦点的视图.
          */
         public void onGlobalFocusChanged(View oldFocus, View newFocus);
     }
 
     /**
-     * Interface definition for a callback to be invoked when the global layout state
-     * or the visibility of views within the view tree changes.
+     * 为视图树的可视性或全局布局状态发生变化时执行的回调函数定义的接口.
      */
     public interface OnGlobalLayoutListener {
         /**
-         * Callback method to be invoked when the global layout state or the visibility of views
-         * within the view tree changes
+         * 视图树的可视性或全局布局状态发生变化时执行的回调函数.
          */
         public void onGlobalLayout();
     }
 
     /**
-     * Interface definition for a callback to be invoked when the view tree is about to be drawn.
+     * 为即将绘制视图树时执行的回调函数定义的接口.
      */
     public interface OnPreDrawListener {
         /**
-         * Callback method to be invoked when the view tree is about to be drawn. At this point, all
-         * views in the tree have been measured and given a frame. Clients can use this to adjust
-         * their scroll bounds or even to request a new layout before drawing occurs.
+         * 即将绘制视图树时执行的回调函数.这时所有的视图都测量完成并确定了框架.
+         * 客户端可以使用该方法来调整滚动边框，甚至可以在绘制之前请求新的布局.
          *
-         * @return Return true to proceed with the current drawing pass, or false to cancel.
+         * @return 继续当前绘制处理返回真；终止返回假.
          *
          * @see android.view.View#onMeasure
          * @see android.view.View#onLayout
@@ -118,25 +111,23 @@ public final class ViewTreeObserver {
     }
 
     /**
-     * Interface definition for a callback to be invoked when the touch mode changes.
+     * 为触控模式变化时执行的回调函数定义的接口.
      */
     public interface OnTouchModeChangeListener {
         /**
-         * Callback method to be invoked when the touch mode changes.
+         * 触摸模式发生改变时调用的回调函数.
          *
-         * @param isInTouchMode True if the view hierarchy is now in touch mode, false  otherwise.
+         * @param isInTouchMode 如果视图结构当前处于触摸模式，参数为真；否则为假.
          */
         public void onTouchModeChanged(boolean isInTouchMode);
     }
 
     /**
-     * Interface definition for a callback to be invoked when
-     * something in the view tree has been scrolled.
+     * 为视图树发生滚动时执行的回调函数定义的接口.
      */
     public interface OnScrollChangedListener {
         /**
-         * Callback method to be invoked when something in the view tree
-         * has been scrolled.
+         * 视图树发生滚动时执行的回调函数.
          */
         public void onScrollChanged();
     }

@@ -39,18 +39,20 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * A view for selecting the time of day, in either 24 hour or AM/PM mode. The
- * hour, each minute digit, and AM/PM (if applicable) can be conrolled by
- * vertical spinners. The hour can be entered by keyboard input. Entering in two
- * digit hours can be accomplished by hitting two digits within a timeout of
- * about a second (e.g. '1' then '2' to select 12). The minutes can be entered
- * by entering single digits. Under AM/PM mode, the user can hit 'a', 'A", 'p'
- * or 'P' to pick. For a dialog using this view, see
- * {@link android.app.TimePickerDialog}.
+ * 用于选择一天中时间的视图，支持24小时及上午/下午显示模式.
+ *
+ * 小时、分钟的数字以及上午/下午（如果可用）都可以用纵向 spinner 来控制.
+ * 用键盘也可以输入小时.两位的小时数可以通过输入两个数字来实现，
+ * 例如在一秒之内输入“1”和“2”，就输入了12点.
+ * 分钟也可以通过键盘逐位输入数字.
+ * 在上午/下午模式下，用户可以输入“a”、“A”或“p”、“P”来选择.
+ * 使用该视图的对话框，参见 {@link android.app.TimePickerDialog}.
  *<p>
  * See the <a href="{@docRoot}guide/topics/ui/controls/pickers.html">Pickers</a>
  * guide.
  * </p>
+ * @author translate by 桂仁（Android中文翻译组）
+ * @author convert by cnmahj
  */
 @Widget
 public class TimePicker extends FrameLayout {
@@ -106,14 +108,14 @@ public class TimePicker extends FrameLayout {
     private Locale mCurrentLocale;
 
     /**
-     * The callback interface used to indicate the time has been adjusted.
+     * 调整时间时发生的事件的回调函数接口.
      */
     public interface OnTimeChangedListener {
 
         /**
-         * @param view The view associated with this listener.
-         * @param hourOfDay The current hour.
-         * @param minute The current minute.
+         * @param view 与该监听器相关联的视图.
+         * @param hourOfDay 小时
+         * @param minute 分钟
          */
         void onTimeChanged(TimePicker view, int hourOfDay, int minute);
     }
@@ -364,16 +366,16 @@ public class TimePicker extends FrameLayout {
     }
 
     /**
-     * Set the callback that indicates the time has been adjusted by the user.
-     *
-     * @param onTimeChangedListener the callback, should not be null.
+     * 设置用户调整时间时的回调函数.
+     * @param onTimeChangedListener 回调函数，不能为空.
      */
     public void setOnTimeChangedListener(OnTimeChangedListener onTimeChangedListener) {
         mOnTimeChangedListener = onTimeChangedListener;
     }
 
     /**
-     * @return The current hour in the range (0-23).
+     * 获取当前时间的小时部分.
+     * @return 当前小时（0-23）
      */
     public Integer getCurrentHour() {
         int currentHour = mHourSpinner.getValue();
@@ -387,7 +389,7 @@ public class TimePicker extends FrameLayout {
     }
 
     /**
-     * Set the current hour.
+     * 设置当前小时.
      */
     public void setCurrentHour(Integer currentHour) {
         // why was Integer used in the first place?
@@ -414,9 +416,8 @@ public class TimePicker extends FrameLayout {
     }
 
     /**
-     * Set whether in 24 hour or AM/PM mode.
-     *
-     * @param is24HourView True = 24 hour mode. False = AM/PM.
+     * 设置使用24小时模式还是上午/下午模式.
+     * @param is24HourView True = 24小时模式. False = 上午/下午模式.
      */
     public void setIs24HourView(Boolean is24HourView) {
         if (mIs24HourView == is24HourView) {
@@ -432,21 +433,21 @@ public class TimePicker extends FrameLayout {
     }
 
     /**
-     * @return true if this is in 24 hour view else false.
+     * @return 如果视图出于24小时模式，返回 true；否则返回 false.
      */
     public boolean is24HourView() {
         return mIs24HourView;
     }
 
     /**
-     * @return The current minute.
+     * @return 当前分钟.
      */
     public Integer getCurrentMinute() {
         return mMinuteSpinner.getValue();
     }
 
     /**
-     * Set the current minute (0-59).
+     * 设置当前分钟（0-59）.
      */
     public void setCurrentMinute(Integer currentMinute) {
         if (currentMinute == getCurrentMinute()) {

@@ -21,76 +21,70 @@ import android.graphics.drawable.Drawable;
 import android.widget.AdapterView;
 
 /**
- * Extension of {@link Menu} for context menus providing functionality to modify
- * the header of the context menu.
+ * 扩展自Menu的上下文菜单提供了修改上下文菜单头(header)的功能.
  * <p>
- * Context menus do not support item shortcuts and item icons.
+ * 上下文菜单不支持菜单项的快捷方式和图标.
  * <p>
- * To show a context menu on long click, most clients will want to call
- * {@link Activity#registerForContextMenu} and override
- * {@link Activity#onCreateContextMenu}.
+ * 在长按时显示上下文菜单，大多数客户应该调用
+ * {@link Activity#registerForContextMenu} 方法，并重写
+ * {@link Activity#onCreateContextMenu} 方法.
  *
  * <div class="special reference">
- * <h3>Developer Guides</h3>
- * <p>For information about creating menus, read the
- * <a href="{@docRoot}guide/topics/ui/menus.html">Menus</a> developer guide.</p>
+ * <h3>开发者指南</h3>
+ * <p>关于创建菜单的内容请阅读<a href="{@docRoot}guide/topics/ui/menus.html">菜单开发者指南</a>。</p>
  * </div>
  */
 public interface ContextMenu extends Menu {
     /**
-     * Sets the context menu header's title to the title given in <var>titleRes</var>
-     * resource identifier.
+     * 将上下文菜单头的标题设为传入参数 <var>titleRes</var> 指定的资源ID.
      * 
-     * @param titleRes The string resource identifier used for the title.
-     * @return This ContextMenu so additional setters can be called.
+     * @param titleRes 作为标题的字符串资源ID.
+     * @return 设置标题后的上下文菜单.
      */
     public ContextMenu setHeaderTitle(int titleRes);
 
     /**
-     * Sets the context menu header's title to the title given in <var>title</var>.
+     * 将上下文菜单头的标题设为传入参数 <var>title</var>.
      * 
-     * @param title The character sequence used for the title.
-     * @return This ContextMenu so additional setters can be called.
+     * @param title 作为标题的字符串.
+     * @return 设置标题后的上下文菜单.
      */
     public ContextMenu setHeaderTitle(CharSequence title);
     
     /**
-     * Sets the context menu header's icon to the icon given in <var>iconRes</var>
-     * resource id.
+     * 将上下文菜单头的图标设为传入参数 <var>iconRes</var>中的资源ID代表的图标.
      * 
-     * @param iconRes The resource identifier used for the icon.
-     * @return This ContextMenu so additional setters can be called.
+     * @param iconRes 作为图标的图像的资源ID.
+     * @return 设置图标后的上下文菜单.
      */
     public ContextMenu setHeaderIcon(int iconRes);
 
     /**
-     * Sets the context menu header's icon to the icon given in <var>icon</var>
-     * {@link Drawable}.
+     * 将上下文菜单头的图标设为传入参数 <var>icon</var> 代表的图标的
+     * {@link Drawable 可绘制对象}.
      * 
-     * @param icon The {@link Drawable} used for the icon.
-     * @return This ContextMenu so additional setters can be called.
+     * @param icon 用于显示图标的{@link Drawable 可绘制对象}.
+     * @return 设置图标后的上下文菜单.
      */
     public ContextMenu setHeaderIcon(Drawable icon);
     
     /**
-     * Sets the header of the context menu to the {@link View} given in
-     * <var>view</var>. This replaces the header title and icon (and those
-     * replace this).
+     * 将上下文菜单的头视图设置为参数<var>view</var>指定的{@link View 视图}.
+     * 该操作替换菜单头的标题和图标（或者被其替换）.
      * 
-     * @param view The {@link View} used for the header.
-     * @return This ContextMenu so additional setters can be called.
+     * @param view 用于显示菜单头的{@link View 视图}.
+     * @return 设置头视图之后的上下文菜单.
      */
     public ContextMenu setHeaderView(View view);
     
     /**
-     * Clears the header of the context menu.
+     * 清除上下文菜单的菜单头.
      */
     public void clearHeader();
     
     /**
-     * Additional information regarding the creation of the context menu.  For example,
-     * {@link AdapterView}s use this to pass the exact item position within the adapter
-     * that initiated the context menu.
+     * 用于创建上下文菜单的附加信息.例如，在{@link AdapterView}
+     * 类中，用其传递启动上下文菜单时条目的确切位置.
      */
     public interface ContextMenuInfo {
     }

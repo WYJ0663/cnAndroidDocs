@@ -48,8 +48,7 @@ import android.widget.RemoteViews.RemoteView;
 
 @RemoteView
 /**
- * A view that displays its children in a stack and allows users to discretely swipe
- * through the children.
+ * 以栈的方式显示子视图，并允许用户通过子视图滑动来切换视图.
  */
 public class StackView extends AdapterViewAnimator {
     private final String TAG = "StackView";

@@ -40,15 +40,13 @@ import android.view.animation.Transformation;
 import com.android.internal.R;
 
 /**
- * A view that shows items in a center-locked, horizontally scrolling list.
+ * 选中中心条目的横向滚动列表.
  * <p>
- * The default values for the Gallery assume you will be using
- * {@link android.R.styleable#Theme_galleryItemBackground} as the background for
- * each View given to the Gallery from the Adapter. If you are not doing this,
- * you may need to adjust some Gallery properties, such as the spacing.
+ * 画廊默认以 {@link android.R.styleable#Theme_galleryItemBackground}
+ * 作为从适配器取得的每个视图的背景.如果没有该资源，你需要调整画廊的一些属性，
+ * 比如空白等.
  * <p>
- * Views given to the Gallery should use {@link Gallery.LayoutParams} as their
- * layout parameters type.
+ * 添加到画廊的视图应该使用 {@link Gallery.LayoutParams} 作为其布局参数类型.
  * 
  * @attr ref android.R.styleable#Gallery_animationDuration
  * @attr ref android.R.styleable#Gallery_spacing
@@ -234,13 +232,11 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
 
     /**
-     * Whether or not to callback on any {@link #getOnItemSelectedListener()}
-     * while the items are being flinged. If false, only the final selected item
-     * will cause the callback. If true, all items between the first and the
-     * final will cause callbacks.
+     * 快速滚动条目时是否调用每个条目的 {@link #getOnItemSelectedListener()}.
+     * 如果设为假，只为最后选中的条目调用回调函数.
+     * 如果设为真，则为从第一个到最后一个，每个条目调用回调函数.
      * 
-     * @param shouldCallback Whether or not to callback on the listener while
-     *            the items are being flinged.
+     * @param shouldCallback 当快速滚动条目时，是否为每个条目调用监听器的回调函数.
      */
     public void setCallbackDuringFling(boolean shouldCallback) {
         mShouldCallbackDuringFling = shouldCallback;
@@ -260,11 +256,9 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
     
     /**
-     * Sets how long the transition animation should run when a child view
-     * changes position. Only relevant if animation is turned on.
+     * 设置子视图位置变更时过渡动画的执行时间.仅当打开播放动画功能时有效.
      * 
-     * @param animationDurationMillis The duration of the transition, in
-     *        milliseconds.
+     * @param animationDurationMillis 过渡动画的持续时间，单位为毫秒.
      * 
      * @attr ref android.R.styleable#Gallery_animationDuration
      */
@@ -273,9 +267,9 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
 
     /**
-     * Sets the spacing between items in a Gallery
+     * 设置画廊中两个条目之间的空白.
      * 
-     * @param spacing The spacing in pixels between items in the Gallery
+     * @param spacing 画廊中两个条目之间的空白，以像素为单位.
      * 
      * @attr ref android.R.styleable#Gallery_spacing
      */
@@ -284,9 +278,9 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
 
     /**
-     * Sets the alpha of items that are not selected in the Gallery.
+     * 设置画廊中未选中条目的透明度.
      * 
-     * @param unselectedAlpha the alpha for the items that are not selected.
+     * @param unselectedAlpha 未选中条目的透明度.
      * 
      * @attr ref android.R.styleable#Gallery_unselectedAlpha
      */
@@ -1198,7 +1192,7 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
 
     /**
-     * Handles left, right, and clicking
+     * 处理左右和按下事件.
      * @see android.view.View#onKeyDown
      */
     @Override
@@ -1328,7 +1322,7 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
     
     /**
-     * Describes how the child views are aligned.
+     * 设置子视图如何对齐.
      * @param gravity
      * 
      * @attr ref android.R.styleable#Gallery_gravity
@@ -1530,9 +1524,7 @@ public class Gallery extends AbsSpinner implements GestureDetector.OnGestureList
     }
     
     /**
-     * Gallery extends LayoutParams to provide a place to hold current
-     * Transformation information along with previous position/transformation
-     * info.
+     * 画廊扩展了 LayoutParams 以提供空间来保存现在的变换信息和之前的位置和变换信息. 
      */
     public static class LayoutParams extends ViewGroup.LayoutParams {
         public LayoutParams(Context c, AttributeSet attrs) {

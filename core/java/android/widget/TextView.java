@@ -136,15 +136,13 @@ import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Displays text to the user and optionally allows them to edit it.  A TextView
- * is a complete text editor, however the basic class is configured to not
- * allow editing; see {@link EditText} for a subclass that configures the text
- * view for editing.
+ * 显示文本并提供允许编辑的选项. TextView 是完整的文本编辑器，只是基类设置为不可编辑；
+ * 配置为可编辑的视图，参见 {@link EditText} 子类。
  *
  * <p>
- * <b>XML attributes</b>
+ * <b>XML 属性</b>
  * <p>
- * See {@link android.R.styleable#TextView TextView Attributes},
+ * 参见 {@link android.R.styleable#TextView TextView Attributes}、
  * {@link android.R.styleable#View View Attributes}
  *
  * @attr ref android.R.styleable#TextView_text
@@ -551,21 +549,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Interface definition for a callback to be invoked when an action is
-     * performed on the editor.
+     * 定义了当编辑器执行动作时的回调函数的接口.
      */
     public interface OnEditorActionListener {
         /**
-         * Called when an action is being performed.
+         * 动作执行时调用.
          *
-         * @param v The view that was clicked.
-         * @param actionId Identifier of the action.  This will be either the
-         * identifier you supplied, or {@link EditorInfo#IME_NULL
-         * EditorInfo.IME_NULL} if being called due to the enter key
-         * being pressed.
-         * @param event If triggered by an enter key, this is the event;
-         * otherwise, this is null.
-         * @return Return true if you have consumed the action, else false.
+         * @param v 执行动作的视图
+         * @param actionId 动作标识. 该值可以是当回车键按下，调用该函数时你指定的值，
+         *        或者 {@link EditorInfo#IME_NULL EditorInfo.IME_NULL}.
+         * @param event 如果由回车键触发，这是其事件；否则为空.
+         * @return 如果你处理了该事件，返回真；否则返回假。
          */
         boolean onEditorAction(TextView v, int actionId, KeyEvent event);
     }
@@ -1353,10 +1347,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the typeface and style in which the text should be displayed,
-     * and turns on the fake bold and italic bits in the Paint if the
-     * Typeface that you provided does not have all the bits in the
-     * style that you specified.
+     * 设置显示文本的字形和风格，如果你指定的风格不包含所有的文字类型，
+     * 该函数会启用绘制时的模拟粗体和斜体位.
      *
      * @attr ref android.R.styleable#TextView_typeface
      * @attr ref android.R.styleable#TextView_textStyle
@@ -1383,27 +1375,24 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Subclasses override this to specify that they have a KeyListener
-     * by default even if not specifically called for in the XML options.
+     * 子类覆盖该方法，已使其可以在默认 XML 选项未指定可编辑时设置 KeyListener.
      */
     protected boolean getDefaultEditable() {
         return false;
     }
 
     /**
-     * Subclasses override this to specify a default movement method.
+     * 子类覆盖该方法，以指定默认动作方法.
      */
     protected MovementMethod getDefaultMovementMethod() {
         return null;
     }
 
     /**
-     * Return the text the TextView is displaying. If setText() was called with
-     * an argument of BufferType.SPANNABLE or BufferType.EDITABLE, you can cast
-     * the return value from this method to Spannable or Editable, respectively.
+     * 返回 TextView 显示的文本.如果使用 BufferType.SPANNABLE 或 BufferType.EDITABLE
+     * 参数调用 setText() 方法，你可以将本方法的返回值分别转换为 Spannable 或 Editable.
      *
-     * Note: The content of the return value should not be modified. If you want
-     * a modifiable one, you should make your own copy first.
+     * 注意：返回值的内容不能修改.如果你需要编辑其中的值，首先你应该生成自己的实例.
      *
      * @attr ref android.R.styleable#TextView_text
      */
@@ -1413,15 +1402,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the length, in characters, of the text managed by this TextView
+     * 返回由该 TextView 管理的文本长度（字符数）。
      */
     public int length() {
         return mText.length();
     }
 
     /**
-     * Return the text the TextView is displaying as an Editable object.  If
-     * the text is not editable, null is returned.
+     * 返回 TextView 显示的作为可编辑对象的文本内容. 如果文本不可编辑，返回空。
      *
      * @see #getText
      */
@@ -1430,18 +1418,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the height of one standard line in pixels.  Note that markup
-     * within the text can cause individual lines to be taller or shorter
-     * than this height, and the layout may contain additional first-
-     * or last-line padding.
+     * @return 返回标准行高的像素值. 注意，包含标记的文本可以导致其行高高于或低于该值，
+     * 并且，布局可能包含额外的首行、末行间距。
      */
     public int getLineHeight() {
         return FastMath.round(mTextPaint.getFontMetricsInt(null) * mSpacingMult + mSpacingAdd);
     }
 
     /**
-     * @return the Layout that is currently being used to display the text.
-     * This can be null if the text or width has recently changes.
+     * @return 返回当前用于显示文本的布局. 如果文本或宽度最近发生了变更，该值可能为空。
      */
     public final Layout getLayout() {
         return mLayout;
@@ -1456,8 +1441,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the current key listener for this TextView.
-     * This will frequently be null for non-EditText TextViews.
+     * @return TextView 的当前键盘监听器. 对于非 EditText 的 TextViews，该值通常为空.
      *
      * @attr ref android.R.styleable#TextView_numeric
      * @attr ref android.R.styleable#TextView_digits
@@ -1471,19 +1455,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the key listener to be used with this TextView.  This can be null
-     * to disallow user input.  Note that this method has significant and
-     * subtle interactions with soft keyboards and other input method:
-     * see {@link KeyListener#getInputType() KeyListener.getContentType()}
-     * for important details.  Calling this method will replace the current
-     * content type of the text view with the content type returned by the
-     * key listener.
+     * 设置用于该 TextView 的键盘监听器. 该值可以为空，禁止用户输入。
+     * 注意，该方法与软键盘和其他输入方法有重要、微妙的交互：细节请参见
+     * {@link KeyListener#getInputType() KeyListener.getInputType()}.
+     * 调用该方法会用键盘监听器返回的内容类型来替换文本视图的当前内容类型。
      * <p>
-     * Be warned that if you want a TextView with a key listener or movement
-     * method not to be focusable, or if you want a TextView without a
-     * key listener or movement method to be focusable, you must call
-     * {@link #setFocusable} again after calling this to get the focusability
-     * back the way you want it.
+     * 注意！如果你想使 TextView 拥有键盘监听器或移动光标的方法，而不希望其得到焦点，
+     * 或者希望 TextView 没有键盘监听器或移动光标的方法，而可以得到焦点，
+     * 你必须调用该方法后再次调用 {@link #setFocusable} 方法，使其具有你设置的焦点能力。
      *
      * @attr ref android.R.styleable#TextView_numeric
      * @attr ref android.R.styleable#TextView_digits
@@ -1529,23 +1508,19 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the movement method being used for this TextView.
-     * This will frequently be null for non-EditText TextViews.
+     * @return 该 TextView 使用的光标移动方法. 对于 EditText 以外的
+     * TextViews 通常返回空.
      */
     public final MovementMethod getMovementMethod() {
         return mMovement;
     }
 
     /**
-     * Sets the movement method (arrow key handler) to be used for
-     * this TextView.  This can be null to disallow using the arrow keys
-     * to move the cursor or scroll the view.
+     * 设置该 TextView 使用的移动方法（方向键处理器）. 设为空以禁止使用方向键移动光标或滚动视图。
      * <p>
-     * Be warned that if you want a TextView with a key listener or movement
-     * method not to be focusable, or if you want a TextView without a
-     * key listener or movement method to be focusable, you must call
-     * {@link #setFocusable} again after calling this to get the focusability
-     * back the way you want it.
+     * 注意！如果你想使 TextView 拥有键盘监听器或移动光标的方法，而不希望其得到焦点，
+     * 或者希望 TextView 没有键盘监听器或移动光标的方法，而可以得到焦点，
+     * 你必须调用该方法后再次调用 {@link #setFocusable} 方法，使其具有你设置的焦点能力。
      */
     public final void setMovementMethod(MovementMethod movement) {
         if (mMovement != movement) {
@@ -1576,9 +1551,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the current transformation method for this TextView.
-     * This will frequently be null except for single-line and password
-     * fields.
+     * @return 返回该视图的当前变换方法. 除了单行文本和密码框，该函数一般返回空。
      *
      * @attr ref android.R.styleable#TextView_password
      * @attr ref android.R.styleable#TextView_singleLine
@@ -1588,8 +1561,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the transformation that is applied to the text that this
-     * TextView is displaying.
+     * 设置应用到该 TextView 的，显示文本时的变换方法。
      *
      * @attr ref android.R.styleable#TextView_password
      * @attr ref android.R.styleable#TextView_singleLine
@@ -1624,8 +1596,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the top padding of the view, plus space for the top
-     * Drawable if any.
+     * 返回该视图的上边距，包含顶部可绘制对象的空间，当其存在时。
      */
     public int getCompoundPaddingTop() {
         final Drawables dr = mDrawables;
@@ -1637,8 +1608,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the bottom padding of the view, plus space for the bottom
-     * Drawable if any.
+     * 返回该视图的下边距，包含底部可绘制对象的空间，当其存在时。
      */
     public int getCompoundPaddingBottom() {
         final Drawables dr = mDrawables;
@@ -1650,8 +1620,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the left padding of the view, plus space for the left
-     * Drawable if any.
+     * 返回该视图的左边距，包含左部可绘制对象的空间，当其存在时。
      */
     public int getCompoundPaddingLeft() {
         final Drawables dr = mDrawables;
@@ -1663,8 +1632,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the right padding of the view, plus space for the right
-     * Drawable if any.
+     * 返回该视图的右边距，包含右部可绘制对象的空间，当其存在时。
      */
     public int getCompoundPaddingRight() {
         final Drawables dr = mDrawables;
@@ -1706,9 +1674,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the extended top padding of the view, including both the
-     * top Drawable if any and any extra space to keep more than maxLines
-     * of text from showing.  It is only valid to call this after measuring.
+     * 返回视图的扩展顶边距，包括顶部可绘制对象（如果存在）和用于显示最大行数以上内容的扩展空间.
+     * 只有测量后调用该方法才有效。
      */
     public int getExtendedPaddingTop() {
         if (mMaxMode != LINES) {
@@ -1739,9 +1706,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the extended bottom padding of the view, including both the
-     * bottom Drawable if any and any extra space to keep more than maxLines
-     * of text from showing.  It is only valid to call this after measuring.
+     * 返回视图的扩展底边距，包括底部可绘制对象（如果存在）和用于显示最大行数以上内容的扩展空间.
+     * 只有测量后调用该方法才有效。
      */
     public int getExtendedPaddingBottom() {
         if (mMaxMode != LINES) {
@@ -1772,60 +1738,53 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the total left padding of the view, including the left
-     * Drawable if any.
+     * 返回视图左边距合计，包括左侧的可绘制对象（如果存在）.
      */
     public int getTotalPaddingLeft() {
         return getCompoundPaddingLeft();
     }
 
     /**
-     * Returns the total right padding of the view, including the right
-     * Drawable if any.
+     * 返回视图右边距合计，包括右侧的可绘制对象（如果存在）.
      */
     public int getTotalPaddingRight() {
         return getCompoundPaddingRight();
     }
 
     /**
-     * Returns the total start padding of the view, including the start
-     * Drawable if any.
+     * 返回视图起始边距合计，包括起始可绘制对象（如果存在）.
+     *
      */
     public int getTotalPaddingStart() {
         return getCompoundPaddingStart();
     }
 
     /**
-     * Returns the total end padding of the view, including the end
-     * Drawable if any.
+     * 返回视图终止边距合计，包括终止可绘制对象（如果存在）.
      */
     public int getTotalPaddingEnd() {
         return getCompoundPaddingEnd();
     }
 
     /**
-     * Returns the total top padding of the view, including the top
-     * Drawable if any, the extra space to keep more than maxLines
-     * from showing, and the vertical offset for gravity, if any.
+     * 返回视图的顶边距合计，包括顶部可绘制对象（如果存在）、
+     * 用于显示超过最大行数的扩展空间、纵向对齐的偏移量等等。
      */
     public int getTotalPaddingTop() {
         return getExtendedPaddingTop() + getVerticalOffset(true);
     }
 
     /**
-     * Returns the total bottom padding of the view, including the bottom
-     * Drawable if any, the extra space to keep more than maxLines
-     * from showing, and the vertical offset for gravity, if any.
+     * 返回视图的底边距合计，包括底部可绘制对象（如果存在）、
+     * 用于显示超过最大行数的扩展空间、纵向对齐的偏移量等等。
      */
     public int getTotalPaddingBottom() {
         return getExtendedPaddingBottom() + getBottomVerticalOffset(true);
     }
 
     /**
-     * Sets the Drawables (if any) to appear to the left of, above,
-     * to the right of, and below the text.  Use null if you do not
-     * want a Drawable there.  The Drawables must already have had
-     * {@link Drawable#setBounds} called.
+     * 设置出现在文本的上下左右的可绘制对象. 在不想显示可绘制对象处设置空。
+     * 可绘制对象必须已经调用了 {@link Drawable#setBounds}。
      *
      * @attr ref android.R.styleable#TextView_drawableLeft
      * @attr ref android.R.styleable#TextView_drawableTop
@@ -1937,15 +1896,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the Drawables (if any) to appear to the left of, above,
-     * to the right of, and below the text.  Use 0 if you do not
-     * want a Drawable there. The Drawables' bounds will be set to
-     * their intrinsic bounds.
+     * 设置出现在文本的上下左右的可绘制对象. 在不想显示可绘制对象处设置0。
+     * 可绘制对象使用他们的固定边界。
      *
-     * @param left Resource identifier of the left Drawable.
-     * @param top Resource identifier of the top Drawable.
-     * @param right Resource identifier of the right Drawable.
-     * @param bottom Resource identifier of the bottom Drawable.
+     * @param left 左侧可绘制对象的资源标识
+     * @param top 顶部可绘制对象的资源标识
+     * @param right 右侧可绘制对象的资源标识
+     * @param bottom 底部可绘制对象的资源标识
      *
      * @attr ref android.R.styleable#TextView_drawableLeft
      * @attr ref android.R.styleable#TextView_drawableTop
@@ -1962,10 +1919,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the Drawables (if any) to appear to the left of, above,
-     * to the right of, and below the text.  Use null if you do not
-     * want a Drawable there. The Drawables' bounds will be set to
-     * their intrinsic bounds.
+     * 设置出现在文本的上下左右的可绘制对象. 在不想显示可绘制对象处设置空。
+     * 可绘制对象使用他们的固定边界。
      *
      * @attr ref android.R.styleable#TextView_drawableLeft
      * @attr ref android.R.styleable#TextView_drawableTop
@@ -2165,7 +2120,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns drawables for the left, top, right, and bottom borders.
+     * 依次返回左上右下边的可绘制对象。
      *
      * @attr ref android.R.styleable#TextView_drawableLeft
      * @attr ref android.R.styleable#TextView_drawableTop
@@ -2203,8 +2158,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the size of the padding between the compound drawables and
-     * the text.
+     * 设置文本和组件的可绘制对象之间的边距。
      *
      * @attr ref android.R.styleable#TextView_drawablePadding
      */
@@ -2227,7 +2181,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the padding between the compound drawables and the text.
+     * 返回文本和组件的可绘制对象之间的边距。
      *
      * @attr ref android.R.styleable#TextView_drawablePadding
      */
@@ -2265,9 +2219,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Gets the autolink mask of the text.  See {@link
-     * android.text.util.Linkify#ALL Linkify.ALL} and peers for
-     * possible values.
+     * 返回文本的自动链接掩码. 参见 {@link
+     * android.text.util.Linkify#ALL Linkify.ALL} 及其他可能的值。
      *
      * @attr ref android.R.styleable#TextView_autoLink
      */
@@ -2276,8 +2229,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the text color, size, style, hint color, and highlight color
-     * from the specified TextAppearance resource.
+     * 根据指定的 TextAppearance 资源设置文本颜色、大小、风格、默认颜色和高亮颜色。
      */
     public void setTextAppearance(Context context, int resid) {
         TypedArray appearance =
@@ -2360,7 +2312,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the size (in pixels) of the default text size in this TextView.
+     * @return 该 TextView 的默认文本大小（以像素为单位）。
      */
     @ViewDebug.ExportedProperty(category = "text")
     public float getTextSize() {
@@ -2368,11 +2320,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Set the default text size to the given value, interpreted as "scaled
-     * pixel" units.  This size is adjusted based on the current density and
-     * user font size preference.
+     * 设置默认文本大小为给定值，单位为"缩放像素". 
+     * 该值基于当前显示密度和用户偏好的字体大小来调整。
      *
-     * @param size The scaled pixel size.
+     * @param size 缩放像素大小.
      *
      * @attr ref android.R.styleable#TextView_textSize
      */
@@ -2382,11 +2333,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Set the default text size to a given unit and value.  See {@link
-     * TypedValue} for the possible dimension units.
+     * 使用给定单位和值来设置默认字体的大小. 可用密度单位参见 {@link TypedValue}.
      *
-     * @param unit The desired dimension unit.
-     * @param size The desired size in the given units.
+     * @param unit 希望的密度单位
+     * @param size 希望的给定密度单位的大小
      *
      * @attr ref android.R.styleable#TextView_textSize
      */
@@ -2416,15 +2366,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the extent by which text is currently being stretched
-     * horizontally.  This will usually be 1.
+     * @return 文本当前横向拉伸的程度. 该值通常为 1.
      */
     public float getTextScaleX() {
         return mTextPaint.getTextScaleX();
     }
 
     /**
-     * Sets the extent by which text should be stretched horizontally.
+     * 设置文本横向拉伸的程度。
      *
      * @attr ref android.R.styleable#TextView_textScaleX
      */
@@ -2443,11 +2392,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the typeface and style in which the text should be displayed.
-     * Note that not all Typeface families actually have bold and italic
-     * variants, so you may need to use
-     * {@link #setTypeface(Typeface, int)} to get the appearance
-     * that you actually want.
+     * 设置文本显示的字体及风格. 注意，不是所有的字体都包含粗体和斜体，
+     * 因此你可能需要使用 {@link #setTypeface(Typeface, int)} 来设置你实际需要的外观。
      *
      * @see #getTypeface()
      *
@@ -2468,8 +2414,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the current typeface and style in which the text is being
-     * displayed.
+     * @return 返回文本显示的字体及风格.
      *
      * @see #setTypeface(Typeface)
      *
@@ -2482,8 +2427,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the text color for all the states (normal, selected,
-     * focused) to be this color.
+     * 为所有状态（正常、选中、有焦点）设置文本颜色.
      *
      * @see #setTextColor(ColorStateList)
      * @see #getTextColors()
@@ -2497,7 +2441,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the text color.
+     * 设置文本颜色。
      *
      * @see #setTextColor(int)
      * @see #getTextColors()
@@ -2528,16 +2472,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * <p>Return the current color selected for normal text.</p>
+     * <p>返回当前设置的普通文本的颜色。</p>
      *
-     * @return Returns the current text color.
+     * @return 返回当前文本颜色。
      */
     public final int getCurrentTextColor() {
         return mCurTextColor;
     }
 
     /**
-     * Sets the color used to display the selection highlight.
+     * 设置用于显示选中高亮的颜色.
      *
      * @attr ref android.R.styleable#TextView_textColorHighlight
      */
@@ -2649,17 +2593,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the base paint used for the text.  Please use this only to
-     * consult the Paint's properties and not to change them.
+     * @return 用户文本的基类画笔. 请仅在查看画笔的属性时使用，不要改变其值。
      */
     public TextPaint getPaint() {
         return mTextPaint;
     }
 
     /**
-     * Sets the autolink mask of the text.  See {@link
-     * android.text.util.Linkify#ALL Linkify.ALL} and peers for
-     * possible values.
+     * 设置文本的自动链接掩码. 参见 {@link android.text.util.Linkify#ALL Linkify.ALL}
+     * 及相关可能的值。
      *
      * @attr ref android.R.styleable#TextView_autoLink
      */
@@ -2669,10 +2611,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets whether the movement method will automatically be set to
-     * {@link LinkMovementMethod} if {@link #setAutoLinkMask} has been
-     * set to nonzero and links are detected in {@link #setText}.
-     * The default is true.
+     * 设置当 {@link #setAutoLinkMask} 为非零，并且在 {@link #setText} 中检测到链接时，
+     * 是否自动将移动方法设置为 {@link LinkMovementMethod}。默认为真。
      *
      * @attr ref android.R.styleable#TextView_linksClickable
      */
@@ -2682,10 +2622,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns whether the movement method will automatically be set to
-     * {@link LinkMovementMethod} if {@link #setAutoLinkMask} has been
-     * set to nonzero and links are detected in {@link #setText}.
-     * The default is true.
+     * 返回当 {@link #setAutoLinkMask} 为非零，并且在 {@link #setText} 中检测到链接时，
+     * 是否自动将移动方法设置为 {@link LinkMovementMethod}。默认为真。
      *
      * @attr ref android.R.styleable#TextView_linksClickable
      */
@@ -2694,11 +2632,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the list of URLSpans attached to the text
-     * (by {@link Linkify} or otherwise) if any.  You can call
-     * {@link URLSpan#getURL} on them to find where they link to
-     * or use {@link Spanned#getSpanStart} and {@link Spanned#getSpanEnd}
-     * to find the region of the text they are attached to.
+     * 如果有，则返回（通过{@link Linkify} 或其他方法）关联到文本的 URLSpans 的列表。
+     * 你可以调用 {@link URLSpan#getURL} 来得到其链接目标，或者使用
+     * {@link Spanned#getSpanStart} 和 {@link Spanned#getSpanEnd}
+     * 来取得他们关联的文本范围。
      */
     public URLSpan[] getUrls() {
         if (mText instanceof Spanned) {
@@ -2725,7 +2662,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the color of the hint text.
+     * 设置提示文本的颜色。
      *
      * @see #getHintTextColors()
      * @see #setHintTextColor(int)
@@ -2754,16 +2691,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * <p>Return the current color selected to paint the hint text.</p>
+     * <p>返回当前用于绘制提示文本的颜色。</p>
      *
-     * @return Returns the current hint text color.
+     * @return 返回当前提示文本颜色。
      */
     public final int getCurrentHintTextColor() {
         return mHintTextColor != null ? mCurHintTextColor : mCurTextColor;
     }
 
     /**
-     * Sets the color of links in the text.
+     * 设置文本中链接的颜色。
      *
      * @see #setLinkTextColor(ColorStateList)
      * @see #getLinkTextColors()
@@ -2777,7 +2714,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the color of links in the text.
+     * 设置文本中链接的颜色。
      *
      * @see #setLinkTextColor(int)
      * @see #getLinkTextColors()
@@ -2805,9 +2742,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the horizontal alignment of the text and the
-     * vertical gravity that will be used when there is extra space
-     * in the TextView beyond what is required for the text itself.
+     * 设置当 TextView 中有超过显示文本需要的剩余空间时，横向和纵向的对齐方式。
      *
      * @see android.view.Gravity
      * @attr ref android.R.styleable#TextView_gravity
@@ -2846,7 +2781,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Returns the horizontal and vertical alignment of this TextView.
+     * 返回 TextView 的横纵向对齐方式。
      *
      * @see android.view.Gravity
      * @attr ref android.R.styleable#TextView_gravity
@@ -2856,7 +2791,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * @return the flags on the Paint being used to display the text.
+     * @return 用于显示文本的画笔的标志位。
      * @see Paint#getFlags
      */
     public int getPaintFlags() {
@@ -2864,8 +2799,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets flags on the Paint being used to display the text and
-     * reflows the text if they are different from the old flags.
+     * 设置用于显示文本的画笔的标志位，如果与旧标志不同则重新绘制。
      * @see Paint#setFlags
      */
     @android.view.RemotableViewMethod
@@ -2882,8 +2816,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets whether the text should be allowed to be wider than the
-     * View is.  If false, it will be wrapped to the width of the View.
+     * 设置是否允许文本比视图宽。如果为假，文本会折行以适应视图的宽度。
      *
      * @attr ref android.R.styleable#TextView_scrollHorizontally
      */
@@ -2911,10 +2844,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Makes the TextView at least this many lines tall.
+     * 使 TextView 至少为能显示指定行数的高度。
      *
-     * Setting this value overrides any other (minimum) height setting. A single line TextView will
-     * set this value to 1.
+     * 设置该值会覆盖任何其他的（最小）高度设置。单行 TextView 该值为 1.
      *
      * @see #getMinLines()
      *
@@ -2942,9 +2874,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Makes the TextView at least this many pixels tall.
+     * 设置 TextView 的最小高度为指定像素数。
      *
-     * Setting this value overrides any other (minimum) number of lines setting.
+     * 设置该值会覆盖任何其他的（最小）行数设置。
      *
      * @attr ref android.R.styleable#TextView_minHeight
      */
@@ -2970,9 +2902,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Makes the TextView at most this many lines tall.
+     * 设置 TextView 最多不能显示超过多少行的高度。
      *
-     * Setting this value overrides any other (maximum) height setting.
+     * 设置该值会覆盖任何其他的（最大）高度设置。
      *
      * @attr ref android.R.styleable#TextView_maxLines
      */
@@ -2998,10 +2930,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Makes the TextView at most this many pixels tall.  This option is mutually exclusive with the
-     * {@link #setMaxLines(int)} method.
+     * 设置 TextView 最多不能显示超过多少像素的高度。该方法与
+     * {@link #setMaxLines(int)} 方法相互排斥。
      *
-     * Setting this value overrides any other (maximum) number of lines setting.
+     * 设置该值会覆盖任何其他的（最大）行数设置。
      *
      * @attr ref android.R.styleable#TextView_maxHeight
      */
@@ -3543,9 +3475,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Sets the text that this TextView is to display (see
-     * {@link #setText(CharSequence)}) and also sets whether it is stored
-     * in a styleable/spannable buffer and whether it is editable.
+     * 设置该 TextView 显示的文本（参见 {@link #setText(CharSequence)}） 
+     * 以及是否可以保存在 styleable/spannable 缓存中，以及是否可以编辑.
      *
      * @attr ref android.R.styleable#TextView_text
      * @attr ref android.R.styleable#TextView_bufferType
@@ -6954,11 +6885,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
-     * Causes words in the text that are longer than the view is wide
-     * to be ellipsized instead of broken in the middle.  You may also
-     * want to {@link #setSingleLine} or {@link #setHorizontallyScrolling}
-     * to constrain the text to a single line.  Use <code>null</code>
-     * to turn off ellipsizing.
+     * 指定当文字的长度超过视图宽度时用何种方式来取代简单的中途截断文本.
+     * 你可能想使用 {@link #setSingleLine} 或 {@link #setHorizontallyScrolling}
+     * 使文本显示在一行中，请使用 <code>null</code> 关闭该功能.
      *
      * If {@link #setMaxLines} has been used to set two or more lines,
      * {@link android.text.TextUtils.TruncateAt#END} and

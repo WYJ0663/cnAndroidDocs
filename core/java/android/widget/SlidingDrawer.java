@@ -35,19 +35,16 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
- * SlidingDrawer hides content out of the screen and allows the user to drag a handle
- * to bring the content on screen. SlidingDrawer can be used vertically or horizontally.
- *
- * A special widget composed of two children views: the handle, that the users drags,
- * and the content, attached to the handle and dragged with it.
- *
- * SlidingDrawer should be used as an overlay inside layouts. This means SlidingDrawer
- * should only be used inside of a FrameLayout or a RelativeLayout for instance. The
- * size of the SlidingDrawer defines how much space the content will occupy once slid
- * out so SlidingDrawer should usually use match_parent for both its dimensions.
- *
- * Inside an XML layout, SlidingDrawer must define the id of the handle and of the
- * content:
+ * SlidingDrawer可以将内容隐藏在屏幕外，允许用户通过拖拽一个把手，将内容带回屏幕上显示. 
+ * SlidingDrawer可以横向使用，也可以纵向使用。
+ * 
+ * 该小部件由两个子视图组成：用于拖拽的把手视图和由该把手连接并拖拽的内容。 
+ * 
+ * SlidingDrawer 应该用于覆盖内部布局。这意味着SlidingDrawer应该只用于象 FrameLayout或
+ * RelativeLayout 这样的布局的内部。SlidingDrawer 的大小定义了滑出屏幕时其占用的空间。
+ * 因此一般SlidingDrawer 的长宽属性都设置为match_parent。 
+ * 
+ * 在XML布局中，SlidingDrawer必须为其把手和内容定义ID：
  *
  * <pre class="prettyprint">
  * &lt;SlidingDrawer
@@ -143,56 +140,56 @@ public class SlidingDrawer extends ViewGroup {
     private final int mVelocityUnits;
 
     /**
-     * Callback invoked when the drawer is opened.
+     * 抽屉打开时执行的回调函数.
      */
     public static interface OnDrawerOpenListener {
         /**
-         * Invoked when the drawer becomes fully open.
+         * 抽屉完全打开时执行。
          */
         public void onDrawerOpened();
     }
 
     /**
-     * Callback invoked when the drawer is closed.
+     * 抽屉关闭时执行的回调函数.
      */
     public static interface OnDrawerCloseListener {
         /**
-         * Invoked when the drawer becomes fully closed.
+         * 抽屉完全关闭时执行。
          */
         public void onDrawerClosed();
     }
 
     /**
-     * Callback invoked when the drawer is scrolled.
+     * 抽屉滑动时执行的回调函数.
      */
     public static interface OnDrawerScrollListener {
         /**
-         * Invoked when the user starts dragging/flinging the drawer's handle.
+         * 用户开始拖拽或快速滑动抽屉把手时执行。
          */
         public void onScrollStarted();
 
         /**
-         * Invoked when the user stops dragging/flinging the drawer's handle.
+         * 用户结束拖拽或快速滑动抽屉把手时执行。
          */
         public void onScrollEnded();
     }
 
     /**
-     * Creates a new SlidingDrawer from a specified set of attributes defined in XML.
+     * 根据指定的XML中定义的属性创建SlidingDrawer。
      *
-     * @param context The application's environment.
-     * @param attrs The attributes defined in XML.
+     * @param context 应用程序上下文。
+     * @param attrs XML中定义的属性。
      */
     public SlidingDrawer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     /**
-     * Creates a new SlidingDrawer from a specified set of attributes defined in XML.
+     * 根据指定的XML中定义的属性创建SlidingDrawer。
      *
-     * @param context The application's environment.
-     * @param attrs The attributes defined in XML.
-     * @param defStyle The style to apply to this widget.
+     * @param context 应用程序上下文。
+     * @param attrs XML中定义的属性。
+     * @param defStyle 应用到该小部件的样式。
      */
     public SlidingDrawer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -707,7 +704,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Toggles the drawer open and close. Takes effect immediately.
+     * 切换抽屉的开闭状态。状态立即变更。
      *
      * @see #open()
      * @see #close()
@@ -726,7 +723,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Toggles the drawer open and close with an animation.
+     * 以动画的形式切换抽屉的开闭状态。
      *
      * @see #open()
      * @see #close()
@@ -743,7 +740,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Opens the drawer immediately.
+     * 立即打开抽屉。
      *
      * @see #toggle()
      * @see #close()
@@ -758,7 +755,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Closes the drawer immediately.
+     * 立即关闭抽屉。
      *
      * @see #toggle()
      * @see #open()
@@ -771,7 +768,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Closes the drawer with an animation.
+     * 以动画的形式关闭抽屉。
      *
      * @see #close()
      * @see #open()
@@ -793,7 +790,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Opens the drawer with an animation.
+     * 以动画的形式打开抽屉。
      *
      * @see #close()
      * @see #open()
@@ -859,57 +856,53 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Sets the listener that receives a notification when the drawer becomes open.
+     * 设置用于接收抽屉打开通知的监听器。
      *
-     * @param onDrawerOpenListener The listener to be notified when the drawer is opened.
+     * @param onDrawerOpenListener 抽屉打开时通知的监听器。
      */
     public void setOnDrawerOpenListener(OnDrawerOpenListener onDrawerOpenListener) {
         mOnDrawerOpenListener = onDrawerOpenListener;
     }
 
     /**
-     * Sets the listener that receives a notification when the drawer becomes close.
+     * 设置用于接收抽屉关闭通知的监听器。
      *
-     * @param onDrawerCloseListener The listener to be notified when the drawer is closed.
+     * @param onDrawerCloseListener 抽屉关闭时通知的监听器。
      */
     public void setOnDrawerCloseListener(OnDrawerCloseListener onDrawerCloseListener) {
         mOnDrawerCloseListener = onDrawerCloseListener;
     }
 
     /**
-     * Sets the listener that receives a notification when the drawer starts or ends
-     * a scroll. A fling is considered as a scroll. A fling will also trigger a
-     * drawer opened or drawer closed event.
+     * 设置接收抽屉开始滑动和结束滑动通知的监听器. 快速滑动作为抽屉抽屉滑动对待. 
+     * 快速滑动会触发抽屉打开或关闭事件。
      *
-     * @param onDrawerScrollListener The listener to be notified when scrolling
-     *        starts or stops.
+     * @param onDrawerScrollListener 滑动开始或结束时通知的监听器。
      */
     public void setOnDrawerScrollListener(OnDrawerScrollListener onDrawerScrollListener) {
         mOnDrawerScrollListener = onDrawerScrollListener;
     }
 
     /**
-     * Returns the handle of the drawer.
+     * 返回抽屉的把手。
      *
-     * @return The View reprenseting the handle of the drawer, identified by
-     *         the "handle" id in XML.
+     * @return 用于呈现抽屉把手的视图，由XML中的“handle”来标识。
      */
     public View getHandle() {
         return mHandle;
     }
 
     /**
-     * Returns the content of the drawer.
+     * 返回抽屉的内容。
      *
-     * @return The View reprenseting the content of the drawer, identified by
-     *         the "content" id in XML.
+     * @return 用于呈现抽屉内容的视图，由XML中的“content”来标识。
      */
     public View getContent() {
         return mContent;
     }
 
     /**
-     * Unlocks the SlidingDrawer so that touch events are processed.
+     * 解除对SlidingDrawer的锁定，使其可以处理触控事件。
      *
      * @see #lock() 
      */
@@ -918,7 +911,7 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Locks the SlidingDrawer so that touch events are ignores.
+     * 锁定SlidingDrawer，使其忽略触控事件。
      *
      * @see #unlock()
      */
@@ -927,18 +920,18 @@ public class SlidingDrawer extends ViewGroup {
     }
 
     /**
-     * Indicates whether the drawer is currently fully opened.
+     * 指示抽屉当前是否出于全开状态。
      *
-     * @return True if the drawer is opened, false otherwise.
+     * @return 若抽屉已打开返回真；否则返回假。
      */
     public boolean isOpened() {
         return mExpanded;
     }
 
     /**
-     * Indicates whether the drawer is scrolling or flinging.
+     * 指示抽屉是否正在移动。
      *
-     * @return True if the drawer is scroller or flinging, false otherwise.
+     * @return 若抽屉正在移动返回真；否则返回假。
      */
     public boolean isMoving() {
         return mTracking || mAnimating;

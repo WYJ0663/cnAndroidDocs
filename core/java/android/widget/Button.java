@@ -24,10 +24,9 @@ import android.widget.RemoteViews.RemoteView;
 
 
 /**
- * Represents a push-button widget. Push-buttons can be
- * pressed, or clicked, by the user to perform an action.
-
- * <p>A typical use of a push-button in an activity would be the following:
+ * <p>
+ * <code>Button</code> 代表按钮小部件.用户通过按下按钮，或者点击按钮来执行一个动作.
+ * 以下是一个按钮在活动中典型的应用：
  * </p>
  *
  * <pre>
@@ -40,15 +39,15 @@ import android.widget.RemoteViews.RemoteView;
  *         final Button button = (Button) findViewById(R.id.button_id);
  *         button.setOnClickListener(new View.OnClickListener() {
  *             public void onClick(View v) {
- *                 // Perform action on click
+ *                 // 按钮单击时执行的动作
  *             }
  *         });
  *     }
  * }</pre>
  *
- * <p>However, instead of applying an {@link android.view.View.OnClickListener OnClickListener} to
- * the button in your activity, you can assign a method to your button in the XML layout,
- * using the {@link android.R.attr#onClick android:onClick} attribute. For example:</p>
+ * <p>另外，你可以在 XML 布局文件中，用 {@link android.R.attr#onClick android:onClick}
+ * 属性为按钮指定方法名，以代替在活动中使用的
+ * {@link android.view.View.OnClickListener OnClickListener}.例如：</p>
  *
  * <pre>
  * &lt;Button
@@ -57,40 +56,37 @@ import android.widget.RemoteViews.RemoteView;
  *     android:text="@string/self_destruct"
  *     android:onClick="selfDestruct" /&gt;</pre>
  *
- * <p>Now, when a user clicks the button, the Android system calls the activity's {@code
- * selfDestruct(View)} method. In order for this to work, the method must be public and accept
- * a {@link android.view.View} as its only parameter. For example:</p>
+ * <p>现在，当用户按下按钮，Android 系统会调用活动的 {@code selfDestruct(View)} 方法.
+ * 为了完成该调用，指定的方法必须是公有并且只有一个 {@link android.view.View} 
+ * 类型的参数.例如：</p>
  *
  * <pre>
  * public void selfDestruct(View view) {
- *     // Kabloey
+ *     // 按钮单击时执行的动作
  * }</pre>
  *
- * <p>The {@link android.view.View} passed into the method is a reference to the widget
- * that was clicked.</p>
+ * <p>传入方法的参数{@link android.view.View}是发生单击事件的小部件的引用.</p>
  *
- * <h3>Button style</h3>
+ * <h3>按钮样式</h3>
  *
- * <p>Every Button is styled using the system's default button background, which is often different
- * from one device to another and from one version of the platform to another. If you're not
- * satisfied with the default button style and want to customize it to match the design of your
- * application, then you can replace the button's background image with a <a
- * href="{@docRoot}guide/topics/resources/drawable-resource.html#StateList">state list drawable</a>.
- * A state list drawable is a drawable resource defined in XML that changes its image based on
- * the current state of the button. Once you've defined a state list drawable in XML, you can apply
- * it to your Button with the {@link android.R.attr#background android:background}
- * attribute. For more information and an example, see <a
- * href="{@docRoot}guide/topics/resources/drawable-resource.html#StateList">State List
- * Drawable</a>.</p>
+ * <p>每个按钮的样式默认使用系统的按钮背景，不同的设备、不同的平台版本有不同按钮风格.
+ * 如你不满意默认的按钮样式，想对其定制以符合您应用程序的设计，那么你可以使用
+ * <a href="{@docRoot}guide/topics/resources/drawable-resource.html#StateList">
+ * 状态列表可绘制对象</a>来更改按钮的背景图片.状态列表可绘制对象是在 XML 中定义的，
+ * 可以根据当前按钮的状态改变其图片的可绘制对象资源.在 XML 中定义了状态列表可绘制对象后，
+ * 你可以使用 {@link android.R.attr#background android:background} 属性将其应用于你的按钮.
+ * 欲了解更多信息和示例，参见
+ * <a href="{@docRoot}guide/topics/resources/drawable-resource.html#StateList">
+ * 状态列表可绘制对象</a>.</p>
  *
- * <p>See the <a href="{@docRoot}guide/topics/ui/controls/button.html">Buttons</a>
+ * <p>也可以参考 <a href="{@docRoot}guide/topics/ui/controls/button.html">Buttons</a>
  * guide.</p>
  *
- * <p><strong>XML attributes</strong></p>
- * <p>
- * See {@link android.R.styleable#Button Button Attributes},
- * {@link android.R.styleable#TextView TextView Attributes},
- * {@link android.R.styleable#View View Attributes}
+ * <p><strong>XML 属性</strong></p>
+ * <p> 
+ * 参见 {@link android.R.styleable#Button Button 属性}、
+ * {@link android.R.styleable#TextView TextView 属性} 和
+ * {@link android.R.styleable#View View 属性}.
  * </p>
  */
 @RemoteView

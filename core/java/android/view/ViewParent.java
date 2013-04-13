@@ -20,98 +20,83 @@ import android.graphics.Rect;
 import android.view.accessibility.AccessibilityEvent;
 
 /**
- * Defines the responsibilities for a class that will be a parent of a View.
- * This is the API that a view sees when it wants to interact with its parent.
- * 
+ * 定义了作为父视图应有功能的类. 是视图与父视图交互的接口.
  */
 public interface ViewParent {
     /**
-     * Called when something has changed which has invalidated the layout of a
-     * child of this view parent. This will schedule a layout pass of the view
-     * tree.
+     * 当某些变更导致该父视图的子视图的布局失效时调用该方法.该方法按照视图树的顺序调用.
      */
     public void requestLayout();
 
     /**
-     * Indicates whether layout was requested on this view parent.
+     * 指出该父视图是否请求了布局操作.
      *
-     * @return true if layout was requested, false otherwise
+     * @return 如果请求了布局，返回真；否则返回假.
      */
     public boolean isLayoutRequested();
 
     /**
-     * Called when a child wants the view hierarchy to gather and report
-     * transparent regions to the window compositor. Views that "punch" holes in
-     * the view hierarchy, such as SurfaceView can use this API to improve
-     * performance of the system. When no such a view is present in the
-     * hierarchy, this optimization in unnecessary and might slightly reduce the
-     * view hierarchy performance.
+     * 当子视图需要收集视图层次中透明区域并报告给窗口排版组件时调用.
+     * 需要在视图层次中“打洞”的视图，比如SurfaceView可以利用该API
+     * 来提高系统性能.当视图层次中没有这样的视图时，不需要该优化，
+     * 使用它会稍微降低一些视图层次的性能.
      * 
-     * @param child the view requesting the transparent region computation
+     * @param child 请求计算透明区域的视图.
      * 
      */
     public void requestTransparentRegion(View child);
 
     /**
-     * All or part of a child is dirty and needs to be redrawn.
+     * 需要重绘子视图的部分或全部区域.
      * 
-     * @param child The child which is dirty
-     * @param r The area within the child that is invalid
+     * @param child 需要重绘的视图.
+     * @param r 子视图需要重绘的区域.
      */
     public void invalidateChild(View child, Rect r);
 
     /**
-     * All or part of a child is dirty and needs to be redrawn.
+     * 需要重绘子视图的部分或全部区域.
      *
-     * <p>The location array is an array of two int values which respectively
-     * define the left and the top position of the dirty child.</p>
+     * <p>位置数组中分别保存了待绘制子视图的左上位置的整型数组。</p>
      *
-     * <p>This method must return the parent of this ViewParent if the specified
-     * rectangle must be invalidated in the parent. If the specified rectangle
-     * does not require invalidation in the parent or if the parent does not
-     * exist, this method must return null.</p>
+     * <p>如果指定的区域的父视图被设为无效，则返回父视图；如果指定矩形不会导致父视图无效，
+     * 或者不存在父视图，该方法返回空。</p>
      *
-     * <p>When this method returns a non-null value, the location array must
-     * have been updated with the left and top coordinates of this ViewParent.</p>
+     * <p>当返回非空值时，必须将位置数组中的值更新为本ViewParent的左上坐标。</p>
      *
-     * @param location An array of 2 ints containing the left and top
-     *        coordinates of the child to invalidate
-     * @param r The area within the child that is invalid
+     * @param location 包含设置无效区域的子视图左上坐标的双元素整型数组.
+     * @param r 子视图中设为无效的区域.
      *
-     * @return the parent of this ViewParent or null
+     * @return 该ViewParent的父视图或空.
      */
     public ViewParent invalidateChildInParent(int[] location, Rect r);
 
     /**
-     * Returns the parent if it exists, or null.
+     * 如果存在父视图，返回真，否则返回假.
      *
-     * @return a ViewParent or null if this ViewParent does not have a parent
+     * @return 父视图或者在没有父视图时返回空.
      */
     public ViewParent getParent();
 
     /**
-     * Called when a child of this parent wants focus
+     * 当父视图的子视图请求获得焦点时，调用此方法.
      * 
-     * @param child The child of this ViewParent that wants focus. This view
-     *        will contain the focused view. It is not necessarily the view that
-     *        actually has focus.
-     * @param focused The view that is a descendant of child that actually has
-     *        focus
+     * @param child 请求获得焦点的子视图.此视图将包含具有焦点视图，但其本身不一定具有焦点.
+     * @param focused 事实上拥有焦点的子视图，他可能是 child 的下层视图.
      */
     public void requestChildFocus(View child, View focused);
 
     /**
-     * Tell view hierarchy that the global view attributes need to be
-     * re-evaluated.
+     * 告诉视图层次，全局视图属性需要重新评价.
      * 
-     * @param child View whose attributes have changed.
+     * @param child 属性变更的视图.
      */
     public void recomputeViewAttributes(View child);
     
     /**
-     * Called when a child of this parent is giving up focus
+     * 当该视图的子视图需要放弃焦点时调用.
      * 
-     * @param child The view that is giving up focus
+     * @param child 放弃焦点的视图.
      */
     public void clearChildFocus(View child);
 
@@ -138,127 +123,113 @@ public interface ViewParent {
     public boolean getChildVisibleRect(View child, Rect r, android.graphics.Point offset);
 
     /**
-     * Find the nearest view in the specified direction that wants to take focus
+     * 在指定的方向找到最近的可以获得焦点的视图.
      * 
-     * @param v The view that currently has focus
-     * @param direction One of FOCUS_UP, FOCUS_DOWN, FOCUS_LEFT, and FOCUS_RIGHT
+     * @param v 当前具有焦点的视图.
+     * @param direction FOCUS_UP、FOCUS_DOWN、FOCUS_LEFT、FOCUS_RIGHT之一.
      */
     public View focusSearch(View v, int direction);
 
     /**
-     * Change the z order of the child so it's on top of all other children
+     * 改变子视图的前后顺序，将其移动到所有视图的最前面.
      * 
      * @param child
      */
     public void bringChildToFront(View child);
 
     /**
-     * Tells the parent that a new focusable view has become available. This is
-     * to handle transitions from the case where there are no focusable views to
-     * the case where the first focusable view appears.
+     * 告诉父视图，一个新的可得焦点视图可用了.该方法用于处理，
+     * 从没有的可焦点的视图，到出现第一个可得焦点视图时的转变.
      * 
-     * @param v The view that has become newly focusable
+     * @param v 新的可得焦点视图.
      */
     public void focusableViewAvailable(View v);
 
     /**
-     * Bring up a context menu for the specified view or its ancestors.
-     *
-     * <p>In most cases, a subclass does not need to override this.  However, if
-     * the subclass is added directly to the window manager (for example,
-     * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)})
-     * then it should override this and show the context menu.</p>
+     * 为指定的视图或者其父类显示上下文菜单.
+     * <p>
+     * 大部分情况下，子类不需要重写该方法.但是，如果直接将子类添加到窗口管理器（例如：使用
+     * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)}
+     * 函数），此时就需要重写来显示上下文菜单.</p>
      * 
-     * @param originalView The source view where the context menu was first invoked
-     * @return true if a context menu was displayed
+     * @param originalView 首先显示的上下文菜单的原始视图.
+     * @return 如果显示了上下文菜单返回真.
      */
     public boolean showContextMenuForChild(View originalView);
 
     /**
-     * Have the parent populate the specified context menu if it has anything to
-     * add (and then recurse on its parent).
+     * 通知父类，如果有必要可以向指定的上下文菜单中添加菜单项
+     * （递归通知其父类）.
      * 
-     * @param menu The menu to populate
+     * @param menu 被填充的菜单.
      */
     public void createContextMenu(ContextMenu menu);
 
     /**
-     * Start an action mode for the specified view.
+     * 为指定的视图启动动作模式.
+     * <p>
+     * 大多数情况子类不需要覆盖该方法。如果子类直接向视图管理器添加了视图（比如执行了
+     * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)}），
+     * 那么就应该覆盖该方法，启动动作模式。</p>
      *
-     * <p>In most cases, a subclass does not need to override this. However, if the
-     * subclass is added directly to the window manager (for example,
-     * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)})
-     * then it should override this and start the action mode.</p>
-     *
-     * @param originalView The source view where the action mode was first invoked
-     * @param callback The callback that will handle lifecycle events for the action mode
-     * @return The new action mode if it was started, null otherwise
+     * @param originalView 首次调用动作模式的原始视图
+     * @param callback 用于处理动作模式生命周期事件的回调函数
+     * @return 如果创建了新的动作模式则返回之，否则为空。
      */
     public ActionMode startActionModeForChild(View originalView, ActionMode.Callback callback);
 
     /**
-     * This method is called on the parent when a child's drawable state
-     * has changed.
+     * 当子视图的可绘制对象状态发生改变时调用该方法.
      *
-     * @param child The child whose drawable state has changed.
+     * @param child 可绘制对象发生改变的子视图.
      */
     public void childDrawableStateChanged(View child);
     
     /**
-     * Called when a child does not want this parent and its ancestors to
-     * intercept touch events with
-     * {@link ViewGroup#onInterceptTouchEvent(MotionEvent)}.
-     *
-     * <p>This parent should pass this call onto its parents. This parent must obey
-     * this request for the duration of the touch (that is, only clear the flag
-     * after this parent has received an up or a cancel.</p>
+     * 当子视图不希望他的父类及其祖先使用
+     * {@link ViewGroup#onInterceptTouchEvent(MotionEvent)}
+     * 打断触控事件时调用.
+     * <p>
+     * 父视图应该调用其父类的该方法.父类必须在触控事件期间遵守该请求，
+     * 就是说，父类只有在收到抬起事件或取消事件时才可以清楚该标志.</p>
      * 
-     * @param disallowIntercept True if the child does not want the parent to
-     *            intercept touch events.
+     * @param disallowIntercept 如果子视图不希望父类打断触控事件，设为真.
      */
     public void requestDisallowInterceptTouchEvent(boolean disallowIntercept);
     
     /**
-     * Called when a child of this group wants a particular rectangle to be
-     * positioned onto the screen.  {@link ViewGroup}s overriding this can trust
-     * that:
+     * 当视图组里的某个子视图需要定位到屏幕上的特定矩形区域时，调用此方法.
+     * {@link ViewGroup} 重写此方法时可以认为：
      * <ul>
-     *   <li>child will be a direct child of this group</li>
-     *   <li>rectangle will be in the child's coordinates</li>
+     *   <li>child 是该视图的直接子视图.</li>
+     *   <li>rectangle 使用子视图的坐标系.</li>
      * </ul>
      *
-     * <p>{@link ViewGroup}s overriding this should uphold the contract:</p>
+     * <p>{@link ViewGroup}重写此方法时应该遵守如下约定：</p>
      * <ul>
-     *   <li>nothing will change if the rectangle is already visible</li>
-     *   <li>the view port will be scrolled only just enough to make the
-     *       rectangle visible</li>
+     *   <li>如果矩形可见，不做任何变更.</li>
+     *   <li>视窗滚动到矩形可见即可.</li>
      * <ul>
      *
-     * @param child The direct child making the request.
-     * @param rectangle The rectangle in the child's coordinates the child
-     *        wishes to be on the screen.
-     * @param immediate True to forbid animated or delayed scrolling,
-     *        false otherwise
-     * @return Whether the group scrolled to handle the operation
+     * @param child 发出请求的直接子视图.
+     * @param rectangle 子视图希望显示在屏幕上的、基于子视图坐标系的矩形.
+     * @param immediate 设为真时，禁止动画形式或延迟的滚动；设为假时不禁止.
+     * @return 该方法是否滚动了屏幕.
      */
     public boolean requestChildRectangleOnScreen(View child, Rect rectangle,
             boolean immediate);
 
     /**
-     * Called by a child to request from its parent to send an {@link AccessibilityEvent}.
-     * The child has already populated a record for itself in the event and is delegating
-     * to its parent to send the event. The parent can optionally add a record for itself.
+     * 由子类调用，向父类请求发送一个 {@link AccessibilityEvent} 事件.
+     * 子类已经为自己在事件中填写了记录，请求父类发送该事件。父类可以选择为自己添加记录。
      * <p>
-     * Note: An accessibility event is fired by an individual view which populates the
-     *       event with a record for its state and requests from its parent to perform
-     *       the sending. The parent can optionally add a record for itself before
-     *       dispatching the request to its parent. A parent can also choose not to
-     *       respect the request for sending the event. The accessibility event is sent
-     *       by the topmost view in the view tree.</p>
+     * 注意：辅助事件发生自把自己的状态填入记录的单独的视图，请求其父类来执行发送工作。
+     *      父类可以选择在将事件请求发送给其父类时，添加自身的记录到事件中。
+     *      父类也可以选择忽略发送事件的请求。辅助事件由视图树中最顶层的视图发送。</p>
      *
-     * @param child The child which requests sending the event.
-     * @param event The event to be sent.
-     * @return True if the event was sent.
+     * @param child 请求发送事件的子视图
+     * @param event 要发送的事件
+     * @return 如果发送了事件则返回真。
      */
     public boolean requestSendAccessibilityEvent(View child, AccessibilityEvent event);
 

@@ -47,18 +47,14 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 /**
- * A layout that places its children in a rectangular <em>grid</em>.
+ * 用于把子视图置于矩形 <em>网格</em> 中的视图. 
  * <p>
- * The grid is composed of a set of infinitely thin lines that separate the
- * viewing area into <em>cells</em>. Throughout the API, grid lines are referenced
- * by grid <em>indices</em>. A grid with {@code N} columns
- * has {@code N + 1} grid indices that run from {@code 0}
- * through {@code N} inclusive. Regardless of how GridLayout is
- * configured, grid index {@code 0} is fixed to the leading edge of the
- * container and grid index {@code N} is fixed to its trailing edge
- * (after padding is taken into account).
+ * 网格是由不计宽度的线将视图区域分割成的 <em>单元格</em> 组成的.整个 API 中，网格线都是通过
+ * 网格<em>索引</em>来引用的.有 {@code N} 列的网格拥有从 {@code 0} 到 {@code N}的
+ * {@code N + 1} 个网格索引.无论如果配置 GridLayout，网格索引  {@code 0} 固定代表容器的起始边，
+ * 网格索引 {@code N} 固定代表结束边（应用内边距之后）.
  *
- * <h4>Row and Column Specs</h4>
+ * <h4>行列规格</h4>
  *
  * Children occupy one or more contiguous cells, as defined
  * by their {@link GridLayout.LayoutParams#rowSpec rowSpec} and
@@ -2467,13 +2463,11 @@ public class GridLayout extends ViewGroup {
     }
 
     /**
-     * Alignments specify where a view should be placed within a cell group and
-     * what size it should be.
+     * Alignment 指定视图应放在一个单元格组中的位置及其大小.
      * <p>
-     * The {@link LayoutParams} class contains a {@link LayoutParams#rowSpec rowSpec}
-     * and a {@link LayoutParams#columnSpec columnSpec} each of which contains an
-     * {@code alignment}. Overall placement of the view in the cell
-     * group is specified by the two alignments which act along each axis independently.
+     * {@link LayoutParams} 类包含 {@link LayoutParams#rowSpec rowSpec} 和
+     * {@link LayoutParams#columnSpec columnSpec}，他们都包含 {@code Alignment} 对象.
+     * 整个视图是根据这两个 {@code Alignment} 对象的值，在各自的轴向上放置在单元格组中的.
      * <p>
      *  The GridLayout class defines the most common alignments used in general layout:
      * {@link #TOP}, {@link #LEFT}, {@link #BOTTOM}, {@link #RIGHT}, {@link #START},

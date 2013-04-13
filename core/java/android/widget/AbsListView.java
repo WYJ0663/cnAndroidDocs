@@ -73,9 +73,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class that can be used to implement virtualized lists of items. A list does
- * not have a spatial definition here. For instance, subclases of this class can
- * display the content of the list in a grid, in a carousel, as stack, etc.
+ * 用于实现条目的虚拟列表的基类。 这里的列表没有空间的定义。 
+ * 例如，该类的子类可以以网格的形式、走马灯的形式显示，或者作为堆栈等等。
  *
  * @attr ref android.R.styleable#AbsListView_listSelector
  * @attr ref android.R.styleable#AbsListView_drawSelectorOnTop
@@ -97,22 +96,19 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     private static final String TAG = "AbsListView";
 
     /**
-     * Disables the transcript mode.
+     * 禁用跳转模式。
      *
      * @see #setTranscriptMode(int)
      */
     public static final int TRANSCRIPT_MODE_DISABLED = 0;
     /**
-     * The list will automatically scroll to the bottom when a data set change
-     * notification is received and only if the last item is already visible
-     * on screen.
+     * 仅当最后的条目在屏幕上可见，并且收到数据集变更消息时列表将自动滚动到底部。
      *
      * @see #setTranscriptMode(int)
      */
     public static final int TRANSCRIPT_MODE_NORMAL = 1;
     /**
-     * The list will automatically scroll to the bottom, no matter what items
-     * are currently visible.
+     * 无视当前可见条目，总是自动滚动到列表的底部。
      *
      * @see #setTranscriptMode(int)
      */
@@ -199,22 +195,22 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     static final int LAYOUT_MOVE_SELECTION = 6;
 
     /**
-     * Normal list that does not indicate choices
+     * 不显示选择状态的普通列表。
      */
     public static final int CHOICE_MODE_NONE = 0;
 
     /**
-     * The list allows up to one choice
+     * 允许单选的列表。
      */
     public static final int CHOICE_MODE_SINGLE = 1;
 
     /**
-     * The list allows multiple choices
+     * 允许多选的列表。
      */
     public static final int CHOICE_MODE_MULTIPLE = 2;
 
     /**
-     * The list allows multiple choices in a modal selection mode
+     * 处于定制的选择模式的多选列表。
      */
     public static final int CHOICE_MODE_MULTIPLE_MODAL = 3;
 
@@ -684,66 +680,56 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     private SavedState mPendingSync;
 
     /**
-     * Interface definition for a callback to be invoked when the list or grid
-     * has been scrolled.
+     * 为了在列表或网格滚动时执行回调函数而定义的接口。
      */
     public interface OnScrollListener {
 
         /**
-         * The view is not scrolling. Note navigating the list using the trackball counts as
-         * being in the idle state since these transitions are not animated.
+         * 视图没有滚动。 注意，使用轨迹球滚动时，在滚动停止之前，一直处于空闲状态。
          */
         public static int SCROLL_STATE_IDLE = 0;
 
         /**
-         * The user is scrolling using touch, and their finger is still on the screen
+         * 用户通过触控滚动，并且手指没有离开屏幕。
          */
         public static int SCROLL_STATE_TOUCH_SCROLL = 1;
 
         /**
-         * The user had previously been scrolling using touch and had performed a fling. The
-         * animation is now coasting to a stop
+         * 用户之前通过触控滚动并执行了快速滚动。 滚动动画正滑向停止点。
          */
         public static int SCROLL_STATE_FLING = 2;
 
         /**
-         * Callback method to be invoked while the list view or grid view is being scrolled. If the
-         * view is being scrolled, this method will be called before the next frame of the scroll is
-         * rendered. In particular, it will be called before any calls to
-         * {@link Adapter#getView(int, View, ViewGroup)}.
+         * 当列表视图或网格视图正在滚动是执行的回调函数。 如果视图正在滚动，
+         * 该方法会在渲染下一帧之前调用该方法。就是说，会在调用任何
+         * {@link Adapter#getView(int, View, ViewGroup)}方法之前调用。
          *
-         * @param view The view whose scroll state is being reported
+         * @param view 报告滚动状态的对象视图。
          *
-         * @param scrollState The current scroll state. One of {@link #SCROLL_STATE_IDLE},
-         * {@link #SCROLL_STATE_TOUCH_SCROLL} or {@link #SCROLL_STATE_IDLE}.
+         * @param scrollState 当前滚动状态。值为 {@link #SCROLL_STATE_IDLE}、
+         * {@link #SCROLL_STATE_TOUCH_SCROLL}或{@link #SCROLL_STATE_IDLE}。
          */
         public void onScrollStateChanged(AbsListView view, int scrollState);
 
         /**
-         * Callback method to be invoked when the list or grid has been scrolled. This will be
-         * called after the scroll has completed
-         * @param view The view whose scroll state is being reported
-         * @param firstVisibleItem the index of the first visible cell (ignore if
-         *        visibleItemCount == 0)
-         * @param visibleItemCount the number of visible cells
-         * @param totalItemCount the number of items in the list adaptor
+         * 当列表或网格的滚动已经完成时调用的回调函数。 会在滚动完成后调用。
+         * @param view 报告滚动状态的对象视图。
+         * @param firstVisibleItem 第一个可见单元格的索引（如果 visibleItemCount == 0 则忽略该参数）。
+         * @param visibleItemCount 可见单元格数。
+         * @param totalItemCount 列表适配器中的条目数。
          */
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
                 int totalItemCount);
     }
 
     /**
-     * The top-level view of a list item can implement this interface to allow
-     * itself to modify the bounds of the selection shown for that item.
+     * 列表条目的顶级视图可以实现该接口，允许其改变自己的边界状态，以显示条目的选中状态。
      */
     public interface SelectionBoundsAdjuster {
         /**
-         * Called to allow the list item to adjust the bounds shown for
-         * its selection.
+         * 回调函数，以允许列表条目调整其边界，以表示选中状态。
          *
-         * @param bounds On call, this contains the bounds the list has
-         * selected for the item (that is the bounds of the entire view).  The
-         * values can be modified as desired.
+         * @param bounds 调用时，包含列表选中条目的边界（整个条目视图的边界）。 其值可以任意编辑
          */
         public void adjustListItemSelectionBounds(Rect bounds);
     }
@@ -862,13 +848,12 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the number of items currently selected. This will only be valid
-     * if the choice mode is not {@link #CHOICE_MODE_NONE} (default).
+     * 返回当前选中的条目数。 该函数只有在选择模式不为 {@link #CHOICE_MODE_NONE}
+     * (缺省值)时有效。
      *
-     * <p>To determine the specific items that are currently selected, use one of
-     * the <code>getChecked*</code> methods.
+     * <p>要确定指定条目是否当前处于选中状态，可以使用 <code>getChecked*</code> 方法。
      *
-     * @return The number of items currently selected
+     * @return 当前选中的条目数。
      *
      * @see #getCheckedItemPosition()
      * @see #getCheckedItemPositions()
@@ -879,13 +864,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the checked state of the specified position. The result is only
-     * valid if the choice mode has been set to {@link #CHOICE_MODE_SINGLE}
-     * or {@link #CHOICE_MODE_MULTIPLE}.
+     * 返回指定位置的选中状态。 只有当选择模式为 {@link #CHOICE_MODE_SINGLE}
+     * 或 {@link #CHOICE_MODE_MULTIPLE} 时有效。
      *
-     * @param position The item whose checked state to return
-     * @return The item's checked state or <code>false</code> if choice mode
-     *         is invalid
+     * @param position 要检查选择状态的条目的位置
+     * @return 条目的选择状态，选择模式无效时返回 <code>false</code>
      *
      * @see #setChoiceMode(int)
      */
@@ -898,11 +881,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the currently checked item. The result is only valid if the choice
-     * mode has been set to {@link #CHOICE_MODE_SINGLE}.
+     * 返回当前处于选中状态的条目位置。 只有当选择模式为 {@link #CHOICE_MODE_SINGLE} 时有效。
      *
-     * @return The position of the currently checked item or
-     *         {@link #INVALID_POSITION} if nothing is selected
+     * @return 当前选中条目的位置或无选中条目是返回 {@link #INVALID_POSITION}
      *
      * @see #setChoiceMode(int)
      */
@@ -915,13 +896,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the set of checked items in the list. The result is only valid if
-     * the choice mode has not been set to {@link #CHOICE_MODE_NONE}.
+     * 在列表中返回选中条目的集合。 只有当选择模式不为 {@link #CHOICE_MODE_NONE} 时有效。
      *
-     * @return  A SparseBooleanArray which will return true for each call to
-     *          get(int position) where position is a position in the list,
-     *          or <code>null</code> if the choice mode is set to
-     *          {@link #CHOICE_MODE_NONE}.
+     * @return 对每个元素调用 get(int position) 均返回真的 SparseBooleanArray；
+     *         如果选择模式为 {@link #CHOICE_MODE_NONE} 则返回 <code>null</code>。
      */
     public SparseBooleanArray getCheckedItemPositions() {
         if (mChoiceMode != CHOICE_MODE_NONE) {
@@ -931,12 +909,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the set of checked items ids. The result is only valid if the
-     * choice mode has not been set to {@link #CHOICE_MODE_NONE} and the adapter
-     * has stable IDs. ({@link ListAdapter#hasStableIds()} == {@code true})
+     * 返回选中条目的 ID 的集合。 只有当选择模式不为 {@link #CHOICE_MODE_NONE}，
+     * 并且适配器拥有静态 ID 时有效。
+     * ({@link ListAdapter#hasStableIds()} == {@code true})
      *
-     * @return A new array which contains the id of each checked item in the
-     *         list.
+     * @return 包含列表中所有选中条目的 ID 的新的数组。
      */
     public long[] getCheckedItemIds() {
         if (mChoiceMode == CHOICE_MODE_NONE || mCheckedIdStates == null || mAdapter == null) {
@@ -955,7 +932,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Clear any choices previously set
+     * 清除之前的选择状态。
      */
     public void clearChoices() {
         if (mCheckStates != null) {
@@ -968,12 +945,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Sets the checked state of the specified position. The is only valid if
-     * the choice mode has been set to {@link #CHOICE_MODE_SINGLE} or
-     * {@link #CHOICE_MODE_MULTIPLE}.
+     * 设置指定位置的条目为选中状态。 只有当选择模式为 {@link #CHOICE_MODE_SINGLE}
+     * 或 {@link #CHOICE_MODE_MULTIPLE} 时有效。
      *
-     * @param position The item whose checked state is to be checked
-     * @param value The new checked state for the item
+     * @param position 要设置选择状态的条目位置
+     * @param value 新的选中状态
      */
     public void setItemChecked(int position, boolean value) {
         if (mChoiceMode == CHOICE_MODE_NONE) {
@@ -1128,20 +1104,19 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     /**
      * @see #setChoiceMode(int)
      *
-     * @return The current choice mode
+     * @return 返回当前选择模式
      */
     public int getChoiceMode() {
         return mChoiceMode;
     }
 
     /**
-     * Defines the choice behavior for the List. By default, Lists do not have any choice behavior
-     * ({@link #CHOICE_MODE_NONE}). By setting the choiceMode to {@link #CHOICE_MODE_SINGLE}, the
-     * List allows up to one item to  be in a chosen state. By setting the choiceMode to
-     * {@link #CHOICE_MODE_MULTIPLE}, the list allows any number of items to be chosen.
+     * 定义列表的选择行为。 默认列表没有选择行为({@link #CHOICE_MODE_NONE})。
+     * 通过设置 choiceMode 为 {@link #CHOICE_MODE_SINGLE}，使列表允许最多一个条目处于选中状态。
+     * 通过设置 choiceMode 为 {@link #CHOICE_MODE_MULTIPLE}，使列表允许任意数量的条目处于选中状态。
      *
-     * @param choiceMode One of {@link #CHOICE_MODE_NONE}, {@link #CHOICE_MODE_SINGLE}, or
-     * {@link #CHOICE_MODE_MULTIPLE}
+     * @param choiceMode {@link #CHOICE_MODE_NONE}、{@link #CHOICE_MODE_SINGLE}、
+     * {@link #CHOICE_MODE_MULTIPLE} 之一。
      */
     public void setChoiceMode(int choiceMode) {
         mChoiceMode = choiceMode;
@@ -1165,11 +1140,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Set a {@link MultiChoiceModeListener} that will manage the lifecycle of the
-     * selection {@link ActionMode}. Only used when the choice mode is set to
-     * {@link #CHOICE_MODE_MULTIPLE_MODAL}.
+     * 设置用于管理选择 {@link ActionMode} 生命周期的 {@link MultiChoiceModeListener}。
+     * 仅用于选择模式为 {@link #CHOICE_MODE_MULTIPLE_MODAL} 时。
      *
-     * @param listener Listener that will manage the selection mode
+     * @param listener 用于管理选择模式的监听器
      *
      * @see #setChoiceMode(int)
      */
@@ -1193,13 +1167,14 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Enables fast scrolling by letting the user quickly scroll through lists by
-     * dragging the fast scroll thumb. The adapter attached to the list may want
-     * to implement {@link SectionIndexer} if it wishes to display alphabet preview and
-     * jump between sections of the list.
+     * 允许使用快速滚动手柄，可以通过拖动该手柄在列表中快速滚动。
+     * 若要显示字母预览并在其间跳转，与列表关联的适配器应该实现
+     * {@link SectionIndexer} 接口。
+     * 
+     * @param enabled 是否允许快速滚动。
+     * 
      * @see SectionIndexer
      * @see #isFastScrollEnabled()
-     * @param enabled whether or not to enable fast scrolling
      */
     public void setFastScrollEnabled(boolean enabled) {
         mFastScrollEnabled = enabled;
@@ -1216,13 +1191,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Set whether or not the fast scroller should always be shown in place of the
-     * standard scrollbars. Fast scrollers shown in this way will not fade out and will
-     * be a permanent fixture within the list. Best combined with an inset scroll bar style
-     * that will ensure enough padding. This will enable fast scrolling if it is not
-     * already enabled.
+     * 设置是否总是在标准滚动条的位置显示快速滚动器。 这种方式的快速滚动条不会淡出，
+     * 会永久的固定显示在列表中。要使其和内部滚动条风格形成最佳组合需要确保足够的内边距。
+     * 如果没有启用快速滚动器，该函数将使其可用。
      *
-     * @param alwaysShow true if the fast scroller should always be displayed.
+     * @param alwaysShow 如果要快速滚动器一直显示设置为真。
      * @see #setScrollBarStyle(int)
      * @see #setFastScrollEnabled(boolean)
      */
@@ -1240,10 +1213,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns true if the fast scroller is set to always show on this view rather than
-     * fade out when not in use.
+     * 如果快速滚动器设置为在给视图中一直显示，即使没有使用也不淡出时返回真。
      *
-     * @return true if the fast scroller will always show.
+     * @return 如果快速滚动器一直显示则返回真。
      * @see #setFastScrollAlwaysVisible(boolean)
      */
     public boolean isFastScrollAlwaysVisible() {
@@ -1259,9 +1231,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the current state of the fast scroll feature.
+     * 返回当前快速滚动特性的状态。
      * @see #setFastScrollEnabled(boolean)
-     * @return true if fast scroll is enabled, false otherwise
+     * @return 如果快速滚动已启用返回真，否则返回假。
      */
     @ViewDebug.ExportedProperty
     public boolean isFastScrollEnabled() {
@@ -1286,19 +1258,14 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * When smooth scrollbar is enabled, the position and size of the scrollbar thumb
-     * is computed based on the number of visible pixels in the visible items. This
-     * however assumes that all list items have the same height. If you use a list in
-     * which items have different heights, the scrollbar will change appearance as the
-     * user scrolls through the list. To avoid this issue, you need to disable this
-     * property.
+     * 当平滑滚动启用时，滚动条把手的位置和大小基于可见条目的可见像素数来计算。
+     * 该处里假定所有列表条目具有相同的高度。 如果你使用条目高度不同的类表， 
+     * 滚动条会在用户滚动过程中改变大小。 为了避免这种情况，应该禁用该特性。
+     * 
+     * 当平滑滚动被禁用后，滚动条把手的大小和位置只是基于适配器中的条目数， 
+     * 以及适配器中的可见条目来确定。 这样可以为使用可变高条目列表的用户， 提供稳定的滚动条。
      *
-     * When smooth scrollbar is disabled, the position and size of the scrollbar thumb
-     * is based solely on the number of items in the adapter and the position of the
-     * visible items inside the adapter. This provides a stable scrollbar as the user
-     * navigates through a list of items with varying heights.
-     *
-     * @param enabled Whether or not to enable smooth scrollbar.
+     * @param enabled 是否启用平滑滚动。
      *
      * @see #setSmoothScrollbarEnabled(boolean)
      * @attr ref android.R.styleable#AbsListView_smoothScrollbar
@@ -1308,9 +1275,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the current state of the fast scroll feature.
+     * 返回平滑滚动特性的当前状态。
      *
-     * @return True if smooth scrollbar is enabled is enabled, false otherwise.
+     * @return 如果平滑滚动启用返回真，否则返回假。
      *
      * @see #setSmoothScrollbarEnabled(boolean)
      */
@@ -1320,9 +1287,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Set the listener that will receive notifications every time the list scrolls.
+     * 设置每次列表滚动时收到消息的监听器。
      *
-     * @param l the scroll listener
+     * @param l 滚动监听器。
      */
     public void setOnScrollListener(OnScrollListener l) {
         mOnScrollListener = l;
@@ -1406,10 +1373,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Indicates whether the children's drawing cache is used during a scroll.
-     * By default, the drawing cache is enabled but this will consume more memory.
+     * 指示滚动时是否使用子视图的绘图缓存。 默认为使用绘图缓存，这会占用更多的内存。
      *
-     * @return true if the scrolling cache is enabled, false otherwise
+     * @return 如果启用了滚动缓存返回真，否则返回假。
      *
      * @see #setScrollingCacheEnabled(boolean)
      * @see View#setDrawingCacheEnabled(boolean)
@@ -1420,14 +1386,13 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Enables or disables the children's drawing cache during a scroll.
-     * By default, the drawing cache is enabled but this will use more memory.
+     * 启用或停止在滚动时使用子视图的绘图缓存。 默认为使用绘图缓存，这会占用更多的内存。
+     * 
+     * 当启用滚动缓存时，首次滚动后会保留缓存。 你可以通过调用
+     * {@link android.view.ViewGroup#setChildrenDrawingCacheEnabled(boolean)}
+     * 手动清除缓存。
      *
-     * When the scrolling cache is enabled, the caches are kept after the
-     * first scrolling. You can manually clear the cache by calling
-     * {@link android.view.ViewGroup#setChildrenDrawingCacheEnabled(boolean)}.
-     *
-     * @param enabled true to enable the scroll cache, false otherwise
+     * @param enabled 启用滚动缓存时为真，否则为假。
      *
      * @see #isScrollingCacheEnabled()
      * @see View#setDrawingCacheEnabled(boolean)
@@ -1440,12 +1405,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Enables or disables the type filter window. If enabled, typing when
-     * this view has focus will filter the children to match the users input.
-     * Note that the {@link Adapter} used by this view must implement the
-     * {@link Filterable} interface.
-     *
-     * @param textFilterEnabled true to enable type filtering, false otherwise
+     * 启用或禁用输入过滤窗口。 如启用，在视图具有焦点时，将会过滤子对象，以匹配用户输入。
+     * 注意，视图使用的{@link Adapter 适配器}必须实现了{@link Filterable} 接口。
+     * 
+     * @param textFilterEnabled 为真表示启用输入过滤，反之则为假。
      *
      * @see Filterable
      */
@@ -1454,9 +1417,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Indicates whether type filtering is enabled for this view
+     * 指示该视图是否启用了输入过滤。
      *
-     * @return true if type filtering is enabled, false otherwise
+     * @return 如启用了输入过滤则为真，否则为假。
      *
      * @see #setTextFilterEnabled(boolean)
      * @see Filterable
@@ -1486,10 +1449,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Indicates whether the content of this view is pinned to, or stacked from,
-     * the bottom edge.
+     * 指示该视图的内容是否固定于、或从底边开始堆砌。
      *
-     * @return true if the content is stacked from the bottom edge, false otherwise
+     * @return 如果内容从底边开始堆砌，返回真；否则返回假。
      */
     @ViewDebug.ExportedProperty
     public boolean isStackFromBottom() {
@@ -1497,11 +1459,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * When stack from bottom is set to true, the list fills its content starting from
-     * the bottom of the view.
+     * 当栈从底部开始设置为真时，列表从底部开始向上填充视图。
      *
-     * @param stackFromBottom true to pin the view's content to the bottom edge,
-     *        false to pin the view's content to the top edge
+     * @param stackFromBottom 为真时，视图内容固定于底部；为假时，固定在顶部。
      */
     public void setStackFromBottom(boolean stackFromBottom) {
         if (mStackFromBottom != stackFromBottom) {
@@ -1760,8 +1720,8 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Sets the initial value for the text filter.
-     * @param filterText The text to use for the filter.
+     * 为文本过滤器设置初始值。
+     * @param filterText 过滤器使用的文本。
      *
      * @see #setTextFilterEnabled
      */
@@ -1788,8 +1748,8 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the list's text filter, if available.
-     * @return the list's text filter or null if filtering isn't enabled
+     * 如果存在，则返回列表的文本过滤器。
+     * @return 文本的列表过滤器；如果过滤器未启用返回空。
      */
     public CharSequence getTextFilter() {
         if (mTextFilterEnabled && mTextFilter != null) {
@@ -1972,8 +1932,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Subclasses should NOT override this method but
-     *  {@link #layoutChildren()} instead.
+     * 子类不要重载此方法，如需要请重载 {@link #layoutChildren()} 来代替。
      */
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -2018,7 +1977,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Subclasses must override this method to layout their children.
+     * 子类必须重写此方法，以为其子视图布局。
      */
     protected void layoutChildren() {
     }
@@ -2068,48 +2027,48 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * List padding is the maximum of the normal view's padding and the padding of the selector.
+     * 列表内边距是普通视图内边距和选择器内边距的最大值。
      *
      * @see android.view.View#getPaddingTop()
      * @see #getSelector()
      *
-     * @return The top list padding.
+     * @return 列表顶部的内边距。
      */
     public int getListPaddingTop() {
         return mListPadding.top;
     }
 
     /**
-     * List padding is the maximum of the normal view's padding and the padding of the selector.
+     * 列表内边距是普通视图内边距和选择器内边距的最大值。
      *
      * @see android.view.View#getPaddingBottom()
      * @see #getSelector()
      *
-     * @return The bottom list padding.
+     * @return 列表底部的内边距。
      */
     public int getListPaddingBottom() {
         return mListPadding.bottom;
     }
 
     /**
-     * List padding is the maximum of the normal view's padding and the padding of the selector.
+     * 列表内边距是普通视图内边距和选择器内边距的最大值。
      *
      * @see android.view.View#getPaddingLeft()
      * @see #getSelector()
      *
-     * @return The left list padding.
+     * @return 列表左侧的内边距。
      */
     public int getListPaddingLeft() {
         return mListPadding.left;
     }
 
     /**
-     * List padding is the maximum of the normal view's padding and the padding of the selector.
+     * 列表内边距是普通视图内边距和选择器内边距的最大值。
      *
      * @see android.view.View#getPaddingRight()
      * @see #getSelector()
      *
-     * @return The right list padding.
+     * @return 列表右侧的内边距。
      */
     public int getListPaddingRight() {
         return mListPadding.right;
@@ -2408,11 +2367,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Controls whether the selection highlight drawable should be drawn on top of the item or
-     * behind it.
+     * 控制选择高亮可绘制对象应该在条目的前面绘制还是在后面绘制。
      *
-     * @param onTop If true, the selector will be drawn on the item it is highlighting. The default
-     *        is false.
+     * @param onTop 如果为真，选择器的高亮在条目上面显示。默认值为假。
      *
      * @attr ref android.R.styleable#AbsListView_drawSelectorOnTop
      */
@@ -2421,9 +2378,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Set a Drawable that should be used to highlight the currently selected item.
+     * 设置用于将当前选择条目设置为高亮的可绘制对象。
      *
-     * @param resID A Drawable resource to use as the selection highlight.
+     * @param resID 作为选择高亮的可绘制对象资源。
      *
      * @attr ref android.R.styleable#AbsListView_listSelector
      */
@@ -2448,10 +2405,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the selector {@link android.graphics.drawable.Drawable} that is used to draw the
-     * selection in the list.
+     * 返回用于在列表中绘制选择器的 {@link android.graphics.drawable.Drawable 可绘制对象}。
      *
-     * @return the drawable used to display the selector
+     * @return 用于显示选择器的可绘制对象。
      */
     public Drawable getSelector() {
         return mSelector;
@@ -2905,12 +2861,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Maps a point to a position in the list.
+     * 将坐标点转换为列表中的位置。
      *
-     * @param x X in local coordinate
-     * @param y Y in local coordinate
-     * @return The position of the item which contains the specified point, or
-     *         {@link #INVALID_POSITION} if the point does not intersect an item.
+     * @param x 本地坐标系的 X。
+     * @param y 本地坐标系的 Y。
+     * @return 包含指定点的条目的位置，如果点不再任何条目上返回 {@link #INVALID_POSITION}。
      */
     public int pointToPosition(int x, int y) {
         Rect frame = mTouchFrame;
@@ -2934,12 +2889,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
 
 
     /**
-     * Maps a point to a the rowId of the item which intersects that point.
+     * 将坐标点转换为列表条目的行ID。
      *
-     * @param x X in local coordinate
-     * @param y Y in local coordinate
-     * @return The rowId of the item which contains the specified point, or {@link #INVALID_ROW_ID}
-     *         if the point does not intersect an item.
+     * @param x 本地坐标系的 X。
+     * @param y 本地坐标系的 Y。
+     * @return 包含指定点的条目的条目的行ID；如果点不再任何条目上返回 {@link #INVALID_ROW_ID}。
      */
     public long pointToRowId(int x, int y) {
         int position = pointToPosition(x, y);
@@ -4596,11 +4550,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * The amount of friction applied to flings. The default value
-     * is {@link ViewConfiguration#getScrollFriction}.
+     * 应用到快速滑动的摩擦系数。 默认值为 {@link ViewConfiguration#getScrollFriction}。
      *
-     * @return A scalar dimensionless value representing the coefficient of
-     *         friction.
+     * @return 代表摩擦系数的无量纲值。
      */
     public void setFriction(float friction) {
         if (mFlingRunnable == null) {
@@ -4610,19 +4562,17 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Sets a scale factor for the fling velocity. The initial scale
-     * factor is 1.0.
+     * 设置快速滑动速度的缩放因子。 初始缩放因子为 1.0。
      *
-     * @param scale The scale factor to multiply the velocity by.
+     * @param scale 应用在速度上的缩放因子。
      */
     public void setVelocityScale(float scale) {
         mVelocityScale = scale;
     }
 
     /**
-     * Smoothly scroll to the specified adapter position. The view will
-     * scroll such that the indicated position is displayed.
-     * @param position Scroll to this adapter position.
+     * 平滑滚动到指定适配器位置。 视图会滚动以显示指定位置的视图。
+     * @param position 滚动到的适配器位置
      */
     public void smoothScrollToPosition(int position) {
         if (mPositionScroller == null) {
@@ -4632,16 +4582,13 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Smoothly scroll to the specified adapter position. The view will scroll
-     * such that the indicated position is displayed <code>offset</code> pixels from
-     * the top edge of the view. If this is impossible, (e.g. the offset would scroll
-     * the first or last item beyond the boundaries of the list) it will get as close
-     * as possible. The scroll will take <code>duration</code> milliseconds to complete.
+     * 平滑滚动到指定的适配器位置。 指定位置的视图会滚动到相对顶边偏移 <code>offset</code>
+     * 像素的位置显示。 如果无法做到（比如该偏移量会使首尾条目超越列表边缘），会滚动到尽量接近的位置。
+     * 滚动需要持续 <code>duration</code> 毫秒来完成。
      *
-     * @param position Position to scroll to
-     * @param offset Desired distance in pixels of <code>position</code> from the top
-     *               of the view when scrolling is finished
-     * @param duration Number of milliseconds to use for the scroll
+     * @param position 滚动到的位置
+     * @param offset 滚动结束时，指定 <code>position</code> 条目距离视图顶部的像素数
+     * @param duration 滚动执行的毫秒数
      */
     public void smoothScrollToPositionFromTop(int position, int offset, int duration) {
         if (mPositionScroller == null) {
@@ -4651,15 +4598,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Smoothly scroll to the specified adapter position. The view will scroll
-     * such that the indicated position is displayed <code>offset</code> pixels from
-     * the top edge of the view. If this is impossible, (e.g. the offset would scroll
-     * the first or last item beyond the boundaries of the list) it will get as close
-     * as possible.
+     * 平滑滚动到指定的适配器位置。 指定位置的视图会滚动到相对顶边偏移 <code>offset</code>
+     * 像素的位置显示。 如果无法做到（比如该偏移量会使首尾条目超越列表边缘），会滚动到尽量接近的位置。
      *
-     * @param position Position to scroll to
-     * @param offset Desired distance in pixels of <code>position</code> from the top
-     *               of the view when scrolling is finished
+     * @param position 滚动到的位置
+     * @param offset 滚动结束时，指定 <code>position</code> 条目距离视图顶部的像素数
      */
     public void smoothScrollToPositionFromTop(int position, int offset) {
         if (mPositionScroller == null) {
@@ -4669,13 +4612,11 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Smoothly scroll to the specified adapter position. The view will
-     * scroll such that the indicated position is displayed, but it will
-     * stop early if scrolling further would scroll boundPosition out of
-     * view.
-     * @param position Scroll to this adapter position.
-     * @param boundPosition Do not scroll if it would move this adapter
-     *          position out of view.
+     * 平滑滚动到指定的适配器位置。 视图会滚动到指定位置显示出来，
+     * 如果滚动会使 boundPosition 滚动到视图外，滚动会先被停止。
+     * 
+     * @param position 要滚动到的适配器位置。
+     * @param boundPosition 如果要将这个适配器位置移出视图，滚动会停止。
      */
     public void smoothScrollToPosition(int position, int boundPosition) {
         if (mPositionScroller == null) {
@@ -4685,9 +4626,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Smoothly scroll by distance pixels over duration milliseconds.
-     * @param distance Distance to scroll in pixels.
-     * @param duration Duration of the scroll animation in milliseconds.
+     * 平滑滚动 distance 个像素，持续 duration 毫秒。
+     * 
+     * @param distance 滚动的距离，像素数。
+     * @param duration 滚动动画持续的时间，毫秒。
      */
     public void smoothScrollBy(int distance, int duration) {
         smoothScrollBy(distance, duration, false);
@@ -4720,7 +4662,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Allows RemoteViews to scroll relatively to a position.
+     * 允许 RemoteViews 滚动到指定的相当位置。
      */
     void smoothScrollByOffset(int position) {
         int index = -1;
@@ -4953,20 +4895,18 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the number of header views in the list. Header views are special views
-     * at the top of the list that should not be recycled during a layout.
+     * 返回列表中的列表头视图数量。 列表头视图是显示于列表顶部、在布局时不能再利用的特殊视图。
      *
-     * @return The number of header views, 0 in the default implementation.
+     * @return 列表中的列表头视图数量；缺省实现时，其数量为 0。
      */
     int getHeaderViewsCount() {
         return 0;
     }
 
     /**
-     * Returns the number of footer views in the list. Footer views are special views
-     * at the bottom of the list that should not be recycled during a layout.
+     * 返回列表中的列表尾视图数量。 列表尾视图是显示于列表底部、在布局时不能再利用的特殊视图。
      *
-     * @return The number of footer views, 0 in the default implementation.
+     * @return 列表中的列表尾视图数量；缺省实现时，其数量为 0。
      */
     int getFooterViewsCount() {
         return 0;
@@ -5036,7 +4976,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Causes all the views to be rebuilt and redrawn.
+     * 使所有的视图重新构建并重绘。
      */
     public void invalidateViews() {
         mDataChanged = true;
@@ -5547,7 +5487,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Return an InputConnection for editing of the filter text.
+     * 返回用于编辑过滤文本的 InputConnection 对象。
      */
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
@@ -5601,8 +5541,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * For filtering we proxy an input connection to an internal text editor,
-     * and this allows the proxying to happen.
+     * 测试是否为了过滤信息，为文本编辑器使用了输入连接代理，该操作允许使用代理。
      */
     @Override
     public boolean checkInputConnectionProxy(View view) {
@@ -5648,7 +5587,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Clear the text filter.
+     * 清除文本过滤器。
      */
     public void clearTextFilter() {
         if (mFiltered) {
@@ -5661,7 +5600,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns if the ListView currently has a text filter.
+     * 返回列表视图是否具有文本过滤器。
      */
     public boolean hasTextFilter() {
         return mFiltered;
@@ -5683,16 +5622,14 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * For our text watcher that is associated with the text filter.  Does
-     * nothing.
+     * 为关联到文本过滤器的文本监视器准备的。什么也不做。
      */
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
 
     /**
-     * For our text watcher that is associated with the text filter. Performs
-     * the actual filtering as the text changes, and takes care of hiding and
-     * showing the popup displaying the currently entered filter text.
+     * 为关联到文本过滤器的文本监视器准备的。 
+     * 当文本变更时，执行实际的过滤操作， 并维护弹出显示中的当前输入的过滤文本隐藏和显示。
      */
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (mPopup != null && isTextFilterEnabled()) {
@@ -5721,8 +5658,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * For our text watcher that is associated with the text filter.  Does
-     * nothing.
+     * 为关联到文本过滤器的文本监视器准备的。什么也不做。
      */
     public void afterTextChanged(Editable s) {
     }
@@ -5756,10 +5692,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Puts the list or grid into transcript mode. In this mode the list or grid will always scroll
-     * to the bottom to show new items.
+     * 将列表或网格设置为跳转模式。该模式下，列表或网格总是滚动到底部，以显示新条目。
      *
-     * @param mode the transcript mode to set
+     * @param mode 设置的跳转模式。
      *
      * @see #TRANSCRIPT_MODE_DISABLED
      * @see #TRANSCRIPT_MODE_NORMAL
@@ -5770,10 +5705,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Returns the current transcript mode.
+     * 返回当前跳转模式。
      *
-     * @return {@link #TRANSCRIPT_MODE_DISABLED}, {@link #TRANSCRIPT_MODE_NORMAL} or
-     *         {@link #TRANSCRIPT_MODE_ALWAYS_SCROLL}
+     * @return {@link #TRANSCRIPT_MODE_DISABLED}、{@link #TRANSCRIPT_MODE_NORMAL}
+     *         或者 {@link #TRANSCRIPT_MODE_ALWAYS_SCROLL}。
      */
     public int getTranscriptMode() {
         return mTranscriptMode;
@@ -5785,14 +5720,13 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * When set to a non-zero value, the cache color hint indicates that this list is always drawn
-     * on top of a solid, single-color, opaque background.
+     * 当设置为非零值时，缓存颜色意味着该列表总是在固定的、单色、不透明的背景上绘制。
      *
-     * Zero means that what's behind this object is translucent (non solid) or is not made of a
-     * single color. This hint will not affect any existing background drawable set on this view (
-     * typically set via {@link #setBackgroundDrawable(Drawable)}).
+     * 零意味着该对象的后面是渐变（非固定）色或者不是单色。
+     * 该颜色暗示不影响已经设置在该视图上的既存背景可绘制对象
+     * （一般是通过 {@link #setBackgroundDrawable(Drawable)} 设置的）。
      *
-     * @param color The background color
+     * @param color 颜色暗示
      */
     public void setCacheColorHint(int color) {
         if (color != mCacheColorHint) {
@@ -5806,10 +5740,9 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * When set to a non-zero value, the cache color hint indicates that this list is always drawn
-     * on top of a solid, single-color, opaque background
+     * 如果该值为非零，表示该视图总是在固定的、单色、不透明的背景上绘制。
      *
-     * @return The cache color hint
+     * @return 缓存的颜色。
      */
     @ViewDebug.ExportedProperty(category = "drawing")
     public int getCacheColorHint() {
@@ -5817,11 +5750,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Move all views (excluding headers and footers) held by this AbsListView into the supplied
-     * List. This includes views displayed on the screen as well as views stored in AbsListView's
-     * internal view recycler.
+     * 将该 AbsListView 中的所有视图（不包含头尾视图）移到提供的列表中。
+     * 这些视图包括显示在屏幕上的以及放入 AbsListView 内部视图回收器的视图。
      *
-     * @param views A list into which to put the reclaimed views
+     * @param views 用于填充视图的列表。
      */
     public void reclaimViews(List<View> views) {
         int childCount = getChildCount();
@@ -5853,9 +5785,8 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Sets up this AbsListView to use a remote views adapter which connects to a RemoteViewsService
-     * through the specified intent.
-     * @param intent the intent used to identify the RemoteViewsService for the adapter to connect to.
+     * 设置该 AbsListView，使其使用通过指定的意图连接到 RemoteViewsService 的远程视图适配器。
+     * @param intent 用于识别连接到 RemoteViewsService 的适配器的意图。
      */
     public void setRemoteViewsAdapter(Intent intent) {
         // Ensure that we don't already have a RemoteViewsAdapter that is bound to an existing
@@ -5892,15 +5823,14 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * This defers a notifyDataSetChanged on the pending RemoteViewsAdapter if it has not
-     * connected yet.
+     * 该设置推迟向没有连接的、未确定 RemoteViewsAdapter 发送 notifyDataSetChanged 消息。
      */
     public void deferNotifyDataSetChanged() {
         mDeferNotifyDataSetChanged = true;
     }
 
     /**
-     * Called back when the adapter connects to the RemoteViewsService.
+     * 适配器建立到 RemoteViewsService 的连接时的回调函数。
      */
     public boolean onRemoteAdapterConnected() {
         if (mRemoteAdapter != mAdapter) {
@@ -5918,7 +5848,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Called back when the adapter disconnects from the RemoteViewsService.
+     * 适配器断开到 RemoteViewsService 的连接时的回调函数。
      */
     public void onRemoteAdapterDisconnected() {
         // If the remote adapter disconnects, we keep it around
@@ -5939,12 +5869,10 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * Sets the recycler listener to be notified whenever a View is set aside in
-     * the recycler for later reuse. This listener can be used to free resources
-     * associated to the View.
+     * 设置当视图被放入回收器等待被重用时得到通知的回收监听器。
+     * 该监听器用于释放关联到视图的资源。
      *
-     * @param listener The recycler listener to be notified of views set aside
-     *        in the recycler.
+     * @param listener 视图被放入回收器时收到通知的回收监听器。
      *
      * @see android.widget.AbsListView.RecycleBin
      * @see android.widget.AbsListView.RecyclerListener
@@ -5972,20 +5900,18 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * A MultiChoiceModeListener receives events for {@link AbsListView#CHOICE_MODE_MULTIPLE_MODAL}.
-     * It acts as the {@link ActionMode.Callback} for the selection mode and also receives
-     * {@link #onItemCheckedStateChanged(ActionMode, int, long, boolean)} events when the user
-     * selects and deselects list items.
+     * MultiChoiceModeListener 为 {@link AbsListView#CHOICE_MODE_MULTIPLE_MODAL} 接收事件。
+     * 作为选择模式的{@link ActionMode.Callback 回调函数}，当用户选中/解除列表条目选中状态时，
+     * 接收 {@link #onItemCheckedStateChanged(ActionMode, int, long, boolean)} 事件。
      */
     public interface MultiChoiceModeListener extends ActionMode.Callback {
         /**
-         * Called when an item is checked or unchecked during selection mode.
+         * 处于选择模式时，选中/解除时调用。
          *
-         * @param mode The {@link ActionMode} providing the selection mode
-         * @param position Adapter position of the item that was checked or unchecked
-         * @param id Adapter ID of the item that was checked or unchecked
-         * @param checked <code>true</code> if the item is now checked, <code>false</code>
-         *                if the item is now unchecked.
+         * @param mode 提供选择模式的 {@link ActionMode}
+         * @param position 选中/解除条目的适配器位置
+         * @param id 选中/解除条目的适配器ID
+         * @param checked 如果条目处于选中状态则为<code>true</code>；处于解除状态则为 <code>false</code>
          */
         public void onItemCheckedStateChanged(ActionMode mode,
                 int position, long id, boolean checked);
@@ -6045,7 +5971,7 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * AbsListView extends LayoutParams to provide a place to hold the view type.
+     * AbsListView 扩展了 LayoutParams 以提供空间来保存试图类型。
      */
     public static class LayoutParams extends ViewGroup.LayoutParams {
         /**
@@ -6109,18 +6035,16 @@ public abstract class AbsListView extends AdapterView<ListAdapter> implements Te
     }
 
     /**
-     * A RecyclerListener is used to receive a notification whenever a View is placed
-     * inside the RecycleBin's scrap heap. This listener is used to free resources
-     * associated to Views placed in the RecycleBin.
+     * RecyclerListener 是用于接收视图被移动到待回收堆中时的消息的监听器。 
+     * 该监听器用于释放分配到被放入回收站的视图的资源。
      *
      * @see android.widget.AbsListView.RecycleBin
      * @see android.widget.AbsListView#setRecyclerListener(android.widget.AbsListView.RecyclerListener)
      */
     public static interface RecyclerListener {
         /**
-         * Indicates that the specified View was moved into the recycler's scrap heap.
-         * The view is not displayed on screen any more and any expensive resource
-         * associated with the view should be discarded.
+         * 指示指定的视图被移动到待回收堆中。
+         * 视图不再显示在屏幕上，关联到该视图的贵重的资源应该被释放。
          *
          * @param view
          */

@@ -23,34 +23,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Writes a JSON (<a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>)
- * encoded value to a stream, one token at a time. The stream includes both
- * literal values (strings, numbers, booleans and nulls) as well as the begin
- * and end delimiters of objects and arrays.
+ * 向流中输出经过 JSON (<a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>)
+ * 编码的值，每次只能输出一个字符串. 流中既包括文字值（字符串、数字、布尔值和空值），
+ * 也包括作为对象、数组的开始和结束标志的分隔符。
  *
- * <h3>Encoding JSON</h3>
- * To encode your data as JSON, create a new {@code JsonWriter}. Each JSON
- * document must contain one top-level array or object. Call methods on the
- * writer as you walk the structure's contents, nesting arrays and objects as
- * necessary:
+ * <h3>编码 JSON</h3>
+ * 要将你的数据编码为 JSON，需要创建一个新的 {@code JsonWriter}。每个 JSON 
+ * 文档必须包含一个顶级的数组或对象。按照你浏览数据结构时遇到的内容来调用写入器的方法，
+ * 需要时可以嵌套数组和对象：
  * <ul>
- *   <li>To write <strong>arrays</strong>, first call {@link #beginArray()}.
- *       Write each of the array's elements with the appropriate {@link #value}
- *       methods or by nesting other arrays and objects. Finally close the array
- *       using {@link #endArray()}.
- *   <li>To write <strong>objects</strong>, first call {@link #beginObject()}.
- *       Write each of the object's properties by alternating calls to
- *       {@link #name} with the property's value. Write property values with the
- *       appropriate {@link #value} method or by nesting other objects or arrays.
- *       Finally close the object using {@link #endObject()}.
+ *   <li>要写入<strong>数组</strong>时，首先调用 {@link #beginArray()}。
+ *       之后为每个数组元素调用{@link #value}方法写入适当的值或嵌套其他数组和对象。 
+ *       最后使用 {@link #endArray()} 来关闭数组的输出。
+ *   <li>要写入<strong>对象</strong>时，首先调用 {@link #beginObject()}。
+ *       之后为写入对象的每个属性，使用属性名交替调用 {@link #name} 方法。
+ *       使用 {@link #value} 方法写入适当之值或嵌套其他数组和对象。 
+ *       最后使用 {@link #endObject()} 来关闭对象的输出。
  * </ul>
  *
- * <h3>Example</h3>
- * Suppose we'd like to encode a stream of messages such as the following: <pre> {@code
+ * <h3>示例</h3>
+ * 假设我们要将信息编码为如下形式：
+ * <pre> {@code
  * [
  *   {
  *     "id": 912345678901,
- *     "text": "How do I write JSON on Android?",
+ *     "text": "在 Android 中应该如何写入 JSON 字符串？",
  *     "geo": null,
  *     "user": {
  *       "name": "android_newb",
@@ -59,15 +56,16 @@ import java.util.List;
  *   },
  *   {
  *     "id": 912345678902,
- *     "text": "@android_newb just use android.util.JsonWriter!",
+ *     "text": "@android_newb 只要使用 android.util.JsonWriter 即可！",
  *     "geo": [50.454722, -104.606667],
  *     "user": {
  *       "name": "jesse",
  *       "followers_count": 2
  *     }
  *   }
- * ]}</pre>
- * This code encodes the above structure: <pre>   {@code
+ * ]</pre>
+ * 该代码编码生成上述结构：
+ * <pre>   {@code
  *   public void writeJsonStream(OutputStream out, List<Message> messages) throws IOException {
  *     JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
  *     writer.setIndent("  ");
@@ -111,11 +109,10 @@ import java.util.List;
  *       writer.value(value);
  *     }
  *     writer.endArray();
- *   }}</pre>
+ *   }</pre>
  *
- * <p>Each {@code JsonWriter} may be used to write a single JSON stream.
- * Instances of this class are not thread safe. Calls that would result in a
- * malformed JSON string will fail with an {@link IllegalStateException}.
+ * <p>每个 {@code JsonWriter} 仅可以用于写入一个 JSON 流。该类的实例不是线程安全的。
+ * 在多线程中调用会生成奇怪的 JSON 字符串，会导致 {@link IllegalStateException} 异常。
  */
 public final class JsonWriter implements Closeable {
 
@@ -141,9 +138,9 @@ public final class JsonWriter implements Closeable {
     private boolean lenient;
 
     /**
-     * Creates a new instance that writes a JSON-encoded stream to {@code out}.
-     * For best performance, ensure {@link Writer} is buffered; wrapping in
-     * {@link java.io.BufferedWriter BufferedWriter} if necessary.
+     * 创建一个向 {@code out} 中输出 JSON 编码流的新实例. 为了获得更好的性能，
+     * 请确保 {@link Writer 写入器} 是已缓存的；如果需要可使用
+     * {@link java.io.BufferedWriter BufferedWriter} 包装你的写入器。
      */
     public JsonWriter(Writer out) {
         if (out == null) {
@@ -153,12 +150,10 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Sets the indentation string to be repeated for each level of indentation
-     * in the encoded document. If {@code indent.isEmpty()} the encoded document
-     * will be compact. Otherwise the encoded document will be more
-     * human-readable.
+     * 设置编码文档中用于每级缩进的缩进字符串. 如果{@code indent.isEmpty() 为空}，
+     * 编码的文档更紧凑。非空则编码文档可读性更强。
      *
-     * @param indent a string containing only whitespace.
+     * @param indent 仅包含空白字符的字符串
      */
     public void setIndent(String indent) {
         if (indent.isEmpty()) {
@@ -171,15 +166,12 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Configure this writer to relax its syntax rules. By default, this writer
-     * only emits well-formed JSON as specified by <a
-     * href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>. Setting the writer
-     * to lenient permits the following:
+     * 配置写入器放松其语法规则. 通常该写入器仅输出由 <a href="http://www.ietf.org/rfc/rfc4627.txt">
+     * RFC 4627</a> 指定的，良好格式化的 JSON 字符串。设置写入器可以接受如下格式：
      * <ul>
-     *   <li>Top-level values of any type. With strict writing, the top-level
-     *       value must be an object or an array.
-     *   <li>Numbers may be {@link Double#isNaN() NaNs} or {@link
-     *       Double#isInfinite() infinities}.
+     *   <li>任何类型的顶级值。严格的规则，仅支持类型为对象或数组的顶级值。
+     *   <li>数值可以是 {@link Double#isNaN() NaNs} 或 {@link
+     *       Double#isInfinite() 无穷大}。
      * </ul>
      */
     public void setLenient(boolean lenient) {
@@ -187,45 +179,43 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Returns true if this writer has relaxed syntax rules.
+     * 如果写入器使用宽松语法规则，返回真。
      */
     public boolean isLenient() {
         return lenient;
     }
 
     /**
-     * Begins encoding a new array. Each call to this method must be paired with
-     * a call to {@link #endArray}.
+     * 开始编码新的数组. 对该方法的调用必须与对 {@link #endArray} 的调用成对出现。
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter beginArray() throws IOException {
         return open(JsonScope.EMPTY_ARRAY, "[");
     }
 
     /**
-     * Ends encoding the current array.
+     * 结束对当前数组的编码。
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter endArray() throws IOException {
         return close(JsonScope.EMPTY_ARRAY, JsonScope.NONEMPTY_ARRAY, "]");
     }
 
     /**
-     * Begins encoding a new object. Each call to this method must be paired
-     * with a call to {@link #endObject}.
+     * 开始编码新的对象. 对该方法的调用必须与对 {@link #endObject} 的调用成对出现。
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter beginObject() throws IOException {
         return open(JsonScope.EMPTY_OBJECT, "{");
     }
 
     /**
-     * Ends encoding the current object.
+     * 结束对当前对象的编码。
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter endObject() throws IOException {
         return close(JsonScope.EMPTY_OBJECT, JsonScope.NONEMPTY_OBJECT, "}");
@@ -276,10 +266,10 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes the property name.
+     * 为属性名编码。
      *
-     * @param name the name of the forthcoming value. May not be null.
-     * @return this writer.
+     * @param name 气候的值得名字。不能为空。
+     * @return 写入器。
      */
     public JsonWriter name(String name) throws IOException {
         if (name == null) {
@@ -291,10 +281,10 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code value}.
+     * 为 {@code value} 编码.
      *
-     * @param value the literal string value, or null to encode a null literal.
-     * @return this writer.
+     * @param value 文本字符串的值，或者为空，编码为空的文本值。
+     * @return 写入器。
      */
     public JsonWriter value(String value) throws IOException {
         if (value == null) {
@@ -306,9 +296,9 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code null}.
+     * 为 {@code null} 编码.
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter nullValue() throws IOException {
         beforeValue(false);
@@ -317,9 +307,9 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code value}.
+     * 为 {@code value} 编码.
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter value(boolean value) throws IOException {
         beforeValue(false);
@@ -328,11 +318,11 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code value}.
+     * 为 {@code value} 编码.
      *
-     * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *     {@link Double#isInfinite() infinities} unless this writer is lenient.
-     * @return this writer.
+     * @param value 有限的值。除非写入器允许宽松语法，否则不允许为
+     * {@link Double#isNaN() NaNs} 或 {@link Double#isInfinite() infinities}。
+     * @return 写入器。
      */
     public JsonWriter value(double value) throws IOException {
         if (!lenient && (Double.isNaN(value) || Double.isInfinite(value))) {
@@ -344,9 +334,9 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code value}.
+     * 为 {@code value} 编码.
      *
-     * @return this writer.
+     * @return 写入器。
      */
     public JsonWriter value(long value) throws IOException {
         beforeValue(false);
@@ -355,11 +345,11 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Encodes {@code value}.
+     * 为 {@code value} 编码.
      *
-     * @param value a finite value. May not be {@link Double#isNaN() NaNs} or
-     *     {@link Double#isInfinite() infinities} unless this writer is lenient.
-     * @return this writer.
+     * @param value 有限的值。除非写入器允许宽松语法，否则不允许为
+     * {@link Double#isNaN() NaNs} 或 {@link Double#isInfinite() infinities}。
+     * @return 写入器。
      */
     public JsonWriter value(Number value) throws IOException {
         if (value == null) {
@@ -377,17 +367,16 @@ public final class JsonWriter implements Closeable {
     }
 
     /**
-     * Ensures all buffered data is written to the underlying {@link Writer}
-     * and flushes that writer.
+     * 确保所有缓存的数据都写入了底层 {@link Writer}，并刷新该该写入器。
      */
     public void flush() throws IOException {
         out.flush();
     }
 
     /**
-     * Flushes and closes this writer and the underlying {@link Writer}.
+     * 刷新并关闭该写入器及底层 {@link Writer}。
      *
-     * @throws IOException if the JSON document is incomplete.
+     * @throws IOException 如果 JSON 文档不完整。
      */
     public void close() throws IOException {
         out.close();

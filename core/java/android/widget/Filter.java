@@ -23,18 +23,17 @@ import android.os.Message;
 import android.util.Log;
 
 /**
- * <p>A filter constrains data with a filtering pattern.</p>
+ * <p>根据过滤模式限制数据的过滤器.</p>
+ * <p>过滤器通常由实现了 {@link android.widget.Filterable} 接口的子类来生成.</p>
  *
- * <p>Filters are usually created by {@link android.widget.Filterable}
- * classes.</p>
- *
- * <p>Filtering operations performed by calling {@link #filter(CharSequence)} or
- * {@link #filter(CharSequence, android.widget.Filter.FilterListener)} are
- * performed asynchronously. When these methods are called, a filtering request
- * is posted in a request queue and processed later. Any call to one of these
- * methods will cancel any previous non-executed filtering request.</p>
- *
+ * <p>过滤操作是通过调用 {@link #filter(CharSequence)} 或
+ * {@link #filter(CharSequence, android.widget.Filter.FilterListener)}
+ * 这些异步方法来完成的.调用方法后，过滤请求会递交到请求队列中等待处理.
+ * 任何对以上方法的调用，都将取消之前未执行的过滤请求.</p>
  * @see android.widget.Filterable
+ * @author translate by henly.zhang
+ * @author translate by cnmahj
+ * @author convert by cnmahj
  */
 public abstract class Filter {
     private static final String LOG_TAG = "Filter";
@@ -51,7 +50,7 @@ public abstract class Filter {
     private final Object mLock = new Object();
 
     /**
-     * <p>Creates a new asynchronous filter.</p>
+     * <p>创建一个新的异步过滤器.</p>	
      */
     public Filter() {
         mResultHandler = new ResultsHandler();
@@ -72,11 +71,10 @@ public abstract class Filter {
     }
 
     /**
-     * <p>Starts an asynchronous filtering operation. Calling this method
-     * cancels all previous non-executed filtering requests and posts a new
-     * filtering request that will be executed later.</p>
+     * <p>启动异步过滤操作.对该方法的调用将取消之前队列中等待处理的过滤请求，
+     * 并递交新的过滤请求等待执行.</p>
      *
-     * @param constraint the constraint used to filter the data
+     * @param constraint 过滤数据的约束条件
      *
      * @see #filter(CharSequence, android.widget.Filter.FilterListener)
      */
@@ -85,14 +83,12 @@ public abstract class Filter {
     }
 
     /**
-     * <p>Starts an asynchronous filtering operation. Calling this method
-     * cancels all previous non-executed filtering requests and posts a new
-     * filtering request that will be executed later.</p>
+     * <p>启动异步过滤操作.对该方法的调用将取消之前队列中等待处理的过滤请求，
+     * 并递交新的过滤请求等待执行.</p>
+     * <p>完成过滤操作之后，通知监听器.</p> 
      *
-     * <p>Upon completion, the listener is notified.</p>
-     *
-     * @param constraint the constraint used to filter the data
-     * @param listener a listener notified upon completion of the operation
+     * @param constraint 过滤数据的约束条件
+     * @param listener 过滤操作完成后发出的通知的监听器
      *
      * @see #filter(CharSequence)
      * @see #performFiltering(CharSequence)
@@ -125,19 +121,15 @@ public abstract class Filter {
     }
 
     /**
-     * <p>Invoked in a worker thread to filter the data according to the
-     * constraint. Subclasses must implement this method to perform the
-     * filtering operation. Results computed by the filtering operation
-     * must be returned as a {@link android.widget.Filter.FilterResults} that
-     * will then be published in the UI thread through
-     * {@link #publishResults(CharSequence,
-     * android.widget.Filter.FilterResults)}.</p>
+     * <p>根据约束条件调用工作线程过滤数据.子类必须实现该方法来执行过滤操作.
+     * 过滤结果以 {@link android.widget.Filter.FilterResults} 形式返回，
+     * 通过 {@link #publishResults(CharSequence, android.widget.Filter.FilterResults)}
+     * 发布到 UI 线程.</p>
      *
-     * <p><strong>Contract:</strong> When the constraint is null, the original
-     * data must be restored.</p>
+     * <p><strong>约定：</strong> 当约束条件为 null 时，必须恢复原始数据.</p>
      *
-     * @param constraint the constraint used to filter the data
-     * @return the results of the filtering operation
+     * @param constraint 用于过滤数据的约束条件
+     * @return 过滤结果
      *
      * @see #filter(CharSequence, android.widget.Filter.FilterListener)
      * @see #publishResults(CharSequence, android.widget.Filter.FilterResults)
@@ -146,12 +138,10 @@ public abstract class Filter {
     protected abstract FilterResults performFiltering(CharSequence constraint);
 
     /**
-     * <p>Invoked in the UI thread to publish the filtering results in the
-     * user interface. Subclasses must implement this method to display the
-     * results computed in {@link #performFiltering}.</p>
-     *
-     * @param constraint the constraint used to filter the data
-     * @param results the results of the filtering operation
+     * <p>在 UI 线程中执行，用于向用户接口发布过滤结果.子类必须实现该方法，
+     * 用于发布 {@link #performFiltering} 的处理结果.</p>
+     * @param constraint 用于过滤数据的约束条件
+     * @param results 过滤操作的结果
      *
      * @see #filter(CharSequence, android.widget.Filter.FilterListener)
      * @see #performFiltering(CharSequence)
@@ -161,21 +151,17 @@ public abstract class Filter {
             FilterResults results);
 
     /**
-     * <p>Converts a value from the filtered set into a CharSequence. Subclasses
-     * should override this method to convert their results. The default
-     * implementation returns an empty String for null values or the default
-     * String representation of the value.</p>
-     *
-     * @param resultValue the value to convert to a CharSequence
-     * @return a CharSequence representing the value
+     * 将已过滤的集合的内容转换为 CharSequence.子类必须实现该方法，以转换处理结果.
+     * <p>默认实现是对于 null 返回空字符串，其他的返回参数的默认字符串.</p>
+     * @param resultValue 要转换为 CharSequence 文本的对象
+     * @return 代表转换结果的	CharSequence.
      */
     public CharSequence convertResultToString(Object resultValue) {
         return resultValue == null ? "" : resultValue.toString();
     }
 
     /**
-     * <p>Holds the results of a filtering operation. The results are the values
-     * computed by the filtering operation and the number of these values.</p>
+     * <p>用于保持过滤操作的结果.结果包含过滤操作的结果及其个数.</p>
      */
     protected static class FilterResults {
         public FilterResults() {
@@ -183,26 +169,25 @@ public abstract class Filter {
         }
 
         /**
-         * <p>Contains all the values computed by the filtering operation.</p>
+         * <p>包含过滤操作的所有结果.</p>
+         * 
          */
         public Object values;
 
         /**
-         * <p>Contains the number of values computed by the filtering
-         * operation.</p>
+         * <p>包含过滤操作的结果数量.</p>	
          */
         public int count;
     }
 
     /**
-     * <p>Listener used to receive a notification upon completion of a filtering
-     * operation.</p>
+     * <p>用于接受过滤操作完成后发出的通知的监听器.</p>
      */
     public static interface FilterListener {
         /**
-         * <p>Notifies the end of a filtering operation.</p>
+         * <p>过滤操作结束的通知.</p>	
          *
-         * @param count the number of values computed by the filter
+         * @param count 过滤结果的数量.
          */
         public void onFilterComplete(int count);
     }

@@ -46,22 +46,19 @@ import android.widget.RemoteViews.RemoteView;
 import static android.util.Log.d;
 
 /**
- * A Layout where the positions of the children can be described in relation to each other or to the
- * parent.
+ * 子视图的位置可以用相对于其它子视图或父视图的位置来描述的布局.
  *
  * <p>
- * Note that you cannot have a circular dependency between the size of the RelativeLayout and the
- * position of its children. For example, you cannot have a RelativeLayout whose height is set to
- * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT WRAP_CONTENT} and a child set to
- * {@link #ALIGN_PARENT_BOTTOM}.
+ * 注意，不能在 RelativeLayout 容器和他的子元素之间产生循环依赖.比如说，不能在将 RelativeLayout
+ * 的高设置为{@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT WRAP_CONTENT}
+ * 的时候，将子元素的高设置为 {@link #ALIGN_PARENT_BOTTOM}.
  * </p>
  *
- * <p>See the <a href="{@docRoot}guide/topics/ui/layout/relative.html">Relative
+ * <p>参见 <a href="{@docRoot}guide/topics/ui/layout/relative.html">Relative
  * Layout</a> guide.</p>
  *
  * <p>
- * Also see {@link android.widget.RelativeLayout.LayoutParams RelativeLayout.LayoutParams} for
- * layout attributes
+ * 布局属性参见 {@link android.widget.RelativeLayout.LayoutParams RelativeLayout.LayoutParams}.
  * </p>
  *
  * @attr ref android.R.styleable#RelativeLayout_gravity
@@ -76,77 +73,70 @@ public class RelativeLayout extends ViewGroup {
     public static final int TRUE = -1;
 
     /**
-     * Rule that aligns a child's right edge with another child's left edge.
+     * 布局规则：将子视图的右边线与另外子视图的左边线对齐.
      */
     public static final int LEFT_OF                  = 0;
     /**
-     * Rule that aligns a child's left edge with another child's right edge.
+     * 布局规则：将子视图的左边线与另外子视图的右边线对齐.
      */
     public static final int RIGHT_OF                 = 1;
     /**
-     * Rule that aligns a child's bottom edge with another child's top edge.
+     * 布局规则：将子视图的底边线与另外子视图的顶边线对齐.
      */
     public static final int ABOVE                    = 2;
     /**
-     * Rule that aligns a child's top edge with another child's bottom edge.
+     * 布局规则：将子视图的顶边线与另外子视图的底边线对齐.
      */
     public static final int BELOW                    = 3;
 
     /**
-     * Rule that aligns a child's baseline with another child's baseline.
+     * 布局规则：将子视图的基线与另外子视图的基线对齐.
      */
     public static final int ALIGN_BASELINE           = 4;
     /**
-     * Rule that aligns a child's left edge with another child's left edge.
+     * 布局规则：将子视图的左边线与另外子视图的左边线对齐.
      */
     public static final int ALIGN_LEFT               = 5;
     /**
-     * Rule that aligns a child's top edge with another child's top edge.
+     * 布局规则：将子视图的顶边线与另外子视图的顶边线对齐.
      */
     public static final int ALIGN_TOP                = 6;
     /**
-     * Rule that aligns a child's right edge with another child's right edge.
+     * 布局规则：将子视图的右边线与另外子视图的右边线对齐.
      */
     public static final int ALIGN_RIGHT              = 7;
     /**
-     * Rule that aligns a child's bottom edge with another child's bottom edge.
+     * 布局规则：将子视图的底边线与另外子视图的底边线对齐.
      */
     public static final int ALIGN_BOTTOM             = 8;
 
     /**
-     * Rule that aligns the child's left edge with its RelativeLayout
-     * parent's left edge.
+     * 布局规则：将子视图的左边线与相对布局容器的左边线对齐.
      */
     public static final int ALIGN_PARENT_LEFT        = 9;
     /**
-     * Rule that aligns the child's top edge with its RelativeLayout
-     * parent's top edge.
+     * 布局规则：将子视图的左边线与相对布局容器的顶边线对齐.
      */
     public static final int ALIGN_PARENT_TOP         = 10;
     /**
-     * Rule that aligns the child's right edge with its RelativeLayout
-     * parent's right edge.
+     * 布局规则：将子视图的左边线与相对布局容器的右边线对齐.
      */
     public static final int ALIGN_PARENT_RIGHT       = 11;
     /**
-     * Rule that aligns the child's bottom edge with its RelativeLayout
-     * parent's bottom edge.
+     * 布局规则：将子视图的左边线与相对布局容器的底边线对齐.
      */
     public static final int ALIGN_PARENT_BOTTOM      = 12;
 
     /**
-     * Rule that centers the child with respect to the bounds of its
-     * RelativeLayout parent.
+     * 布局规则：将子视图相对于相对布局容器居中对齐.
      */
     public static final int CENTER_IN_PARENT         = 13;
     /**
-     * Rule that centers the child horizontally with respect to the
-     * bounds of its RelativeLayout parent.
+     * 布局规则：将子视图相对于相对布局容器横向居中对齐.
      */
     public static final int CENTER_HORIZONTAL        = 14;
     /**
-     * Rule that centers the child vertically with respect to the
-     * bounds of its RelativeLayout parent.
+     * 布局规则：将子视图相对于相对布局容器纵向居中对齐.
      */
     public static final int CENTER_VERTICAL          = 15;
     /**
@@ -229,11 +219,10 @@ public class RelativeLayout extends ViewGroup {
     }
 
     /**
-     * Defines which View is ignored when the gravity is applied. This setting has no
-     * effect if the gravity is <code>Gravity.START | Gravity.TOP</code>.
+     * 定义应用对齐方式时忽略的视图.当对齐方式为 <code>Gravity.START | Gravity.TOP</code>
+     * 时，该设置没有影响.
      *
-     * @param viewId The id of the View to be ignored by gravity, or 0 if no View
-     *        should be ignored.
+     * @param viewId 对齐时忽略的视图 ID，为 0 时不忽略任何视图.
      *
      * @see #setGravity(int)
      *
@@ -259,15 +248,13 @@ public class RelativeLayout extends ViewGroup {
     }
 
     /**
-     * Describes how the child views are positioned. Defaults to
-     * <code>Gravity.START | Gravity.TOP</code>.
+     * 描述子视图如何定位.默认值为 <code>Gravity.START | Gravity.TOP</code>.
      *
-     * <p>Note that since RelativeLayout considers the positioning of each child
-     * relative to one another to be significant, setting gravity will affect
-     * the positioning of all children as a single unit within the parent.
-     * This happens after children have been relatively positioned.</p>
+     * <p>注意，如果 RelativeLayout 相对于一个重要的视图计算每个子视图的位置，
+     * 设置其对齐方式会影响父视图中所有的子视图的位置，使其移动同样大小.
+     * 当子视图是相对位置是会发生这种现象.</p>
      *
-     * @param gravity See {@link android.view.Gravity}
+     * @param gravity 参见 {@link android.view.Gravity}
      *
      * @see #setHorizontalGravity(int)
      * @see #setVerticalGravity(int)
@@ -1029,9 +1016,9 @@ public class RelativeLayout extends ViewGroup {
     }
 
     /**
-     * Returns a set of layout parameters with a width of
-     * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT},
-     * a height of {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} and no spanning.
+     * 返回宽度为 {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}、
+     * 高度为 {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}，
+     * 并且没有跨越（spanning）的布局参数集合.
      */
     @Override
     protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
@@ -1114,7 +1101,7 @@ public class RelativeLayout extends ViewGroup {
     }
 
     /**
-     * Per-child layout information associated with RelativeLayout.
+     * 与相对视图关联的子视图的布局信息.
      *
      * @attr ref android.R.styleable#RelativeLayout_Layout_layout_alignWithParentIfMissing
      * @attr ref android.R.styleable#RelativeLayout_Layout_layout_toLeftOf
@@ -1180,8 +1167,7 @@ public class RelativeLayout extends ViewGroup {
         private boolean mRulesChanged = false;
 
         /**
-         * When true, uses the parent as the anchor if the anchor doesn't exist or if
-         * the anchor's visibility is GONE.
+         * 为真时，如果对齐目标不存在或无空间（GONE），则相对于父容器布局.
          */
         @ViewDebug.ExportedProperty(category = "layout")
         public boolean alignWithParent;
@@ -1303,15 +1289,13 @@ public class RelativeLayout extends ViewGroup {
         }
 
         /**
-         * Adds a layout rule to be interpreted by the RelativeLayout. This
-         * method should only be used for constraints that don't refer to another sibling
-         * (e.g., CENTER_IN_PARENT) or take a boolean value ({@link RelativeLayout#TRUE}
-         * for true or 0 for false). To specify a verb that takes a subject, use
-         * {@link #addRule(int, int)} instead.
+         * 添加相对布局可用的布局规则.该方法只用于相对兄弟以外的布局
+         * （比如 CENTER_IN_PARENT）或者保持布尔值
+         * （真为{@link RelativeLayout#TRUE}，假为0）.
+         * 指定相对目标时请使用 {@link #addRule(int, int)} 函数.
          *
-         * @param verb One of the verbs defined by
-         *        {@link android.widget.RelativeLayout RelativeLayout}, such as
-         *        ALIGN_WITH_PARENT_LEFT.
+         * @param verb 在 {@link android.widget.RelativeLayout RelativeLayout}
+         * 	      中定义的常量，比如 ALIGN_WITH_PARENT_LEFT.
          * @see #addRule(int, int)
          */
         public void addRule(int verb) {
@@ -1321,17 +1305,15 @@ public class RelativeLayout extends ViewGroup {
         }
 
         /**
-         * Adds a layout rule to be interpreted by the RelativeLayout. Use this for
-         * verbs that take a target, such as a sibling (ALIGN_RIGHT) or a boolean
-         * value (VISIBLE).
+         * 添加相对布局可用的布局规则.该方法用于相对于其他兄弟视图的布局
+         * （比如 ALIGN_RIGHT）或者表示可视性的布尔值.
          *
-         * @param verb One of the verbs defined by
-         *        {@link android.widget.RelativeLayout RelativeLayout}, such as
-         *         ALIGN_WITH_PARENT_LEFT.
-         * @param anchor The id of another view to use as an anchor,
-         *        or a boolean value(represented as {@link RelativeLayout#TRUE})
-         *        for true or 0 for false).  For verbs that don't refer to another sibling
-         *        (for example, ALIGN_WITH_PARENT_BOTTOM) just use -1.
+         * @param verb 在 {@link android.widget.RelativeLayout RelativeLayout}
+         * 	      中定义的常量，比如 ALIGN_WITH_PARENT_LEFT.
+         * @param anchor 作为参照物使用的另一个视图，或者布尔值
+         *               （以 {@link RelativeLayout#TRUE}代表真，0代表假）.
+         *               对于不需要参照兄弟的常量（比如 ALIGN_WITH_PARENT_BOTTOM）
+         *               该值设为 -1 即可.
          * @see #addRule(int)
          */
         public void addRule(int verb, int anchor) {
@@ -1415,11 +1397,10 @@ public class RelativeLayout extends ViewGroup {
         }
 
         /**
-         * Retrieves a complete list of all supported rules, where the index is the rule
-         * verb, and the element value is the value specified, or "false" if it was never
-         * set. There will be no resolution of relative rules done.
+         * 取得所有支持的布局规则列表，索引是规则的常量，值为设置的值，若未设置时返回假.
+         * There will be no resolution of relative rules done.
          *
-         * @return the supported rules
+         * @return 支持的规则.
          * @see #addRule(int, int)
          */
         public int[] getRules() {

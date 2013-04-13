@@ -1,11 +1,11 @@
-page.title=Running Your App
-parent.title=Building Your First App
+page.title=运行你的应用
+parent.title=创建你的首个应用
 parent.link=index.html
 
 trainingnavtop=true
-previous.title=Creating a Project
+previous.title=创建 Android 项目
 previous.link=creating-project.html
-next.title=Building a Simple User Interface
+next.title=构建简单的用户界面
 next.link=building-ui.html
 
 @jd:body
@@ -15,19 +15,19 @@ next.link=building-ui.html
 <div id="tb-wrapper"> 
 <div id="tb"> 
  
-<h2>This lesson teaches you to</h2>
+<h2>该课程教你</h2>
 
 <ol>
-  <li><a href="#RealDevice">Run on a Real Device</a></li>
-  <li><a href="#Emulator">Run on the Emulator</a></li>
+  <li><a href="#RealDevice">在实机上运行程序</a></li>
+  <li><a href="#Emulator">在模拟器上运行程序</a></li>
 </ol>
 
-<h2>You should also read</h2>
+<h2>你也应该阅读</h2>
 
 <ul>
-  <li><a href="{@docRoot}tools/device.html">Using Hardware Devices</a></li>
-  <li><a href="{@docRoot}tools/devices/index.html">Managing Virtual Devices</a></li>
-  <li><a href="{@docRoot}tools/projects/index.html">Managing Projects</a></li>
+  <li><a href="{@docRoot}tools/device.html">使用硬件设备</a></li>
+  <li><a href="{@docRoot}tools/devices/index.html">管理虚拟设备</a></li>
+  <li><a href="{@docRoot}tools/projects/index.html">关系项目</a></li>
 </ul>
  
  
@@ -35,192 +35,156 @@ next.link=building-ui.html
 </div> 
 
 
-<p>If you followed the <a href="creating-project.html">previous lesson</a> to create an
-Android project, it includes a default set of "Hello World" source files that allow you to
-immediately run the app.</p>
+<p>如果你按照<a href="creating-project.html">前面课程</a>创建了 Android 项目，它包含了可以立即运行的
+“Hello World”源代码文件。</p>
 
-<p>How you run your app depends on two things: whether you have a real Android-powered device and
-whether you're using Eclipse. This lesson shows you how to install and run your app on a
-real device and on the Android emulator, and in both cases with either Eclipse or the command line
-tools.</p>
+<p>由两该条件来决定如何运行你的应用：你是否拥有运行着 Android 的设备和你是否使用 Eclipse。
+本节课向你展示了如何将你的应用安装到实机和 Android 模拟器上，并且包含了使用 Eclipse 
+和使用命令行工具两种情况。</p>
 
-<p>Before you run your app, you should be aware of a few directories and files in the Android
-project:</p>
+<p>在你运行应用之前，你应该先了解一下 Android 项目中的一些目录和文件：</p>
 
 <dl>
   <dt><code>AndroidManifest.xml</code></dt>
-  <dd>The <a href="{@docRoot}guide/topics/manifest/manifest-intro.html">manifest file</a> describes
-the fundamental characteristics of the app and defines each of
-its components. You'll learn about various declarations in this file as you read more training
-classes.
-  <p>One of the most important elements your manifest should include is the <a
-href="{@docRoot}guide/topics/manifest/uses-sdk-element.html">{@code &lt;uses-sdk>}</a>
-element. This declares your app's compatibility with different Android versions using the <a
-href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#min">{@code android:minSdkVersion}</a>
-and <a
-href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#target">{@code android:targetSdkVersion}</a>
-attributes. For your first app, it should look like this:</p>
+  <dd><a href="{@docRoot}guide/topics/manifest/manifest-intro.html">清单文件</a>描述了应用的基本特征，
+    并定义其每个组件。你要通过阅读更多的教程来学习文件中的各种声明方法。
+  <p>在清单文件中应该包含的最重要的元素是
+  <a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html">{@code &lt;uses-sdk>}</a>。
+  它通过使用<a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#min">
+  {@code android:minSdkVersion}</a>属性和<a
+  href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#target">
+  {@code android:targetSdkVersion}</a>属性来声明，应用在不同 Android 版本间的兼容性。
+  他看起来应该像这样：</p>
 <pre>
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android" ... >
     &lt;uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
     ...
 &lt;/manifest>
 </pre>
-<p>You should always set the <a
-href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#target">{@code android:targetSdkVersion}</a>
-as high as possible and test your app on the corresponding platform version. For more information,
-read <a href="{@docRoot}training/basics/supporting-devices/platforms.html">Supporting Different
-Platform Versions</a>.</p>
+<p>你应该将<a href="{@docRoot}guide/topics/manifest/uses-sdk-element.html#target">
+{@code android:targetSdkVersion}</a>设置为尽可能高的版本，并在该版本平台下测试你的应用。
+更多信息可以阅读<a href="{@docRoot}training/basics/supporting-devices/platforms.html">
+支持平台的不同版本</a>。</p>
 
   </dd>
   <dt><code>src/</code></dt>
-  <dd>Directory for your app's main source files. By default, it includes an {@link
-android.app.Activity} class that runs when your app is launched using the app icon.</dd>
+  <dd>存放应用程序主要源代码文件的目录。默认包含一个可以通过应用图标启动的
+    {@link android.app.Activity} 类。</dd>
   <dt><code>res/</code></dt>
-  <dd>Contains several sub-directories for <a
-href="{@docRoot}guide/topics/resources/overview.html">app resources</a>. Here are just a few:
+  <dd>包含几个用于存放<a href="{@docRoot}guide/topics/resources/overview.html">应用资源</a>的子目录。
+    部分列举如下：
     <dl style="margin-top:1em">
       <dt><code>drawable-hdpi/</code></dt>
-        <dd>Directory for drawable objects (such as bitmaps) that are designed for high-density
-(hdpi) screens. Other drawable directories contain assets designed for other screen densities.</dd>
+        <dd>存放设计用于高分辨率（HDPI）屏幕的可绘制对象（比如位图文件）的目录。其他以 {@code drawable}
+          起始的目录包含设计用于其他屏幕分辨率的可绘制对象。</dd>
       <dt><code>layout/</code></dt>
-        <dd>Directory for files that define your app's user interface.</dd>
+        <dd>该目录包含用于定义应用的用户界面的文件。</dd>
       <dt><code>values/</code></dt>
-        <dd>Directory for other various XML files that contain a collection of resources, such as
-string and color definitions.</dd>
+        <dd>该目录存放其它包含资源集合的 XML 文件，比如字符串和颜色定义。</dd>
     </dl>  
   </dd>
 </dl>
 
-<p>When you build and run the default Android app, the default {@link android.app.Activity}
-class starts and loads a layout file
-that says "Hello World." The result is nothing exciting, but it's
-important that you understand how to run your app before you start developing.</p>
+<p>如果你构建并运行默认 Android 应用，默认 {@link android.app.Activity} 会启动并载入布局文件，
+在屏幕上显示“Hello World.”字样。 没什么可以激动的，只是让你在开始开发之前让你了解如何运行应用。</p>
 
 
+<h2 id="RealDevice">在实机上运行程序</h2>
 
-<h2 id="RealDevice">Run on a Real Device</h2>
-
-<p>If you have a real Android-powered device, here's how you can install and run your app:</p>
+<p>如果你拥有运行着 Android 的设备，如何安装和运行你的应用在这里：</p>
 
 <ol>
-  <li>Plug in your device to your development machine with a USB cable.
-If you're developing on Windows, you might need to install the appropriate USB driver for your
-device. For help installing drivers, see the <a href="{@docRoot}tools/extras/oem-usb.html">OEM USB
-Drivers</a> document.</li>  
-  <li>Enable <strong>USB debugging</strong> on your device.
+  <li>将你的设备通过 USB 线插到开发用的机器上。 如果你在 Windows 上开发，
+  你可能需要为你的设备安装对应的 USB 驱动。关于驱动的安装，参见关于 <a 
+  href="{@docRoot}tools/extras/oem-usb.html">OEM USB 驱动</a>文档。</li>  
+  <li>在你的设备上启用<strong>USB 调试</strong>功能。
     <ul>
-      <li>On most devices running Android 3.2 or older, you can find the option under
-        <strong>Settings > Applications > Development</strong>.</li>
-      <li>On Android 4.0 and newer, it's in <strong>Settings > Developer options</strong>.
-        <p class="note"><strong>Note:</strong> On Android 4.2 and newer, <strong>Developer
-        options</strong> is hidden by default. To make it available, go
-        to <strong>Settings > About phone</strong> and tap <strong>Build number</strong>
-        seven times. Return to the previous screen to find <strong>Developer options</strong>.</p>
+      <li>在大多数运行着 Android 3.2 或更低的系统上，你可以在<strong>设置 > 应用程序 > 开发</strong>
+        中找到该选项。</li>
+      <li>在 Android 4.0 或更新的系统中，它在<strong>设置 > 开发选项</strong>中。
+        <p class="note"><strong>注意：</strong> 在 Android 4.2 或更新的系统中，<strong>开发选项
+          </strong>默认是不可见的。 要使其可用，需要在<strong>设置 > 关于手机</strong>画面点击
+          <strong>Build number</strong>七次。然后回到之前的画面，就可以找到<strong>开发选项
+          </strong>了。</p>
       </li>
     </ul>
   </li>
 </ol>
 
-<p>To run the app from Eclipse:</p>
+<p>从 Eclipse 中运行应用：</p>
 <ol>
-  <li>Open one of your project's files and click
-<strong>Run</strong> <img
-src="{@docRoot}images/tools/eclipse-run.png" style="vertical-align:baseline;margin:0" />
-from the toolbar.</li>
-  <li>In the <strong>Run as</strong> window that appears, select
-  <strong>Android Application</strong> and click <strong>OK</strong>.</li>
+  <li>打开一个项目文件，按下工具栏中的 <strong>Run</strong> <img
+src="{@docRoot}images/tools/eclipse-run.png" style="vertical-align:baseline;margin:0" />按钮。</li>
+  <li>在出现的 <strong>Run as</strong>窗口中选择<strong>Android Application</strong>并按下<strong>
+  OK</strong>按钮。</li>
 </ol>
-<p>Eclipse installs the app on your connected device and starts it.</p>
+<p>Eclipse 会向连接的设备中安装应用并启动它。</p>
 
 
-<p>Or to run your app from a command line:</p>
+<p>或者从命令行运行你的应用：</p>
 
 <ol>
-  <li>Change directories to the root of your Android project and execute:
+  <li>将目录切换到你的 Android 项目的根目录并执行：
 <pre class="no-pretty-print">ant debug</pre></li>
-  <li>Make sure the Android SDK <code>platform-tools/</code> directory is included in your
-<code>PATH</code> environment variable, then execute:
+  <li>确信 Android SDK 的<code>platform-tools/</code>目录包含在你的<code>PATH</code>环境变量中，执行：
 <pre class="no-pretty-print">adb install bin/MyFirstApp-debug.apk</pre></li>
-  <li>On your device, locate <em>MyFirstActivity</em> and open it.</li>
+  <li>在你的设备上找到<em>MyFirstActivity</em>并打开。</li>
 </ol>
 
-<p>That's how you build and run your Android app on a device!
-  To start developing, continue to the <a href="building-ui.html">next
-lesson</a>.</p>
+<p>如何在设备上构建并运行 Android 应用就讲完了！要开始开发就继续学习<a href="building-ui.html">
+下一课</a>。</p>
 
 
 
-<h2 id="Emulator">Run on the Emulator</h2>
+<h2 id="Emulator">在模拟器上运行程序</h2>
 
-<p>Whether you're using Eclipse or the command line, to run your app on the emulator you need to
-first create an <a href="{@docRoot}tools/devices/index.html">Android Virtual Device</a> (AVD). An
-AVD is a device configuration for the Android emulator that allows you to model different
-devices.</p>
+<p>无论你使用 Eclipse 还是命令行，在模拟器上运行应用之前你需要创建一个<a
+href="{@docRoot}tools/devices/index.html">Android 虚拟设备</a>（AVD）。 AVD 是 Android 模拟器的
+设备配置，它允许你模拟不同的设备。</p>
 
 <div class="figure" style="width:457px">
   <img src="{@docRoot}images/screens_support/avds-config.png" alt="" />
-  <p class="img-caption"><strong>Figure 1.</strong> The AVD Manager showing a few virtual
-devices.</p>
+  <p class="img-caption"><strong>图1 -</strong> AVD 管理器显示了一些虚拟设备。</p>
 </div>
 
-<p>To create an AVD:</p>
+<p>创建 AVD：</p>
 <ol>
-  <li>Launch the Android Virtual Device Manager:
+  <li>运行 Android 虚拟设备管理器：
     <ol type="a">
-      <li>In Eclipse, click Android Virtual Device Manager 
-        <img src="{@docRoot}images/tools/avd_manager.png"
-style="vertical-align:baseline;margin:0" /> from the toolbar.</li> 
-      <li>From the command line, change
-directories to <code>&lt;sdk>/tools/</code> and execute:
+      <li>在 Eclipse 中，点击工具栏中的 Android 虚拟设备管理器<img
+      src="{@docRoot}images/tools/avd_manager.png" style="vertical-align:baseline;margin:0" />
+      图标。</li> 
+      <li>使用命令行则切换目录到<code>&lt;sdk>/tools/</code>并执行：
 <pre class="no-pretty-print">android avd</pre></li>
     </ol>
   </li>
-  <li>In the <em>Android Virtual Device Manager</em> panel, click <strong>New</strong>.</li>
-  <li>Fill in the details for the AVD.
-Give it a name, a platform target, an SD card size, and a skin (HVGA is default).</li>
-  <li>Click <strong>Create AVD</strong>.</li>
-  <li>Select the new AVD from the <em>Android Virtual Device Manager</em> and click
-<strong>Start</strong>.</li>
-  <li>After the emulator boots up, unlock the emulator screen.</li>
+  <li>在 <em>Android 虚拟设备管理器</em>面板上点击<strong>New</strong>按钮。</li>
+  <li>填写 AVD 的详细内容。 填上名字、目标平台、SD 卡大小和皮肤（默认为 HVGA）。</li>
+  <li>点击<strong>Create AVD</strong>按钮。</li>
+  <li>从<em>Android 虚拟设备管理器</em>中选择新建的 AVD 并点击<strong>Start</strong>按钮。</li>
+  <li>模拟器启动后，为虚拟器屏幕解锁。</li>
 </ol>
 
-<p>To run the app from Eclipse:</p>
+<p>从 Eclipse 中运行应用：</p>
 <ol>
-  <li>Open one of your project's files and click
-<strong>Run</strong> <img
-src="{@docRoot}images/tools/eclipse-run.png" style="vertical-align:baseline;margin:0" />
-from the toolbar.</li>
-  <li>In the <strong>Run as</strong> window that appears, select
-  <strong>Android Application</strong> and click <strong>OK</strong>.</li>
+  <li>打开一个项目文件，按下工具栏中的 <strong>Run</strong> <img
+src="{@docRoot}images/tools/eclipse-run.png" style="vertical-align:baseline;margin:0" />按钮。</li>
+  <li>在出现的 <strong>Run as</strong>窗口中选择<strong>Android Application</strong>并按下<strong>
+  OK</strong>按钮。</li>
 </ol>
-<p>Eclipse installs the app on your AVD and starts it.</p>
+<p>Eclipse 会向 AVD 中安装应用并启动它。</p>
 
 
-<p>Or to run your app from the command line:</p>
+<p>或者从命令行运行你的应用：</p>
 
 <ol>
-  <li>Change directories to the root of your Android project and execute:
+  <li>将目录切换到你的 Android 项目的根目录并执行：
 <pre class="no-pretty-print">ant debug</pre></li>
-  <li>Make sure the Android SDK <code>platform-tools/</code> directory is included in your
-<code>PATH</code> environment
-variable, then execute:
+  <li>确信 Android SDK 的<code>platform-tools/</code>目录包含在你的<code>PATH</code>环境变量中，执行：
 <pre class="no-pretty-print">adb install bin/MyFirstApp-debug.apk</pre></li>
-  <li>On the emulator, locate <em>MyFirstActivity</em> and open it.</li>
+  <li>在你的模拟器上找到<em>MyFirstActivity</em>并打开。</li>
 </ol>
 
 
-<p>That's how you build and run your Android app on the emulator! 
-  To start developing, continue to the <a href="building-ui.html">next
-lesson</a>.</p>
-
-
-
-
-
-
-
-
-
-
-
+<p>如何在模拟器上构建并运行 Android 应用就讲完了！要开始开发就继续学习<a href="building-ui.html">
+下一课</a>。</p>

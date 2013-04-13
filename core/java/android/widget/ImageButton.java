@@ -30,19 +30,15 @@ import java.util.Map;
 /**
  * <p>
  * Displays a button with an image (instead of text) that can be pressed 
- * or clicked by the user. By default, an ImageButton looks like a regular 
- * {@link android.widget.Button}, with the standard button background
- * that changes color during different button states. The image on the surface
- * of the button is defined either by the {@code android:src} attribute in the
- * {@code <ImageButton>} XML element or by the
- * {@link #setImageResource(int)} method.</p>
+ * or clicked by the user. 默认情况下，ImageButton 看起来像一个普通的
+ * {@link android.widget.Button 按钮}，拥有标准的背景色，并在不同状态时变更颜色.
+ * 按钮上的图片可用通过 XML 布局文件的 {@code &lt;ImageButton&gt;} XML 元素的
+ * {@code android:src} 属性或这代码中的 {@link #setImageResource(int)} 方法指定.</p>
  * 
- * <p>To remove the standard button background image, define your own 
- * background image or set the background color to be transparent.</p>
- * <p>To indicate the different button states (focused, selected, etc.), you can
- * define a different image for each state. E.g., a blue image by default, an
- * orange one for when focused, and a yellow one for when pressed. An easy way to
- * do this is with an XML drawable "selector." For example:</p>
+ * <p>要移除标准按钮背景图像，可以定义自己的背景图片或设置背景为透明.</p>
+ * <p>为了表示不同的按钮状态（得到焦点，被选中等），你可以为每种状态定义不同的图片.
+ * 例如，默认状态为蓝色图片、获得焦点时显示橙色图片、按下时显示黄色图片.
+ * 使用 XML 布局文件的可绘制对象“selector”可以简单的实现该功能.例如：</p>
  * <pre>
  * &lt;?xml version="1.0" encoding="utf-8"?&gt;
  * &lt;selector xmlns:android="http://schemas.android.com/apk/res/android"&gt;
@@ -53,25 +49,25 @@ import java.util.Map;
  *     &lt;item android:drawable="@drawable/button_normal" /&gt; &lt;!-- default --&gt;
  * &lt;/selector&gt;</pre>
  *
- * <p>Save the XML file in your project {@code res/drawable/} folder and then 
- * reference it as a drawable for the source of your ImageButton (in the 
- * {@code android:src} attribute). Android will automatically change the image 
- * based on the state of the button and the corresponding images
- * defined in the XML.</p>
+ * <p>保存上面的 XML 到 {@code res/drawable/} 文件夹下.将其作为你的
+ * ImageButton 的可绘制对象的源（使用 {@code android:src} 属性）.
+ * Android 会自动根据按钮的状态，显示 XML 文件中定义的相应图片.</p>
  *
- * <p>The order of the {@code <item>} elements is important because they are
- * evaluated in order. This is why the "normal" button image comes last, because
- * it will only be applied after {@code android:state_pressed} and {@code
- * android:state_focused} have both evaluated false.</p>
+ * <p>{@code &lt;item&gt;} 元素的顺序很重要，因为是按顺序判断当前状态要显示的图片.
+ * 将为默认状态指定的图片放在最后，是因为它只会在 {@code android:state_pressed}
+ * 和 {@code android:state_focused} 都为否时才能显示.</p>
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/button.html">Buttons</a>
  * guide.</p>
  *
- * <p><strong>XML attributes</strong></p>
+ * <p><strong>XML 属性</strong></p>
  * <p>
- * See {@link android.R.styleable#ImageView Button Attributes},
- * {@link android.R.styleable#View View Attributes}
+ * 参见 {@link android.R.styleable#ImageView Button 属性} 和
+ * {@link android.R.styleable#View View 属性}.
  * </p>
+ * @author translate by 农民伯伯
+ * @author review by cnmahj
+ * @author convert by cnmahj
  */
 @RemoteView
 public class ImageButton extends ImageView {

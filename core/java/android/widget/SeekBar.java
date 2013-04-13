@@ -24,47 +24,43 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 
 /**
- * A SeekBar is an extension of ProgressBar that adds a draggable thumb. The user can touch
- * the thumb and drag left or right to set the current progress level or use the arrow keys.
- * Placing focusable widgets to the left or right of a SeekBar is discouraged. 
+ * SeekBar 是 ProgressBar 的扩展，在其基础上增加了一个可滑动的滑片(注：就是那个可拖动的图标).
+ * 用户可以触摸滑片并向左或向右拖动，再或者可以使用方向键都可以设置当前的进度等级.
+ * 不建议把可以获取焦点的小部件放在 SeekBar 的左边或右边.
  * <p>
- * Clients of the SeekBar can attach a {@link SeekBar.OnSeekBarChangeListener} to
- * be notified of the user's actions.
+ * SeekBar 可以附加一个 {@link SeekBar.OnSeekBarChangeListener} 以获得用户操作的通知.
  *
  * @attr ref android.R.styleable#SeekBar_thumb
+ * @author translate by madgoat（Android中文翻译组）
+ * @author convert by cnmahj
  */
 public class SeekBar extends AbsSeekBar {
 
     /**
-     * A callback that notifies clients when the progress level has been
-     * changed. This includes changes that were initiated by the user through a
-     * touch gesture or arrow key/trackball as well as changes that were initiated
-     * programmatically.
+     * 当进度改变后用于通知客户端的回调函数.
+     * 这包括用户通过手势、方向键或轨迹球触发的改变， 以及编程触发的改变.
      */
     public interface OnSeekBarChangeListener {
         
         /**
-         * Notification that the progress level has changed. Clients can use the fromUser parameter
-         * to distinguish user-initiated changes from those that occurred programmatically.
+         * 通知进度已经被修改.客户端可以使用 fromUser 参数区分用户触发的改变还是编程触发的改变.
          * 
-         * @param seekBar The SeekBar whose progress has changed
-         * @param progress The current progress level. This will be in the range 0..max where max
-         *        was set by {@link ProgressBar#setMax(int)}. (The default value for max is 100.)
-         * @param fromUser True if the progress change was initiated by the user.
+         * @param seekBar 当前被修改进度的 SeekBar.
+         * @param progress 	当前的进度值.此值的取值范围为 0 到 max 之间.
+         * Max为用户通过 {@link ProgressBar#setMax(int)} 设置的值，默认为100.
+         * @param fromUser 如果是用户触发的改变则返回 True.
          */
         void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser);
     
         /**
-         * Notification that the user has started a touch gesture. Clients may want to use this
-         * to disable advancing the seekbar. 
-         * @param seekBar The SeekBar in which the touch gesture began
+         * 通知用户已经开始一个触摸拖动手势.客户端可能需要使用这个来禁用 seekbar 的滑动功能.
+         * @param seekBar 触摸手势开始的 SeekBar.
          */
         void onStartTrackingTouch(SeekBar seekBar);
         
         /**
-         * Notification that the user has finished a touch gesture. Clients may want to use this
-         * to re-enable advancing the seekbar. 
-         * @param seekBar The SeekBar in which the touch gesture began
+         * 通知用户触摸手势已经结束.户端可能需要使用这个来启用 seekbar 的滑动功能.
+         * @param seekBar 触摸手势开始了的 SeekBar.
          */
         void onStopTrackingTouch(SeekBar seekBar);
     }
@@ -93,10 +89,10 @@ public class SeekBar extends AbsSeekBar {
     }
 
     /**
-     * Sets a listener to receive notifications of changes to the SeekBar's progress level. Also
-     * provides notifications of when the user starts and stops a touch gesture within the SeekBar.
+     * 设置一个监听器以接受 seekbar 进度改变时的通知.
+     * 同时提供用户在 SeekBar 上开始和停止触摸手势时的通知.
      * 
-     * @param l The seek bar notification listener
+     * @param l SeekBar 的通知监听者
      * 
      * @see SeekBar.OnSeekBarChangeListener
      */

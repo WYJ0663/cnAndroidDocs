@@ -21,10 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * An adapter that links a {@link ExpandableListView} with the underlying
- * data. The implementation of this interface will provide access
- * to the data of the children (categorized by groups), and also instantiate
- * {@link View}s for children and groups.
+ * 这个适配器在 {@link ExpandableListView} 和底层数据之间起到了一个衔接的作用.
+ * 该接口的实现类提供了访问子元素（以组的形式将它们分类）的数据；
+ * 同时，也提供了为子元素和组创建相应的{@link View 视图}的功能.
  */
 public interface ExpandableListAdapter {
     /**
@@ -38,119 +37,107 @@ public interface ExpandableListAdapter {
     void unregisterDataSetObserver(DataSetObserver observer);
 
     /**
-     * Gets the number of groups.
+     * 取得分组数.
      * 
-     * @return the number of groups
+     * @return 分组数.
      */
     int getGroupCount();
 
     /**
-     * Gets the number of children in a specified group.
+     * 取得指定分组的子元素数.
      * 
-     * @param groupPosition the position of the group for which the children
-     *            count should be returned
-     * @return the children count in the specified group
+     * @param groupPosition 要取得子元素个数的分组位置.
+     * @return 指定分组的子元素个数.
      */
     int getChildrenCount(int groupPosition);
 
     /**
-     * Gets the data associated with the given group.
+     * 取得与给定分组关联的数据.
      * 
-     * @param groupPosition the position of the group
-     * @return the data child for the specified group
+     * @param groupPosition 分组的位置.
+     * @return 指定分组的数据.
      */
     Object getGroup(int groupPosition);
     
     /**
-     * Gets the data associated with the given child within the given group.
+     * 取得与指定分组、指定子项目关联的数据.
      * 
-     * @param groupPosition the position of the group that the child resides in
-     * @param childPosition the position of the child with respect to other
-     *            children in the group
-     * @return the data of the child
+     * @param groupPosition 包含子视图的分组的位置.
+     * @param childPosition 指定的分组中的子视图的位置.
+     * @return 与子视图关联的数据.
      */
     Object getChild(int groupPosition, int childPosition);
 
     /**
-     * Gets the ID for the group at the given position. This group ID must be
-     * unique across groups. The combined ID (see
-     * {@link #getCombinedGroupId(long)}) must be unique across ALL items
-     * (groups and all children).
+     * 取得指定分组的ID.该组ID必须在组中是唯一的.组合的ID
+     * （参见{@link #getCombinedGroupId(long)}）
+     * 必须不同于其他所有ID（分组及子项目的ID）.
      * 
-     * @param groupPosition the position of the group for which the ID is wanted
-     * @return the ID associated with the group
+     * @param groupPosition 要取得ID的分组位置.
+     * @return 与分组关联的ID.
      */
     long getGroupId(int groupPosition);
 
     /**
-     * Gets the ID for the given child within the given group. This ID must be
-     * unique across all children within the group. The combined ID (see
-     * {@link #getCombinedChildId(long, long)}) must be unique across ALL items
-     * (groups and all children).
+     * 取得给定分组中给定子视图的ID. 该组ID必须在组中是唯一的.组合的ID
+     * （参见{@link #getCombinedGroupId(long)}）
+     * 必须不同于其他所有ID（分组及子项目的ID）.
      * 
-     * @param groupPosition the position of the group that contains the child
-     * @param childPosition the position of the child within the group for which
-     *            the ID is wanted
-     * @return the ID associated with the child
+     * @param groupPosition 包含子视图的分组的位置.
+     * @param childPosition 要取得ID的指定的分组中的子视图的位置.
+     * @return 与子视图关联的ID.
      */
     long getChildId(int groupPosition, int childPosition);
 
     /**
-     * Indicates whether the child and group IDs are stable across changes to the
-     * underlying data.
+     * 是否指定分组视图及其子视图的ID对应的后台数据改变也会保持该ID.
      * 
-     * @return whether or not the same ID always refers to the same object
+     * @return 是否相同的ID总是指向同一个对象.
      * @see Adapter#hasStableIds()
      */
     boolean hasStableIds();
 
     /**
-     * Gets a View that displays the given group. This View is only for the
-     * group--the Views for the group's children will be fetched using
+     * 取得用于显示给定分组的视图. 这个方法仅返回分组的视图对象，
+     * 要想获取子元素的视图对象，就需要调用
      * {@link #getChildView(int, int, boolean, View, ViewGroup)}.
      * 
-     * @param groupPosition the position of the group for which the View is
-     *            returned
-     * @param isExpanded whether the group is expanded or collapsed
-     * @param convertView the old view to reuse, if possible. You should check
-     *            that this view is non-null and of an appropriate type before
-     *            using. If it is not possible to convert this view to display
-     *            the correct data, this method can create a new view. It is not
-     *            guaranteed that the convertView will have been previously
-     *            created by
-     *            {@link #getGroupView(int, boolean, View, ViewGroup)}.
-     * @param parent the parent that this view will eventually be attached to
-     * @return the View corresponding to the group at the specified position
+     * @param groupPosition 决定返回哪个视图的组位置 .
+     * @param isExpanded 该组是展开状态还是收起状态 .
+     * @param convertView 如果可能，重用旧的视图对象.
+     *            使用前你应该保证视图对象为非空，并且是否是合适的类型.
+     *            如果该对象不能转换为可以正确显示数据的视图，该方法就创建新视图.
+     *            不保证使用先前由
+     *            {@link #getGroupView(int, boolean, View, ViewGroup)}创建的视图.
+     * @param parent 该视图最终从属的父视图.
+     * @return 指定位置相应的组视图.
      */
     View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent);
 
     /**
-     * Gets a View that displays the data for the given child within the given
-     * group.
+     * 取得显示给定分组给定子位置的数据用的视图.
      * 
-     * @param groupPosition the position of the group that contains the child
-     * @param childPosition the position of the child (for which the View is
-     *            returned) within the group
-     * @param isLastChild Whether the child is the last child within the group
-     * @param convertView the old view to reuse, if possible. You should check
-     *            that this view is non-null and of an appropriate type before
-     *            using. If it is not possible to convert this view to display
-     *            the correct data, this method can create a new view. It is not
-     *            guaranteed that the convertView will have been previously
-     *            created by
-     *            {@link #getChildView(int, int, boolean, View, ViewGroup)}.
-     * @param parent the parent that this view will eventually be attached to
-     * @return the View corresponding to the child at the specified position
+     * @param groupPosition 包含要取得子视图的分组位置.
+     * @param childPosition 分组中子视图（要返回的视图）的位置.
+     * @param isLastChild 该视图是否为组中的最后一个视图.
+     * @param convertView 如果可能，重用旧的视图对象.
+     *            使用前你应该保证视图对象为非空，并且是否是合适的类型.
+     *            如果该对象不能转换为可以正确显示数据的视图，该方法就创建新视图.
+     *            不保证使用先前由
+     *            {@link #getChildView(int, int, boolean, View, ViewGroup)}
+     *            创建的视图.
+     * @param parent 该视图最终从属的父视图.
+     * @return 指定位置相应的子视图.
      */
     View getChildView(int groupPosition, int childPosition, boolean isLastChild,
             View convertView, ViewGroup parent);
 
     /**
-     * Whether the child at the specified position is selectable.
+     * 指定位置的子视图是否可选择.
      * 
-     * @param groupPosition the position of the group that contains the child
-     * @param childPosition the position of the child within the group
-     * @return whether the child is selectable.
+     * @param groupPosition 包含要取得子视图的分组位置.
+     * @param childPosition 分组中子视图的位置.
+     * @return 是否子视图可选择.
      */
     boolean isChildSelectable(int groupPosition, int childPosition);
 
@@ -165,45 +152,41 @@ public interface ExpandableListAdapter {
     boolean isEmpty();
 
     /**
-     * Called when a group is expanded.
+     * 分组展开时调用.
      * 
-     * @param groupPosition The group being expanded.
+     * @param groupPosition 展开的分组.
      */
     void onGroupExpanded(int groupPosition);
     
     /**
-     * Called when a group is collapsed.
+     * 分组收起时调用.
      * 
-     * @param groupPosition The group being collapsed.
+     * @param groupPosition 收起的分组.
      */
     void onGroupCollapsed(int groupPosition);
     
     /**
-     * Gets an ID for a child that is unique across any item (either group or
-     * child) that is in this list. Expandable lists require each item (group or
-     * child) to have a unique ID among all children and groups in the list.
-     * This method is responsible for returning that unique ID given a child's
-     * ID and its group's ID. Furthermore, if {@link #hasStableIds()} is true, the
-     * returned ID must be stable as well.
+     * 取得一览中可以唯一识别子条目的 ID（包括分组ID和子条目ID）.可扩展列表要求每个条目
+     * （分组条目和子条目）具有一个可以唯一识别列表中子条目和分组条目的ID.
+     * 该方法根据给定子条目ID和分组条目ID返回唯一识别ID.另外，如果
+     * {@link #hasStableIds()} 为真，该函数返回的ID必须是固定不变的.
      * 
-     * @param groupId The ID of the group that contains this child.
-     * @param childId The ID of the child.
-     * @return The unique (and possibly stable) ID of the child across all
-     *         groups and children in this list.
+     * @param groupId 包含子条目ID的分组条目ID.
+     * @param childId 子条目的ID.
+     * @return 返回可以在所有分组条目和子条目中唯一识别该子条目的ID
+     * （可能是固定不变的）.
      */
     long getCombinedChildId(long groupId, long childId);
 
     /**
-     * Gets an ID for a group that is unique across any item (either group or
-     * child) that is in this list. Expandable lists require each item (group or
-     * child) to have a unique ID among all children and groups in the list.
-     * This method is responsible for returning that unique ID given a group's
-     * ID. Furthermore, if {@link #hasStableIds()} is true, the returned ID must be
-     * stable as well.
+     * 取得一览中可以唯一识别子条目的 ID（包括分组ID和子条目ID）.可扩展列表要求每个条目
+     * （分组条目和子条目）具有一个可以唯一识别列表中子条目和分组条目的ID.
+     * 该方法根据给定子条目ID和分组条目ID返回唯一识别ID.另外，如果
+     * {@link #hasStableIds()} 为真，该函数返回的ID必须是固定不变的.
      * 
-     * @param groupId The ID of the group
-     * @return The unique (and possibly stable) ID of the group across all
-     *         groups and children in this list.
+     * @param groupId 分组条目ID.
+     * @return 返回可以在所有分组条目和子条目中唯一识别该分组条目的ID
+     * （可能是固定不变的）.
      */
     long getCombinedGroupId(long groupId);
 }

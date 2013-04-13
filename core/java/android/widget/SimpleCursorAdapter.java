@@ -22,28 +22,24 @@ import android.net.Uri;
 import android.view.View;
 
 /**
- * An easy adapter to map columns from a cursor to TextViews or ImageViews
- * defined in an XML file. You can specify which columns you want, which
- * views you want to display the columns, and the XML file that defines
- * the appearance of these views.
+ * 用于将游标列映射到XML文件中定义的文本视图或图像视图的简单适配器.
+ * 你可以指定有哪些列，由那些视图显示这些列的内容，并通过XML定义这些视图的呈现.
  *
- * Binding occurs in two phases. First, if a
- * {@link android.widget.SimpleCursorAdapter.ViewBinder} is available,
- * {@link ViewBinder#setViewValue(android.view.View, android.database.Cursor, int)}
- * is invoked. If the returned value is true, binding has occured. If the
- * returned value is false and the view to bind is a TextView,
- * {@link #setViewText(TextView, String)} is invoked. If the returned value
- * is false and the view to bind is an ImageView,
- * {@link #setViewImage(ImageView, String)} is invoked. If no appropriate
- * binding can be found, an {@link IllegalStateException} is thrown.
- *
- * If this adapter is used with filtering, for instance in an
- * {@link android.widget.AutoCompleteTextView}, you can use the
- * {@link android.widget.SimpleCursorAdapter.CursorToStringConverter} and the
- * {@link android.widget.FilterQueryProvider} interfaces
- * to get control over the filtering process. You can refer to
- * {@link #convertToString(android.database.Cursor)} and
- * {@link #runQueryOnBackgroundThread(CharSequence)} for more information.
+ * 绑定由两个阶段组成.首先，如果{@link android.widget.SimpleCursorAdapter.ViewBinder}
+ * 可用，则执行
+ * {@link ViewBinder#setViewValue(android.view.View, android.database.Cursor, int)}.
+ * 如果返回在为真，代表发生了绑定.如果返回值为假，并且要绑定的是文本视图，则执行
+ * {@link #setViewText(TextView, String)} 方法.如果返回值为假，并且要绑定的是
+ * ImageView，则执行{@link #setViewImage(ImageView, String)}.如果没有适当的绑定发生，
+ * 将抛出{@link IllegalStateException}.
+ * 
+ * 如果该适配器与过滤功能同时使用，比如在
+ * {@link android.widget.AutoCompleteTextView}中，可以使用
+ * {@link android.widget.SimpleCursorAdapter.CursorToStringConverter}和
+ * {@link android.widget.FilterQueryProvider}接口，用于控制过滤过程.
+ * 详细信息可以参考
+ * {@link #convertToString(android.database.Cursor)}和
+ * {@link #runQueryOnBackgroundThread(CharSequence)}.
  */
 public class SimpleCursorAdapter extends ResourceCursorAdapter {
     /**
@@ -66,12 +62,19 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     String[] mOriginalFrom;
 
     /**
-     * Constructor the enables auto-requery.
+     * 构造函数，启用自动再检索功能.
      *
-     * @deprecated This option is discouraged, as it results in Cursor queries
-     * being performed on the application's UI thread and thus can cause poor
-     * responsiveness or even Application Not Responding errors.  As an alternative,
-     * use {@link android.app.LoaderManager} with a {@link android.content.CursorLoader}.
+     * @deprecated 该选项已经废止，因为他会在应用程序的 UI 线程中执行
+     * 游标的检索，会导致响应变慢甚至发生应用程序无响应错误.
+     * 请使用带有 {@link android.content.CursorLoader}
+     * 的 {@link android.app.LoaderManager} 来代替.
+     * 
+     * @param context 与运行中的 SimpleListItemFactory 关联的 ListView 的上下文
+     * @param layout 为该列表定义了视图的布局文件标识.布局文件应该至少包括“to”中定义的视图
+     * @param c 数据库游标.如果游标不可用，可设为空.
+     * @param from 代表要绑定到UI的数据的列名列表.如果游标不可用，可设为空.
+     * @param to 用于显示“from”参数的列的视图.应该都是 TextViews.
+     *           视图与from参数按位置一一对应.如果游标不可用，可设为空.
      */
     @Deprecated
     public SimpleCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
@@ -82,22 +85,15 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Standard constructor.
+     * 标准构造函数.
      * 
-     * @param context The context where the ListView associated with this
-     *            SimpleListItemFactory is running
-     * @param layout resource identifier of a layout file that defines the views
-     *            for this list item. The layout file should include at least
-     *            those named views defined in "to"
-     * @param c The database cursor.  Can be null if the cursor is not available yet.
-     * @param from A list of column names representing the data to bind to the UI.  Can be null 
-     *            if the cursor is not available yet.
-     * @param to The views that should display column in the "from" parameter.
-     *            These should all be TextViews. The first N views in this list
-     *            are given the values of the first N columns in the from
-     *            parameter.  Can be null if the cursor is not available yet.
-     * @param flags Flags used to determine the behavior of the adapter,
-     * as per {@link CursorAdapter#CursorAdapter(Context, Cursor, int)}.
+     * @param context 与运行中的 SimpleListItemFactory 关联的 ListView 的上下文
+     * @param layout 为该列表定义了视图的布局文件标识.布局文件应该至少包括“to”中定义的视图
+     * @param c 数据库游标.如果游标不可用，可设为空.
+     * @param from 代表要绑定到UI的数据的列名列表.如果游标不可用，可设为空.
+     * @param to 用于显示“from”参数的列的视图.应该都是 TextViews.
+     *           视图与from参数按位置一一对应.如果游标不可用，可设为空.
+     * @param flags 用于决定适配器行为的标志位.与 {@link CursorAdapter#CursorAdapter(Context, Cursor, int)} 相同.
      */
     public SimpleCursorAdapter(Context context, int layout, Cursor c, String[] from,
             int[] to, int flags) {
@@ -108,21 +104,18 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Binds all of the field names passed into the "to" parameter of the
-     * constructor with their corresponding cursor columns as specified in the
-     * "from" parameter.
+     * 与视图绑定有两个阶段.第一阶段：如果SimpleCursorAdapter.ViewBinder可用，将会调用setViewValue(android.view.View, android.database.Cursor, int)方法.该方法返回true就说明绑定成功，否则返回false ，这就到了第二阶段，SimpleCursorAdapter内部开始自行绑定，过程是这样的，若绑定到TextView上，调用setViewText();若绑定到ImageView上，调用setViewImage();如果视图不是TextView或ImageView则抛出IllegalStateException异常.
+     * 将传入构造函数“to”参数的所有字段名和他们对应的“from”参数的绑定在一起.
      *
-     * Binding occurs in two phases. First, if a
-     * {@link android.widget.SimpleCursorAdapter.ViewBinder} is available,
-     * {@link ViewBinder#setViewValue(android.view.View, android.database.Cursor, int)}
-     * is invoked. If the returned value is true, binding has occured. If the
-     * returned value is false and the view to bind is a TextView,
-     * {@link #setViewText(TextView, String)} is invoked. If the returned value is
-     * false and the view to bind is an ImageView,
-     * {@link #setViewImage(ImageView, String)} is invoked. If no appropriate
-     * binding can be found, an {@link IllegalStateException} is thrown.
+     * 绑定由两个阶段组成.首先，如果{@link android.widget.SimpleCursorAdapter.ViewBinder}
+     * 可用，则执行
+     * {@link ViewBinder#setViewValue(android.view.View, android.database.Cursor, int)}.
+     * 如果返回在为真，代表发生了绑定.如果返回值为假，并且要绑定的是文本视图，则执行
+     * {@link #setViewText(TextView, String)} 方法.如果返回值为假，并且要绑定的是
+     * ImageView，则执行{@link #setViewImage(ImageView, String)}.如果没有适当的绑定发生，
+     * 将抛出{@link IllegalStateException}.
      *
-     * @throws IllegalStateException if binding cannot occur
+     * @throws IllegalStateException 如果无法绑定.
      * 
      * @see android.widget.CursorAdapter#bindView(android.view.View,
      *      android.content.Context, android.database.Cursor)
@@ -166,9 +159,9 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Returns the {@link ViewBinder} used to bind data to views.
+     * 返回用于绑定数据到视图的{@link ViewBinder}.
      *
-     * @return a ViewBinder or null if the binder does not exist
+     * @return ViewBinder 或者当绑定器不存在时返回空.
      *
      * @see #bindView(android.view.View, android.content.Context, android.database.Cursor)
      * @see #setViewBinder(android.widget.SimpleCursorAdapter.ViewBinder)
@@ -178,10 +171,9 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Sets the binder used to bind data to views.
+     * 设置用于绑定数据到视图的绑定器.
      *
-     * @param viewBinder the binder used to bind data to views, can be null to
-     *        remove the existing binder
+     * @param viewBinder 用于将数据绑定到视图的绑定器，若要移除既存绑定器可以设为空.
      *
      * @see #bindView(android.view.View, android.content.Context, android.database.Cursor)
      * @see #getViewBinder()
@@ -191,19 +183,16 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Called by bindView() to set the image for an ImageView but only if
-     * there is no existing ViewBinder or if the existing ViewBinder cannot
-     * handle binding to an ImageView.
+     * 由bindView()调用，当没有既存的 ViewBinder 或者 ViewBinder
+     * 不能处理到ImageView的绑定时，为ImageView设置图像.
      *
-     * By default, the value will be treated as an image resource. If the
-     * value cannot be used as an image resource, the value is used as an
-     * image Uri.
+     * 默认情况，字符串值作为图像资源对待.如果该值不能作为图像资源，
+     * 将其作为图像URI对待.
      *
-     * Intended to be overridden by Adapters that need to filter strings
-     * retrieved from the database.
+     * 为需要过滤从数据库中取得的字符串的适配器重写而准备的函数.
      *
-     * @param v ImageView to receive an image
-     * @param value the value retrieved from the cursor
+     * @param v 要设置图像的ImageView.
+     * @param value 从游标取得的值.
      */
     public void setViewImage(ImageView v, String value) {
         try {
@@ -214,25 +203,22 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Called by bindView() to set the text for a TextView but only if
-     * there is no existing ViewBinder or if the existing ViewBinder cannot
-     * handle binding to a TextView.
+     * 由bindView()调用，当没有既存的 ViewBinder 或者 ViewBinder
+     * 不能处理到文本视图的绑定时，为文本视图设置文本.
      *
-     * Intended to be overridden by Adapters that need to filter strings
-     * retrieved from the database.
+     * 为需要过滤从数据库中取得的字符串的适配器重写而准备的函数.
      * 
-     * @param v TextView to receive text
-     * @param text the text to be set for the TextView
+     * @param v 要设置文本的文本视图.
+     * @param text 要设置到文本视图中的文本.
      */    
     public void setViewText(TextView v, String text) {
         v.setText(text);
     }
 
     /**
-     * Return the index of the column used to get a String representation
-     * of the Cursor.
+     * 返回用于取得代表游标的字符串的列索引.
      *
-     * @return a valid index in the current Cursor or -1
+     * @return 当前游标的有效的列索引或者-1.
      *
      * @see android.widget.CursorAdapter#convertToString(android.database.Cursor)
      * @see #setStringConversionColumn(int) 
@@ -244,13 +230,10 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Defines the index of the column in the Cursor used to get a String
-     * representation of that Cursor. The column is used to convert the
-     * Cursor to a String only when the current CursorToStringConverter
-     * is null.
+     * 定义代表游标的字符串的列索引.该列用于在当前 CursorToStringConverter 为空时，
+     * 将游标转换为字符串时使用.
      *
-     * @param stringConversionColumn a valid index in the current Cursor or -1 to use the default
-     *        conversion mechanism
+     * @param stringConversionColumn 使用默认转换机制时，当前游标的有效的列索引或者-1.
      *
      * @see android.widget.CursorAdapter#convertToString(android.database.Cursor)
      * @see #getStringConversionColumn()
@@ -262,11 +245,11 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Returns the converter used to convert the filtering Cursor
-     * into a String.
+     * 返回用于将过滤游标转换为字符串的转换器.
      *
-     * @return null if the converter does not exist or an instance of
+     * @return 如果转换器不存在返回空，否则返回
      *         {@link android.widget.SimpleCursorAdapter.CursorToStringConverter}
+     *         的实例.
      *
      * @see #setCursorToStringConverter(android.widget.SimpleCursorAdapter.CursorToStringConverter)
      * @see #getStringConversionColumn()
@@ -278,11 +261,9 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Sets the converter  used to convert the filtering Cursor
-     * into a String.
+     * 设置用于将过滤游标转换为字符串的转换器.
      *
-     * @param cursorToStringConverter the Cursor to String converter, or
-     *        null to remove the converter
+     * @param cursorToStringConverter 将游标转为字符串的转换器，要删除时可设为空.
      *
      * @see #setCursorToStringConverter(android.widget.SimpleCursorAdapter.CursorToStringConverter) 
      * @see #getStringConversionColumn()
@@ -294,15 +275,13 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * Returns a CharSequence representation of the specified Cursor as defined
-     * by the current CursorToStringConverter. If no CursorToStringConverter
-     * has been set, the String conversion column is used instead. If the
-     * conversion column is -1, the returned String is empty if the cursor
-     * is null or Cursor.toString().
+     * 返回由当前 CursorToStringConverter 指定的代表游标的 CharSequence.
+     * 如果没有指定 CursorToStringConverter，则用字符串转换列代表.
+     * 如果转换列为 -1，对于空游标返回空字符串，其他返回 Cursor.toString().
      *
-     * @param cursor the Cursor to convert to a CharSequence
+     * @param cursor 转换为 CharSequence 的游标.
      *
-     * @return a non-null CharSequence representing the cursor
+     * @return 代表游标的非空 CharSequence.
      */
     @Override
     public CharSequence convertToString(Cursor cursor) {
@@ -347,15 +326,12 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
     
     /**
-     * Change the cursor and change the column-to-view mappings at the same time.
+     * 同时改变游标及绑定到视图的游标列.
      *  
-     * @param c The database cursor.  Can be null if the cursor is not available yet.
-     * @param from A list of column names representing the data to bind to the UI.  Can be null 
-     *            if the cursor is not available yet.
-     * @param to The views that should display column in the "from" parameter.
-     *            These should all be TextViews. The first N views in this list
-     *            are given the values of the first N columns in the from
-     *            parameter.  Can be null if the cursor is not available yet.
+     * @param c 数据库游标.如果游标不存在可以为空.
+     * @param from 代表要绑定到UI的数据的列名列表.如果游标不存在可以为空.
+     * @param to 用于显示“from”参数中数据的视图.应该都是文本视图.
+     *           视图的位置与数据的位置一一对应.如果游标不存在可以为空.
      */
     public void changeCursorAndColumns(Cursor c, String[] from, int[] to) {
         mOriginalFrom = from;
@@ -368,13 +344,10 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     }
 
     /**
-     * This class can be used by external clients of SimpleCursorAdapter
-     * to bind values fom the Cursor to views.
-     *
-     * You should use this class to bind values from the Cursor to views
-     * that are not directly supported by SimpleCursorAdapter or to
-     * change the way binding occurs for views supported by
-     * SimpleCursorAdapter.
+     * 该接口可用于 SimpleCursorAdapter 的外部客户端将游标绑定到视图.
+     * 
+     * 对于 SimpleCursorAdapter 不直接支持或要改变 SimpleCursorAdapter
+     * 对游标的绑定方式时，你应该使用该类将游标的值绑定到视图.
      *
      * @see SimpleCursorAdapter#bindView(android.view.View, android.content.Context, android.database.Cursor)
      * @see SimpleCursorAdapter#setViewImage(ImageView, String) 
@@ -382,35 +355,32 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
      */
     public static interface ViewBinder {
         /**
-         * Binds the Cursor column defined by the specified index to the specified view.
+         * 绑定指定位置的游标列到指定视图.
          *
-         * When binding is handled by this ViewBinder, this method must return true.
-         * If this method returns false, SimpleCursorAdapter will attempts to handle
-         * the binding on its own.
+         * 若该 ViewBinder 处理了绑定，该方法应该返回真.若该方法返回假，
+         * SimpleCursorAdapter 将尝试去执行绑定操作.
          *
-         * @param view the view to bind the data to
-         * @param cursor the cursor to get the data from
-         * @param columnIndex the column at which the data can be found in the cursor
+         * @param view 要绑定数据的视图.
+         * @param cursor 用于取得数据的游标.
+         * @param columnIndex 要取得数据对应的游标中的列.
          *
-         * @return true if the data was bound to the view, false otherwise
+         * @return 若数据已绑定到视图返回真，否则返回假.
          */
         boolean setViewValue(View view, Cursor cursor, int columnIndex);
     }
 
     /**
-     * This class can be used by external clients of SimpleCursorAdapter
-     * to define how the Cursor should be converted to a String.
+     * 该接口允许 SimpleCursorAdapter 的外部客户端定义游标如何转换为字符串.
      *
      * @see android.widget.CursorAdapter#convertToString(android.database.Cursor)
      */
     public static interface CursorToStringConverter {
         /**
-         * Returns a CharSequence representing the specified Cursor.
+         * 返回代表指定游标的CharSequence.
          *
-         * @param cursor the cursor for which a CharSequence representation
-         *        is requested
+         * @param cursor 要求返回 CharSequence 的游标.
          *
-         * @return a non-null CharSequence representing the cursor
+         * @return 代表指定游标的非空 CharSequence.
          */
         CharSequence convertToString(Cursor cursor);
     }

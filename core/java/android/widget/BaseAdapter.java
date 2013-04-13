@@ -22,10 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Common base class of common implementation for an {@link Adapter} that can be
- * used in both {@link ListView} (by implementing the specialized
- * {@link ListAdapter} interface} and {@link Spinner} (by implementing the
- * specialized {@link SpinnerAdapter} interface.
+ * 用于 {@link ListView} (实现了 {@link ListAdapter} 接口)和 {@link Spinner}
+ * (实现了 {@link SpinnerAdapter} 接口)的共同实现的一个公共基类.
+ * @author translate by 德罗德
+ * @author review by cnmahj
+ * @author convert by cnmahj
  */
 public abstract class BaseAdapter implements ListAdapter, SpinnerAdapter {
     private final DataSetObservable mDataSetObservable = new DataSetObservable();
@@ -43,17 +44,15 @@ public abstract class BaseAdapter implements ListAdapter, SpinnerAdapter {
     }
     
     /**
-     * Notifies the attached observers that the underlying data has been changed
-     * and any View reflecting the data set should refresh itself.
+     * 通知关联的视图，后台数据已经改变，视图需要刷新.
      */
     public void notifyDataSetChanged() {
         mDataSetObservable.notifyChanged();
     }
 
     /**
-     * Notifies the attached observers that the underlying data is no longer valid
-     * or available. Once invoked this adapter is no longer valid and should
-     * not report further data set changes.
+     * 通知关联的观察器，底层数据不再有效或存在.一旦调用，该适配器将不再有效，
+     * 应该也不会再发生数据集变更事件.
      */
     public void notifyDataSetInvalidated() {
         mDataSetObservable.notifyInvalidated();

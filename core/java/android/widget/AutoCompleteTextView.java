@@ -849,9 +849,8 @@ public class AutoCompleteTextView extends EditText implements Filter.FilterListe
      * method to filter with a different pattern, for instance a substring of
      * <code>text</code>.</p>
      *
-     * @param text the filtering pattern
-     * @param keyCode the last character inserted in the edit box; beware that
-     * this will be null when text is being added through a soft input method.
+     * @param text 过滤模式
+     * @param keyCode 插入编辑框的最后一个字符.注意，当使用软键盘输入时，该值为空.
      */
     @SuppressWarnings({ "UnusedDeclaration" })
     protected void performFiltering(CharSequence text, int keyCode) {
