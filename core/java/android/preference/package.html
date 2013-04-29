@@ -1,23 +1,15 @@
-<HTML>
-<BODY>
-Provides classes that manage application preferences and implement the preferences UI.
-Using these ensures that all the preferences within each application are maintained 
-in the same manner and the user experience is consistent with that of the system and 
-other applications.
-<p>
-The preferences portion of an application 
-should be ran as a separate {@link android.app.Activity} that extends
-the {@link android.preference.PreferenceActivity} class. In the PreferenceActivity, a 
-{@link android.preference.PreferenceScreen} object should be the root element of the layout. 
-The PreferenceScreen contains {@link android.preference.Preference} elements such as a 
-{@link android.preference.CheckBoxPreference}, {@link android.preference.EditTextPreference}, 
-{@link android.preference.ListPreference}, {@link android.preference.PreferenceCategory},
-or {@link android.preference.RingtonePreference}. </p>
-<p>
-All settings made for a given {@link android.preference.Preference} will be automatically saved
-to the application's instance of {@link android.content.SharedPreferences}. Access to the 
-SharedPreferences is simple with {@link android.preference.Preference#getSharedPreferences()}.</p>
-<p>
-Note that saved preferences are accessible only to the application that created them.</p>
-</BODY>
-</HTML>
+<HTML> <BODY> 
+提供管理应用偏好设置和实现偏好设置用户界面的类。使用这些类可以确保每个应用中的所有偏好设置都以同样的方式维护，
+并且系统和其它应用的用户体验也是一致的。
+<p>应用的偏好设置部分应该作为一个独立的 {@link android.app.Activity 活动}运行，扩展自
+{@link android.preference.PreferenceActivity} 类。在 PreferenceActivity 中，
+{@link android.preference.PreferenceScreen} 应该是布局的根元素。
+PreferenceScreen 包含 {@link android.preference.Preference} 元素，比如
+ {@link android.preference.CheckBoxPreference}、{@link android.preference.EditTextPreference}、
+{@link android.preference.ListPreference}、{@link android.preference.PreferenceCategory}、
+或者 {@link android.preference.RingtonePreference}。 </p> 
+<p>所以使用 {@link android.preference.Preference} 的设定都自动保存在应用实例的
+ {@link android.content.SharedPreferences} 中。访问 SharedPreferences 实例很简单，只要调用 
+{@link android.preference.Preference#getSharedPreferences()} 即可。</p> 
+<p>注意，保存的偏好设置只有创建它的应用可以访问。</p>
+ </BODY> </HTML>

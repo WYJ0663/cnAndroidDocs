@@ -1,31 +1,20 @@
 <body>
-<p>Contains the components necessary to create "app widgets", which users can embed in other
-applications (such as the home screen) to quickly access application data and services without
-launching a new activity.</p>
+<p>包含&#21019;建“&#24212;用小部件”所必&#39035;的&#32452;件。用&#25143;可以将其嵌入到其它&#24212;用（比如用&#25143;&#26700;面）中，
+用以快速&#35775;&#38382;&#24212;用数据和服&#21153;，而不必&#21551;&#21160;新活&#21160;。</p>
 
-<p>For more information, see the
-<a href="{@docRoot}guide/topics/appwidgets/index.html">App Widgets</a> guide.</p>
-{@more}
+<p>更多信息参&#35265;<a href="{@docRoot}guide/topics/appwidgets/index.html">&#24212;用小部件</a>&#24320;&#21457;者向&#23548;，</p> {@more}
 
-<p>The behavior of an app widget is published by an "app widget provider."  An "app widget host" is
-a component that can contain app widgets (such as the Home screen).</p>
+<p>&#24212;用小部件的行&#20026;由“&#24212;用小部件提供器”决定。“&#24212;用小部件宿主”是可以包含&#24212;用小部件的&#32452;件（比如用&#25143;&#26700;面） 。</p>
 
-<p>Any application can publish app widgets (as an app widget provider).  All an application needs to
-do to publish an app widget is
-provide a {@link android.content.BroadcastReceiver} that receives the {@link
-android.appwidget.AppWidgetManager#ACTION_APPWIDGET_UPDATE} intent
-and provide some metadata about the app widget.  Android provides the
-{@link android.appwidget.AppWidgetProvider} class, which extends {@link
-android.content.BroadcastReceiver}, as a convenience class to define the app widget behavrio and aid
-in handling the broadcasts.</p>
+<p>任何&#24212;用都可以&#21457;布&#24212;用小部件（作&#20026;&#24212;用小部件提供器）。&#24212;用要&#21457;布&#24212;用小部件&#26102;，唯一需要做的是提供一个
+{@link android.content.BroadcastReceiver}，接收
+{@link android.appwidget.AppWidgetManager#ACTION_APPWIDGET_UPDATE}意&#22270;，并提供&#24212;用小部件的元数据。
+Android提供了&#25193;展自{@link android.content.BroadcastReceiver}的
+{@link android.appwidget.AppWidgetProvider}&#31867;，&#20026;定&#20041;&#24212;用小部件提供方便，并&#24110;助&#22788;理广播事件。</p>
 
-<p>App widget hosts are the containers in which widgets can be placed.  Most of the look and feel
-details are left up to the widget hosts.  For example, the home screen has one way of viewing
-widgets, but the lock screen could also contain widgets, and it would have a different way of
-adding, removing and otherwise managing widgets.</p>
+<p>&#24212;用小部件宿主是可以放置小部件的容器。大部分外&#35266;和感受到的&#32454;&#33410;由小部件的宿主决定。
+例如用&#25143;&#26700;面以一&#31181;方式呈&#29616;小部件；&#38145;屏画面也可以放置小部件，它以不同的方式添加、移除和管理小部件。</p>
 
-<p>For information about implementing an app widget host, see the {@link
-android.appwidget.AppWidgetHost} class.</p>
+<p>&#20851;于&#23454;&#29616;&#24212;用小部件宿主的更多信息参&#35265;{@link android.appwidget.AppWidgetHost}&#31867;。</p>
 
 </body>
-

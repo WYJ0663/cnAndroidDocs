@@ -1,33 +1,24 @@
-<HTML>
-<BODY>
-<p>Provides access to Near Field Communication (NFC) functionality, allowing applications to read
-NDEF message in NFC tags. A "tag" may actually be another device that appears as a tag.</p>
+<HTML> <BODY>
+ <p>提供对近场通讯(NFC)功能的访问，允许应用读取 NFC 标签中的 NDEF 消息。
+“标签”可以是显示为标签的另一个设备。</p>
 
-<p>For more information, see the
-<a href="{@docRoot}guide/topics/connectivity/nfc/index.html">Near Field Communication</a> guide.</p>
-{@more}
+<p>更多信息参见<a href="{@docRoot}guide/topics/connectivity/nfc/index.html">近场通讯</a>开发者向导。</p> {@more}
 
-<p>Here's a summary of the classes:</p>
+<p>这些类的概要如下：</p>
 
-<dl>
-  <dt>{@link android.nfc.NfcManager}</dt>
-  <dd>This is the high level manager, used to obtain this device's {@link android.nfc.NfcAdapter}. You can
-acquire an instance using {@link android.content.Context#getSystemService}.</dd>
-  <dt>{@link android.nfc.NfcAdapter}</dt>
-  <dd>This represents the device's NFC adapter, which is your entry-point to performing NFC
-operations. You can acquire an instance with {@link android.nfc.NfcManager#getDefaultAdapter}, or
-{@link android.nfc.NfcAdapter#getDefaultAdapter(android.content.Context)}.</dd>
-  <dt>{@link android.nfc.NdefMessage}</dt>
-  <dd>Represents an NDEF data message, which is the standard format in which "records"
-carrying data are transmitted between devices and tags. Your application can receive these
-messages from an {@link android.nfc.NfcAdapter#ACTION_TAG_DISCOVERED} intent.</dd>
-  <dt>{@link android.nfc.NdefRecord}</dt>
-  <dd>Represents a record, which is delivered in a {@link android.nfc.NdefMessage} and describes the
-type of data being shared and carries the data itself.</dd>
-</dl>
+<dl> <dt>{@link android.nfc.NfcManager}</dt> 
+<dd>高级别的管理器，用于获得该设备的 {@link android.nfc.NfcAdapter}。
+你可以使用{@link android.content.Context#getSystemService}来获得其实例。</dd> 
+<dt>{@link android.nfc.NfcAdapter}</dt>
+ <dd>它代表设备的 NFC 适配器，是你执行 NFC 操作的入口点。你可以通过 
+{@link android.nfc.NfcManager#getDefaultAdapter} 或
+ {@link android.nfc.NfcAdapter#getDefaultAdapter(android.content.Context)}取得其实例。</dd>
+ <dt>{@link android.nfc.NdefMessage}</dt> 
+<dd>代表 NDEF 数据消息，是标准的“记录”格式，用于携带在设备和标签间传输的数据。
+你的应用可以通过 {@link android.nfc.NfcAdapter#ACTION_TAG_DISCOVERED} 意图收到该消息。</dd>
+ <dt>{@link android.nfc.NdefRecord}</dt>
+ <dd>代表在 {@link android.nfc.NdefMessage} 中传输的一条记录，包含共享的数据以及对数据类型的描述。</dd> </dl>
 
-<p class="note"><strong>Note:</strong>
-Not all Android-powered devices provide NFC functionality.</p>
+<p class="note"><strong>注：</strong>不是所有的 Android 设备都提供 功能。</p>
 
-</BODY>
-</HTML>
+</BODY> </HTML>

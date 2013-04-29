@@ -2,43 +2,34 @@
 
 <body>
 
-<p>Contains high-level classes encapsulating the overall Android application model.</p>
+<p>包含了高&#32423;&#21035;的&#31867;，封装了所以的 Android &#24212;用模型。</p>
 
-<p>An Android application is defined using one or more of Android's four core application
-components. Two such application components are defined in this package: {@link
-android.app.Activity} and {@link android.app.Service}. The other two components are from the {@link
-android.content} package: {@link android.content.BroadcastReceiver} and {@link
-android.content.ContentProvider}.</p>
+<p>Android &#24212;用就是使用了 Android 四个核心&#24212;用&#32452;件中的一个或多个的&#24212;用程序。其中&#20004;个&#24212;用&#32452;件在本包中定&#20041;：
+{@link android.app.Activity} 和 {@link android.app.Service}。&#21478;外&#20004;个&#32452;件在
+{@link android.content} 包中： {@link android.content.BroadcastReceiver} 和
+{@link android.content.ContentProvider}。</p>
 
-<p>An {@link android.app.Activity} is an application component that provides a screen with which
-users can interact in order to do something, such as dial the phone, take a photo, send an email, or
-view a map. An activity can start other activities, including activities that live in separate
-applications.</p>
+<p>{@link android.app.Activity 活&#21160;} 是用&#25143;可以与之交互，并&#25191;行一些操作的&#24212;用&#32452;件。
+比如&#30005;&#35805;&#25320;号、照相、&#21457;送&#30005;子&#37038;件、&#26597;看地&#22270;等操作。
+活&#21160;可以&#21551;&#21160;其它活&#21160;，包括其它&#24212;用中的活&#21160;。</p>
 
-<p>A {@link android.app.Service} is an application component that can perform
-long-running operations in the background without a user interface. For example, a service
-can handle network transactions, play music, or work with a content provider without the user being
-aware of the work going on.</p>
+<p>{@link android.app.Service 服&#21153;} 是没有用&#25143;界面，可以在后台&#25191;行&#38271;&#26102;&#38388;任&#21153;的&#24212;用&#32452;件。
+例如，服&#21153;可以&#22788;理网&#32476;&#20256;&#36755;、播放音&#20048;、与内容提供器&#21327;同工作，不需要用&#25143;干&#39044;。</p>
 
-<p>The {@link android.app.Fragment} class is also an important part of an application's
-design&mdash;especially when designing for large screen devices, such as tablets. A fragment defines
-a distinct part of an activity's behavior, including the associated UI. It has its own lifecycle
-that is similar to that of the activity and can exist alongside other fragments that are embedded in
-the activity. While an activity is running, you can add and remove fragments and include each
-fragment in a back stack that's managed by the activity&mdash;allowing the user to navigate
-backwards through the fragment states, without leaving the activity.</p>
+<p>{@link android.app.Fragment 片段}&#31867;也是&#24212;用程序&#35774;&#35745;的重要部分&mdash;
+特&#21035;是&#20026;象平板&#30005;&#33041;&#36825;&#26679;的大屏幕&#35774;&#22791;&#35774;&#35745;程序&#26102;。片段定&#20041;活&#21160;行&#20026;的不同部分，包括其用&#25143;界面。
+和活&#21160;&#31867;似，它也有自己的生命周期， 并可以与嵌入同一个活&#21160;的其它片段共存。
+活&#21160;&#36816;行&#26102;，&#20320;可以添加、&#21024;除片段，包括由活&#21160;管理的后台&#26632;中的所以片段&mdash;
+允&#35768;用&#25143;退回到之前的片段状&#24577;，而不必&#31163;&#24320;活&#21160;。</p>
 
-<p>This package also defines application utilities, such as dialogs, notifications, and the
-action bar.</p>
+<p>&#35813;包&#36824;定&#20041;了&#24212;用程序&#23454;用工具，例如&#23545;&#35805;框、通知和&#21160;作条。</p>
 
-<p>For information about using some the classes in this package, see the following
-documents: <a href="{@docRoot}guide/topics/fundamentals/activities.html">Activities</a>, <a
-href="{@docRoot}guide/topics/fundamentals/services.html">Services</a>, <a
-href="{@docRoot}guide/topics/fundamentals/fragments.html">Fragments</a>, <a
-href="{@docRoot}guide/topics/ui/actionbar.html">Using the Action Bar</a>, <a
-href="{@docRoot}guide/topics/ui/dialogs.html">Creating Dialogs</a>, and <a
-href="{@docRoot}guide/topics/ui/notifiers/index.html">Notifying the User</a>.</p>
+<p>使用&#35813;包中&#31867;的更多信息，参&#35265;如下文档：
+<a href="{@docRoot}guide/topics/fundamentals/activities.html">活&#21160;</a>、
+<a href="{@docRoot}guide/topics/fundamentals/services.html">服&#21153;</a>、
+<a href="{@docRoot}guide/topics/fundamentals/fragments.html">片段</a>、
+<a href="{@docRoot}guide/topics/ui/actionbar.html">使用&#21160;作条</a>、
+<a href="{@docRoot}guide/topics/ui/dialogs.html">&#21019;建&#23545;&#35805;框</a>
+和<a href="{@docRoot}guide/topics/ui/notifiers/index.html">通知用&#25143;</a>。</p>
 
-
-</body>
-</html>
+</body> </html>

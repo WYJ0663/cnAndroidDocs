@@ -1,40 +1,20 @@
-<HTML>
-<BODY>
-<p>Provides classes that allow you to create spell checkers in a manner similar to the
-input method framework (for IMEs).</p>
+<HTML> <BODY>
+ <p>提供允许你创建与输入法框架（IME）相似的拼写检查器的类。</p>
 
-<p>To create a new spell checker, you must implement a service that extends {@link
-android.service.textservice.SpellCheckerService} and extend the {@link
-android.service.textservice.SpellCheckerService.Session} class to provide spelling suggestions based
-on text provided by the interface's callback methods. In the {@link
-android.service.textservice.SpellCheckerService.Session} callback methods, you must return the
-spelling suggestions as {@link android.view.textservice.SuggestionsInfo} objects. </p>
+<p>要创建新的拼写检查器，你必须实现继承自 {@link android.service.textservice.SpellCheckerService} 的服务。
+并继承 {@link android.service.textservice.SpellCheckerService.Session} 类，
+基于界面提供的回调方法提供的文本提供拼写建议。在 {@link android.service.textservice.SpellCheckerService.Session}
+回调方法中，你必须将拼写建议以 {@link android.view.textservice.SuggestionsInfo} 对象的形式返回。 </p>
 
-<p>Applications with a spell checker service must declare the {@link
-android.Manifest.permission#BIND_TEXT_SERVICE} permission as required by the service. The service
-must also declare an intent filter with {@code &lt;action
-android:name="android.service.textservice.SpellCheckerService" />} as the intent’s action and should
-include a {@code &lt;meta-data&gt;} element that declares configuration information for the spell
-checker. For example:</p>
+<p>包含拼写检查器的应用必须声明服务需要的 {@link android.Manifest.permission#BIND_TEXT_SERVICE}权限。
+服务还要声明一个意图过滤器，以
+ {@code &lt;action android:name="android.service.textservice.SpellCheckerService" />}
+作为意图的动作，并应该包含 {@code &lt;meta-data&gt;} 元素，声明拼写检查器的配置信息。例如：</p>
 
-<pre>
-&lt;service
-    android:label="&#064;string/app_name"
-    android:name=".SampleSpellCheckerService"
-    android:permission="android.permission.BIND_TEXT_SERVICE" >
-    &lt;intent-filter >
-        &lt;action android:name="android.service.textservice.SpellCheckerService" />
-    &lt;/intent-filter>
-    &lt;meta-data
-        android:name="android.view.textservice.scs"
-        android:resource="&#064;xml/spellchecker" />
-&lt;/service>
-</pre>
+<pre> &lt;service android:label="&#064;string/app_name" android:name=".SampleSpellCheckerService" android:permission="android.permission.BIND_TEXT_SERVICE" > &lt;intent-filter > &lt;action android:name="android.service.textservice.SpellCheckerService" /> &lt;/intent-filter> &lt;meta-data android:name="android.view.textservice.scs" android:resource="&#064;xml/spellchecker" /> &lt;/service> </pre>
 
-<p>For example code, see the sample <a
-href="{@docRoot}resources/samples/SpellChecker/SampleSpellCheckerService/index.html">Spell
-Checker service</a> app, and the sample <a
-href="{@docRoot}resources/samples/SpellChecker/HelloSpellChecker/index.html">Spell
-Checker client</a> app.</p>
-</BODY>
-</HTML>
+<p>示例代码参见<a href="{@docRoot}resources/samples/SpellChecker/SampleSpellCheckerService/index.html">
+拼写检查器服务</a>应用和示例代码
+<a href="{@docRoot}resources/samples/SpellChecker/HelloSpellChecker/index.html">
+拼写检查器客户端</a>应用。</p>
+ </BODY> </HTML>
