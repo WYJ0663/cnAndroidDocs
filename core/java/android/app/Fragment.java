@@ -145,201 +145,159 @@ final class FragmentState implements Parcelable {
 }
 
 /**
- * A Fragment is a piece of an application's user interface or behavior
- * that can be placed in an {@link Activity}.  Interaction with fragments
- * is done through {@link FragmentManager}, which can be obtained via
- * {@link Activity#getFragmentManager() Activity.getFragmentManager()} and
- * {@link Fragment#getFragmentManager() Fragment.getFragmentManager()}.
+ * 片段是可以在{@link Activity 活动}中替换的，应用用户界面或行为的一小部分。
+ * 与片段的交互通过 {@link FragmentManager} 完成，可以通过
+ * {@link Activity#getFragmentManager() Activity.getFragmentManager()} 和
+ * {@link Fragment#getFragmentManager() Fragment.getFragmentManager()}取得。
  *
- * <p>The Fragment class can be used many ways to achieve a wide variety of
- * results. In its core, it represents a particular operation or interface
- * that is running within a larger {@link Activity}.  A Fragment is closely
- * tied to the Activity it is in, and can not be used apart from one.  Though
- * Fragment defines its own lifecycle, that lifecycle is dependent on its
- * activity: if the activity is stopped, no fragments inside of it can be
- * started; when the activity is destroyed, all fragments will be destroyed.
+ * <p>Fragment 类可以以多种方式使用，产生各种不同的结果。其核心是，
+ * 运行于更大的 {@link Activity } 中，提供特殊的操作和接口。
+ * 片段与其所在的活动紧密结合，不能单独使用。虽然片段定义了自己的生命周期，
+ * 该生命周期依赖于其所在的活动：如果活动停止，其中的片段无法运行；
+ * 当活动被销毁时，所以的片段也会被销毁。
  *
- * <p>All subclasses of Fragment must include a public empty constructor.
- * The framework will often re-instantiate a fragment class when needed,
- * in particular during state restore, and needs to be able to find this
- * constructor to instantiate it.  If the empty constructor is not available,
- * a runtime exception will occur in some cases during state restore.
+ * <p>片段的所有子类都必须包含一个公共的空构造函数。
+ * 框架在需要的时候会重新实例化片段类，通常是在恢复状态期间，
+ * 系统要找到该构造函数来进行实例化。如果空构造函数不存在，
+ * 在状态恢复期间的某些情况下可能发生运行时异常。
  *
- * <p>Topics covered here:
+ * <p>这里包括的主题：
  * <ol>
- * <li><a href="#OlderPlatforms">Older Platforms</a>
- * <li><a href="#Lifecycle">Lifecycle</a>
- * <li><a href="#Layout">Layout</a>
- * <li><a href="#BackStack">Back Stack</a>
+ * <li><a href="#OlderPlatforms">旧平台</a>
+ * <li><a href="#Lifecycle">生命周期</a>
+ * <li><a href="#Layout">布局</a>
+ * <li><a href="#BackStack">返回栈</a>
  * </ol>
  *
  * <div class="special reference">
- * <h3>Developer Guides</h3>
- * <p>For more information about using fragments, read the
- * <a href="{@docRoot}guide/topics/fundamentals/fragments.html">Fragments</a> developer guide.</p>
+ * <h3>开发者向导</h3>
+ * <p>关于使用片段的更多信息，请阅读
+ * <a href="{@docRoot}guide/topics/fundamentals/fragments.html">Fragments
+ * </a> 开发者向导。</p>
  * </div>
  *
  * <a name="OlderPlatforms"></a>
- * <h3>Older Platforms</h3>
+ * <h3>旧平台</h3>
  *
- * While the Fragment API was introduced in
- * {@link android.os.Build.VERSION_CODES#HONEYCOMB}, a version of the API
- * at is also available for use on older platforms through
- * {@link android.support.v4.app.FragmentActivity}.  See the blog post
+ * Fragment API 引人自 {@link android.os.Build.VERSION_CODES#HONEYCOMB}，
+ * 用于旧平台的版本可以通过 {@link android.support.v4.app.FragmentActivity} 使用。
+ * 更多细节信息参见博客文章
  * <a href="http://android-developers.blogspot.com/2011/03/fragments-for-all.html">
- * Fragments For All</a> for more details.
+ * 全平台可用的 Fragment</a> 。
  *
  * <a name="Lifecycle"></a>
- * <h3>Lifecycle</h3>
+ * <h3>生命周期</h3>
  *
- * <p>Though a Fragment's lifecycle is tied to its owning activity, it has
- * its own wrinkle on the standard activity lifecycle.  It includes basic
- * activity lifecycle methods such as {@link #onResume}, but also important
- * are methods related to interactions with the activity and UI generation.
+ * <p>虽然片段的生命周期与拥有它的活动紧密结合，
+ * 但它也在标准活动生命周期中留下了自己的痕迹。
+ * 它包括基本的活动生命周期方法，比如 {@link #onResume}，重要的是，
+ * 这些方法与活动的交互和 UI 生成相关联。
  *
- * <p>The core series of lifecycle methods that are called to bring a fragment
- * up to resumed state (interacting with the user) are:
+ * <p>将片段带到 Resumed 状态的一系列核心生命周期方法如下：
  *
  * <ol>
- * <li> {@link #onAttach} called once the fragment is associated with its activity.
- * <li> {@link #onCreate} called to do initial creation of the fragment.
- * <li> {@link #onCreateView} creates and returns the view hierarchy associated
- * with the fragment.
- * <li> {@link #onActivityCreated} tells the fragment that its activity has
- * completed its own {@link Activity#onCreate Activity.onCreate()}.
- * <li> {@link #onViewStateRestored} tells the fragment that all of the saved
- * state of its view hierarchy has been restored.
- * <li> {@link #onStart} makes the fragment visible to the user (based on its
- * containing activity being started).
- * <li> {@link #onResume} makes the fragment interacting with the user (based on its
- * containing activity being resumed).
+ * <li> {@link #onAttach} 在片段关联到活动时调用一次。
+ * <li> {@link #onCreate} 在初始创建片段时调用。
+ * <li> {@link #onCreateView} 创建并返回关联到片段的视图层次。
+ * <li> {@link #onActivityCreated} 通知片段，包含它的活动已经完成了其
+ * {@link Activity#onCreate Activity.onCreate()} 的执行。
+ * <li> {@link #onViewStateRestored} 通知片段，其视图层次保存的状态全部恢复完毕。
+ * <li> {@link #onStart} 使片段对用户看见（基于包含它的活动被启动）。
+ * <li> {@link #onResume} 使片段与用户交互（基于包含它的活动被恢复）
  * </ol>
  *
- * <p>As a fragment is no longer being used, it goes through a reverse
- * series of callbacks:
+ * <p>当片段不再使用时，执行下述一系列的反向回调方法：
  *
  * <ol>
- * <li> {@link #onPause} fragment is no longer interacting with the user either
- * because its activity is being paused or a fragment operation is modifying it
- * in the activity.
- * <li> {@link #onStop} fragment is no longer visible to the user either
- * because its activity is being stopped or a fragment operation is modifying it
- * in the activity.
- * <li> {@link #onDestroyView} allows the fragment to clean up resources
- * associated with its View.
- * <li> {@link #onDestroy} called to do final cleanup of the fragment's state.
- * <li> {@link #onDetach} called immediately prior to the fragment no longer
- * being associated with its activity.
+ * <li> {@link #onPause} 片段不再与用户交互，
+ * 因为活动暂停或者活动通过片段操作正在编辑它。
+ * <li> {@link #onStop} 片段的用户不再可见，
+ * 因为活动已停止或者活动通过片段操作正在编辑它。
+ * <li> {@link #onDestroyView} 允许片段清理关联到它的视图的资源。
+ * <li> {@link #onDestroy} 调用来最终清理片段的状态。
+ * <li> {@link #onDetach} 在片段不再关联到活动的前一刻调用。
  * </ol>
  *
  * <a name="Layout"></a>
- * <h3>Layout</h3>
+ * <h3>布局</h3>
  *
- * <p>Fragments can be used as part of your application's layout, allowing
- * you to better modularize your code and more easily adjust your user
- * interface to the screen it is running on.  As an example, we can look
- * at a simple program consisting of a list of items, and display of the
- * details of each item.</p>
+ * <p>片段可以作为你的应用布局的一部分，允许你更好的模块化你的代码。
+ * 并且更容易在运行中调整你的用户界面。作为示例，我们来看一个简单的程序，
+ * 它包括项目列表并可以显示每条的详细信息。</p>
  *
- * <p>An activity's layout XML can include <code>&lt;fragment&gt;</code> tags
- * to embed fragment instances inside of the layout.  For example, here is
- * a simple layout that embeds one fragment:</p>
+ * <p>活动的布局 XML 文件中可以包含 <code>&lt;fragment&gt;</code> 标签，
+ * 用于在布局中嵌入片段实例。例如，这是嵌入了一个片段的简单布局：</p>
  *
  * {@sample development/samples/ApiDemos/res/layout/fragment_layout.xml layout}
  *
- * <p>The layout is installed in the activity in the normal way:</p>
+ * <p>布局以正常的方式装入活动：</p>
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentLayout.java
  *      main}
  *
- * <p>The titles fragment, showing a list of titles, is fairly simple, relying
- * on {@link ListFragment} for most of its work.  Note the implementation of
- * clicking an item: depending on the current activity's layout, it can either
- * create and display a new fragment to show the details in-place (more about
- * this later), or start a new activity to show the details.</p>
+ * <p>相当简单的标题片段，显示了标题列表，它的大多数工作依赖于 
+ * {@link ListFragment}。注意点击条目的实现：依赖于当前活动的布局，
+ * 它也可以创建并显示一个新的片段，并在其中显示相信信息（后面会详细讨论），
+ * 或者启动新的活动来显示详细信息。</p>
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentLayout.java
  *      titles}
  *
- * <p>The details fragment showing the contents of a selected item just
- * displays a string of text based on an index of a string array built in to
- * the app:</p>
+ * <p>详细片段显示选中条目的内容，
+ * 仅仅是基于应用内部的字符串数组的索引显示文本字符串：</p>
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentLayout.java
  *      details}
  *
- * <p>In this case when the user clicks on a title, there is no details
- * container in the current activity, so the titles fragment's click code will
- * launch a new activity to display the details fragment:</p>
+ * <p>当用户点击标题时，当前活动没有显示详细信息的容器，
+ * 因此标题片段的点击代码启动新的活动来显示详细片段：</p>
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentLayout.java
  *      details_activity}
  *
- * <p>However the screen may be large enough to show both the list of titles
- * and details about the currently selected title.  To use such a layout on
- * a landscape screen, this alternative layout can be placed under layout-land:</p>
+ * <p>然而，屏幕大小可能足够显示标题列表和当前选中标题的内容。
+ * 在横屏时使用该布局，该可选布局可以放在 layout-land 目录下：</p>
  *
  * {@sample development/samples/ApiDemos/res/layout-land/fragment_layout.xml layout}
  *
- * <p>Note how the prior code will adjust to this alternative UI flow: the titles
- * fragment will now embed the details fragment inside of this activity, and the
- * details activity will finish itself if it is running in a configuration
- * where the details can be shown in-place.
+ * <p>注意如何调整之前的代码来使用该可选 UI 流程：标题片段要将详细片段嵌入到该活动中。
+ * 如果运行时的配置是在内部显示详细信息，用于显示详细信息的活动会自行终止。
  *
- * <p>When a configuration change causes the activity hosting these fragments
- * to restart, its new instance may use a different layout that doesn't
- * include the same fragments as the previous layout.  In this case all of
- * the previous fragments will still be instantiated and running in the new
- * instance.  However, any that are no longer associated with a &lt;fragment&gt;
- * tag in the view hierarchy will not have their content view created
- * and will return false from {@link #isInLayout}.  (The code here also shows
- * how you can determine if a fragment placed in a container is no longer
- * running in a layout with that container and avoid creating its view hierarchy
- * in that case.)
+ * <p>当配置变更导致这些片段的宿主活动重启时，其新实例可能使用缺少一些片段的，
+ * 与之前不同的布局。这种情况下，之前的所有片段也仍然会在新的实例中被实例化并运行。
+ * 然而，因为不再关联到 &lt;fragment&gt; 标签，因此在视图层次中不会创建它们的视图，
+ * 并且 {@link #isInLayout} 会返回 false。（该代码还展示了，如何检测容器中的片段，
+ * 已经脱离了容器的布局，以及如何避免在这种情况下创建视图层次。）
  * 
- * <p>The attributes of the &lt;fragment&gt; tag are used to control the
- * LayoutParams provided when attaching the fragment's view to the parent
- * container.  They can also be parsed by the fragment in {@link #onInflate}
- * as parameters.
+ * <p>&lt;fragment&gt; 标签的属性，用于控制将片段的视图加入到容器时的
+ * LayoutParams。它们也可以由片段在 {@link #onInflate} 中作为参数处理。
  * 
- * <p>The fragment being instantiated must have some kind of unique identifier
- * so that it can be re-associated with a previous instance if the parent
- * activity needs to be destroyed and recreated.  This can be provided these
- * ways:
+ * <p>被实例化的片段必须具有某种唯一的标识符，以便于在容器活动需要销毁并重建时，
+ * 可以重新与之前的实例建立关联。该操作以如下方式提供：
  * 
  * <ul>
- * <li>If nothing is explicitly supplied, the view ID of the container will
- * be used.
- * <li><code>android:tag</code> can be used in &lt;fragment&gt; to provide
- * a specific tag name for the fragment.
- * <li><code>android:id</code> can be used in &lt;fragment&gt; to provide
- * a specific identifier for the fragment.
+ * <li> 如果没有明确的提供，则容器中的视图 ID 作为标识符；
+ * <li><code>android:tag</code> 属性用在 &lt;fragment&gt; 中，为片段指定标签名；
+ * <li><code>android:id</code> 属性用在 &lt;fragment&gt; 中，为片段指定标识符。
  * </ul>
  * 
  * <a name="BackStack"></a>
- * <h3>Back Stack</h3>
+ * <h3>返回栈</h3>
  *
- * <p>The transaction in which fragments are modified can be placed on an
- * internal back-stack of the owning activity.  When the user presses back
- * in the activity, any transactions on the back stack are popped off before
- * the activity itself is finished.
+ * <p>变更了的片段间的切换可以放在拥有片段的活动内部的返回栈中。
+ * 当用户按下活动的返回键，返回栈中的内容会在活动执行退出操作之前弹出。
  *
- * <p>For example, consider this simple fragment that is instantiated with
- * an integer argument and displays that in a TextView in its UI:</p>
+ * <p>例如，看一下由一个整型参数实例化，并在它的 UI 中的 TextView 中显示其值：</p>
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentStack.java
  *      fragment}
  *
- * <p>A function that creates a new instance of the fragment, replacing
- * whatever current fragment instance is being shown and pushing that change
- * on to the back stack could be written as:
+ * <p>创建片段的新实例，替换任何当前显示的片段实例，并推送变更到返回栈中的函数可以这样写：
  *
  * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentStack.java
  *      add_stack}
  *
- * <p>After each call to this function, a new entry is on the stack, and
- * pressing back will pop it to return the user to whatever previous state
- * the activity UI was in.
+ * <p>每次调用该函数，栈中就多一个新条目，按返回键会弹出，活动的 UI 返回用户之前的状态。
  */
 public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListener {
     private static final HashMap<String, Class<?>> sClassMap =
@@ -478,9 +436,8 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     boolean mCheckedForLoaderManager;
     
     /**
-     * State information that has been retrieved from a fragment instance
-     * through {@link FragmentManager#saveFragmentInstanceState(Fragment)
-     * FragmentManager.saveFragmentInstanceState}.
+     * 通过 {@link FragmentManager#saveFragmentInstanceState(Fragment)
+     * FragmentManager.saveFragmentInstanceState} 函数从片段实例中取得的状态信息。
      */
     public static class SavedState implements Parcelable {
         final Bundle mState;
@@ -523,8 +480,7 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Thrown by {@link Fragment#instantiate(Context, String, Bundle)} when
-     * there is an instantiation failure.
+     * 当实例化失败时，由 {@link Fragment#instantiate(Context, String, Bundle)} 抛出。
      */
     static public class InstantiationException extends AndroidRuntimeException {
         public InstantiationException(String msg, Exception cause) {
@@ -533,46 +489,38 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Default constructor.  <strong>Every</strong> fragment must have an
-     * empty constructor, so it can be instantiated when restoring its
-     * activity's state.  It is strongly recommended that subclasses do not
-     * have other constructors with parameters, since these constructors
-     * will not be called when the fragment is re-instantiated; instead,
-     * arguments can be supplied by the caller with {@link #setArguments}
-     * and later retrieved by the Fragment with {@link #getArguments}.
+     * 缺省构造函数。 <strong>每个</strong> 片段都必须有一个空构造函数，
+     * 以便在恢复活动状态时可以实例化它。强烈建议不要在子类中其它包含
+     * 参数的构造函数，因为在片段重新实例化时不会调用这些函数；
+     * 作为代替，调用者通过 {@link #setArguments} 提供参数，
+     * 随后片段通过 {@link #getArguments} 取得它们。
      * 
-     * <p>Applications should generally not implement a constructor.  The
-     * first place application code an run where the fragment is ready to
-     * be used is in {@link #onAttach(Activity)}, the point where the fragment
-     * is actually associated with its activity.  Some applications may also
-     * want to implement {@link #onInflate} to retrieve attributes from a
-     * layout resource, though should take care here because this happens for
-     * the fragment is attached to its activity.
+     * <p>应用一般不应该实现构造函数。片段准备好后，最先执行的应用代码在
+     * {@link #onAttach(Activity)} 方法中，这是片段真正与活动关联的时间点。
+     * 一些应用可能也想实现 {@link #onInflate} 方法，取得布局资源的属性，
+     * 那么应该注意，因为该事件发生在片段关联到活动之后。
      */
     public Fragment() {
     }
 
     /**
-     * Like {@link #instantiate(Context, String, Bundle)} but with a null
-     * argument Bundle.
+     * 与 {@link #instantiate(Context, String, Bundle)} 类似，Bundle 参数为空。
      */
     public static Fragment instantiate(Context context, String fname) {
         return instantiate(context, fname, null);
     }
 
     /**
-     * Create a new instance of a Fragment with the given class name.  This is
-     * the same as calling its empty constructor.
+     * 使用给定类名创建片段的新实例。 这与调用其空构造函数是一样的。
      *
-     * @param context The calling context being used to instantiate the fragment.
-     * This is currently just used to get its ClassLoader.
-     * @param fname The class name of the fragment to instantiate.
-     * @param args Bundle of arguments to supply to the fragment, which it
-     * can retrieve with {@link #getArguments()}.  May be null.
-     * @return Returns a new fragment instance.
-     * @throws InstantiationException If there is a failure in instantiating
-     * the given fragment class.  This is a runtime exception; it is not
-     * normally expected to happen.
+     * @param context 用于实例化片段的应用程序上下文。
+     * 现在仅用于取得ClassLoader。
+     * @param fname 要实例化的片段的类名。
+     * @param args 提供给片段的参数捆包 Bundle，
+     * 可以通过 {@link #getArguments()} 取得。可以为空。
+     * @return 返回新的片段实例。
+     * @throws InstantiationException 当实例化片段类失败时抛出。这是运行时异常，
+     * 一般不会发生。
      */
     public static Fragment instantiate(Context context, String fname, Bundle args) {
         try {
@@ -630,14 +578,14 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Subclasses can not override equals().
+     * 子类不可覆盖 equals() 方法。
      */
     @Override final public boolean equals(Object o) {
         return super.equals(o);
     }
 
     /**
-     * Subclasses can not override hashCode().
+     * 子类不可覆盖 hashCode() 方法。
      */
     @Override final public int hashCode() {
         return super.hashCode();
@@ -664,27 +612,23 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Return the identifier this fragment is known by.  This is either
-     * the android:id value supplied in a layout or the container view ID
-     * supplied when adding the fragment.
+     * 返回该片段的已知标识符。它是在布局中指定的 android:id 的值，
+     * 或添加片段时的容器视图 ID。
      */
     final public int getId() {
         return mFragmentId;
     }
     
     /**
-     * Get the tag name of the fragment, if specified.
+     * 取得片段的标签名，如果指定了。
      */
     final public String getTag() {
         return mTag;
     }
     
     /**
-     * Supply the construction arguments for this fragment.  This can only
-     * be called before the fragment has been attached to its activity; that
-     * is, you should call it immediately after constructing the fragment.  The
-     * arguments supplied here will be retained across fragment destroy and
-     * creation.
+     * 为片段提供构造参数。该方法只能在片段关联到活动之前调用，就是说，
+     * 你应该在构造片段后立即调用它。在片段销毁和重建之间该参数得到保持。
      */
     public void setArguments(Bundle args) {
         if (mIndex >= 0) {
@@ -694,20 +638,18 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Return the arguments supplied when the fragment was instantiated,
-     * if any.
+     * 返回片段实例化时得到的参数。
      */
     final public Bundle getArguments() {
         return mArguments;
     }
 
     /**
-     * Set the initial saved state that this Fragment should restore itself
-     * from when first being constructed, as returned by
+     * 设置片段首次构建后，用于恢复自己的初始保存状态，作为
      * {@link FragmentManager#saveFragmentInstanceState(Fragment)
-     * FragmentManager.saveFragmentInstanceState}.
+     * FragmentManager.saveFragmentInstanceState} 的返回值。
      *
-     * @param state The state the fragment should be restored from.
+     * @param state 用于恢复的片段状态。
      */
     public void setInitialSavedState(SavedState state) {
         if (mIndex >= 0) {
@@ -718,15 +660,14 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Optional target for this fragment.  This may be used, for example,
-     * if this fragment is being started by another, and when done wants to
-     * give a result back to the first.  The target set here is retained
-     * across instances via {@link FragmentManager#putFragment
-     * FragmentManager.putFragment()}.
+     * 该片段的可选目标。 可以用于，比如当片段由其它片段启动，
+     * 在处理完后，要将结果返回给最初片段。这里设置的目标，
+     * 通过 {@link FragmentManager#putFragment
+     * FragmentManager.putFragment()} 在各个实例间保持。
      *
-     * @param fragment The fragment that is the target of this one.
-     * @param requestCode Optional request code, for convenience if you
-     * are going to call back with {@link #onActivityResult(int, int, Intent)}.
+     * @param fragment 该对象的目标片段。
+     * @param requestCode 可选的请求代码，便于在之后的回调函数
+     *  {@link #onActivityResult(int, int, Intent)} 中处理。
      */
     public void setTargetFragment(Fragment fragment, int requestCode) {
         mTarget = fragment;
@@ -734,28 +675,28 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Return the target fragment set by {@link #setTargetFragment}.
+     * 返回由 {@link #setTargetFragment} 设置的目标片段。
      */
     final public Fragment getTargetFragment() {
         return mTarget;
     }
 
     /**
-     * Return the target request code set by {@link #setTargetFragment}.
+     * 返回由 {@link #setTargetFragment} 设置的请求代码。
      */
     final public int getTargetRequestCode() {
         return mTargetRequestCode;
     }
 
     /**
-     * Return the Activity this fragment is currently associated with.
+     * 返回与该片段关联的活动。
      */
     final public Activity getActivity() {
         return mActivity;
     }
     
     /**
-     * Return <code>getActivity().getResources()</code>.
+     * 返回 <code>getActivity().getResources()</code> 的结果。
      */
     final public Resources getResources() {
         if (mActivity == null) {
@@ -765,32 +706,30 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Return a localized, styled CharSequence from the application's package's
-     * default string table.
+     * 返回应用包的默认字符串表中已本地化、样式化完毕的 CharSequence。
      *
-     * @param resId Resource id for the CharSequence text
+     * @param resId CharSequence 文本的资源标识符
      */
     public final CharSequence getText(int resId) {
         return getResources().getText(resId);
     }
 
     /**
-     * Return a localized string from the application's package's
-     * default string table.
+     * 返回应用包的默认字符串表中已本地化的字符串。
      *
-     * @param resId Resource id for the string
+     * @param resId 字符串的资源标识符
      */
     public final String getString(int resId) {
         return getResources().getString(resId);
     }
 
     /**
-     * Return a localized formatted string from the application's package's
-     * default string table, substituting the format arguments as defined in
-     * {@link java.util.Formatter} and {@link java.lang.String#format}.
+     * 返回应用包的默认字符串表中已本地化，并已格式化的字符串，
+     * 格式化参数在  {@link java.util.Formatter} 和
+     * {@link java.lang.String#format} 中定义。
      *
-     * @param resId Resource id for the format string
-     * @param formatArgs The format arguments that will be used for substitution.
+     * @param resId 格式化字符串的资源标识符
+     * @param formatArgs 格式化参数
      */
 
     public final String getString(int resId, Object... formatArgs) {
@@ -798,22 +737,19 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Return the FragmentManager for interacting with fragments associated
-     * with this fragment's activity.  Note that this will be non-null slightly
-     * before {@link #getActivity()}, during the time from when the fragment is
-     * placed in a {@link FragmentTransaction} until it is committed and
-     * attached to its activity.
+     * 返回用于与片段交互的，关联到该片段所在活动的 FragmentManager。
+     * 注意，从片段放入 {@link FragmentTransaction} 到提交并关联到活动期间，
+     * 该值先于 {@link #getActivity()} 成为非空。
      *
-     * <p>If this Fragment is a child of another Fragment, the FragmentManager
-     * returned here will be the parent's {@link #getChildFragmentManager()}.
+     * <p>如果该片段是其它片段的子片段，这里返回的 FragmentManager
+     * 是其父片段的 {@link #getChildFragmentManager()} 的返回值。
      */
     final public FragmentManager getFragmentManager() {
         return mFragmentManager;
     }
 
     /**
-     * Return a private FragmentManager for placing and managing Fragments
-     * inside of this Fragment.
+     * 为放置和管理本片段内部的片段，返回私有 FragmentManager。
      */
     final public FragmentManager getChildFragmentManager() {
         if (mChildFragmentManager == null) {
@@ -832,61 +768,56 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Returns the parent Fragment containing this Fragment.  If this Fragment
-     * is attached directly to an Activity, returns null.
+     * 返回包含此片段的父片段。 如果片段直接关联到活动，返回空。
      */
     final public Fragment getParentFragment() {
         return mParentFragment;
     }
 
     /**
-     * Return true if the fragment is currently added to its activity.
+     * 如果当前片段已添加到活动则返回真。
      */
     final public boolean isAdded() {
         return mActivity != null && mAdded;
     }
 
     /**
-     * Return true if the fragment has been explicitly detached from the UI.
-     * That is, {@link FragmentTransaction#detach(Fragment)
-     * FragmentTransaction.detach(Fragment)} has been used on it.
+     * 如果片段已经明确的与 UI 解除了关联，返回真。意味着已经调用了
+     * {@link FragmentTransaction#detach(Fragment)
+     * FragmentTransaction.detach(Fragment)} 。
      */
     final public boolean isDetached() {
         return mDetached;
     }
 
     /**
-     * Return true if this fragment is currently being removed from its
-     * activity.  This is  <em>not</em> whether its activity is finishing, but
-     * rather whether it is in the process of being removed from its activity.
+     * 如果片段已经从活动中移除，返回真。这<em>不</em>意味着活动正要结束。
+     * 而是代表片段处于从活动中被移除的过程中。
      */
     final public boolean isRemoving() {
         return mRemoving;
     }
     
     /**
-     * Return true if the layout is included as part of an activity view
-     * hierarchy via the &lt;fragment&gt; tag.  This will always be true when
-     * fragments are created through the &lt;fragment&gt; tag, <em>except</em>
-     * in the case where an old fragment is restored from a previous state and
-     * it does not appear in the layout of the current state.
+     * 如果片段通过 &lt;fragment&gt; 标签，作为活动布局的一部分包含在视图层次中，
+     * 返回真。通过 &lt;fragment&gt; 标签创建的片段，该值总为真，<em>除了</em>
+     * 片段从之前的状态恢复后，没有出现在当前状态的布局中的情况以外。 
      */
     final public boolean isInLayout() {
         return mInLayout;
     }
 
     /**
-     * Return true if the fragment is in the resumed state.  This is true
-     * for the duration of {@link #onResume()} and {@link #onPause()} as well.
+     * 当片段处于 Resumed 状态时，返回真。 在 {@link #onResume()} 和
+     * {@link #onPause()} 期间，该值为真。
      */
     final public boolean isResumed() {
         return mResumed;
     }
     
     /**
-     * Return true if the fragment is currently visible to the user.  This means
-     * it: (1) has been added, (2) has its view attached to the window, and 
-     * (3) is not hidden.
+     * 当片段对用户可见时，返回真。 意味着：(1) 已添加，(2) 视图已关联到窗口，
+     * (3) 没有处于隐藏状态。
      */
     final public boolean isVisible() {
         return isAdded() && !isHidden() && mView != null
@@ -894,11 +825,9 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Return true if the fragment has been hidden.  By default fragments
-     * are shown.  You can find out about changes to this state with
-     * {@link #onHiddenChanged}.  Note that the hidden state is orthogonal
-     * to other states -- that is, to be visible to the user, a fragment
-     * must be both started and not hidden.
+     * 当片段处于隐藏状态时返回真。 默认片段是显示的。通过 {@link #onHiddenChanged}
+     * 可以检知该状态的变更。注意，隐藏状态与其它状态是叠加的——就是说，
+     * 片段要对用户可见，必须处于启动和非隐藏状态。
      */
     final public boolean isHidden() {
         return mHidden;
@@ -915,17 +844,15 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Control whether a fragment instance is retained across Activity
-     * re-creation (such as from a configuration change).  This can only
-     * be used with fragments not in the back stack.  If set, the fragment
-     * lifecycle will be slightly different when an activity is recreated:
+     * 控制片段的实例在活动重建之间是否保持（比如配置变更时）。
+     * 它只能用于不在返回栈中的片段。如果设置为真，在活动重新创建时，
+     * 片段的生命周期会稍有不同：
      * <ul>
-     * <li> {@link #onDestroy()} will not be called (but {@link #onDetach()} still
-     * will be, because the fragment is being detached from its current activity).
-     * <li> {@link #onCreate(Bundle)} will not be called since the fragment
-     * is not being re-created.
-     * <li> {@link #onAttach(Activity)} and {@link #onActivityCreated(Bundle)} <b>will</b>
-     * still be called.
+     * <li> 不会调用 {@link #onDestroy()} 方法 (但仍然会调用 {@link #onDetach()}，
+     * 因为片段已经解除了与当前活动的关联)。
+     * <li> 不会调用 {@link #onCreate(Bundle)}，因为片段不会重新创建。
+     * <li> <b>仍然</b>会调用 {@link #onAttach(Activity)} 和
+     *  {@link #onActivityCreated(Bundle)} 。
      * </ul>
      */
     public void setRetainInstance(boolean retain) {
@@ -941,11 +868,10 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Report that this fragment would like to participate in populating
-     * the options menu by receiving a call to {@link #onCreateOptionsMenu}
-     * and related methods.
+     * 指明该片段通过接收对 {@link #onCreateOptionsMenu} 及相关方法的调用，
+     * 来添加选项菜单。
      * 
-     * @param hasMenu If true, the fragment has menu items to contribute.
+     * @param hasMenu 如果为真，则该片段会添加菜单项。
      */
     public void setHasOptionsMenu(boolean hasMenu) {
         if (mHasMenu != hasMenu) {
@@ -957,13 +883,11 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Set a hint for whether this fragment's menu should be visible.  This
-     * is useful if you know that a fragment has been placed in your view
-     * hierarchy so that the user can not currently seen it, so any menu items
-     * it has should also not be shown.
+     * 设置该片段的菜单是否可见。 如你所知，在片段添加到视图层次、
+     * 用户还没有看到它的时候，它的菜单项是不应该显示的。
      *
-     * @param menuVisible The default is true, meaning the fragment's menu will
-     * be shown as usual.  If false, the user will not see the menu.
+     * @param menuVisible 默认值为真，就是说通常片段的菜单是显示的。
+     * 如果为假，则用户看不到菜单。
      */
     public void setMenuVisibility(boolean menuVisible) {
         if (mMenuVisible != menuVisible) {
@@ -975,17 +899,14 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Set a hint to the system about whether this fragment's UI is currently visible
-     * to the user. This hint defaults to true and is persistent across fragment instance
-     * state save and restore.
+     * 向系统中设置当前该片段对用户是否可见的标志。 该设置默认为真，
+     * 该值在片段状态保存和恢复期间得到保持。
      *
-     * <p>An app may set this to false to indicate that the fragment's UI is
-     * scrolled out of visibility or is otherwise not directly visible to the user.
-     * This may be used by the system to prioritize operations such as fragment lifecycle updates
-     * or loader ordering behavior.</p>
+     * <p>应用可以设置该值为假，代表片段滚动到可视区域外，或者对用户不直接可见。
+     * 该值可用于系统对片段生命周期更新、载入顺序等操作的优化。</p>
      *
-     * @param isVisibleToUser true if this fragment's UI is currently visible to the user (default),
-     *                        false if it is not.
+     * @param isVisibleToUser 为真，意味着片段UI当前对用户可见（默认值），
+     *                        假代表不可见。
      */
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (!mUserVisibleHint && isVisibleToUser && mState < STARTED) {
@@ -996,7 +917,7 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * @return The current value of the user-visible hint on this fragment.
+     * @return 该片段用户可见标志的当前值。
      * @see #setUserVisibleHint(boolean)
      */
     public boolean getUserVisibleHint() {
@@ -1004,7 +925,7 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * 返回当前片段的 LoaderManager，必要时创建它。
      */
     public LoaderManager getLoaderManager() {
         if (mLoaderManager != null) {
@@ -1019,23 +940,21 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Call {@link Activity#startActivity(Intent)} on the fragment's
-     * containing Activity.
+     * 调用包含该片段活动的 {@link Activity#startActivity(Intent)}。
      *
-     * @param intent The intent to start.
+     * @param intent 执行的意图
      */
     public void startActivity(Intent intent) {
         startActivity(intent, null);
     }
     
     /**
-     * Call {@link Activity#startActivity(Intent, Bundle)} on the fragment's
-     * containing Activity.
+     * 调用包含该片段活动的 {@link Activity#startActivity(Intent, Bundle)}。
      *
-     * @param intent The intent to start.
-     * @param options Additional options for how the Activity should be started.
-     * See {@link android.content.Context#startActivity(Intent, Bundle)
-     * Context.startActivity(Intent, Bundle)} for more details.
+     * @param intent 执行的意图
+     * @param options 活动如何启动的附加选项。
+     * 更多细节参见 {@link android.content.Context#startActivity(Intent, Bundle)
+     * Context.startActivity(Intent, Bundle)}。
      */
     public void startActivity(Intent intent, Bundle options) {
         if (mActivity == null) {
@@ -1051,16 +970,14 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Call {@link Activity#startActivityForResult(Intent, int)} on the fragment's
-     * containing Activity.
+     * 调用包含该片段活动的 {@link Activity#startActivityForResult(Intent, int)} 方法。
      */
     public void startActivityForResult(Intent intent, int requestCode) {
         startActivityForResult(intent, requestCode, null);
     }
 
     /**
-     * Call {@link Activity#startActivityForResult(Intent, int, Bundle)} on the fragment's
-     * containing Activity.
+     * 调用包含该片段活动的 {@link Activity#startActivityForResult(Intent, int, Bundle)} 方法。
      */
     public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
         if (mActivity == null) {
@@ -1076,18 +993,13 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Receive the result from a previous call to
-     * {@link #startActivityForResult(Intent, int)}.  This follows the
-     * related Activity API as described there in
-     * {@link Activity#onActivityResult(int, int, Intent)}.
+     * 接收之前调用 {@link #startActivityForResult(Intent, int)} 的结果。 
+     * 该方法跟随关联的活动的 API {@link Activity#onActivityResult(int, int, Intent)} 被调用。
      * 
-     * @param requestCode The integer request code originally supplied to
-     *                    startActivityForResult(), allowing you to identify who this
-     *                    result came from.
-     * @param resultCode The integer result code returned by the child activity
-     *                   through its setResult().
-     * @param data An Intent, which can return result data to the caller
-     *               (various data can be attached to Intent "extras").
+     * @param requestCode 调用 startActivityForResult() 时指定的整型请求代码，
+     *                    允许你识别结果来自哪里。 
+     * @param resultCode 子活动通过 setResult() 设置的整型返回值。
+     * @param data A用于返回结果数据给调用者的意图（意图的“extras”可以存放各种数据）。
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
@@ -1102,7 +1014,7 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * @deprecated Use {@link #onInflate(Activity, AttributeSet, Bundle)} instead.
+     * @deprecated 由 {@link #onInflate(Activity, AttributeSet, Bundle)} 代替。
      */
     @Deprecated
     public void onInflate(AttributeSet attrs, Bundle savedInstanceState) {
@@ -1110,46 +1022,35 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
 
     /**
-     * Called when a fragment is being created as part of a view layout
-     * inflation, typically from setting the content view of an activity.  This
-     * may be called immediately after the fragment is created from a <fragment>
-     * tag in a layout file.  Note this is <em>before</em> the fragment's
-     * {@link #onAttach(Activity)} has been called; all you should do here is
-     * parse the attributes and save them away.
+     * 在片段作为视图布局的一部分创建时调用，通常是在设置活动视图时。 
+     * 该函数在根据布局文件的 <fragment> 标签创建片段后立即调用。
+     * 注意，该函数在片段的 {@link #onAttach(Activity)} <em>之前</em>
+     * 调用；你在这里能做的只有解析属性并保存。
      * 
-     * <p>This is called every time the fragment is inflated, even if it is
-     * being inflated into a new instance with saved state.  It typically makes
-     * sense to re-parse the parameters each time, to allow them to change with
-     * different configurations.</p>
+     * <p>该调用在每次片段展开布局时都执行，即使在使用保存的状态生成新实例时。
+     * 通常每次都实际执行参数解析工作，以便反应配置时的变更。</p>
      *
-     * <p>Here is a typical implementation of a fragment that can take parameters
-     * both through attributes supplied here as well from {@link #getArguments()}:</p>
+     * <p>这是片段的典型实现，可以取得通过属性和 {@link #getArguments()} 提供的参数。</p>
      *
      * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
      *      fragment}
      *
-     * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
-     * declaration for the styleable used here is:</p>
+     * <p>注意，XML 属性使用 "styleable" 资源来解析。这里定义了用到的样式。</p>
      *
      * {@sample development/samples/ApiDemos/res/values/attrs.xml fragment_arguments}
      * 
-     * <p>The fragment can then be declared within its activity's content layout
-     * through a tag like this:</p>
+     * <p>片段可以在活动内容布局中像这样通过标签定义：</p>
      *
      * {@sample development/samples/ApiDemos/res/layout/fragment_arguments.xml from_attributes}
      *
-     * <p>This fragment can also be created dynamically from arguments given
-     * at runtime in the arguments Bundle; here is an example of doing so at
-     * creation of the containing activity:</p>
+     * <p>片段也可以根据运行时给定的参数捆包中的参数动态创建；这是在容器活动创建时的示例：</p>
      *
      * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
      *      create}
      *
-     * @param activity The Activity that is inflating this fragment.
-     * @param attrs The attributes at the tag where the fragment is
-     * being created.
-     * @param savedInstanceState If the fragment is being re-created from
-     * a previous saved state, this is the state.
+     * @param activity 展开该片段的活动。
+     * @param attrs 被创建的片段标签中的属性。 
+     * @param savedInstanceState 如果片段从之前保存的状态重新创建，这里是其状态。
      */
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         onInflate(attrs, savedInstanceState);
@@ -1157,33 +1058,28 @@ public class Fragment implements ComponentCallbacks2, OnCreateContextMenuListene
     }
     
     /**
-     * Called when a fragment is first attached to its activity.
-     * {@link #onCreate(Bundle)} will be called after this.
+     * 片段首次关联到活动时调用。该调用之后调用 {@link #onCreate(Bundle)}。
      */
     public void onAttach(Activity activity) {
         mCalled = true;
     }
     
     /**
-     * Called when a fragment loads an animation.
+     * 当片段载入动画时调用。
      */
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         return null;
     }
     
     /**
-     * Called to do initial creation of a fragment.  This is called after
-     * {@link #onAttach(Activity)} and before
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * 片段最初创建时调用。 它在 {@link #onAttach(Activity)} 之后，
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} 之前调用。
      * 
-     * <p>Note that this can be called while the fragment's activity is
-     * still in the process of being created.  As such, you can not rely
-     * on things like the activity's content view hierarchy being initialized
-     * at this point.  If you want to do work once the activity itself is
-     * created, see {@link #onActivityCreated(Bundle)}.
+     * <p>注意，该函数可能在片段的活动仍处于创建的过程中时调用。
+     * 因此，你不能假设在这个时点，活动内容的视图层次已经初始化了。
+     * 如果你想在活动创建时执行，参见 {@link #onActivityCreated(Bundle)}。
      * 
-     * @param savedInstanceState If the fragment is being re-created from
-     * a previous saved state, this is the state.
+     * @param savedInstanceState 如果片段由之前保存的状态重新创建，该值为其状态。
      */
     public void onCreate(Bundle savedInstanceState) {
         mCalled = true;
