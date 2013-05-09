@@ -154,7 +154,7 @@
 
       <li class="nav-section">
         <div class="nav-section-header"><a href="<?cs var:toroot ?>guide/topics/ui/controls.html">
-            <span class="en">输入事件</span>
+            <span class="en">输入控件</span>
           </a></div>
         <ul>
           <li><a href="<?cs var:toroot ?>guide/topics/ui/controls/button.html">
